@@ -1,0 +1,1 @@
+<div id="copyright text-right">THIS IS THE FOOTER © Copyright 2015 Onyx</div>
