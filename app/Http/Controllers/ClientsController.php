@@ -29,7 +29,12 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        return view('clients.create');
+		//return 'wtf';
+		//$statusOptions = ['good', 'blacklisted'];
+		$statusOptions = [];
+		$statusOptions['Good'] = 'Good';
+		$statusOptions['Blacklisted'] = 'Blacklisted';
+        return view('clients.create', compact('statusOptions'));
     }
 
     /**
@@ -43,11 +48,15 @@ class ClientsController extends Controller
         $input = Request::all();
         $client = new Client;
         $client->name = $input['name'];
+		$client->telephone_number = $input['telephone_number'];
+		$client->address = $input['address'];
         $client->email = $input['email'];
+		$client->tin = $input['tin'];
         $client->credit_limit = $input['credit_limit'];
+		$client->status = $input['status'];
         $client->save();
-        $id = $client->id;
-        return redirect()->action('ClientsController@show',[$id]);
+    
+        return redirect()->action('ClientsController@index');
     }
 
     /**
@@ -71,7 +80,10 @@ class ClientsController extends Controller
     public function edit($id)
     {
         $client = Client::find($id);
-        return view('clients.edit', compact('client'));
+		$statusOptions = [];
+		$statusOptions['Good'] = 'Good';
+		$statusOptions['Blacklisted'] = 'Blacklisted';
+        return view('clients.edit', compact('client', 'statusOptions'));
     }
 
     /**
@@ -87,8 +99,12 @@ class ClientsController extends Controller
         $input = Request::all();
         $client->update([
             'name' => $input['name'],
+			'telephone_number' => $input['telephone_number'],
+			'address' => $input['address'],
             'email' => $input['email'],
+			'tin' => $input['tin'],
             'credit_limit' => $input['credit_limit'],
+			'status' => $input['status']
         ]);
         return redirect()->action('ClientsController@show',[$id]);
     }
@@ -103,6 +119,6 @@ class ClientsController extends Controller
     {
         $client = Client::find($id);
         $client->delete();
-        return redirect()->route('index');
+        return redirect()->action('ClientsController@index');
     }
 }

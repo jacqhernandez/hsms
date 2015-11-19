@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<div>
-	<div>
-		<p>THIS IS THE CREATE CLIENTS PAGE</p>
-	</div>
+
+<h2>Create Client</h2>
+
 	{!! Form::open(['route' => ['clients.store'], 'method' => 'post' ]) !!}
 	@include('clients._form')
 	{!! Form::close() !!}
-</div>
+	
 @stop

@@ -14,4 +14,7 @@
 Route::get('/', ['as' => 'index', 'uses' => function () {
     return view('pages.index');
 }]);
+
 Route::resource('clients', 'ClientsController');
+
+Route::resource('suppliers', 'SuppliersController');
