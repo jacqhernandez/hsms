@@ -21,7 +21,6 @@
 
 	<script src="{{ asset('/js/pace.js') }}"></script>
 	
-
 	<!-- CSS -->
 	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/select2.css') }}" rel="stylesheet">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+<br>
 <h2>Clients</h2>
 <hr>
 <table class="table table-hover"> 
