@@ -39,7 +39,7 @@ class SuppliersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateSupplierRequest $request)
     {
         //
 		$input = Request::all();
@@ -85,7 +85,7 @@ class SuppliersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateSupplierRequest $request, $id)
     {
         //
 		$supplier = Supplier::find($id);

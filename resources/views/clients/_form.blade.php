@@ -45,4 +45,12 @@
 		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
 		<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back</button></a>
 	</div>
+
+	@if ($errors->any())
+		<ul class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	@endif
 </div>
