@@ -13,8 +13,8 @@ class SuppliersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show']]);     
+         //$this->middleware('auth');  
+        //$this->middleware('general_manager',['except' => ['index','show']]);     
     }
     /**
      * Display a listing of the resource.
@@ -35,7 +35,13 @@ class SuppliersController extends Controller
      */
     public function create()
     {
-        return view('suppliers.create');
+        $paymentOptions = [];
+        $paymentOptions['Cash'] = 'Cash';
+        $paymentOptions['15 Days'] = '15 Days';
+        $paymentOptions['30 Days'] = '30 Days';
+        $paymentOptions['60 Days'] = '60 Days';
+
+        return view('suppliers.create', compact('paymentOptions'));
     }
 
     /**
@@ -53,6 +59,9 @@ class SuppliersController extends Controller
 		$supplier->address = $input['address'];
 		$supplier->telephone_number = $input['telephone_number'];
 		$supplier->tin = $input['tin'];
+        $supplier->email = $input['email'];
+        $supplier->contact_person = $input['contact_person'];
+        $supplier->payment_terms = $input['payment_terms'];
 		$supplier->save();
 		return redirect() -> action('SuppliersController@index');
     }
@@ -80,7 +89,14 @@ class SuppliersController extends Controller
     {
         //
 		$supplier = Supplier::find($id);
-		return view ('suppliers.edit', compact('supplier'));
+
+        $paymentOptions = [];
+        $paymentOptions['Cash'] = 'Cash';
+        $paymentOptions['15 Days'] = '15 Days';
+        $paymentOptions['30 Days'] = '30 Days';
+        $paymentOptions['60 Days'] = '60 Days';
+
+		return view ('suppliers.edit', compact('supplier', 'paymentOptions'));
     }
 
     /**
@@ -99,7 +115,10 @@ class SuppliersController extends Controller
 			'name' => $input['name'],
 			'telephone_number' => $input['telephone_number'],
 			'tin' => $input['tin'],
-			'address' => $input['address']
+			'address' => $input['address'],
+            'email' => $input['email'],
+            'contact_person' => $input['contact_person'],
+            'payment_terms' => $input['payment_terms']
 		]);
 		return redirect()->action('SuppliersController@show', [$id]);
     }

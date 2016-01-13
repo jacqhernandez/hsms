@@ -23,7 +23,7 @@ class CreatePriceLogsTable extends Migration
             $table->foreign('supplier_id')
                   ->references('id')->on('suppliers');
 
-             $table->foreign('item_id')
+            $table->foreign('item_id')
                   ->references('id')->on('items');
             $table->timestamps();
         });

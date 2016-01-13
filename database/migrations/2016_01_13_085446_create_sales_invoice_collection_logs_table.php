@@ -18,7 +18,7 @@ class CreateSalesInvoiceCollectionLogsTable extends Migration
             $table->integer('collection_log_id')->unsigned();
             $table->integer('client_id')->unsigned();
 
-            $table->foreign('sales_invoice_id')->references('id')->on('sales_invoices');
+            //$table->foreign('sales_invoice_id')->references('id')->on('sales_invoices');
             $table->foreign('collection_log_id')->references('id')->on('collection_logs');
             $table->foreign('client_id')->references('id')->on('clients');
             

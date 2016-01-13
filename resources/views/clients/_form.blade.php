@@ -36,7 +36,7 @@
 
 			<tr>
 				<td>{!! Form::label('contact_person', 'Contact Person: ') !!}</td>
-				<td>{!! Form::input('contact_person', old('contact_person')) !!}</td>
+				<td>{!! Form::text('contact_person', old('contact_person')) !!}</td>
 			</tr>
 			
 			<tr>
@@ -46,17 +46,17 @@
 			
 			<tr>
 				<td> {!! Form::label('status', 'Status: ') !!} </td>
-				<td> {!! Form::select('status', $statusOptions, null) !!}</td>
+				<td> {!! Form::select('status', $statusOptions, Input::old('status')) !!}</td>
 			</tr>
 
 			<tr>
 				<td>{!! Form::label('payment_terms', 'Payment Terms: ') !!}</td>
-				<td>{!! Form::select('payment_terms', $paymentOptions, null) !!}</td>
+				<td>{!! Form::select('payment_terms', $paymentOptions, Input::old('payment_terms')) !!}</td>
 			</tr>
 
 			<tr>
-				<td>{!! Form::label('username', 'Sales Person: ') !!}</td>
-				<td>{!! Form::select('username', $userOptions, null) !!}</td>
+				<td>{!! Form::label('user_id', 'Sales Person: ') !!}</td>
+				<td>{!! Form::select('user_id', $userOptions, Input::old('user_id')) !!}</td>
 			</tr>
 			
 		</tbody> 

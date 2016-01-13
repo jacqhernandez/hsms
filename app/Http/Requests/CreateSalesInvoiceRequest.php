@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class CreateSupplierRequest extends Request
+class CreateSalesInvoiceRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,14 @@ class CreateSupplierRequest extends Request
      */
     public function rules()
     {
+        //UNFINISHED
         return [
             //
             'name' => 'required',
-            'address' => 'required',
             'telephone_number' => 'required',
-            'tin' => 'required|min:9|max:9'
+            'address' => 'required',
+            'tin' => 'required|min:9|max:9',
+            'credit_limit' => 'required'
         ];
     }
 }

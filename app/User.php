@@ -85,4 +85,9 @@ class User extends Model implements AuthenticatableContract,
             return false;
         }
     }
+
+    public function Clients()
+    {
+        return $this->hasMany('App\Client');
+    }
 }

@@ -20,7 +20,7 @@ class CreateClientsTable extends Migration
             $table->string('email');
 			$table->integer('tin')->unique();
             $table->string('contact_person');
-            $table->integer('credit_limit')->unsigned();
+            $table->double('credit_limit', 12, 2)->unsigned();
 			$table->string('status');
             $table->string('payment_terms');
             $table->integer('user_id')->unsigned();

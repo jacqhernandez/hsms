@@ -22,6 +22,11 @@
 					<td>TIN: </td>
 					<td>{{ $client['tin'] }}</td>
 				</tr>
+
+				<tr>
+					<td>Contact Person: </td>
+					<td>{{ $client['contact_person'] }}</td>
+				</tr>
 				
 				<tr>
 					<td>Credit Limit: </td>
@@ -29,8 +34,18 @@
 				</tr>
 				
 				<tr>
+					<td>Payment Terms: </td>
+					<td>{{ $client['payment_terms'] }}</td>
+				</tr>
+
+				<tr>
 					<td>Status:</td>
 					<td>{{ $client['status'] }}</td>
+				</tr>
+
+				<tr>
+					<td>Sales Employee: </td>
+					<td>{{ $client->User->username }}</td>
 				</tr>
 			</tbody>
 		</table>
