@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClientsTable extends Migration
+class CreateCollectionLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,15 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('collection_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-			$table->integer('telephone_number');
-            $table->string('address');
-            $table->string('email');
-			$table->integer('tin')->unique();
-            $table->string('contact_person');
-            $table->double('credit_limit', 12, 2)->unsigned();
-			$table->string('status');
-            $table->string('payment_terms');
+            $table->date('date');
+            $table->string('action');
+            $table->date('follow_up_date');
+            $table->string('note');
+            $table->integer('reason_id')->unsigned();
+            $table->foreign('reason_id')
+                  ->references('id')->on('reasons');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')->on('users');
@@ -37,6 +35,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clients');
+        Schema::drop('collection_logs');
     }
 }

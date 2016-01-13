@@ -15,9 +15,12 @@ class Client extends Model
 		'contact_person',
 		'credit_limit',
 		'status',
-		'payment terms',
-		'username'
-
-		
+		'payment_terms',
+		'user_id'		
 	];
+
+	public function User()
+	{
+		return $this->belongsTo('App\User');
+	}
 }

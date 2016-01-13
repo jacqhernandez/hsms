@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Client;
+use App\User;
 use Request;
 use Auth;
 
@@ -70,7 +71,7 @@ class ClientsController extends Controller
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
 
-        $userOptions = User::lists('name');
+        $userOptions = User::where('role', 'Sales')->lists('username', 'id');
         return view('clients.create', compact('statusOptions', 'paymentOptions', 'userOptions'));
     }
 
@@ -93,7 +94,7 @@ class ClientsController extends Controller
         $client->credit_limit = $input['credit_limit'];
 		$client->status = $input['status'];
         $client->payment_terms = $input['payment_terms'];
-        $client->user_id = $input['username'];
+        $client->user_id = $input['user_id'];
         $client->save();
     
         return redirect()->action('ClientsController@index');
@@ -130,7 +131,9 @@ class ClientsController extends Controller
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
 
-        return view('clients.edit', compact('client', 'statusOptions', 'paymentOptions'));
+        $userOptions = User::where('role', 'Sales')->lists('username', 'id');
+
+        return view('clients.edit', compact('client', 'statusOptions', 'paymentOptions', 'userOptions'));
     }
 
     /**
@@ -154,7 +157,7 @@ class ClientsController extends Controller
             'credit_limit' => $input['credit_limit'],
 			'status' => $input['status'],
             'payment_terms' => $input['payment_terms'],
-            'user_id' => $input['username']
+            'user_id' => $input['user_id']
         ]);
         return redirect()->action('ClientsController@show',[$id]);
     }

@@ -1,11 +1,4 @@
 <div>
-	@if ($errors->any())
-		<ul class="alert alert-danger">
-			@foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	@endif
 	<table> 
 		<tbody>
 			<tr>
@@ -36,7 +29,7 @@
 
 			<tr>
 				<td>{!! Form::label('contact_person', 'Contact Person: ') !!}</td>
-				<td>{!! Form::text('contact_person', old('contact_person')) !!}</td>
+				<td>{!! Form::input('contact_person', old('contact_person')) !!}</td>
 			</tr>
 			
 			<tr>
@@ -46,17 +39,17 @@
 			
 			<tr>
 				<td> {!! Form::label('status', 'Status: ') !!} </td>
-				<td> {!! Form::select('status', $statusOptions, Input::old('status')) !!}</td>
+				<td> {!! Form::select('status', $statusOptions, null) !!}</td>
 			</tr>
 
 			<tr>
 				<td>{!! Form::label('payment_terms', 'Payment Terms: ') !!}</td>
-				<td>{!! Form::select('payment_terms', $paymentOptions, Input::old('payment_terms')) !!}</td>
+				<td>{!! Form::select('payment_terms', $paymentOptions, null) !!}</td>
 			</tr>
 
 			<tr>
-				<td>{!! Form::label('user_id', 'Sales Person: ') !!}</td>
-				<td>{!! Form::select('user_id', $userOptions, Input::old('user_id')) !!}</td>
+				<td>{!! Form::label('username', 'Sales Person: ') !!}</td>
+				<td>{!! Form::select('username', $userOptions, null) !!}</td>
 			</tr>
 			
 		</tbody> 
@@ -67,4 +60,12 @@
 		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
 		<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back</button></a>
 	</div>
+
+	@if ($errors->any())
+		<ul class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	@endif
 </div>
