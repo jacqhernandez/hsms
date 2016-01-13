@@ -9,7 +9,6 @@
 			<th>Reason</th>
 		</tr>
 	</thead>
-	
 	<tbody>
 		@foreach ($reasons as $reason)
 		<tr>

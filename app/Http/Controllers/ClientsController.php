@@ -39,7 +39,15 @@ class ClientsController extends Controller
 		$statusOptions = [];
 		$statusOptions['Good'] = 'Good';
 		$statusOptions['Blacklisted'] = 'Blacklisted';
-        return view('clients.create', compact('statusOptions'));
+
+        $paymentOptions = [];
+        $paymentOptions['Cash'] = 'Cash';
+        $paymentOptions['15 Days'] = '15 Days';
+        $paymentOptions['30 Days'] = '30 Days';
+        $paymentOptions['60 Days'] = '60 Days';
+
+        $userOptions = User::lists('name');
+        return view('clients.create', compact('statusOptions', 'paymentOptions', 'userOptions'));
     }
 
     /**
@@ -57,8 +65,11 @@ class ClientsController extends Controller
 		$client->address = $input['address'];
         $client->email = $input['email'];
 		$client->tin = $input['tin'];
+        $client->contact_person = $input['contact_person'];
         $client->credit_limit = $input['credit_limit'];
 		$client->status = $input['status'];
+        $client->payment_terms = $input['payment_terms'];
+        $client->user_id = $input['username'];
         $client->save();
     
         return redirect()->action('ClientsController@index');
@@ -88,7 +99,14 @@ class ClientsController extends Controller
 		$statusOptions = [];
 		$statusOptions['Good'] = 'Good';
 		$statusOptions['Blacklisted'] = 'Blacklisted';
-        return view('clients.edit', compact('client', 'statusOptions'));
+
+        $paymentOptions = [];
+        $paymentOptions['Cash'] = 'Cash';
+        $paymentOptions['15 Days'] = '15 Days';
+        $paymentOptions['30 Days'] = '30 Days';
+        $paymentOptions['60 Days'] = '60 Days';
+
+        return view('clients.edit', compact('client', 'statusOptions', 'paymentOptions'));
     }
 
     /**
@@ -108,8 +126,11 @@ class ClientsController extends Controller
 			'address' => $input['address'],
             'email' => $input['email'],
 			'tin' => $input['tin'],
+            'contact_person' => $input['contact_person'],
             'credit_limit' => $input['credit_limit'],
-			'status' => $input['status']
+			'status' => $input['status'],
+            'payment_terms' => $input['payment_terms'],
+            'user_id' => $input['username']
         ]);
         return redirect()->action('ClientsController@show',[$id]);
     }

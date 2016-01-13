@@ -19,6 +19,8 @@ class CreateSuppliersTable extends Migration
 			$table->integer('tin')->unique();
 			$table->string('address');
 			$table->string('email');
+            $table->string('payment_terms');
+            $table->string('contact_person');
             $table->timestamps();
         });
     }

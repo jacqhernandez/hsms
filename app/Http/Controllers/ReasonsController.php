@@ -99,7 +99,8 @@ class ReasonsController extends Controller
     public function destroy($id)
     {
         $reason = Reason::find($id);
+
         $reason->delete();
-        return redirect()->route('index');
+        return redirect()->action('ReasonController@index');
     }
 }

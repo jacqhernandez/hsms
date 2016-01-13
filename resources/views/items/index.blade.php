@@ -10,7 +10,6 @@
 			<th>Description</th>
 		</tr>
 	</thead>
-	
 	<tbody>
 		@foreach ($items as $item)
 		<tr>
@@ -24,5 +23,5 @@
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/items/create') }}">New Item</a>
 @endif
-
 @stop
+>>>>>>> fb57a99521197d7c40f06105d3de1a6276e2d0ed
