@@ -3,6 +3,14 @@
 
 <h2>Suppliers</h2>
 <hr/>
+
+<div>
+{!!  Form::open(['route' => ['suppliers.search'], 'method' => 'get'])  !!}
+{!!  Form::text('query', null, ['placeholder' => 'Supplier Name'])  !!} 
+{!!  Form::submit('Search', ['class' => 'btn', 'position:relative;'])  !!}
+{!!  Form::close() !!}
+</div>
+<br><br>
 <table class="table table-hover sortable">
 <thead>
 	<tr>

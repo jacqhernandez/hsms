@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<div>
-	<div>
-		<p>THIS IS THE CREATE ITEMS PAGE</p>
-	</div>
+
+<h2>Create Item</h2>
+
 	{!! Form::open(['route' => ['items.store'], 'method' => 'post' ]) !!}
 	@include('items._form')
 	{!! Form::close() !!}
-</div>
+	
 @stop

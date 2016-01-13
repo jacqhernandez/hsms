@@ -4,13 +4,14 @@
 <h2>Clients</h2>
 <hr>
 
-<div class="container" style="width:100%; height: 50%; overflow:hidden; ">
+<div>
 {!!  Form::open(['route' => ['clients.search'], 'method' => 'get'])  !!}
-{!!  Form::text('query', null, ['style' => 'width:100%; ','placeholder' => 'Client Name'])  !!} 
-</div>
-{!!  Form::submit('Search', ['class' => 'btn', 'style' => 'width:100%; position:relative;'])  !!}
+{!!  Form::text('query', null, ['placeholder' => 'Client Name'])  !!} 
+{!!  Form::submit('Search', ['class' => 'btn', 'position:relative;'])  !!}
 {!!  Form::close() !!}
+</div>
 
+<br><br>
 <table class="table table-hover sortable"> 
 	<thead>
 		<tr>
@@ -37,6 +38,8 @@
 		@endforeach
 	</tbody> 
 </table>
+	{!! $clients->render() !!}
+
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/clients/create') }}">New Client</a>
 @endif
