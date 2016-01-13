@@ -3,7 +3,7 @@
 
 <h2>Suppliers</h2>
 <hr/>
-<table class="table table-hover">
+<table class="table table-hover sortable">
 <thead>
 	<tr>
 		<th>Name</th>

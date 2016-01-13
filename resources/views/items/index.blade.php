@@ -3,7 +3,7 @@
 <br>
 <h2>Items</h2>
 <hr>
-<table class="table table-hover"> 
+<table class="table table-hover sortable"> 
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -24,4 +24,3 @@
 	<a href="{{ url('/items/create') }}">New Item</a>
 @endif
 @stop
->>>>>>> fb57a99521197d7c40f06105d3de1a6276e2d0ed
