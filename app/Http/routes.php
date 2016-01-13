@@ -15,6 +15,11 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
     return view('pages.index');
 }]);
 
+
+//Sales Invoice CRUD route
+Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
+Route::resource('invoices', 'SalesInvoicesController');
+
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
 Route::resource('clients', 'ClientsController');
 
