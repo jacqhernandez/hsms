@@ -16,6 +16,8 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 }]);
 
 Route::resource('clients', 'ClientsController');
+Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
+
 Route::resource('suppliers', 'SuppliersController');
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']);     

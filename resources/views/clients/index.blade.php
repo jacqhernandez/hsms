@@ -3,6 +3,14 @@
 <br>
 <h2>Clients</h2>
 <hr>
+
+<div class="container" style="width:100%; height: 50%; overflow:hidden; ">
+{!!  Form::open(['route' => ['clients.search'], 'method' => 'get'])  !!}
+{!!  Form::text('query', null, ['style' => 'width:100%; ','placeholder' => 'Client Name'])  !!} 
+</div>
+{!!  Form::submit('Search', ['class' => 'btn', 'style' => 'width:100%; position:relative;'])  !!}
+{!!  Form::close() !!}
+
 <table class="table table-hover sortable"> 
 	<thead>
 		<tr>

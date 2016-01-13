@@ -8,13 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Client;
 use Request;
+use Auth;
 
 class ClientsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show']]);     
+        $this->middleware('general_manager',['except' => ['index','show','search']]);     
     }
     /**
      * Display a listing of the resource.
@@ -23,8 +24,31 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        if (Auth::user()['role'] == 'Sales')
+        {
+            $clients = Client::where('user_id',Auth::user()['id'])->get();
+        }
+        else
+        {
+            $clients = Client::all();
+        }
         return view('clients.index', compact('clients'));
+    }
+
+    public function search()
+    {
+        $input = Request::all();
+        $query = $input['query'];
+
+        if (Auth::user()['role'] == 'Sales')
+        {
+            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$q%")->get();
+        }
+        else
+        {
+            $clients = Client::where('name','LIKE',"%$q%")->get();
+        }
+        return view('clients.index',compact('clients'));
     }
 
     /**
