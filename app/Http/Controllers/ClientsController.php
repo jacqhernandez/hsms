@@ -43,11 +43,16 @@ class ClientsController extends Controller
 
         if (Auth::user()['role'] == 'Sales')
         {
-            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$q%")->get();
+            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$query%")->get();
         }
         else
         {
-            $clients = Client::where('name','LIKE',"%$q%")->get();
+            $clients = Client::where('name','LIKE',"%$query%")->get();
+        }
+        if ($clients == "[]")
+        {
+            //flash()->error('There are no clients that match your query.');
+            return redirect()->action('ClientsController@index');
         }
         return view('clients.index',compact('clients'));
     }

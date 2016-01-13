@@ -51,7 +51,7 @@ class ReasonsController extends Controller
         $reason->reason = $input['reason'];
         $reason->save();
         $id = $reason->id;
-        return redirect()->action('ReasonController@show',[$id]);
+        return redirect()->action('ReasonsController@index');
     }
 
     /**
@@ -87,7 +87,7 @@ class ReasonsController extends Controller
         $reason->update([
             'reason' => $input['reason']
         ]);
-        return redirect()->action('ReasonController@show',[$id]);
+        return redirect()->action('ReasonsController@index');
     }
 
     /**
@@ -100,7 +100,7 @@ class ReasonsController extends Controller
     {
         $reason = Reason::find($id);
 
-        $reason->delete();
-        return redirect()->action('ReasonController@index');
+        $reason->Delete('set null');
+        return redirect()->action('ReasonsController@index');
     }
 }

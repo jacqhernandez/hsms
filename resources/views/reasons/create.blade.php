@@ -1,11 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div>
-	<div>
-		<p>THIS IS THE CREATE REASONS PAGE</p>
-	</div>
+
+<h2>Create Reason</h2>
 	{!! Form::open(['route' => ['reasons.store'], 'method' => 'post' ]) !!}
 	@include('reasons._form')
 	{!! Form::close() !!}
-</div>
+
 @stop

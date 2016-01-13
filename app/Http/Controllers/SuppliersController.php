@@ -13,8 +13,10 @@ class SuppliersController extends Controller
 {
     public function __construct()
     {
-         //$this->middleware('auth');  
-        //$this->middleware('general_manager',['except' => ['index','show']]);     
+
+        $this->middleware('auth');  
+        $this->middleware('general_manager',['except' => ['index','show', 'search']]);     
+
     }
     /**
      * Display a listing of the resource.
@@ -42,6 +44,19 @@ class SuppliersController extends Controller
         $paymentOptions['60 Days'] = '60 Days';
 
         return view('suppliers.create', compact('paymentOptions'));
+    }
+
+    public function search()
+    {
+        $input = Request::all();
+        $query = $input['query'];
+        $suppliers = Supplier::where('name','LIKE',"%$query%")->get();
+        if ($suppliers == "[]")
+        {
+            //flash()->error('There are no suppliers that match your query.');
+            return redirect()->action('SuppliersController@index');
+        }
+        return view('suppliers.index',compact('suppliers'));
     }
 
     /**
