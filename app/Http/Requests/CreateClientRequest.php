@@ -28,7 +28,7 @@ class CreateClientRequest extends Request
             'name' => 'required',
             'telephone_number' => 'required',
             'address' => 'required',
-            'tin' => 'required|min:9|max:9',
+            'tin' => 'required|min:9|max:9|unique:clients',
             'credit_limit' => 'required'
         ];
     }
