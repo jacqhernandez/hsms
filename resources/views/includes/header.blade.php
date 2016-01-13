@@ -282,6 +282,12 @@
                                 <li>
                                     <a href="{{url::action('SuppliersController@index')}}">Suppliers</a>
                                 </li>
+                                <li>
+                                    <a href="{{url::action('ReasonsController@index')}}">Reasons</a>
+                                </li>
+                                <li>
+                                    <a href="{{url::action('ItemsController@index')}}">Items</a>
+                                </li>
 							</ul>
 						</li>
 						
