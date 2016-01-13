@@ -31,5 +31,8 @@
 		@endforeach
 	</tbody> 
 </table>
-<a href="{{ url('/clients/create') }}">New Client</a>
+@if (Auth::user()['role'] == 'General Manager')
+	<a href="{{ url('/clients/create') }}">New Client</a>
+@endif
+
 @stop

@@ -16,15 +16,12 @@ class RedirectIfNotGeneralManager {
 	{
 		if (Auth::guest())
 		{
-			flash()->error('You are not authorized to proceed.');
-
-		return redirect('/');	
+			return redirect('/auth/login');	
 		}
 		elseif ( $request->user()->isGeneralManager())
 		{			
 			return $next($request);
 		}
-		flash()->error('You are not authorized to proceed.');
 		return redirect('/');	
 	}
 

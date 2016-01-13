@@ -16,8 +16,9 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 }]);
 
 Route::resource('clients', 'ClientsController');
-
 Route::resource('suppliers', 'SuppliersController');
+Route::resource('items','ItemsController');
+Route::resource('reasons','ReasonsController',['except' => 'show']);     
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -32,3 +33,4 @@ Route::get('users', 'UsersController@index');
 Route::delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController@destroy']);
 Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@getUpdateAccount']);
 Route::post('users/{id}', 'UsersController@postUpdateAccount');
+Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);

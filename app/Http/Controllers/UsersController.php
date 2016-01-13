@@ -27,14 +27,24 @@ class UsersController extends Controller {
 	 */
 	public function __construct(Guard $auth)//, Registrar $registrar)
 	{
-		//$this->middleware('auth');
-		//$this->middleware('general manager');
+		$this->middleware('auth');
+		$this->middleware('general_manager',['except' => ['show']]); 
 	}
 
 	public function index()
 	{
 		$users = User::all();
 		return view('users.index', compact('users'));
+	}
+
+	public function show($id)
+	{
+		$user = User::find($id);
+		if (Auth::user() == User::find($id) || Auth::user()['role'] == 'General Manager')
+		{
+			return view('users.show', compact('user'));
+		}
+		return view('/');
 	}
 
 	public function destroy($id)

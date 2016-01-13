@@ -28,6 +28,7 @@
 
 	<table>
 	<tr>
+	@if (Auth::user()['role'] == 'General Manager')
 	<td>
 	{!! Form::open(['route' => ['suppliers.edit', $supplier->id], 'method' => 'get' ]) !!}
 		<button class="btn btn-warning">Edit</button>
@@ -38,6 +39,7 @@
 		<button class="btn btn-danger">Delete</button>
 	{!! Form::close() !!}
 	</td>
+	@endif
 	<td>
 	<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
 	</td>

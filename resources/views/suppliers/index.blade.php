@@ -26,6 +26,8 @@
 	</tbody>
 </table>
 <br>
+@if (Auth::user()['role'] == 'General Manager')
 <a href="{{ url('/suppliers/create') }}">Create New Supplier</a>
+@endif
 
 @stop

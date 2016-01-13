@@ -9,13 +9,19 @@ use App\Http\Controllers\Controller;
 use App\Reason;
 use Request;
 
-class ReasonController extends Controller
+class ReasonsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');  
+        $this->middleware('general_manager');     
+    }
+
     public function index()
     {
         $reasons = Reason::all();
@@ -54,11 +60,6 @@ class ReasonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $reason = Reason::find($id);
-        return view('reasons.show', compact('reason'));
-    }
 
     /**
      * Show the form for editing the specified resource.
