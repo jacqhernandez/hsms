@@ -18,3 +18,17 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 Route::resource('clients', 'ClientsController');
 
 Route::resource('suppliers', 'SuppliersController');
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('users', 'UsersController@index');
+Route::delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController@destroy']);
+Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@getUpdateAccount']);
+Route::post('users/{id}', 'UsersController@postUpdateAccount');
