@@ -89,7 +89,14 @@ class SuppliersController extends Controller
     {
         //
 		$supplier = Supplier::find($id);
-		return view ('suppliers.edit', compact('supplier'));
+
+        $paymentOptions = [];
+        $paymentOptions['Cash'] = 'Cash';
+        $paymentOptions['15 Days'] = '15 Days';
+        $paymentOptions['30 Days'] = '30 Days';
+        $paymentOptions['60 Days'] = '60 Days';
+
+		return view ('suppliers.edit', compact('supplier', 'paymentOptions'));
     }
 
     /**
