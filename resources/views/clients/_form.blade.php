@@ -26,6 +26,11 @@
 				<td> {!! Form::label('tin', 'TIN: ') !!} </td>
 				<td> {!! Form::input('number', 'tin', old('tin')) !!}</td>
 			</tr>
+
+			<tr>
+				<td>{!! Form::label('contact_person', 'Contact Person: ') !!}</td>
+				<td>{!! Form::input('contact_person', old('contact_person')) !!}</td>
+			</tr>
 			
 			<tr>
 				<td> {!!Form::label('credit_limit', 'Credit Limit: ') !!}</td>
@@ -35,6 +40,16 @@
 			<tr>
 				<td> {!! Form::label('status', 'Status: ') !!} </td>
 				<td> {!! Form::select('status', $statusOptions, null) !!}</td>
+			</tr>
+
+			<tr>
+				<td>{!! Form::label('payment_terms', 'Payment Terms: ') !!}</td>
+				<td>{!! Form::select('payment_terms', $paymentOptions, null) !!}</td>
+			</tr>
+
+			<tr>
+				<td>{!! Form::label('username', 'Sales Person: ') !!}</td>
+				<td>{!! Form::select('username', $userOptions, null) !!}</td>
 			</tr>
 			
 		</tbody> 

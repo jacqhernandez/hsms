@@ -9,10 +9,15 @@ class Client extends Model
     protected $fillable = [
 		'name',
 		'telephone_number',
+		'address',
 		'email',
 		'tin',
+		'contact_person',
 		'credit_limit',
 		'status',
-		'address'
+		'payment terms',
+		'username'
+
+		
 	];
 }

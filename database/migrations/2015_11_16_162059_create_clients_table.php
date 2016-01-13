@@ -16,11 +16,16 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('name');
 			$table->integer('telephone_number');
+            $table->string('address');
             $table->string('email');
-			$table->string('address');
 			$table->integer('tin')->unique();
+            $table->string('contact_person');
             $table->integer('credit_limit')->unsigned();
 			$table->string('status');
+            $table->string('payment_terms');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                  ->references('id')->on('users');
             $table->timestamps();
         });
     }
