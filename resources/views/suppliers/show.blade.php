@@ -23,6 +23,16 @@
 					<td>E-mail: </td>
 					<td>{{ $supplier['email']}}</td>
 				</tr>
+
+				<tr>
+					<td>Contact Person: </td>
+					<td>{{ $supplier['contact_person']}}</td>
+				</tr>
+
+				<tr>
+					<td>Payment Terms: </td>
+					<td>{{ $supplier['payment_terms']}}</td>
+				</tr>
 			</tbody>
 		</table>
 
