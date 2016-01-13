@@ -15,10 +15,13 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
     return view('pages.index');
 }]);
 
-Route::resource('clients', 'ClientsController');
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
+Route::resource('clients', 'ClientsController');
 
+Route::get('suppliers/search', ['as' => 'suppliers.search', 'uses' => 'SuppliersController@search']);
 Route::resource('suppliers', 'SuppliersController');
+
+Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@search']);
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']);     
 

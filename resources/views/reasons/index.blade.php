@@ -13,6 +13,18 @@
 		@foreach ($reasons as $reason)
 		<tr>
 			<td>{{ $reason->reason }}</td>
+		@if (Auth::user()['role'] == 'General Manager')
+			<td>
+				{!! Form::open(['route' => ['reasons.destroy', $reason->id], 'method' => 'delete' ]) !!}
+					<button class="btn btn-warning">Delete</button>
+				{!! Form::close() !!}
+			</td>
+			<td>
+				{!! Form::open(['route' => ['reasons.edit', $reason->id], 'method' => 'get' ]) !!}
+				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
+				{!! Form::close() !!}
+			</td>
+		@endif
 		</tr>
 		@endforeach
 	</tbody> 

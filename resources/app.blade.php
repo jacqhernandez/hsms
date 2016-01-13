@@ -40,13 +40,15 @@
 	</head>
 	<body>
 		<div id = "SiteBody">
+			@include('flash::message')
 			@yield('content')
 		</div>
 
 		
 		<!-- Scripts -->
 		<script>
-			
+			$('#flash-overlay-modal').modal();
+			$('div.alert').not('alert-important').delay(3000).slideUp(300);
 			$(document).ajaxStart(function() {
     Pace.restart();
 }).ajaxStop( function() { 

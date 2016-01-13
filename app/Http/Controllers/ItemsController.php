@@ -15,7 +15,7 @@ class ItemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show']]);     
+        $this->middleware('general_manager',['except' => ['index']]);     
     }
     /**
      * Display a listing of the resource.
@@ -38,6 +38,19 @@ class ItemsController extends Controller
         return view('items.create');
     }
 
+    public function search()
+    {
+        $input = Request::all();
+        $query = $input['query'];
+        $items = Item::where('name','LIKE',"%$query%")->orWhere('description','LIKE',"%$query%")->get();
+        if ($items == "[]")
+        {
+            //flash()->error('There are no suppliers that match your query.');
+            return redirect()->action('ItemsController@index');
+        }
+        return view('items.index',compact('items'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,7 +65,7 @@ class ItemsController extends Controller
         $item->description = $input['description'];
         $item->save();
         $id = $item->id;
-        return redirect()->action('ItemsController@show', [$id]);
+        return redirect()->action('ItemsController@index');
     }
 
     /**
@@ -61,11 +74,6 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $item = Item::find($id);
-        return view('items.show', compact('item'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -94,7 +102,7 @@ class ItemsController extends Controller
             'name' => $input['name'],
             'description' => $input['description']
         ]);
-        return redirect()->action('ItemsController@show', [$id]);
+        return redirect()->action('ItemsController@index');
     }
 
     /**
@@ -106,7 +114,7 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
-        $item->delete();
-        return redirect()->route('index');
+        $item->Delete('set null');
+        return redirect()->action('ItemsController@index');
     }
 }
