@@ -28,7 +28,7 @@ class CreateSupplierRequest extends Request
             'name' => 'required',
             'address' => 'required',
             'telephone_number' => 'required',
-            'tin' => 'required|min:3|max:3'
+            'tin' => 'required|min:9|max:9'
         ];
     }
 }

@@ -32,7 +32,17 @@
 				<td> {!! Form::label('email', 'E-mail: ') !!} </td>
 				<td> {!! Form::email('email', old('email')) !!}</td>
 			</tr>
+
+			<tr>
+				<td>{!! Form::label('contact_person', 'Contact Person: ') !!}</td>
+				<td>{!! Form::text('contact_person', old('contact_person')) !!}</td>
+			</tr>
 			
+			<tr>
+				<td>{!! Form::label('payment_terms', 'Payment Terms: ') !!}</td>
+				<td>{!! Form::select('payment_terms', $paymentOptions, Input::old('payment_terms')) !!}</td>
+			</tr>
+
 		</tbody> 
 	</table>
 	<br>

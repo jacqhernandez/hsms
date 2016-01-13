@@ -10,6 +10,9 @@ class Supplier extends Model
 		'name',
 		'telephone_number',
 		'tin',
-		'address'
+		'address',
+		'email',
+		'payment_terms',
+		'contact_person'
 	];
 }
