@@ -1,21 +1,46 @@
 @extends ('layouts.app')
 @section('content')
 	@include('includes.required_errors')
-	<div>
-		<p>THIS IS THE SHOW REASONS PAGE</p>
-		<table width="100%">
+	<script type="text/javascript">
+	
+	function ConfirmDelete()
+	{
+		var x = confirm("Are you sure you want to delete?");
+		if(x)
+			return true;
+		else
+			return false;
+	}
+	
+	</script>
+		<h2>{{ $reason['reason'] }}</h2>
+		<table class="table">
 			<tbody>
 				<tr>
-					<td>Reason: {{ $reason['reason']}}</td>
+					<td>Reason </td>
+					<td>{{ $reason['reason']}}</td>
 				</tr>
+			
+				
 			</tbody>
 		</table>
-	</div>
-	{!! Form::open(['route' => ['reasons.destroy', $reason->id], 'method' => 'delete' ]) !!}
-		<button>Delete Reason</button>
+
+	<table>	
+	<tr>
+	<td>
+	{!! Form::open(['route' => ['reasons.edit', $reason->id], 'method' => 'get']) !!}
+		<button class="btn btn-warning">Edit</button>
+	{!! Form::close() !!}		
+	</td>
+	<td>
+	{!! Form::open(['route' => ['reasons.destroy', $reason->id], 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ]) !!}
+		<button class="btn btn-danger">Delete</button>
 	{!! Form::close() !!}
-	{!! Form::open(['route' => ['reasons.edit', $reason->id], 'method' => 'get' ]) !!}
-		<button>Edit Reason</button>
-	{!! Form::close() !!}										
+	</td>
+	<td>
+	<a href="{{ action ('ReasonController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
+	</td>
+	</table>	
+
 @stop
 				
