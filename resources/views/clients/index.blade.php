@@ -4,12 +4,23 @@
 <h2>Clients</h2>
 <hr>
 
-<div>
-{!!  Form::open(['route' => ['clients.search'], 'method' => 'get'])  !!}
-{!!  Form::text('query', null, ['placeholder' => 'Client Name'])  !!} 
-{!!  Form::submit('Search', ['class' => 'btn', 'position:relative;'])  !!}
-{!!  Form::close() !!}
+{!!  Form::open(['route' => ['clients.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+<div class="form-group">
+{!!  Form::text('query', null, ['placeholder' => 'Client Name', 'class' => 'form-control'])  !!} 
 </div>
+{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::close() !!}
+
+{!!  Form::open(['route' => ['clients.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
+<div class="form-group">
+{!! Form::select('filter', [
+						'' => 'Filter by Status',
+						'Good' => 'Good',
+						'Blacklisted' => 'Blacklisted',
+						'Overdue' => 'Overdue'], 
+					 	old('filter'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
+</div>
+{!!  Form::close() !!}
 
 <br><br>
 <table class="table table-hover sortable"> 

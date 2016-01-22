@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class SalesInvoice extends Model
 {
     protected $fillable = [
 		'si_no',
@@ -21,4 +21,9 @@ class Client extends Model
 		'client_id',
 		'user_id'	
 	];
+
+	public function Client()
+	{
+		return $this->belongsTo('App\Client');
+	}
 }
