@@ -45,3 +45,7 @@ Route::delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController
 Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@getUpdateAccount']);
 Route::post('users/{id}', 'UsersController@postUpdateAccount');
 Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+
+Route::get('reports', 'ReportsController@index');
+Route::get('reports/generate', ['as' => 'reports.generate', 'uses' => 'ReportsController@generate']);
+Route::post('reports/generate', 'ReportsController@generate');

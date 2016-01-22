@@ -31,8 +31,9 @@ class ClientsController extends Controller
         }
         else
         {
-            $clients = Client::paginate(1);
-            $clients->setpath('hsms/public/clients/');
+             // $clients = Client::all();
+             $clients = Client::paginate(1);
+             $clients->setpath('hsms/public/clients/');
         }
         return view('clients.index', compact('clients'));
     }
@@ -50,6 +51,7 @@ class ClientsController extends Controller
         {
             $clients = Client::where('name','LIKE',"%$query%")->paginate(10);
         }
+
         if ($clients == "[]")
         {
             //flash()->error('There are no clients that match your query.');
