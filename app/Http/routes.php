@@ -30,10 +30,6 @@ Route::resource('suppliers', 'SuppliersController');
 Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@search']);
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']); 
- 
-Route::get('reports',['as'=>'reports.choose','uses'=>'ReportsController@choose']);   
-Route::get('reports/generate',['as'=>'reports.generate','uses'=>'ReportsController@generate']);   
-Route::get('reports/result',['as'=>'reports.result','uses'=>'ReportsController@result']);   
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
