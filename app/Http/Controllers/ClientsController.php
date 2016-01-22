@@ -57,6 +57,18 @@ class ClientsController extends Controller
         return view('clients.index',compact('clients'));
     }
 
+    public function filter()
+    {
+        $input = Request::all();
+        $filter = $input['filter'];
+        $clients = Client::where('status',$filter)->get();
+        if ($clients == "[]")
+        {
+            return redirect()->action('ClientsController@index');
+        }
+        return view('clients.index',compact('clients'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

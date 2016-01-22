@@ -3,12 +3,14 @@
 <br>
 <h2>Items</h2>
 <hr>
-<div>
-{!!  Form::open(['route' => ['items.search'], 'method' => 'get'])  !!}
-{!!  Form::text('query', null, ['placeholder' => 'Item Name or Description'])  !!} 
-{!!  Form::submit('Search', ['class' => 'btn', 'position:relative;'])  !!}
-{!!  Form::close() !!}
+
+{!!  Form::open(['route' => ['items.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+<div class="form-group">
+{!!  Form::text('query', null, ['placeholder' => 'Item Name or Description', 'class' => 'form-control'])  !!} 
 </div>
+{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::close() !!}
+
 <br><br>
 <table class="table table-hover sortable"> 
 	<thead>

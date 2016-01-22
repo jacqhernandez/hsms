@@ -4,12 +4,13 @@
 <h2>Suppliers</h2>
 <hr/>
 
-<div>
-{!!  Form::open(['route' => ['suppliers.search'], 'method' => 'get'])  !!}
-{!!  Form::text('query', null, ['placeholder' => 'Supplier Name'])  !!} 
-{!!  Form::submit('Search', ['class' => 'btn', 'position:relative;'])  !!}
-{!!  Form::close() !!}
+{!!  Form::open(['route' => ['suppliers.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+<div class="form-group">
+{!!  Form::text('query', null, ['placeholder' => 'Supplier Name', 'class' => 'form-control'])  !!} 
 </div>
+{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::close() !!}
+
 <br><br>
 <table class="table table-hover sortable">
 <thead>
