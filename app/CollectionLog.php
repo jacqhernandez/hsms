@@ -17,4 +17,12 @@ class CollectionLog extends Model
 
 		
 	];
+	public function Reason()
+    {
+        return $this->belongsTo('App\Reason');
+    }
+    public function Client()
+    {
+    	return $this->belongsTo('App\Client');
+    }
 }

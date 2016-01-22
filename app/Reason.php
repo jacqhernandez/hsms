@@ -9,4 +9,9 @@ class Reason extends Model
     protected $fillable = [
 		'reason'
 	];
+
+	public function CollectionLog()
+	{
+		return $this->hasMany('App\CollectionLog');
+	}
 }

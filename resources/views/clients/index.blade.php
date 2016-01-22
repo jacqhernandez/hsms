@@ -34,6 +34,7 @@
 			<td>{{ $client->status }}</td>
 			<td>{{ $client->User->username }}</td>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">View</a></td>
+			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View Collection Log</a></td>
 		</tr>
 		@endforeach
 	</tbody> 

@@ -1,64 +1,39 @@
 <div>
 	<table> 
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Action</th>
+				<th>Follow-Up Date</th>
+				<th>Notes</th>
+				<th>Reason</th>
+			</tr>
+		</thead>
+
 		<tbody>
 			<tr>
-				<td> {!! Form::label('name', 'Name: ') !!}</td>
-				<td> {!! Form::text('name', old('name'), ['class' => 'span7']) !!} </td>
+				
+				<td> {!! Form::input('date', 'date', old('date'), 
+					['class' => 'form-control', 'placeholder' => 'Date']) !!} </td>
+				<td> {!! Form::select('action', $actionOptions, 
+					Input::old('action')) !!} </td>
+				<td> {!! Form::input('date', 'follow_up_date', old('follow_up_date'), 
+					['class' => 'form-control', 'placeholder' => 'Date', 'visible' => 'false']) !!}</td>
+				<td>{!! Form::text('note', old('note'), ['class' => 'span7']) !!}</td>
+				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason')) !!}</td>
+
 			</tr>	
-			
 			<tr>
-				<td> {!! Form::label('telephone_number', 'Telephone Number: ') !!}</td>
-				<td> {!! Form::text('telephone_number', old('telephone_number'), ['class' => 'span7']) !!} </td>
-			</tr>	
-			
-			<tr>
-				<td> {!! Form::label('address', 'Address: ') !!} </td>
-				<td> {!! Form::text('address', old('address')) !!}</td>
-			</tr>
-			
-			<tr>
-				<td>{!! Form::label('email', 'Email: ') !!}</td>
-				<td>{!! Form::email('email', old('email'), ['class' => 'span7']) !!}</td>
-			</tr>
-			
-			
-			<tr>
-				<td> {!! Form::label('tin', 'TIN: ') !!} </td>
-				<td> {!! Form::input('number', 'tin', old('tin')) !!}</td>
-			</tr>
-
-			<tr>
-				<td>{!! Form::label('contact_person', 'Contact Person: ') !!}</td>
-				<td>{!! Form::input('contact_person', old('contact_person')) !!}</td>
-			</tr>
-			
-			<tr>
-				<td> {!!Form::label('credit_limit', 'Credit Limit: ') !!}</td>
-				<td> {!! Form::input('number','credit_limit', old('credit_limit'), ['class' => 'span3', 'step' => '1']) !!} </td>
-			</tr>
-			
-			<tr>
-				<td> {!! Form::label('status', 'Status: ') !!} </td>
-				<td> {!! Form::select('status', $statusOptions, null) !!}</td>
-			</tr>
-
-			<tr>
-				<td>{!! Form::label('payment_terms', 'Payment Terms: ') !!}</td>
-				<td>{!! Form::select('payment_terms', $paymentOptions, null) !!}</td>
-			</tr>
-
-			<tr>
-				<td>{!! Form::label('username', 'Sales Person: ') !!}</td>
-				<td>{!! Form::select('username', $userOptions, null) !!}</td>
-			</tr>
-			
+				<td> {!! Form::hidden('client_id', $id) !!}</td>
+			</tr>		
 		</tbody> 
 	</table>
 	
 	<br>
+	{!! Form::hidden('invisble', $id) !!}
 	<div class = "submit">
 		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-		<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back</button></a>
+		<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back</button></a>
 	</div>
 
 	@if ($errors->any())

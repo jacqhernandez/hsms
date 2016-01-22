@@ -23,4 +23,8 @@ class Client extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
+	public function CollectionLog()
+	{
+		return $this->hasMany('App\CollectionLog');
+	}
 }

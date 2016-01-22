@@ -14,6 +14,10 @@
 			</tr>	
 			
 			<tr>
+				<td> {!! Form::label('unit', 'Unit: ') !!}</td>
+				<td> {!! Form::text('unit', old('unit'), ['class' => 'span7']) !!} </td>
+			</tr>
+			<tr>
 				<td> {!! Form::label('description', 'Description: ') !!}</td>
 				<td> {!! Form::text('description', old('description'), ['class' => 'span7']) !!} </td>
 			</tr>
