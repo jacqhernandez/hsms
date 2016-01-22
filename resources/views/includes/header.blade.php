@@ -271,11 +271,21 @@
                         </li>
                         <li>
                             <a href="{{ url('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+
+                        </li>
+
+                        <li>
+                            <a href="{{url::action('SalesInvoicesController@quotation')}}"><i class="glyphicon glyphicon-triangle-right"></i> New Sales Invoice</a>
+
                         </li>
 						
+
 						<li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Admin Maintenance<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
+                                </li>
                                 <li>
                                     <a href="{{url::action('ClientsController@index')}}">Clients</a>
                                 </li>
