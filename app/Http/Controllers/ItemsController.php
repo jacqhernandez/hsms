@@ -42,12 +42,13 @@ class ItemsController extends Controller
     {
         $input = Request::all();
         $query = $input['query'];
-        $items = Item::where('name','LIKE',"%$query%")->orWhere('description','LIKE',"%$query%")->get();
+        $items = Item::where('name','LIKE',"%$query%")->orWhere('description','LIKE',"%$query%")->paginate(10);
         if ($items == "[]")
         {
             //flash()->error('There are no suppliers that match your query.');
             return redirect()->action('ItemsController@index');
         }
+        $items->appends(Request::only('query'));
         return view('items.index',compact('items'));
     }
 

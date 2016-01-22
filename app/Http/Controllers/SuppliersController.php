@@ -50,12 +50,13 @@ class SuppliersController extends Controller
     {
         $input = Request::all();
         $query = $input['query'];
-        $suppliers = Supplier::where('name','LIKE',"%$query%")->get();
+        $suppliers = Supplier::where('name','LIKE',"%$query%")->paginate(10);
         if ($suppliers == "[]")
         {
             //flash()->error('There are no suppliers that match your query.');
             return redirect()->action('SuppliersController@index');
         }
+        $suppliers->appends(Request::only('query'));
         return view('suppliers.index',compact('suppliers'));
     }
 

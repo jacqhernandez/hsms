@@ -158,7 +158,7 @@ class SalesInvoicesController extends Controller
     public function destroy($id)
     {
         $salesInvoice = SalesInvoice::find($id);
-        $salesInvoice->delete();
+        $salesInvoice->delete('set null');
         return redirect()->action('SalesInvoicesController@index');
     }
 
