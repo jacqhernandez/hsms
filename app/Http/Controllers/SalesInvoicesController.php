@@ -206,4 +206,12 @@ class SalesInvoicesController extends Controller
 
         return view('sales_invoices.quotation', compact('clientOptions','itemOptions'));
     }
+
+    public function generatePdf($id)
+    {
+        ini_set("max_execution_time", 0);
+        $sales_invoice = SalesInvoice::find($id);
+        $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice'));
+        return $pdf->stream();
+    }
 }

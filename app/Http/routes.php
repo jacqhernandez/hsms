@@ -20,6 +20,7 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 Route::get('invoices/search', ['as' => 'invoices.search', 'uses' => 'SalesInvoicesController@search']);
 Route::get('invoices/filter', ['as' => 'invoices.filter', 'uses' => 'SalesInvoicesController@filter']);
 Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
+Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
 
 Route::resource('invoices', 'SalesInvoicesController');

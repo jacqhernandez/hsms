@@ -65,9 +65,16 @@
 			</tbody>
 		</table>
 
+		INVOICE ITEMS HERE
+
 	<table>
 	<tr>
 
+	<td>
+		{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get' ]) !!}
+			<button class="btn btn-success">Print Invoice</button>
+		{!! Form::close() !!}	
+	</td>
 	<td>
 		{!! Form::open(['route' => ['invoices.edit', $sales_invoice->id], 'method' => 'get' ]) !!}
 			<button class="btn btn-warning">Edit</button>
