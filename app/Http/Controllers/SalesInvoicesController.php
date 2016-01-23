@@ -7,7 +7,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Client;
+use App\SalesInvoice;
 use Request;
+use Auth;
+use App\Item;
 
 class SalesInvoicesController extends Controller
 {
@@ -155,7 +158,15 @@ class SalesInvoicesController extends Controller
     public function destroy($id)
     {
         $salesInvoice = SalesInvoice::find($id);
-        $salesInvoice->delete();
+        $salesInvoice->delete('set null');
         return redirect()->action('SalesInvoicesController@index');
+    }
+
+    public function quotation() {
+
+        $clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
+        $itemOptions = Item::all()->lists('name','id');
+
+        return view('sales_invoices.quotation', compact('clientOptions','itemOptions'));
     }
 }

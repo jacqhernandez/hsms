@@ -15,7 +15,13 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
     return view('pages.index');
 }]);
 
+
+//Sales Invoice CRUD route
+Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
+Route::resource('invoices', 'SalesInvoicesController');
+
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
+Route::get('clients/filter', ['as' => 'clients.filter', 'uses' => 'ClientsController@filter']);
 Route::resource('clients', 'ClientsController');
 
 Route::get('suppliers/search', ['as' => 'suppliers.search', 'uses' => 'SuppliersController@search']);
@@ -23,7 +29,7 @@ Route::resource('suppliers', 'SuppliersController');
 
 Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@search']);
 Route::resource('items','ItemsController');
-Route::resource('reasons','ReasonsController',['except' => 'show']);     
+Route::resource('reasons','ReasonsController',['except' => 'show']); 
 
 //Route::get('collection_logs/index/{id}', ['as' => 'collection_logs.index', 'uses' => 'CollectionLogsController@index']);
 //Route::get('collection_logs/create/{id}', ['as' => 'collection_logs.create', 'uses' => 'CollectionLogsController@create']);
@@ -42,3 +48,7 @@ Route::delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController
 Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@getUpdateAccount']);
 Route::post('users/{id}', 'UsersController@postUpdateAccount');
 Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+
+Route::get('reports', 'ReportsController@index');
+Route::get('reports/generate', ['as' => 'reports.generate', 'uses' => 'ReportsController@generate']);
+Route::post('reports/generate', 'ReportsController@generate');

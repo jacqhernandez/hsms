@@ -31,8 +31,9 @@ class ClientsController extends Controller
         }
         else
         {
-            $clients = Client::paginate(1);
-            $clients->setpath('hsms/public/clients/');
+             // $clients = Client::all();
+             $clients = Client::paginate(1);
+             $clients->setpath('hsms/public/clients/');
         }
         return view('clients.index', compact('clients'));
     }
@@ -44,17 +45,32 @@ class ClientsController extends Controller
 
         if (Auth::user()['role'] == 'Sales')
         {
-            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$query%")->get();
+            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$query%")->paginate(10);
         }
         else
         {
-            $clients = Client::where('name','LIKE',"%$query%")->get();
+            $clients = Client::where('name','LIKE',"%$query%")->paginate(10);
         }
+
         if ($clients == "[]")
         {
             //flash()->error('There are no clients that match your query.');
             return redirect()->action('ClientsController@index');
         }
+        $clients->appends(Request::only('query'));
+        return view('clients.index',compact('clients'));
+    }
+
+    public function filter()
+    {
+        $input = Request::all();
+        $filter = $input['filter'];
+        $clients = Client::where('status',$filter)->paginate(10);
+        if ($clients == "[]")
+        {
+            return redirect()->action('ClientsController@index');
+        }
+        $clients->appends(Request::only('filter'));
         return view('clients.index',compact('clients'));
     }
 
