@@ -24,7 +24,7 @@ class ReasonsController extends Controller
 
     public function index()
     {
-        $reasons = Reason::all();
+        $reasons = Reason::paginate(10);
         return view('reasons.index', compact('reasons'));
     }
 

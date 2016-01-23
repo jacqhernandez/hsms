@@ -27,12 +27,12 @@ class ClientsController extends Controller
     {
         if (Auth::user()['role'] == 'Sales')
         {
-            $clients = Client::where('user_id',Auth::user()['id'])->get();
+            $clients = Client::where('user_id',Auth::user()['id'])->paginate(10);
         }
         else
         {
              // $clients = Client::all();
-             $clients = Client::paginate(1);
+             $clients = Client::paginate(10);
              $clients->setpath('hsms/public/clients/');
         }
         return view('clients.index', compact('clients'));

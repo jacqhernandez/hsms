@@ -17,7 +17,11 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 
 
 //Sales Invoice CRUD route
+Route::get('invoices/search', ['as' => 'invoices.search', 'uses' => 'SalesInvoicesController@search']);
+Route::get('invoices/filter', ['as' => 'invoices.filter', 'uses' => 'SalesInvoicesController@filter']);
 Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
+Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
+
 Route::resource('invoices', 'SalesInvoicesController');
 
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
