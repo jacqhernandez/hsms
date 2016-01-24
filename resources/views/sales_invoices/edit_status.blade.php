@@ -11,7 +11,7 @@
 			<tbody>
 				<tr>
 					<td>{!! Form::label('status', 'Status: ') !!}</td>
-					<td>{!! Form::select('status', ['Pending' => "Pending", 'Delivered' => "Delivered", 'Overdue' => "Overdue", 'Collected' => "Collected"], Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
+					<td>{!! Form::select('status', ['Pending' => "Pending", 'Delivered' => "Delivered", 'Collected' => "Collected"], Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
 				</tr>
 				<tr id="collected">
 					<td>{!! Form::label('date_collected', 'Date Collected: ') !!}</td>
@@ -70,11 +70,6 @@
 		    if($(this).val() === 'Pending') {
 		        $('#delivered').hide();
 		        $('#collected').hide();
-		    }
-
-		    if ($(this).val() === 'Overdue'){
-		    	$('#collected').hide();
-		    	$('#delivered').hide();
 		    }
 		});
 	</script>

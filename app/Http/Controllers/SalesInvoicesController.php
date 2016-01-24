@@ -153,6 +153,9 @@ class SalesInvoicesController extends Controller
     public function editStatus($id)
     {
         $sales_invoice = SalesInvoice::find($id);
+        if ($sales_invoice->status === "Overdue"){
+            return redirect()->action('SalesInvoicesController@index');
+        }
         return view('sales_invoices.edit_status',compact('sales_invoice'));
     }
 
