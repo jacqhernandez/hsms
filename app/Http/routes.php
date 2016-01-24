@@ -54,3 +54,7 @@ Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show'
 Route::get('reports', 'ReportsController@index');
 Route::get('reports/generate', ['as' => 'reports.generate', 'uses' => 'ReportsController@generate']);
 Route::post('reports/generate', 'ReportsController@generate');
+
+Route::get('logs', 'LogsController@index');
+Route::get('logs/filter', ['as' => 'logs.filter', 'uses' => 'LogsController@filter']);
+Route::get('logs/delete', ['as' => 'logs.delete', 'uses' => 'LogsController@deleteOldestFiftyActivities']);

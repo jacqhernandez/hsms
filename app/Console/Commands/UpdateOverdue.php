@@ -37,6 +37,10 @@ class UpdateOverdue extends Command
      */
     public function handle()
     {
-        \DB::table('sales_invoices')->whereRaw('due_date < now() and status != "Collected"')->update(['status' => "Overdue"]);
+        \DB::table('sales_invoices')->whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")')->update(['status' => "Overdue"]);
+        //problem is if saturday, it will be 6-7 so it will subtract
+        //\DB::table('sales_invoices')->whereRaw('((date_add(due_date,interval 6-dayofweek(due_date) day)) < (date_add(date(now()),interval 6-dayofweek(date(now())) day))) and (status != "Collected")')->update(['status'=>"Overdue"]);
     }
 }
+
+

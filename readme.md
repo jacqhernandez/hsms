@@ -46,3 +46,9 @@ To make this work,
 10. Go to the Triggers tab, click Daily in the list and click Edit. 
 11. In the Start field, change time to 12:00:00 AM (this updates the status at 12 midnight)
 13. Click OK. Done.
+
+-----------------------
+
+Activity log
+
+By default records older than 2 months will be deleted. The number of months can be modified in the config-file of the package.

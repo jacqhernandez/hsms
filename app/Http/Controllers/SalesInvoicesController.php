@@ -11,9 +11,11 @@ use App\SalesInvoice;
 use Request;
 use Auth;
 use App\Item;
+use Activity;
 
 class SalesInvoicesController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');   
@@ -215,6 +217,7 @@ class SalesInvoicesController extends Controller
         ini_set("max_execution_time", 0);
         $sales_invoice = SalesInvoice::find($id);
         $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice'));
+        Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
         return $pdf->stream();
     }
 }

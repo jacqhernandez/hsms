@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogsActivityInterface;
+use Spatie\Activitylog\LogsActivity;
 
 class CollectionLog extends Model
 {
+    use LogsActivity;
+
     //
     protected $fillable = [
 		'date',
@@ -17,4 +21,6 @@ class CollectionLog extends Model
 
 		
 	];
+
+	//collection log
 }
