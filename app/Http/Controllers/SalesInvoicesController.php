@@ -216,25 +216,25 @@ class SalesInvoicesController extends Controller
 
     public function viewCollected()
     {
-        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='collected'")->get();
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='collected'")->paginate(10);
         return view('sales_invoices.index', compact('sales_invoices'));
     }
 
     public function viewCollectibles()
     {
-        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='delivered'")->get();
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='delivered'")->paginate(10);
         return view('sales_invoices.index', compact('sales_invoices'));
     }
 
     public function viewUpcoming()
     {
-        $sales_invoices = SalesInvoice::whereRaw("week(due_date) - week(now()) = 1 AND sales_invoices.status='delivered'")->get();
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) - week(now()) = 1 AND sales_invoices.status='delivered'")->paginate(10);
         return view('sales_invoices.index', compact('sales_invoices'));
     }
 
     public function viewOverdue()
     {
-        $sales_invoices = SalesInvoice::whereRaw("week(now()) - week(due_date) >= 1 AND sales_invoices.status='overdue'")->get();
+        $sales_invoices = SalesInvoice::whereRaw("week(now()) - week(due_date) >= 1 AND sales_invoices.status='overdue'")->paginate(10);
         return view('sales_invoices.index', compact('sales_invoices'));
     }
 

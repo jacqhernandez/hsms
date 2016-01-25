@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use App\Client;
 
 class CreateClientRequest extends Request
 {
@@ -23,13 +24,44 @@ class CreateClientRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
-            'name' => 'required',
-            'telephone_number' => 'required',
-            'address' => 'required',
-            'tin' => 'required|min:9|max:9|unique:clients',
-            'credit_limit' => 'required'
-        ];
+        switch($this->method())
+        {
+            case 'POST':
+            {
+                return [
+                //
+                    'name' => 'required',
+                    'telephone_number' => 'required',
+                    'address' => 'required',
+                    'tin' => 'required|min:9|max:9|unique:clients',
+                    'credit_limit' => 'required'
+                ];
+            }
+            case 'PATCH':
+            {
+                $client = Client::find($this->segment(2)); //this gets the second segment in the url which is the id of the client
+                if ($this->get('tin') == $client['tin'])
+                {
+                    return[
+                    'name' => 'required',
+                    'telephone_number' => 'required',
+                    'address' => 'required',
+                    'tin' => 'required|min:9|max:9|unique:clients,id'.$this->get('id'),
+                    'credit_limit' => 'required'
+                    ];
+                }
+                else
+                {
+                    return[
+                    'name' => 'required',
+                    'telephone_number' => 'required',
+                    'address' => 'required',
+                    'tin' => 'required|min:9|max:9|unique:clients',
+                    'credit_limit' => 'required'
+                    ];
+                }
+            }
+            default:break;
+        }
     }
 }

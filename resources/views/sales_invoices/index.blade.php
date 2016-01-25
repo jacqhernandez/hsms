@@ -64,7 +64,7 @@
 	</tbody> 
 </table>
 <?php echo $sales_invoices->render(); ?>
-@if (Auth::user()['role'] == 'General Manager')
+@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 	<a href="{{ url('/invoices/create') }}">New Sales Invoice</a>
 @endif
 <button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>

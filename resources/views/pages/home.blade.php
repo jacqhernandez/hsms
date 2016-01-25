@@ -116,13 +116,17 @@
 </div>
 <!--row-->
 
+@if (Auth::user()->role == 'Accounting')
+    <div id="dailySales" style="height: 250px; display:none;"></div>
+@else
 <div class="row">
     <div class="col-lg-12">
         <h3 class="page-header">Daily Sales Performance</h3>
-        <div id="dailySales" style="height: 250px;"></div>
+        <div id="dailySales" style="height: 250px;"</div>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
+@endif
+
 
 
 <br>
@@ -144,9 +148,52 @@
 
     <div class="col-lg-6">
     	<div class="panel panel-default">
+
+            @if (Auth::user()->role == 'General Manager')
     		<div class="panel-heading">Activity Log</div>
-    		<div class="panel-body">
+            <div class="panel-body">
+                <table class="table table-hover sortable"> 
+                    <thead>
+                        <tr>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Date and Time</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($activities as $activity)
+                        <tr>
+                        <td>{{ $activity->text }}</td>
+                        @if (isset($activity->user))
+                            <td>{{ $activity->user->username }}</td>
+                        @else
+                            <td>User Deleted</td>
+                        @endif
+                        <td>{{ $activity->created_at->format('F j, Y h:i:s A') }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody> 
+                </table>
     		</div>
+
+            @elseif (Auth::user()->role == 'Accounting')
+            <div class="panel-heading">To-do List</div>
+            <div class="panel-body">
+                <table class="table table-hover sortable"> 
+                    <thead>
+                        <tr>
+                        <th>Client</th>
+                        <th>Follow Up Date</th>
+                        <th>Note</th>
+                    </thead>
+
+                    <tbody>
+                        
+                    </tbody> 
+                </table>
+            </div>
+            @endif
     	</div>
     </div>
 </div>
