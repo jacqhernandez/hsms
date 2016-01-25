@@ -32,5 +32,5 @@
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/invoices/create') }}">New Sales Invoice</a>
 @endif
-
+<button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>
 @stop

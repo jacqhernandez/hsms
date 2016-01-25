@@ -11,6 +11,7 @@ use App\SalesInvoice;
 use Request;
 use Auth;
 use App\Item;
+use DB;
 
 class SalesInvoicesController extends Controller
 {
@@ -168,5 +169,29 @@ class SalesInvoicesController extends Controller
         $itemOptions = Item::all()->lists('name','id');
 
         return view('sales_invoices.quotation', compact('clientOptions','itemOptions'));
+    }
+
+    public function viewCollected()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='collected'")->get();
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function viewCollectibles()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='delivered'")->get();
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function viewUpcoming()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) - week(now()) = 1 AND sales_invoices.status='delivered'")->get();
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function viewOverdue()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(now()) - week(due_date) >= 1 AND sales_invoices.status='overdue'")->get();
+        return view('sales_invoices.index', compact('sales_invoices'));
     }
 }

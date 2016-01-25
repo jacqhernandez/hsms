@@ -49,3 +49,10 @@ Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show'
 Route::get('reports', 'ReportsController@index');
 Route::get('reports/generate', ['as' => 'reports.generate', 'uses' => 'ReportsController@generate']);
 Route::post('reports/generate', 'ReportsController@generate');
+
+Route::get('/home', 'DashboardController@index');
+Route::get('/home/Collected', 'SalesInvoicesController@viewCollected');
+Route::get('/home/CurrentCollectibles', 'SalesInvoicesController@viewCollectibles');
+Route::get('/home/UpcomingCollectibles', 'SalesInvoicesController@viewUpcoming');
+Route::get('/home/OverdueCollectibles', 'SalesInvoicesController@viewOverdue');
+
