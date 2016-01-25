@@ -29,6 +29,7 @@
 		@endforeach
 	</tbody> 
 </table>
+<?php echo $reasons->render(); ?>
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/reasons/create') }}">New Reason</a>
 @endif

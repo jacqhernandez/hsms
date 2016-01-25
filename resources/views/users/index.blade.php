@@ -29,6 +29,7 @@
 	@endforeach
 	</tbody>
 </table>
+<?php echo $users->render(); ?>
 <br>
 <a href="{{ url('/auth/register') }}">New User</a>
 

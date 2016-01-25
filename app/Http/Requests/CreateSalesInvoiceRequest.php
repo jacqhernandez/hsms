@@ -26,11 +26,8 @@ class CreateSalesInvoiceRequest extends Request
         //UNFINISHED
         return [
             //
-            'name' => 'required',
-            'telephone_number' => 'required',
-            'address' => 'required',
-            'tin' => 'required|min:9|max:9',
-            'credit_limit' => 'required'
+            //'due_date' => 'required',
+            
         ];
     }
 }

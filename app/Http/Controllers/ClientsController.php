@@ -27,12 +27,12 @@ class ClientsController extends Controller
     {
         if (Auth::user()['role'] == 'Sales')
         {
-            $clients = Client::where('user_id',Auth::user()['id'])->get();
+            $clients = Client::where('user_id',Auth::user()['id'])->paginate(10);
         }
         else
         {
              // $clients = Client::all();
-             $clients = Client::paginate(1);
+             $clients = Client::paginate(10);
              $clients->setpath('hsms/public/clients/');
         }
         return view('clients.index', compact('clients'));
@@ -45,11 +45,11 @@ class ClientsController extends Controller
 
         if (Auth::user()['role'] == 'Sales')
         {
-            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$query%")->paginate(1000);
+            $clients = Client::where('user_id',Auth::user()['id'])->where('name','LIKE',"%$query%")->paginate(10);
         }
         else
         {
-            $clients = Client::where('name','LIKE',"%$query%")->paginate(1000);
+            $clients = Client::where('name','LIKE',"%$query%")->paginate(10);
         }
 
         if ($clients == "[]")
@@ -57,6 +57,7 @@ class ClientsController extends Controller
             //flash()->error('There are no clients that match your query.');
             return redirect()->action('ClientsController@index');
         }
+        $clients->appends(Request::only('query'));
         return view('clients.index',compact('clients'));
     }
 
@@ -64,11 +65,12 @@ class ClientsController extends Controller
     {
         $input = Request::all();
         $filter = $input['filter'];
-        $clients = Client::where('status',$filter)->get();
+        $clients = Client::where('status',$filter)->paginate(10);
         if ($clients == "[]")
         {
             return redirect()->action('ClientsController@index');
         }
+        $clients->appends(Request::only('filter'));
         return view('clients.index',compact('clients'));
     }
 

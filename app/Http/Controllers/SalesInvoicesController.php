@@ -13,12 +13,14 @@ use Auth;
 use App\Item;
 use DB;
 
+use Activity;
+
 class SalesInvoicesController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show']]);     
+        $this->middleware('auth');   
     }
     /**
      * Display a listing of the resource.
@@ -28,13 +30,54 @@ class SalesInvoicesController extends Controller
     public function index()
     {
         if (Auth::user()['role'] == 'Sales') {
-            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id']);
+            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->paginate(10);
             //IMPORTANT: this displays ALL invoices instead of until last month
         } else {
-            $sales_invoices = SalesInvoice::all();
+            $sales_invoices = SalesInvoice::paginate(10);
         }
+        $dates = SalesInvoice::all()->lists('due_date','due_date');
+        return view('sales_invoices.index', compact('sales_invoices','dates'));
+    }
 
-        return view('sales_invoices.index', compact('sales_invoices'));
+    public function search()
+    {
+        $input = Request::all();
+        $query = $input['query'];
+        $clients = Client::where('name','LIKE',"%$query%")->lists('id');
+        $sales_invoices = SalesInvoice::whereIn('client_id',$clients)->orWhere('si_no','LIKE',"%$query%")->paginate(10);
+        
+        if ($sales_invoices == "[]")
+        {
+            //flash()->error('There are no suppliers that match your query.');
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        $sales_invoices->appends(Request::only('query'));
+        $dates = SalesInvoice::all()->lists('due_date','due_date');
+        return view('sales_invoices.index',compact('sales_invoices','dates'));
+    }
+
+
+    public function filter()
+    {
+        $input = Request::all();
+        if (isset($input['filter_status']))
+        {
+            $filter_status = $input['filter_status'];
+            $sales_invoices = SalesInvoice::where('status',$filter_status)->paginate(10);
+            $sales_invoices->appends(Request::only('filter_status'));
+        }
+        else
+        {
+            $filter_date = $input['filter_date'];
+            $sales_invoices = SalesInvoice::where('due_date',$filter_date)->paginate(10); //and where status !== collected
+            $sales_invoices->appends(Request::only('filter_date'));
+        }
+        if ($sales_invoices == "[]")
+        {
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        $dates = SalesInvoice::all()->lists('due_date','due_date');
+        return view('sales_invoices.index',compact('sales_invoices','dates'));
     }
 
     /**
@@ -55,7 +98,6 @@ class SalesInvoicesController extends Controller
   //       $paymentOptions['15 Days'] = '15 Days';
   //       $paymentOptions['30 Days'] = '30 Days';
   //       $paymentOptions['60 Days'] = '60 Days';
-
         $clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
 
         return view('sales_invoices.create', compact('clientOptions'));
@@ -70,22 +112,21 @@ class SalesInvoicesController extends Controller
     public function store(Requests\CreateSalesInvoiceRequest $request)
     {
         $input = Request::all();
-        $saleInvoice = new SalesInvoice;
-        $saleInvoice->si_no = $input['si_no'];
-		$saleInvoice->po_number = $input['po_number'];
-		$saleInvoice->dr_number = $input['dr_number'];
-        $saleInvoice->date = $input['date'];
-		$saleInvoice->due_date = $input['due_date'];
-        //$saleInvoice->total_amount = $input['total_amount'];
-        $saleInvoice->vat = $input['vat'];
-		$saleInvoice->wtax = $input['wtax'];
-        //$saleInvoice->status = $input['status'];
-        //$saleInvoice->date_delivered = $input['date_delivered'];
-        //$saleInvoice->date_collected = $input['date_collected'];
-        $saleInvoice->client_id = $input['client_id'];
-        $saleInvoice->user_id = $input['user_id'];
-        $saleInvoice->save();
-    
+        $sales_invoice = new SalesInvoice;
+        $sales_invoice->si_no = $input['si_no'];
+    		$sales_invoice->po_number = $input['po_number'];
+    		$sales_invoice->dr_number = $input['dr_number'];
+        $sales_invoice->date = Carbon\Carbon::now();
+		    $sales_invoice->due_date = $input['due_date'];
+        //$salesInvoice->total_amount = $input['total_amount'];
+        $sales_invoice->vat = $input['vat'];
+		    $sales_invoice->wtax = $input['wtax'];
+        $sales_invoice->status = "Pending";
+        //$salesInvoice->date_delivered = $input['date_delivered'];
+        //$salesInvoice->date_collected = $input['date_collected'];
+        $sales_invoice->client_id = $input['client_id'];
+        $sales_invoice->user_id = $input['user_id'];
+        $sales_invoice->save();
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -97,8 +138,8 @@ class SalesInvoicesController extends Controller
      */
     public function show($id)
     {
-        $salesInvoice = SalesInvoice::find($id);
-        return view('sales_invoices.show', compact('salesInvoice'));
+        $sales_invoice = SalesInvoice::find($id);
+        return view('sales_invoices.show', compact('sales_invoice'));
     }
 
     /**
@@ -109,18 +150,17 @@ class SalesInvoicesController extends Controller
      */
     public function edit($id)
     {
-        $salesInvoice = SalesInvoice::find($id);
-		// $statusOptions = [];
-		// $statusOptions['Good'] = 'Good';
-		// $statusOptions['Blacklisted'] = 'Blacklisted';
+        $sales_invoice = SalesInvoice::find($id);
+        return view('sales_invoices.edit', compact('sales_invoice'));
+    }
 
-  //       $paymentOptions = [];
-  //       $paymentOptions['Cash'] = 'Cash';
-  //       $paymentOptions['15 Days'] = '15 Days';
-  //       $paymentOptions['30 Days'] = '30 Days';
-  //       $paymentOptions['60 Days'] = '60 Days';
-
-        return view('sales_invoices.edit', compact('salesInvoice'));
+    public function editStatus($id)
+    {
+        $sales_invoice = SalesInvoice::find($id);
+        if ($sales_invoice->status === "Overdue"){
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        return view('sales_invoices.edit_status',compact('sales_invoice'));
     }
 
     /**
@@ -133,21 +173,24 @@ class SalesInvoicesController extends Controller
     public function update(Requests\CreateSalesInvoiceRequest $request, $id)
     {
         //UNFINISHED
-        $client = Client::find($id);
+        $sales_invoice = SalesInvoice::find($id);
         $input = Request::all();
-        $client->update([
-            'name' => $input['name'],
-			'telephone_number' => $input['telephone_number'],
-			'address' => $input['address'],
-            'email' => $input['email'],
-			'tin' => $input['tin'],
-            'contact_person' => $input['contact_person'],
+        $sales_invoice->update([
+            'si_no' => $input['si_no'],
+      		'po_number' => $input['po_number'],
+      		'dr_number' => $input['dr_number'],
+            'date' => $input['date'],
+            'due_date' => $input['due_date'],
+            'vat' => $input['vat'],
             'credit_limit' => $input['credit_limit'],
-			'status' => $input['status'],
-            'payment_terms' => $input['payment_terms'],
-            'user_id' => $input['username']
+            'wtax' => $input['wtax'],
+            'status' => $input['status'],
+            'date_delivered' => $input['date_delivered'],
+            'date_collected' => $input['date_collected'],
+            'client_id' => $input['client_id'],
+            'user_id' => $input['user_id']
         ]);
-        return redirect()->action('ClientsController@show',[$id]);
+        return redirect()->action('SalesInvoicesController@show',[$id]);
     }
 
     /**
@@ -158,8 +201,8 @@ class SalesInvoicesController extends Controller
      */
     public function destroy($id)
     {
-        $salesInvoice = SalesInvoice::find($id);
-        $salesInvoice->delete();
+        $sales_invoice = SalesInvoice::find($id);
+        $sales_invoice->delete('set null');
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -193,5 +236,15 @@ class SalesInvoicesController extends Controller
     {
         $sales_invoices = SalesInvoice::whereRaw("week(now()) - week(due_date) >= 1 AND sales_invoices.status='overdue'")->get();
         return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function generatePdf($id)
+    {
+        ini_set("max_execution_time", 0);
+        $sales_invoice = SalesInvoice::find($id);
+        $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice'));
+        Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
+        return $pdf->stream();
+
     }
 }

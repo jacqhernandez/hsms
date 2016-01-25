@@ -1,16 +1,10 @@
 <div>
-	@if ($errors->any())
-		<ul class="alert alert-danger">
-			@foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	@endif
+	@include('includes.required_errors')
 	<table> 
 		<tbody>
 			<tr>
 				<td> {!! Form::label('reason', 'Reason: ') !!}</td>
-				<td> {!! Form::text('reason', old('reason'), ['class' => 'span7']) !!} </td>
+				<td> {!! Form::textarea('reason', old('reason'), ['class' => 'span7 form-control', 'rows' => '2']) !!} </td>
 			</tr>	
 		</tbody> 
 	</table>

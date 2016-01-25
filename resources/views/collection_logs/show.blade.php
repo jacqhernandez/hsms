@@ -1,6 +1,5 @@
 @extends ('layouts.app')
 @section('content')
-	@include('includes.required_errors')
 		<h2>{{ $client['name'] }}</h2>
 		<table class="table">
 			<tbody>
