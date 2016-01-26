@@ -29,11 +29,10 @@ class CreateSupplierRequest extends Request
             case 'POST':
             {
                 return [
-                //
-                   'name' => 'required',
-                    'address' => 'required',
+                    'name' => 'required',
                     'telephone_number' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:suppliers'
+                    'address' => 'required',
+                    'tin' => 'required|min:9|max:9|unique:suppliers',
                 ];
             }
             case 'PATCH':
@@ -43,18 +42,18 @@ class CreateSupplierRequest extends Request
                 {
                     return[
                     'name' => 'required',
-                    'address' => 'required',
                     'telephone_number' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:suppliers,id'.$this->get('id')
+                    'address' => 'required',
+                    'tin' => 'required|min:9|max:9|unique:suppliers,id'.$this->get('id'),
                     ];
                 }
                 else
                 {
                     return[
                     'name' => 'required',
-                    'address' => 'required',
                     'telephone_number' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:suppliers'
+                    'address' => 'required',
+                    'tin' => 'required|min:9|max:9|unique:suppliers',
                     ];
                 }
             }

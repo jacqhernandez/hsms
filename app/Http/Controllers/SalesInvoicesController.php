@@ -11,6 +11,8 @@ use App\SalesInvoice;
 use Request;
 use Auth;
 use App\Item;
+use DB;
+
 use Activity;
 
 class SalesInvoicesController extends Controller
@@ -218,6 +220,30 @@ class SalesInvoicesController extends Controller
         return view('sales_invoices.quotation', compact('clientOptions','itemOptions'));
     }
 
+    public function viewCollected()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='collected'")->paginate(10);
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function viewCollectibles()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='delivered'")->paginate(10);
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function viewUpcoming()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(due_date) - week(now()) = 1 AND sales_invoices.status='delivered'")->paginate(10);
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
+    public function viewOverdue()
+    {
+        $sales_invoices = SalesInvoice::whereRaw("week(now()) - week(due_date) >= 1 AND sales_invoices.status='overdue'")->paginate(10);
+        return view('sales_invoices.index', compact('sales_invoices'));
+    }
+
     public function generatePdf($id)
     {
         ini_set("max_execution_time", 0);
@@ -225,5 +251,6 @@ class SalesInvoicesController extends Controller
         $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice'));
         Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
         return $pdf->stream();
+
     }
 }
