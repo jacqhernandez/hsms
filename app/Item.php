@@ -10,4 +10,9 @@ class Item extends Model
 		'name',
 		'description'
 	];
+
+	public function PriceLogs()
+	{
+		return $this->hasMany('App\PriceLog');
+	}
 }

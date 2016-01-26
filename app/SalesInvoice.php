@@ -36,6 +36,11 @@ class SalesInvoice extends Model
 		return $this->belongsTo('App\User');
 	}
 
+	public function InvoiceItems()
+	{
+		return $this->hasMany('App\InvoiceItem');
+	}
+
 	public function getActivityDescriptionForEvent($eventName)
 	{
 	    if ($eventName == 'created')

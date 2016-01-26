@@ -56,6 +56,7 @@
 			<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			<td>{{ $sales_invoice->status }}</td>
 			<td><a href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}">View</a></td>
+			<td><a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a></td>
 			@if ($sales_invoice->status !== "Overdue")
 			<td><a href="{{ action ('SalesInvoicesController@editStatus', [$sales_invoice->id]) }}">Update Status</a></td>
 			@endif
@@ -64,7 +65,7 @@
 	</tbody> 
 </table>
 <?php echo $sales_invoices->render(); ?>
-@if (Auth::user()['role'] == 'General Manager')
+@if ((Auth::user()['role'] == 'General Manager') || (Auth::user()['role'] == 'Sales'))
 	<a href="{{ url('/invoices/create') }}">New Sales Invoice</a>
 @endif
 
