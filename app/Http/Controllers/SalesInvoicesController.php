@@ -142,6 +142,12 @@ class SalesInvoicesController extends Controller
         return view('sales_invoices.show', compact('sales_invoice'));
     }
 
+    public function poGuide($id)
+    {
+        $sales_invoice = SalesInvoice::find($id);
+        return view('sales_invoices.po_guide', compact('sales_invoice'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

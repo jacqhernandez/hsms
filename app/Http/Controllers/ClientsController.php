@@ -17,7 +17,7 @@ class ClientsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show','search']]);     
+        $this->middleware('general_manager',['except' => ['index','show','search','filter']]);     
     }
     /**
      * Display a listing of the resource.

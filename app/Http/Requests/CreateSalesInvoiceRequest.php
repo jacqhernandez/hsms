@@ -26,6 +26,7 @@ class CreateSalesInvoiceRequest extends Request
         //UNFINISHED
         return [
             //
+            'status' => 'required'
             //'due_date' => 'required',
             
         ];

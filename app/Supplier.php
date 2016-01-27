@@ -15,4 +15,9 @@ class Supplier extends Model
 		'payment_terms',
 		'contact_person'
 	];
+
+	public function PriceLogs()
+	{
+		return $this->hasMany('App\PriceLog');
+	}
 }
