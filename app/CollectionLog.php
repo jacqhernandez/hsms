@@ -21,6 +21,16 @@ class CollectionLog extends Model
 
 		
 	];
-
-	//collection log
+	public function Reason()
+    {
+        return $this->belongsTo('App\Reason');
+    }
+    public function Client()
+    {
+    	return $this->belongsTo('App\Client');
+    }
+    public function SalesInvoiceCollectionLog()
+    {
+    	return $this->hasMany('App\SalesInvoiceCollectionLog');
+    }
 }

@@ -36,6 +36,7 @@ Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@s
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']); 
 
+Route::resource('clients.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

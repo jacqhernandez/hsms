@@ -1,54 +1,59 @@
 @extends ('layouts.app')
 @section('content')
-		<h2>{{ $client['name'] }}</h2>
+	@include('includes.required_errors')
+		<h2>{{ $client->name }}</h2>
+		<h3>Sales Invoices</h3>
 		<table class="table">
+			<thead>
+				<tr>
+					<th>Sales Invoice Number</th>
+					<th>Status</th>
+					<th>Total Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach ($salesinvoices as $salesinvoice)
+				<tr>
+					<td>{{ $salesinvoice->SalesInvoice->si_no }}</td>
+					<td>{{ $salesinvoice->SalesInvoice->status }}</td>
+					<td>{{ $salesinvoice->SalesInvoice->total_amount }}</td>
+				</tr>
+				@endforeach		
+			</tbody>
+		</table>
+		<h3>Collection Log Details</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Action</th>
+					<th>Follow-Up Date</th>
+					<th>Notes</th>
+					<th>Reason</th>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>Telephone Number: </td>
-					<td>{{ $client['telephone_number'] }}</td>
-				</tr>
-				
-				<tr>
-					<td>Address: </td>
-					<td>{{ $client['address'] }}</td>
-				
-				<tr>
-					<td>Email: </td>
-					<td>{{ $client['email'] }}</td>
-				</tr>
-			
-				<tr>
-					<td>TIN: </td>
-					<td>{{ $client['tin'] }}</td>
-				</tr>
-				
-				<tr>
-					<td>Credit Limit: </td>
-					<td>{{ $client['credit_limit'] }}</td>
-				</tr>
-				
-				<tr>
-					<td>Status:</td>
-					<td>{{ $client['status'] }}</td>
+					<?php 
+					$date = Carbon\Carbon::parse($cLog->date)->toFormattedDateString();
+					$follow_up_date = Carbon\Carbon::parse($cLog->follow_up_date)->toFormattedDateString();
+					?>
+					<td>{{ $date }}</td>
+					<td>{{ $cLog->action }}</td>
+					<td>{{ $follow_up_date }}</td>
+					<td>{{ $cLog->note }}</td>
+					<td>{{ $cLog->Reason->reason }}</td>
 				</tr>
 			</tbody>
 		</table>
-
 	<table>
 	<tr>
+	@if (Auth::user()['role'] == 'General Manager')
+	@endif
 	<td>
-	{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
-		<button class="btn btn-warning">Edit</button>
-	{!! Form::close() !!}		
+	<a href="{{ URL::previous() }}"><button type="button" class="btn btn-info">Back</button></a>	
 	</td>
-	<td>
-	{!! Form::open(['route' => ['clients.destroy', $client->id], 'method' => 'delete' ]) !!}
-		<button class="btn btn-danger">Delete</button>
-	{!! Form::close() !!}
-	</td>
-	<td>
-	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
-	</td>
+	</tr>
 	</table>
 						
 @stop

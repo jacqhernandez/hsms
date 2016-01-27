@@ -8,6 +8,7 @@ class Item extends Model
 {
     protected $fillable = [
 		'name',
+		'unit',
 		'description'
 	];
 }

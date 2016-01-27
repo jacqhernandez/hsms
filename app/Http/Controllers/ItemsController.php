@@ -63,6 +63,7 @@ class ItemsController extends Controller
         $input = Request::all();
         $item = new Item;
         $item->name = $input['name'];
+        $item->unit = $input['unit'];
         $item->description = $input['description'];
         $item->save();
         $id = $item->id;

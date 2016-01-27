@@ -22,11 +22,17 @@ class Client extends Model implements LogsActivityInterface
 		'payment_terms',
 		'user_id'		
 	];
-
-
 	public function User()
 	{
 		return $this->belongsTo('App\User');
+	}
+	public function CollectionLog()
+	{
+		return $this->hasMany('App\CollectionLog');
+	}
+	public function SalesInvoiceCollectionLog()
+	{
+		return $this->hasMany('App\SalesInvoiceCollectionLog');
 	}
 
 	public function getActivityDescriptionForEvent($eventName)

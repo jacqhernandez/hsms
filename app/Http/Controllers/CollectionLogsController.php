@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\CollectionLog;
+use App\Reason;
+use App\User;
+use App\Client;
+use App\SalesInvoice;
+use App\SalesInvoiceCollectionLog;
+use Auth;
+use Request;
+
+
+
+
 
 class CollectionLogsController extends Controller
 {
@@ -14,20 +26,41 @@ class CollectionLogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   public function index()
+   public function index($id)
     {
-        $collection_logs = CollectionLog::all();
-        return view('collection_logs.index', compact('collection_logs'));
+        
+        $client = Client::find($id);
+        
+        $overdue = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->count();
+        if ($overdue != 0)
+        {
+            $overdues = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->get();
+        }
+        $pending = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->count();
+        if ($pending != 0)
+        {
+            $pendings = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->get();
+        }
+        $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')->paginate(10);
+        return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'pending', 'overdues', 'pendings'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('collection_logs.create');
+        $salesinvoices = SalesInvoice::where('client_id', $id)->get();
+        $actionOptions = [];
+        $actionOptions['Text'] = 'Text';
+        $actionOptions['Call'] = 'Call';
+        $actionOptions['Fax'] = 'Fax';
+        $actionOptions['Send SOA'] = 'Send SOA';
+        $actionOptions['Email'] = 'Email';
+        $actionOptions['Visit'] = 'Visit';
+        $reasonOptions = Reason::lists('reason', 'id');
+        return view('collection_logs.create', compact('actionOptions', 'reasonOptions', 'id', 'salesinvoices'));
     }
 
     /**
@@ -38,6 +71,8 @@ class CollectionLogsController extends Controller
      */
     public function store(Request $request)
     {
+        $salesinvoice = Request::get('check_list');
+
         $input = Request::all();
         $cLog = new CollectionLog;
         $cLog->date = $input['date'];
@@ -45,10 +80,20 @@ class CollectionLogsController extends Controller
         $cLog->follow_up_date = $input['follow_up_date'];
         $cLog->note = $input['note'];
         $cLog->reason_id = $input['reason_id'];
-        $cLog->user_id = $input['user_id'];
+        $cLog->user_id = Auth::user()['id'];
+        $cLog->client_id = $input['client_id'];
         $cLog->save();
-        $id = $cLog->id;
-        return redirect()->action('CollectionLogsController@show', [$id]);
+        foreach ($salesinvoice as $key)
+        {
+            $sicl = new SalesInvoiceCollectionLog;
+            $sicl->sales_invoice_id = $key;
+            $sicl->client_id = $cLog->client_id;
+            $sicl->collection_log_id = $cLog->id;
+            $sicl->save();
+        }
+        $id = $cLog->client_id;
+
+        return redirect()->action('CollectionLogsController@index', [$id]);
     }
 
     /**
@@ -57,10 +102,21 @@ class CollectionLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_id, $id)
     {
         $cLog = CollectionLog::find($id);
-        return view('collection_logs.show', compact('cLog'));
+        //$sicl = SalesInvoiceCollectionLog::where('client_id', $client_id)->get();
+        //$salesinvoices = SalesInvoice::where('client_id', $client_id)->where('status', '!=', 'Collected')->get();
+        $client = Client::find($client_id);
+        $salesinvoices = SalesInvoiceCollectionLog::join('clients', 'sales_invoice_collection_logs.client_id', '=', 'clients.id')
+                       ->join('sales_invoices', 'sales_invoice_collection_logs.sales_invoice_id', '=', 'sales_invoices.id')
+                       ->join('collection_logs', 'sales_invoice_collection_logs.collection_log_id', '=', 'collection_logs.id')
+                       ->where('sales_invoice_collection_logs.client_id', $client_id)
+                       ->where('sales_invoice_collection_logs.collection_log_id', $id)
+                       ->where('sales_invoices.status', '!=', 'Collected')
+                       ->select('*')
+                       ->get();
+        return view('collection_logs.show', compact('cLog', 'client', 'salesinvoices'));
     }
 
     /**
@@ -103,10 +159,10 @@ class CollectionLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         $cLog = CollectionLog::find($id);
         $cLog->delete();
-        return redirect()->route('index');
+        return redirect()->action('CollectionLogsController@index', [$client_id]);
     }
 }
