@@ -17,7 +17,12 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 
 
 //Sales Invoice CRUD route
+Route::get('invoices/search', ['as' => 'invoices.search', 'uses' => 'SalesInvoicesController@search']);
+Route::get('invoices/filter', ['as' => 'invoices.filter', 'uses' => 'SalesInvoicesController@filter']);
 Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
+Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
+Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
+
 Route::resource('invoices', 'SalesInvoicesController');
 
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
@@ -50,3 +55,14 @@ Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show'
 Route::get('reports', 'ReportsController@index');
 Route::get('reports/generate', ['as' => 'reports.generate', 'uses' => 'ReportsController@generate']);
 Route::post('reports/generate', 'ReportsController@generate');
+
+Route::get('/home', 'DashboardController@index');
+Route::get('/home/Collected', 'SalesInvoicesController@viewCollected');
+Route::get('/home/CurrentCollectibles', 'SalesInvoicesController@viewCollectibles');
+Route::get('/home/UpcomingCollectibles', 'SalesInvoicesController@viewUpcoming');
+Route::get('/home/OverdueCollectibles', 'SalesInvoicesController@viewOverdue');
+
+
+Route::get('logs', 'LogsController@index');
+Route::get('logs/filter', ['as' => 'logs.filter', 'uses' => 'LogsController@filter']);
+Route::get('logs/delete', ['as' => 'logs.delete', 'uses' => 'LogsController@deleteOldestFiftyActivities']);

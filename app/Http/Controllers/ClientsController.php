@@ -28,8 +28,7 @@ class ClientsController extends Controller
     {
         if (Auth::user()['role'] == 'Sales')
         {
-            $clients = Client::where('user_id',Auth::user()['id'])->get();
-
+            $clients = Client::where('user_id',Auth::user()['id'])->paginate(10);
         }
         else
         {

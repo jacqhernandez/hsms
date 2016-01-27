@@ -46,10 +46,8 @@
 				</tr>
 			</tbody>
 		</table>
-
 	<table>
 	<tr>
-
 	@if (Auth::user()['role'] == 'General Manager')
 	@endif
 	<td>

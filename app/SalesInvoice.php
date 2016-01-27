@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogsActivityInterface;
+use Spatie\Activitylog\LogsActivity;
 
 class SalesInvoice extends Model
 {
+	use LogsActivity;
+
     protected $fillable = [
 		'si_no',
 		'po_number',
@@ -26,8 +30,35 @@ class SalesInvoice extends Model
 	{
 		return $this->belongsTo('App\Client');
 	}
+<<<<<<< HEAD
 	public function SalesInvoiceCollectionLog()
 	{
 		return $this->hasMany('App\SalesInvoiceCollectionLog');
+=======
+
+	public function User()
+	{
+		return $this->belongsTo('App\User');
+	}
+
+	public function getActivityDescriptionForEvent($eventName)
+	{
+	    if ($eventName == 'created')
+	    {
+	        return 'Sales Invoice ' . $this->si_no . ' was created';
+	    }
+
+	    if ($eventName == 'updated')
+	    {
+	        return 'Sales Invoice ' . $this->si_no . ' was updated';
+	    }
+
+	    if ($eventName == 'deleted')
+	    {
+	        return 'Sales Invoice ' . $this->si_no . ' was deleted';
+	    }
+
+	    return '';
+>>>>>>> refs/remotes/origin/master
 	}
 }

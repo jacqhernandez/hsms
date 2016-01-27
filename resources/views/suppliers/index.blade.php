@@ -34,6 +34,7 @@
 	@endforeach
 	</tbody>
 </table>
+<?php echo $suppliers->render(); ?>
 <br>
 @if (Auth::user()['role'] == 'General Manager')
 <a href="{{ url('/suppliers/create') }}">Create New Supplier</a>

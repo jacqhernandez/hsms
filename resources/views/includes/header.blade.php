@@ -270,7 +270,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="{{ url('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 
                         </li>
 
@@ -283,21 +283,28 @@
 						<li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Admin Maintenance<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
-                                </li>
-                                <li>
-                                    <a href="{{url::action('ClientsController@index')}}">Clients</a>
-                                </li>
-                                <li>
-                                    <a href="{{url::action('SuppliersController@index')}}">Suppliers</a>
-                                </li>
-                                <li>
-                                    <a href="{{url::action('ReasonsController@index')}}">Reasons</a>
-                                </li>
-                                <li>
-                                    <a href="{{url::action('ItemsController@index')}}">Items</a>
-                                </li>
+                                @if (Auth::check())
+                                    <li>
+                                        <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url::action('ClientsController@index')}}">Clients</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url::action('SuppliersController@index')}}">Suppliers</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url::action('ReasonsController@index')}}">Reasons</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url::action('ItemsController@index')}}">Items</a>
+                                    </li>
+                                    @if (Auth::user()['role'] == 'General Manager')
+                                        <li>
+                                            <a href="{{url::action('LogsController@index')}}">Activity Log</a>
+                                        </li>
+                                    @endif
+                                @endif
 							</ul>
 						</li>
 						

@@ -40,6 +40,7 @@
 		@endforeach
 	</tbody> 
 </table>
+<?php echo $items->render(); ?>
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/items/create') }}">New Item</a>
 @endif

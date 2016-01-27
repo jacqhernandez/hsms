@@ -17,16 +17,22 @@
 				</select></td> -->
 				<td>{!! Form::select('report_type', $reportOptions, null, ['id' => 'report_type']) !!}</td>
 		</tr>
-		<tr id="month">
-			<td>{!! Form::label('month', 'From: ') !!}</td>
-			<td>{!! Form::selectMonth('select_monthFrom') !!}</td>
-			<td>{!! Form::label('monthTo', 'To: ') !!}</td>
-			<td>{!! Form::selectMonth('select_monthTo') !!}</td>
-		</tr>
 
 		<tr id="item">
 			<td>{!! Form::label('item', 'Item: ') !!}</td>
 			<td>{!! Form::select('item', $items) !!}</td>
+		</tr>
+		
+		<tr id="month">
+			<td>{!! Form::label('month', 'Month: ') !!}</td>
+			<td>{!! Form::selectMonth('select_monthFrom') !!}</td>
+			<td>{!! Form::label('monthTo', ' To ') !!}</td>
+			<td>{!! Form::selectMonth('select_monthTo') !!}</td>
+		</tr>
+
+		<tr id="year">
+			<td>{!! Form::label('month', 'Year: ') !!}</td>
+			<td>{!! Form::select('year', $years, null) !!}</td>
 		</tr>
 
 		<tr id="client">
@@ -58,9 +64,11 @@ $('#report_type').change(function() {
     $('#month').show();
     $('#item').show();
     $('#client').show();
+    $('#year').show();
     if($(this).val() === 'client') {
         $('#month').hide();
         $('#item').hide();
+        $('#year').hide();
     }
 
     if ($(this).val() == 'item') {
