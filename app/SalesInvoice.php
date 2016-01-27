@@ -30,12 +30,10 @@ class SalesInvoice extends Model
 	{
 		return $this->belongsTo('App\Client');
 	}
-<<<<<<< HEAD
 	public function SalesInvoiceCollectionLog()
 	{
 		return $this->hasMany('App\SalesInvoiceCollectionLog');
-=======
-
+	}	
 	public function User()
 	{
 		return $this->belongsTo('App\User');
@@ -57,8 +55,6 @@ class SalesInvoice extends Model
 	    {
 	        return 'Sales Invoice ' . $this->si_no . ' was deleted';
 	    }
-
 	    return '';
->>>>>>> refs/remotes/origin/master
 	}
 }
