@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Client;
 use App\User;
+use App\SalesInvoice;
 use Request;
 use Auth;
 
@@ -28,14 +29,23 @@ class ClientsController extends Controller
         if (Auth::user()['role'] == 'Sales')
         {
             $clients = Client::where('user_id',Auth::user()['id'])->get();
+
         }
         else
         {
              // $clients = Client::all();
-             $clients = Client::paginate(1);
+             $clients = Client::paginate(10);
+             $overdue = new SalesInvoice;
+             $pending = new SalesInvoice;
+             for ($x = 0; $x < count($clients); $x++)
+             {
+                $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
+                $pending[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Pending')->count();
+             }
              $clients->setpath('hsms/public/clients/');
+             return view('clients.index', compact('clients', 'overdue', 'pending'));
         }
-        return view('clients.index', compact('clients'));
+        //return view('clients.index', compact('clients'));
     }
 
     public function search()

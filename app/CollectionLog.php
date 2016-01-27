@@ -25,4 +25,8 @@ class CollectionLog extends Model
     {
     	return $this->belongsTo('App\Client');
     }
+    public function SalesInvoiceCollectionLog()
+    {
+    	return $this->hasMany('App\SalesInvoiceCollectionLog');
+    }
 }

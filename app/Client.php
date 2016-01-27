@@ -27,4 +27,8 @@ class Client extends Model
 	{
 		return $this->hasMany('App\CollectionLog');
 	}
+	public function SalesInvoiceCollectionLog()
+	{
+		return $this->hasMany('App\SalesInvoiceCollectionLog');
+	}
 }

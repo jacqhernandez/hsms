@@ -31,9 +31,7 @@ Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@s
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']); 
 
-//Route::get('collection_logs/index/{id}', ['as' => 'collection_logs.index', 'uses' => 'CollectionLogsController@index']);
-//Route::get('collection_logs/create/{id}', ['as' => 'collection_logs.create', 'uses' => 'CollectionLogsController@create']);
-Route::resource('clients.collection_logs', 'CollectionLogsController', ['except'=> 'show', 'edit', 'update']);
+Route::resource('clients.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

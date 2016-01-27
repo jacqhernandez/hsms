@@ -32,6 +32,8 @@
 			<th>Credit Limit</th>
 			<th>Status</th>
 			<th>Sales Employee</th>
+			<th>Overdue</th>
+			<th>Pending</th>
 		</tr>
 	</thead>
 	
@@ -44,6 +46,8 @@
 			<td>{{ $client->credit_limit }}</td>
 			<td>{{ $client->status }}</td>
 			<td>{{ $client->User->username }}</td>
+			<td>{{ $overdue[$client->id] }}</td>
+			<td>{{ $pending[$client->id] }}</td>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">View</a></td>
 			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View Collection Log</a></td>
 		</tr>
