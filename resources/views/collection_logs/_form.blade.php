@@ -19,6 +19,9 @@
 					['class' => 'form-control', 'placeholder' => 'Date', 'visible' => 'false']) !!}</td>
 				<td>{!! Form::text('note', old('note'), ['class' => 'span7']) !!}</td>
 				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason')) !!}</td>
+				<td>
+					<a href="{{ url('/reasons/create') }}">Add Reason</a>
+				</td>
 			</tr>	
 			<tr>
 				<td> {!! Form::hidden('client_id', $id) !!}</td>

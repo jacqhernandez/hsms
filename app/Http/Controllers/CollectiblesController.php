@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Client;
 use App\SalesInvoice;
 
-class CollectibleController extends Controller
+class CollectiblesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,15 @@ class CollectibleController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::paginate(10);
+        $overdue = new SalesInvoice;
+        $delivered = new SalesInvoice;
+        for ($x = 1; $x < count($clients)+1; $x++)
+        {
+           $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
+           $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
+        }
+        return view('collectibles.index', compact('clients', 'overdue', 'delivered'));
     }
 
     /**

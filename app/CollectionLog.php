@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
+//use Spatie\Activitylog\LogsActivityInterface;
+//use Spatie\Activitylog\LogsActivity;
 
 class CollectionLog extends Model
 {
-    use LogsActivity;
+    //use LogsActivity;
 
     //
     protected $fillable = [

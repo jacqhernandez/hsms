@@ -24,20 +24,11 @@ class CreateSupplierRequest extends Request
      */
     public function rules()
     {
-        // return [
-        //     //
-        //     'name' => 'required',
-        //     'address' => 'required',
-        //     'telephone_number' => 'required',
-        //     'tin' => 'required|min:9|max:9|unique:suppliers'
-        // ];
-
         switch($this->method())
         {
             case 'POST':
             {
                 return [
-                //
                     'name' => 'required',
                     'telephone_number' => 'required',
                     'address' => 'required',
@@ -46,7 +37,7 @@ class CreateSupplierRequest extends Request
             }
             case 'PATCH':
             {
-                $supplier = Supplier::find($this->segment(2)); //this gets the second segment in the url which is the id of the client
+                $supplier = Supplier::find($this->segment(2)); //this gets the second segment in the url which is the id of the supplier
                 if ($this->get('tin') == $supplier['tin'])
                 {
                     return[
@@ -70,3 +61,5 @@ class CreateSupplierRequest extends Request
         }
     }
 }
+
+

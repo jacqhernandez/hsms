@@ -11,4 +11,9 @@ class Item extends Model
 		'unit',
 		'description'
 	];
+
+	public function PriceLogs()
+	{
+		return $this->hasMany('App\PriceLog');
+	}
 }

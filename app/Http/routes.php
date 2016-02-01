@@ -22,8 +22,10 @@ Route::get('invoices/filter', ['as' => 'invoices.filter', 'uses' => 'SalesInvoic
 Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
 Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
+Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' => 'SalesInvoicesController@poGuide']);
 
 Route::resource('invoices', 'SalesInvoicesController');
+
 
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
 Route::get('clients/filter', ['as' => 'clients.filter', 'uses' => 'ClientsController@filter']);
@@ -36,7 +38,8 @@ Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@s
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']); 
 
-Route::resource('clients.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
+Route::resource('collectibles', 'CollectiblesController', ['except' => 'update', 'edit', 'show', 'destroy']);
+Route::resource('collectibles.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

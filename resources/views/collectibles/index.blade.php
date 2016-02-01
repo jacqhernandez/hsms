@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <br>
-<h2>Clients</h2>
+<h2>Collectibles</h2>
 <hr>
 
 {!!  Form::open(['route' => ['clients.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
@@ -27,24 +27,22 @@
 	<thead>
 		<tr>
 			<th>Name</th>
-			<th>Telephone Number</th>
-			<th>Email</th>
 			<th>Credit Limit</th>
 			<th>Status</th>
-			<th>Sales Employee</th>
+			<th>Overdue</th>
+			<th>Pending</th>
 		</tr>
 	</thead>
 	
 	<tbody>
 		@foreach ($clients as $client)
 		<tr>
-			<td>{{ $client->name }}</td>
-			<td>{{ $client->telephone_number }}</td>
-			<td>{{ $client->email }}</td>
+			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">{{ $client->name }}</a></td>
 			<td>{{ $client->credit_limit }}</td>
 			<td>{{ $client->status }}</td>
-			<td>{{ $client->User->username }}</td>
-			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">View</a></td>
+			<td>{{ $overdue[$client->id] }}</td>
+			<td>{{ $delivered[$client->id] }}</td>
+			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
 		</tr>
 		@endforeach
 	</tbody> 

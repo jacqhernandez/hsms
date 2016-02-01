@@ -3,7 +3,7 @@
 
 <h2>Add New Log</h2>
 
-	{!! Form::open(['route' => ['clients.collection_logs.store'], 'method' => 'post' ]) !!}
+	{!! Form::open(['route' => ['collectibles.collection_logs.store'], 'method' => 'post' ]) !!}
 	@include('collection_logs._form')
 	{!! Form::close() !!}
 	

@@ -15,7 +15,7 @@ class ItemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index']]);     
+        $this->middleware('general_manager',['except' => ['index','search']]);     
     }
     /**
      * Display a listing of the resource.
