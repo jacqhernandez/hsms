@@ -26,6 +26,7 @@ Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' 
 
 Route::resource('invoices', 'SalesInvoicesController');
 
+
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
 Route::get('clients/filter', ['as' => 'clients.filter', 'uses' => 'ClientsController@filter']);
 Route::resource('clients', 'ClientsController');
@@ -37,7 +38,8 @@ Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@s
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']); 
 
-Route::resource('clients.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
+Route::resource('collectibles', 'CollectiblesController', ['except' => 'update', 'edit', 'show', 'destroy']);
+Route::resource('collectibles.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

@@ -288,6 +288,9 @@
                                         <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
                                     </li>
                                     <li>
+                                        <a href="{{url::action('CollectiblesController@index')}}">Collectibles</a>
+                                    </li>
+                                    <li>
                                         <a href="{{url::action('ClientsController@index')}}">Clients</a>
                                     </li>
                                     <li>
