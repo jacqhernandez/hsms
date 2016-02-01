@@ -3,6 +3,12 @@
  <script src="{{ URL::asset('/bower_components/raphael/raphael-min.js')}}"></script>
  <script src="{{ URL::asset('/bower_components/morrisjs/morris.min.js')}}"></script>
 
+<!-- Calendar Picker -->
+<!-- <script src="{{ URL::asset('/bower_components/pickadate/lib/picker.js') }}"></script>
+<script src="{{ URL::asset('/bower_components/pickadate/lib/picker.date.js') }}"></script> -->
+
+
+
 
 <!-- THESE ARE ALREADY DECLARED ON APP.BLADE.PHP BUT IT DOESNT WORK SO I DECLARED IT AGAIN HERE-->
 <!-- we might want to move the scripts at the beginning of the page..although it might load a little slower-->
@@ -180,7 +186,8 @@
             @elseif (Auth::user()->role == 'Accounting')
             <div class="panel-heading">To-do List</div>
             <div class="panel-body">
-                <table class="table table-hover sortable"> 
+                  <div id="datepicker"></div>
+                <table class="table table-hover sortable" id="toDoTable"> 
                     <thead>
                         <tr>
                         <th>Client</th>
@@ -199,9 +206,27 @@
 </div>
 
 
-
+<input type="visible" id="my_hidden_input">
 
 <script>
+
+   $(function () {
+            $('#datepicker').datetimepicker({
+                inline: true,
+                sideBySide: false
+            });
+
+
+            $("#datepicker").on("dp.change", function (e) {
+                $('#my_hidden_input').val($('#datepicker').data('DateTimePicker').date().format('MM/DD/YYYY'));
+
+                $("#toDoTable > tbody").html("");
+
+            });
+        });
+
+
+
 new Morris.Line({
   // ID of the element in which to draw the chart.
   element: 'dailySales',

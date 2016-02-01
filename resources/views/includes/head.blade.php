@@ -37,3 +37,6 @@
 
     <!-- Custom Fonts -->
     <link href="{{ URL::asset('/bower_components/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Date Picker -->
+     <link href="{{ URL::asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css">

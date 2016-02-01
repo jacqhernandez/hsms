@@ -19,6 +19,7 @@
 		<th>Telephone Number</th>
 		<th>TIN</th>
 		<th>Address</th>
+		<th>E-mail</th>
 	</tr>
 </thead>
 <tbody>

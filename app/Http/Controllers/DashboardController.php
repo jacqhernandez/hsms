@@ -171,4 +171,11 @@ class DashboardController extends Controller
             return view('sales_invoices.index', compact('sales_invoices','dates'));
         }
     }
+
+
+    public function changeTodo()
+    {
+        //$collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
+        return "WEW";
+    }
 }

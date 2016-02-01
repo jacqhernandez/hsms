@@ -43,5 +43,11 @@
 
     <script src="{{ URL::asset('/js/sorttable.js') }}"></script>
 
+
+    <!-- bootstrap Date Picker -->
+    
+    <script src="{{ URL::asset('/bower_components/moment/min/moment.min.js')}}"></script>
+    <script src="{{ URL::asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
+
 </body>
 </html>

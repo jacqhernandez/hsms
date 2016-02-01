@@ -337,6 +337,7 @@ class ReportsController extends Controller
 
         else if ($reportType == "item")
         {
+
             $itemID = $input['item'];
             $item = Item::find($itemID);
             $itemName = $item->name;
@@ -488,13 +489,13 @@ class ReportsController extends Controller
 
                 });            
             })->export('xlsx');
-
         }
 
         else if ($reportType == "client")
         {
             //$client = Client::all();
             $clientid = $input['client'];
+            $clientName = Client::find($clientid)->name;
             $results = DB::select("SELECT c.name AS 'clientName', i.name, SUM(quantity) AS 'total' FROM invoice_items ii
                                     JOIN items i on ii.item_id = i.id 
                                     JOIN sales_invoices si ON ii.sales_invoice_id = si.id
@@ -503,13 +504,17 @@ class ReportsController extends Controller
                                     GROUP BY item_id ORDER BY sum(quantity) DESC LIMIT 3");
             //$client = DB::table('clients')->get();
 
-            Excel::create('Client Report ' . \Carbon\Carbon::today()->format('m-d-y'), function($excel) use($results, $counter) {
-            $excel->sheet('Data', function($sheet) use($results, $counter) {
+            Excel::create('Client Report ' . \Carbon\Carbon::today()->format('m-d-y'), function($excel) use($results, $counter, $clientName) {
+            $excel->sheet('Data', function($sheet) use($results, $counter, $clientName) {
 
 
                 $sheet->row($counter, array('Client Report'));
                 $counter++;
-                $sheet->row($counter, array('Client Name', $results[0]->clientName));
+                //$sheet->row($counter, array('Client Name', $results[0]->clientName));
+
+                $sheet->row($counter, array('Client Name', $clientName));
+
+
                 $counter++;
                 $counter++; //add space
                 $sheet->row($counter, array('Most Bought Items:'));
