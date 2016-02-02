@@ -186,7 +186,7 @@
             @elseif (Auth::user()->role == 'Accounting')
             <div class="panel-heading">To-do List</div>
             <div class="panel-body">
-                  <div id="datepicker"></div>
+                <div id="datepicker"></div>
                 <table class="table table-hover sortable" id="toDoTable"> 
                     <thead>
                         <tr>
@@ -194,9 +194,18 @@
                         <th>Follow Up Date</th>
                         <th>Note</th>
                     </thead>
-
                     <tbody>
-                        
+                    @foreach ($collection_logs as $toDo)
+                        <tr>
+                            <td>{{$toDo->name}}</td>
+                            <td>{{$toDo->follow_up_date}}</td>
+                            <td>{{$toDo->note}}</td>
+                            <!-- <td><a href="{{ action ('DashboardController@update', [$toDo->id]) }}">Mark as Done</a></td> -->
+                            <!-- "{!! Form::open(['method' => 'PATCH', 'action' => ['DashboardController@update', $toDo->id]]) !!}" -->
+                            <!-- <td>{!! Form::submit('Mark as Done', ['class' => 'btn btn-link']) !!}</td> -->
+                            <!-- {!! Form::close() !!} -->
+                        </tr>
+                    @endforeach
                     </tbody> 
                 </table>
             </div>
@@ -205,6 +214,9 @@
     </div>
 </div>
 
+
+
+<!-- <div id="txtHint"></div> -->
 
 <input type="visible" id="my_hidden_input">
 
@@ -218,13 +230,74 @@
 
 
             $("#datepicker").on("dp.change", function (e) {
-                $('#my_hidden_input').val($('#datepicker').data('DateTimePicker').date().format('MM/DD/YYYY'));
 
-                $("#toDoTable > tbody").html("");
+                // $calDate = $('#datepicker').data('DateTimePicker').date().format('MM/DD/YYYY');
+                $calDate = $('#datepicker').data('DateTimePicker').date().format('YYYY/MM/DD');
 
+                // $('#my_hidden_input').val($calDate);
+
+                 $("#toDoTable > tbody").html("");
+
+                // showToDo($calDate);
+                showHint($calDate);
+                
             });
         });
 
+   // function showToDo(date)
+   // {
+   //      if (window.XMLHttpRequest)
+   //      {
+   //          // code for IE7+, Firefox, Chrome, Opera, Safari
+   //          xmlhttp = new XMLHttpRequest();
+   //      } 
+
+   //      else {
+   //          // code for IE6, IE5
+   //          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+   //      }
+
+   //      xmlhttp.onreadystatechange = function() {
+   //          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+   //              document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+   //          }
+   //      };
+
+   //      xmlhttp.open("GET","home.php?q="+date,true);
+   //      xmlhttp.send();
+
+   //      // alert("WEW");
+   // }
+
+   function showHint(calDate) {
+
+    $.get('getRequest', {date: calDate}, function(data){
+      // console.log(data);
+      for (i=0; i<data.length; i++)
+      {
+        // var stringApp1 = '<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' + '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update",' + 
+        //                   data[i].id + 
+        //                   ']]) !!}' + 
+        //                   '<td>{!! Form::submit("Mark as done", ["class" => "btn btn-link"]) !!}</td>'
+        //                 + '{!! Form::close() !!}</tr>';
+
+
+        var formOpenString = data[i].id;
+        $('#todoTable tbody').append('<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' 
+          //+ '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update",'2']]) !!}'
+          //+ '<td>{!! Form::submit("Mark as Done", ["class" => "btn btn-link"]) !!}</td>'
+          //+ '{!! Form::close() !!}</tr>'
+          );
+
+
+      // $('#todoTable tbody').append(b3);
+
+
+
+         // console.log(b3);
+      }
+    }, 'json');
+  }
 
 
 new Morris.Line({

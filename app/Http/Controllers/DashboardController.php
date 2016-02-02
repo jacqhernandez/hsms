@@ -155,7 +155,12 @@ class DashboardController extends Controller
             $activities = Activity::where('user_id','!=',Auth::user()['id'])->orderBy('created_at','desc')->take(10);
             $users = User::where('role', '!=', 'General Manager')->lists('username', 'id');
 
-            $collection_logs = CollectionLog::all()->take(10);
+            // $collection_logs = CollectionLog::where('week(follow_up_date'), '=', 'week(now())', 'AND', 'status', '=', 'pending');
+            $collection_logs = DB::SELECT("SELECT c.id, name, follow_up_date, note FROM collection_logs c
+                                                JOIN clients cl on c.client_id = cl.id
+                                                WHERE  DATE(now()) = follow_up_date
+                                                AND c.status='pending'");
+
 
 
         	return view('pages.home', compact('currentAmount', 'currentCount', 'currentCollectibleCount', 'currentCollectibleAmount',
@@ -173,9 +178,25 @@ class DashboardController extends Controller
     }
 
 
-    public function changeTodo()
+    public function dateLog()
     {
-        //$collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
-        return "WEW";
+        $date = $_GET['date'];
+        // $collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
+        $collection_logs = DB::SELECT("SELECT c.id as 'id', name, follow_up_date, note FROM collection_logs c
+                                        JOIN clients cl on c.client_id = cl.id
+                                        WHERE follow_up_date = '$date'
+                                        AND c.status='pending'");
+        
+        return $collection_logs;
+    }
+
+    public function update($id)
+    {
+        $cLog = CollectionLog::find($id);
+        $cLog->update([
+            'status' => 'done'
+            ]);
+
+        return redirect()->action('DashboardController@index');
     }
 }

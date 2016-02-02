@@ -69,3 +69,17 @@ Route::get('/home/OverdueCollectibles', 'SalesInvoicesController@viewOverdue');
 Route::get('logs', 'LogsController@index');
 Route::get('logs/filter', ['as' => 'logs.filter', 'uses' => 'LogsController@filter']);
 Route::get('logs/delete', ['as' => 'logs.delete', 'uses' => 'LogsController@deleteOldestFiftyActivities']);
+
+// Route::post('collection_log/{id}', ['as' => 'collection_logs.update', 'uses' => 'DashboardController@viewToDo']);
+// Route::get('/getRequest', function(){
+
+// 	if(Request::ajax())
+// 	{
+// 		$date = $_GET['date'];
+// 		return 'getRequest has loaded completely' . $date;
+// 	}
+// });
+
+Route::get('/getRequest', ['as' => 'request', 'uses' => 'DashboardController@dateLog']);
+//Route::PUT('/mark/{id}', ['as' => 'collection_logs.update', 'uses' => 'DashboardController@mark']);
+Route::resource('collection_logs', 'DashboardController', ['except' => 'store', 'edit', 'show', 'destroy']);

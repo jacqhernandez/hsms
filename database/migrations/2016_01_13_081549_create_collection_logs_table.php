@@ -18,6 +18,7 @@ class CreateCollectionLogsTable extends Migration
             $table->string('action');
             $table->date('follow_up_date');
             $table->string('note');
+            $table->string('status');
             $table->integer('reason_id')->unsigned();
             $table->foreign('reason_id')
                   ->references('id')->on('reasons');
