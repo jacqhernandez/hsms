@@ -7,13 +7,12 @@
   use App\InvoiceItem;
   use App\SalesInvoice;
   use App\Item;
-  use App\PriceLog;
 ?>
 
-<h2 class="sub-header">New Sales Invoice</h2><hr>
+<h2 class="sub-header">Edit Sales Invoice</h2><hr>
 <p><b>Date Today:</b> <?php echo date("m/d/Y")?></p>
 <p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p>
-<h3 class="sub-header">Add Quotation</h3>
+<h3 class="sub-header">Edit Quotation</h3>
 
 {!! Form::open(['route' => ['invoiceitems.store'], 'method' => 'post' ]) !!}
 
@@ -21,7 +20,7 @@
 
 <p>Client:</p>
 <?php $clientOptions[""] = "- Select Client -"; ?>
-{!! Form::select('client_id', $clientOptions, Input::old('client_id'), array('class' => 'clientChange', 'selected' => '')) !!}
+{!! Form::select('client_id', $clientOptions, Input::old('client_id'), array('class' => 'clientChange required', 'selected' => '')) !!}
 
 <br><br>
 <div class="table-responsive">
@@ -76,7 +75,7 @@
   <button type="button" class="btn btn-primary">Exit</button>
 </a>
 
-<button type="submit" class="btn btn-primary" id="generateInvoice" disabled="disabled">Generate Sale Inovoice</button>
+<button type="button" class="btn btn-primary" id="generateInvoice" disabled="disabled">Generate Sale Inovoice</button>
 {!! Form::close() !!}
 
 <script>
@@ -219,6 +218,10 @@
     rowCounter++;
   });
 
+  $("#updateA").click(function(){
+
+  });
+
   $(".supplierChange1").change(function(a){
     var searcher = a.currentTarget.value;
     var supplierChange = ".supplierTerms1";
@@ -293,32 +296,6 @@
   }
 
   checkButton();
-
-
-  //$(".clientChange")[''].disabled="disable";
-
-  // $("#generateInvoice").click(function(){
-  //   var itemName;
-  //   var itemNo = rowCounter - 1;
-  //   <?php
-  //       $salesInvoice = new SalesInvoice;
-  //       $salesInvoice->status = "draft";
-  //       $salesInvoice->client_id = 1;
-  //       //$salesInvoice->save();
-  //   ?>
-
-  //   console.log(invoice_id);
-
-  //   for (i = 1; i <= itemNo; i++) {
-  //     itemName = ".itemChange" + i;
-  //     <?php
-  //       // $hello = new InvoiceItem;
-  //       // $hello->item_id = 
-  //     ?>
-  //     console.log($(itemName));
-  //     console.log($(itemName)[0].value);
-  //   }
-  // });
 
 </script>
 

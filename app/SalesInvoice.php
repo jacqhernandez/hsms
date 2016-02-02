@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
+//use Spatie\Activitylog\LogsActivityInterface;
+//use Spatie\Activitylog\LogsActivity;
 
 class SalesInvoice extends Model
 {
-	use LogsActivity;
+	//use LogsActivity;
 
     protected $fillable = [
 		'si_no',
@@ -16,7 +16,7 @@ class SalesInvoice extends Model
 		'dr_number',
 		'date',
 		'due_date',
-		'total amount',
+		'total_amount',
 		'vat',
 		'wtax',
 		'status',

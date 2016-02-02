@@ -20,11 +20,16 @@ Route::get('/', ['as' => 'index', 'uses' => function () {
 Route::get('invoices/search', ['as' => 'invoices.search', 'uses' => 'SalesInvoicesController@search']);
 Route::get('invoices/filter', ['as' => 'invoices.filter', 'uses' => 'SalesInvoicesController@filter']);
 Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
+Route::get('invoices/make/{id}', ['as' => 'invoices.make', 'uses' => 'SalesInvoicesController@make']);
+Route::post('invoices/creation', ['as' => 'invoices.creation', 'uses' => 'SalesInvoicesController@creation']);
 Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
 Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' => 'SalesInvoicesController@poGuide']);
 
+
 Route::resource('invoices', 'SalesInvoicesController');
+Route::resource('pricelogs', 'PriceLogsController');
+Route::resource('invoiceitems', 'InvoiceItemsController');
 
 
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);

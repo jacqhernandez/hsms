@@ -15,8 +15,8 @@ class CreateSalesInvoicesTable extends Migration
         //
         Schema::create('sales_invoices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('si_no')->unique();
-            $table->string('po_number')->unique();
+            $table->integer('si_no');
+            $table->string('po_number');
             $table->string('dr_number');
             $table->date('date');
             $table->date('due_date');
@@ -29,10 +29,12 @@ class CreateSalesInvoicesTable extends Migration
 
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')
-                  ->references('id')->on('clients');
+                  ->references('id')->on('clients')
+                  ->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
-                  ->references('id')->on('users');
+                  ->references('id')->on('users')
+                  ->nullable();
 
             $table->timestamps();
         });
