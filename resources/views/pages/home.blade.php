@@ -201,9 +201,9 @@
                             <td>{{$toDo->follow_up_date}}</td>
                             <td>{{$toDo->note}}</td>
                             <!-- <td><a href="{{ action ('DashboardController@update', [$toDo->id]) }}">Mark as Done</a></td> -->
-                            <!-- "{!! Form::open(['method' => 'PATCH', 'action' => ['DashboardController@update', $toDo->id]]) !!}" -->
-                            <!-- <td>{!! Form::submit('Mark as Done', ['class' => 'btn btn-link']) !!}</td> -->
-                            <!-- {!! Form::close() !!} -->
+                            <!-- {!! Form::open(['method' => 'PATCH', 'action' => ['DashboardController@update', $toDo->id]]) !!}
+                            <td>{!! Form::submit('Mark as Done', ['class' => 'btn btn-link']) !!}</td>
+                            {!! Form::close() !!} -->
                         </tr>
                     @endforeach
                     </tbody> 
@@ -218,7 +218,7 @@
 
 <!-- <div id="txtHint"></div> -->
 
-<input type="visible" id="my_hidden_input">
+<!-- <input type="visible" id="my_hidden_input"> -->
 
 <script>
 
@@ -282,19 +282,25 @@
         //                 + '{!! Form::close() !!}</tr>';
 
 
-        var formOpenString = data[i].id;
+        // var formOpenString = data[i].id;
+        // var appendstring = '<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' 
+        //                   + '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update", 2]]) !!}'
+        //                   + '<td>{!! Form::submit("Mark as Done", ["class" => "btn btn-link"]) !!}</td>'
+        //                   + '{!! Form::close() !!}</tr>';
+
+        // var res = appendstring.replace(99999999999, data[i].id);
+
+
         $('#todoTable tbody').append('<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' 
-          //+ '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update",'2']]) !!}'
-          //+ '<td>{!! Form::submit("Mark as Done", ["class" => "btn btn-link"]) !!}</td>'
-          //+ '{!! Form::close() !!}</tr>'
+          // + '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update",'
+          // + data[i].id + ']]) !!}'
+          // + '<td>{!! Form::submit("Mark as Done", ["class" => "btn btn-link"]) !!}</td>'
+          // + '{!! Form::close() !!}</tr>'
           );
 
 
-      // $('#todoTable tbody').append(b3);
-
-
-
-         // console.log(b3);
+      //$('#todoTable tbody').append(res);
+      //console.log(res);
       }
     }, 'json');
   }
