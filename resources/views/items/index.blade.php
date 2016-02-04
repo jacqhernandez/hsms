@@ -16,6 +16,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Unit</th>
 			<th>Description</th>
 		</tr>
 	</thead>
@@ -23,6 +24,7 @@
 		@foreach ($items as $item)
 		<tr>
 			<td>{{ $item->name }}</td>
+			<td>{{ $item->unit}} </td>
 			<td>{{ $item->description }}</td>
 			@if (Auth::user()['role'] == 'General Manager')
 				<td>

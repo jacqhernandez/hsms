@@ -3,6 +3,12 @@
  <script src="{{ URL::asset('/bower_components/raphael/raphael-min.js')}}"></script>
  <script src="{{ URL::asset('/bower_components/morrisjs/morris.min.js')}}"></script>
 
+<!-- Calendar Picker -->
+<!-- <script src="{{ URL::asset('/bower_components/pickadate/lib/picker.js') }}"></script>
+<script src="{{ URL::asset('/bower_components/pickadate/lib/picker.date.js') }}"></script> -->
+
+
+
 
 <!-- THESE ARE ALREADY DECLARED ON APP.BLADE.PHP BUT IT DOESNT WORK SO I DECLARED IT AGAIN HERE-->
 <!-- we might want to move the scripts at the beginning of the page..although it might load a little slower-->
@@ -180,16 +186,26 @@
             @elseif (Auth::user()->role == 'Accounting')
             <div class="panel-heading">To-do List</div>
             <div class="panel-body">
-                <table class="table table-hover sortable"> 
+                <div id="datepicker"></div>
+                <table class="table table-hover sortable" id="toDoTable"> 
                     <thead>
                         <tr>
                         <th>Client</th>
                         <th>Follow Up Date</th>
                         <th>Note</th>
                     </thead>
-
                     <tbody>
-                        
+                    @foreach ($collection_logs as $toDo)
+                        <tr>
+                            <td>{{$toDo->name}}</td>
+                            <td>{{$toDo->follow_up_date}}</td>
+                            <td>{{$toDo->note}}</td>
+                            <!-- <td><a href="{{ action ('DashboardController@update', [$toDo->id]) }}">Mark as Done</a></td> -->
+                            <!-- {!! Form::open(['method' => 'PATCH', 'action' => ['DashboardController@update', $toDo->id]]) !!}
+                            <td>{!! Form::submit('Mark as Done', ['class' => 'btn btn-link']) !!}</td>
+                            {!! Form::close() !!} -->
+                        </tr>
+                    @endforeach
                     </tbody> 
                 </table>
             </div>
@@ -200,8 +216,96 @@
 
 
 
+<!-- <div id="txtHint"></div> -->
+
+<!-- <input type="visible" id="my_hidden_input"> -->
 
 <script>
+
+   $(function () {
+            $('#datepicker').datetimepicker({
+                inline: true,
+                sideBySide: false
+            });
+
+
+            $("#datepicker").on("dp.change", function (e) {
+
+                // $calDate = $('#datepicker').data('DateTimePicker').date().format('MM/DD/YYYY');
+                $calDate = $('#datepicker').data('DateTimePicker').date().format('YYYY/MM/DD');
+
+                // $('#my_hidden_input').val($calDate);
+
+                 $("#toDoTable > tbody").html("");
+
+                // showToDo($calDate);
+                showHint($calDate);
+                
+            });
+        });
+
+   // function showToDo(date)
+   // {
+   //      if (window.XMLHttpRequest)
+   //      {
+   //          // code for IE7+, Firefox, Chrome, Opera, Safari
+   //          xmlhttp = new XMLHttpRequest();
+   //      } 
+
+   //      else {
+   //          // code for IE6, IE5
+   //          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+   //      }
+
+   //      xmlhttp.onreadystatechange = function() {
+   //          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+   //              document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+   //          }
+   //      };
+
+   //      xmlhttp.open("GET","home.php?q="+date,true);
+   //      xmlhttp.send();
+
+   //      // alert("WEW");
+   // }
+
+   function showHint(calDate) {
+
+    $.get('getRequest', {date: calDate}, function(data){
+      // console.log(data);
+      for (i=0; i<data.length; i++)
+      {
+        // var stringApp1 = '<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' + '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update",' + 
+        //                   data[i].id + 
+        //                   ']]) !!}' + 
+        //                   '<td>{!! Form::submit("Mark as done", ["class" => "btn btn-link"]) !!}</td>'
+        //                 + '{!! Form::close() !!}</tr>';
+
+
+        // var formOpenString = data[i].id;
+        // var appendstring = '<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' 
+        //                   + '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update", 2]]) !!}'
+        //                   + '<td>{!! Form::submit("Mark as Done", ["class" => "btn btn-link"]) !!}</td>'
+        //                   + '{!! Form::close() !!}</tr>';
+
+        // var res = appendstring.replace(99999999999, data[i].id);
+
+
+        $('#todoTable tbody').append('<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' 
+          // + '{!! Form::open(["method" => "PATCH", "action" => ["DashboardController@update",'
+          // + data[i].id + ']]) !!}'
+          // + '<td>{!! Form::submit("Mark as Done", ["class" => "btn btn-link"]) !!}</td>'
+          // + '{!! Form::close() !!}</tr>'
+          );
+
+
+      //$('#todoTable tbody').append(res);
+      //console.log(res);
+      }
+    }, 'json');
+  }
+
+
 new Morris.Line({
   // ID of the element in which to draw the chart.
   element: 'dailySales',

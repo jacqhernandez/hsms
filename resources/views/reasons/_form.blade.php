@@ -4,7 +4,7 @@
 		<tbody>
 			<tr>
 				<td> {!! Form::label('reason', 'Reason: ') !!}</td>
-				<td> {!! Form::textarea('reason', old('reason'), ['class' => 'span7 form-control', 'rows' => '2']) !!} </td>
+				<td> {!! Form::text('reason', old('reason'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>	
 		</tbody> 
 	</table>

@@ -20,7 +20,7 @@
 
 		<tr id="item">
 			<td>{!! Form::label('item', 'Item: ') !!}</td>
-			<td>{!! Form::select('item', $items) !!}</td>
+			<td>{!! Form::select('item', $items, null, ['id' => 'item_select']) !!}</td>
 		</tr>
 		
 		<tr id="month">
@@ -32,19 +32,19 @@
 
 		<tr id="year">
 			<td>{!! Form::label('month', 'Year: ') !!}</td>
-			<td>{!! Form::select('year', $years, null) !!}</td>
+			<td>{!! Form::select('year', $years, null, ['id' => 'year_select']) !!}</td>
 		</tr>
 
 		<tr id="client">
 			<td>{!! Form::label('client', 'Client: ') !!}</td>
-			<td>{!! Form::select('client', $clients) !!}</td>
+			<td>{!! Form::select('client', $clients, null, ['id' => 'client_select']) !!}</td>
 		</tr>
 	</tbody>
 </table>
 
 <br>
 	<div class = "submit">
-		{!! Form::submit('Generate', ['class' => 'btn btn-primary']) !!}
+		{!! Form::submit('Generate', ['class' => 'btn btn-primary', 'id' => 'mySubmit']) !!}
 		<!-- <a href="{{ action ('ReportsController@generate') }}"><button type="button" class="btn btn-info">Generate</button></a> -->
 	</div>
 {!! Form::close() !!}
@@ -60,31 +60,68 @@
 $('#item').hide();
 $('#client').hide();
 
+if (!$('#year_select').val())
+{
+	$('#mySubmit').attr('disabled', 'disabled');
+}
+
+
 $('#report_type').change(function() {
     $('#month').show();
     $('#item').show();
     $('#client').show();
     $('#year').show();
-    if($(this).val() === 'client') {
+	$('#mySubmit').removeAttr('disabled', 'disabled');
+
+
+
+    if($(this).val() == 'client') {
         $('#month').hide();
         $('#item').hide();
         $('#year').hide();
+
+        if (!$('#client_select').val())
+    	{
+    		//$('#mySubmit').removeAttr('disabled');
+    		$('#mySubmit').attr('disabled', 'disabled');
+    	}
     }
 
     if ($(this).val() == 'item') {
     	$('#client').hide();
+
+    	if (!$('#item_select').val() || !$('#year_select').val())
+    	{
+    		//$('#mySubmit').removeAttr('disabled');
+    		$('#mySubmit').attr('disabled', 'disabled');
+    	}
+
     }
 
     if ($(this).val() == 'sales'){
     	$('#item').hide();
     	$('#client').hide();
+
+    	if (!$('#year_select').val())
+    	{
+    		//$('#mySubmit').removeAttr('disabled');
+    		$('#mySubmit').attr('disabled', 'disabled');
+    	}
     }
 
     if ($(this).val() == 'collection'){
     	$('#item').hide();
     	$('#client').hide();
+
+    	if (!$('#year_select').val())
+    	{
+    		//$('#mySubmit').removeAttr('disabled');
+    		$('#mySubmit').attr('disabled', 'disabled');
+    	}
     }
 });
+
+
 </script>
 @stop
 

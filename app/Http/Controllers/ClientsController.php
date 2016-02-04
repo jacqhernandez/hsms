@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Client;
 use App\User;
+use App\SalesInvoice;
 use Request;
 use Auth;
 
@@ -34,8 +35,9 @@ class ClientsController extends Controller
              // $clients = Client::all();
              $clients = Client::paginate(10);
              $clients->setpath('hsms/public/clients/');
+             return view('clients.index', compact('clients'));
         }
-        return view('clients.index', compact('clients'));
+        //return view('clients.index', compact('clients'));
     }
 
     public function search()
@@ -89,9 +91,10 @@ class ClientsController extends Controller
 
         $paymentOptions = [];
         $paymentOptions['Cash'] = 'Cash';
-        $paymentOptions['15 Days'] = '15 Days';
+        //$paymentOptions['15 Days'] = '15 Days';
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
+        $paymentOptions['PDC'] = 'PDC';
 
         $userOptions = User::where('role', 'Sales')->lists('username', 'id');
         return view('clients.create', compact('statusOptions', 'paymentOptions', 'userOptions'));
@@ -149,9 +152,10 @@ class ClientsController extends Controller
 
         $paymentOptions = [];
         $paymentOptions['Cash'] = 'Cash';
-        $paymentOptions['15 Days'] = '15 Days';
+        //$paymentOptions['15 Days'] = '15 Days';
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
+        $paymentOptions['PDC'] = 'PDC';
 
         $userOptions = User::where('role', 'Sales')->lists('username', 'id');
 

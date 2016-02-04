@@ -58,11 +58,12 @@ class ItemsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateItemRequest $request)
     {
         $input = Request::all();
         $item = new Item;
         $item->name = $input['name'];
+        $item->unit = $input['unit'];
         $item->description = $input['description'];
         $item->save();
         $id = $item->id;
@@ -95,7 +96,7 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateItemRequest $request, $id)
     {
         $item = Item::find($id);
         $input = Request::all();
@@ -117,5 +118,13 @@ class ItemsController extends Controller
         $item = Item::find($id);
         $item->Delete('set null');
         return redirect()->action('ItemsController@index');
+    }
+
+    public function getItemTerms() {
+        $item = $_GET['item'];
+
+        $topSuppliers = PriceLog::where('item_id', $item)->orderBy('date','desc')->take(3)->get();
+
+        return $topSuppliers;
     }
 }

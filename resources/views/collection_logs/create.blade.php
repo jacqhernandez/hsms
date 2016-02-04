@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
-<h2>Create Client</h2>
+<h2>Add New Log</h2>
 
-	{!! Form::open(['route' => ['clients.store'], 'method' => 'post' ]) !!}
-	@include('clients._form')
+	{!! Form::open(['route' => ['collectibles.collection_logs.store'], 'method' => 'post' ]) !!}
+	@include('collection_logs._form')
 	{!! Form::close() !!}
 	
 @stop

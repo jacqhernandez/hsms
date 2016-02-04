@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
+//use Spatie\Activitylog\LogsActivityInterface;
+//use Spatie\Activitylog\LogsActivity;
 
 class SalesInvoice extends Model
 {
-	use LogsActivity;
+	//use LogsActivity;
 
     protected $fillable = [
 		'si_no',
@@ -16,12 +16,13 @@ class SalesInvoice extends Model
 		'dr_number',
 		'date',
 		'due_date',
-		'total amount',
+		'total_amount',
 		'vat',
 		'wtax',
 		'status',
 		'date_delivered',
 		'date_collected',
+		'or_number',
 		'client_id',
 		'user_id'	
 	];
@@ -30,7 +31,10 @@ class SalesInvoice extends Model
 	{
 		return $this->belongsTo('App\Client');
 	}
-
+	public function SalesInvoiceCollectionLog()
+	{
+		return $this->hasMany('App\SalesInvoiceCollectionLog');
+	}	
 	public function User()
 	{
 		return $this->belongsTo('App\User');
@@ -57,7 +61,6 @@ class SalesInvoice extends Model
 	    {
 	        return 'Sales Invoice ' . $this->si_no . ' was deleted';
 	    }
-
 	    return '';
 	}
 }

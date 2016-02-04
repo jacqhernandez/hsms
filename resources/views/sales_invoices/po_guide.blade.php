@@ -1,5 +1,9 @@
 @extends ('layouts.app')
 @section('content')
+
+<?php
+	use App\PriceLog;
+?>
 		<h2>Purchase Order Guide</h2>
 		<table class="table">
 			<tbody>
@@ -25,9 +29,15 @@
 		<table class="table table-hover sortable"> 
 			<thead>
 				<tr>
-					<th>Supplier</th>
+					<th>Supplier A</th>
 					<th>Price</th>
-					<th>Stock Availability</th>
+					<th>Available?</th>
+					<th>Supplier B</th>
+					<th>Price</th>
+					<th>Available?</th>
+					<th>Supplier C</th>
+					<th>Price</th>
+					<th>Available?</th>
 				</tr>
 			</thead>
 			
@@ -39,7 +49,7 @@
 					@foreach($price_logs as $price_log)
 					<td>{{ $price_log->Supplier->name }}</td>
 					<td>{{ $price_log->price }}</td>
-					<td>{{ $price_log->stock_availability }}</td>
+					<td>@if ($price_log->stock_availability === 1) Yes @else No @endif</td>
 					@endforeach
 				</tr>
 			</tbody> 
