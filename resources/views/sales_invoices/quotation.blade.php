@@ -45,7 +45,7 @@
       <?php $supplierOptions[''] = "- Select Supplier -"; ?>
       <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange')) !!}</td>
       <td><p class="supplierTerms"></p></td>
-      <td>{!! Form::input('number', 'item_price', old('item_price'), array('placeholder'=>'Price', 'class'=>'itemPrice')) !!}</td>
+      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice')) !!}</td>
       <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo')) !!}</td>
       <td>-</div></td>
     </tr>
@@ -54,7 +54,7 @@
       <td></td>
       <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB']) !!}</td>
       <td><p class="supplierBTerms"></p></td>
-      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('placeholder'=>'Price', 'class'=>'itemPriceB')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB')) !!}</td>
       <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB')) !!}</td>
       <td>-</td>
     </tr>
@@ -63,7 +63,7 @@
       <td></td>
       <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC']) !!}</td>
       <td><p class="supplierCTerms"></p></td>
-      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('placeholder'=>'Price', 'class'=>'itemPriceC')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC')) !!}</td>
       <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC')) !!}</td>
       <td>-</td>
     </tr>
@@ -72,11 +72,11 @@
 </div>
 
 <button type="button" id="addItem" class="btn btn-primary">Add Item</button><br><br>
-<a href="{{ action ('DashboardController@index')}}">
+<a href="{{ action ('SalesInvoicesController@index') }}">
   <button type="button" class="btn btn-primary">Exit</button>
 </a>
 
-<button type="submit" class="btn btn-primary" id="generateInvoice" disabled="disabled">Generate Sale Inovoice</button>
+<button type="submit" class="btn btn-primary" id="generateInvoice" disabled="disabled">Generate Sales Invoice</button>
 {!! Form::close() !!}
 
 <script>
@@ -211,6 +211,7 @@
     });
 
     checkButton();
+    $('#generateInvoice').attr('disabled', 'disabled');
     //NOTE TO SELF, HAVE TO UNBIND PREVIOUS EVENT
 
     //console.log($(".itemCount"));
@@ -243,8 +244,17 @@
   $(".itemChange1").change(function(a){
     var searcher = a.currentTarget.value;
     var unitChange = ".itemUnit1";
+    // $.get('getItemTerms', {item: searcher}, function(data){
+    //   console.log(data);
+    // }, 'json');
+
     var items = <?php echo Item::all()->lists('unit', 'id') ?>;
     $(unitChange).text(items[searcher]);
+
+    // $.get('getTopSupppliers', {item: searcher}, function(data){
+    //   console.log(data);
+    // }, 'json');
+
   });
 
     //to disable button while all fields are empty

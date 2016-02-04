@@ -22,6 +22,7 @@ class SalesInvoice extends Model
 		'status',
 		'date_delivered',
 		'date_collected',
+		'or_number',
 		'client_id',
 		'user_id'	
 	];

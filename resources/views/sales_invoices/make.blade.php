@@ -35,7 +35,7 @@
   <tbody>
     <tr>
       <td>Sales Invoice ID: </td>
-      <td>{!! Form::text('si_no', old('si_no'), array('placeholder'=>'i.e. 3345')) !!}</td>
+      <td>{!! Form::text('si_no', old('si_no')) !!}</td>
     </tr>
     <tr>
       <td>PO Number: </td>
@@ -82,7 +82,7 @@
 </div>
 <br>
 
-<a href="{{ action ('DashboardController@index')}}">
+<a href="{{ action ('SalesInvoicesController@index')}}">
   <button type="button" class="btn btn-primary">Exit</button>
 </a>
 {!! Form::submit('Save and View P.O. Guide', array('class' => 'btn btn-primary', 'id' => 'generateInvoice', 'disabled' => 'disabled')) !!}

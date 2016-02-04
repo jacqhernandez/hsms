@@ -7,8 +7,9 @@
 <!-- load bootstrap from a cdn -->
 <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.3/css/bootstrap-combined.min.css">-->
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{ URL::asset('/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
+    <!-- <link href="{{ URL::asset('/bower_components/jquery/dist/jquery.min.js')}}" rel="script"> -->
 <!-- Latest compiled and minified CSS -->
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">-->
 

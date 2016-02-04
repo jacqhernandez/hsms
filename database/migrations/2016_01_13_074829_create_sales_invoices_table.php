@@ -26,6 +26,7 @@ class CreateSalesInvoicesTable extends Migration
             $table->string('status');
             $table->date('date_delivered');
             $table->date('date_collected');
+            $table->string('or_number');
 
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')

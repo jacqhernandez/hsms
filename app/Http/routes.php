@@ -22,9 +22,12 @@ Route::get('invoices/filter', ['as' => 'invoices.filter', 'uses' => 'SalesInvoic
 Route::get('invoices/quotation', ['as' => 'invoices.quotation', 'uses' => 'SalesInvoicesController@quotation']);
 Route::get('invoices/make/{id}', ['as' => 'invoices.make', 'uses' => 'SalesInvoicesController@make']);
 Route::post('invoices/creation', ['as' => 'invoices.creation', 'uses' => 'SalesInvoicesController@creation']);
+Route::get('invoices/delivered/{id}', ['as' => 'invoices.delivered', 'uses' => 'SalesInvoicesController@delivered']);
+Route::post('invoices/collected', ['as' => 'invoices.collected', 'uses' => 'SalesInvoicesController@collected']);
 Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
 Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' => 'SalesInvoicesController@poGuide']);
+Route::get('/getItemTerms', ['as' => 'request', 'uses' => 'ItemsController@getItemTerms']);
 
 
 Route::resource('invoices', 'SalesInvoicesController');
@@ -85,6 +88,7 @@ Route::get('logs/delete', ['as' => 'logs.delete', 'uses' => 'LogsController@dele
 // 	}
 // });
 
+Route::get('/getTopSuppliers', ['as' => 'request', 'uses' => 'SalesInvoicesController@getTopSuppliers']);
 Route::get('/getRequest', ['as' => 'request', 'uses' => 'DashboardController@dateLog']);
 //Route::PUT('/mark/{id}', ['as' => 'collection_logs.update', 'uses' => 'DashboardController@mark']);
 Route::resource('collection_logs', 'DashboardController', ['except' => 'store', 'edit', 'show', 'destroy']);

@@ -202,7 +202,8 @@ class SalesInvoicesController extends Controller
             'client_id' => $input['client_id'],
             'user_id' => $input['user_id']
         ]);
-        return redirect()->action('SalesInvoicesController@show',[$id]);
+        //return redirect()->action('SalesInvoicesController@show',[$id]);
+        return redirect()->action('SalesInvoicesController@index');
     }
 
     /**
@@ -275,7 +276,7 @@ class SalesInvoicesController extends Controller
 
         $salesInvoice->update([
             'total_amount' => $total_amount,
-            'status' => "pending"
+            'status' => "Pending"
         ]);
 
         return redirect()->action('SalesInvoicesController@show',[$salesInvoice->id]);
@@ -317,8 +318,52 @@ class SalesInvoicesController extends Controller
     }
 
     //WIP
-    public function getTopThreeSuppliers(Illuminate\Http\Request $request) {
+    public function getTopSuppliers() {
+        $item = $_GET['item'];
 
-        return response()->json(['response' => 'This is get method']);
+        $terms = Item::where('item_id', $item)->payment_terms;
+
+        return $terms;
+    }
+
+    public function delivered($id) {
+
+        $salesInvoice = SalesInvoice::find($id);
+        if ($salesInvoice->Client->payment_terms == "PDC") {
+            $salesInvoice->update([
+                'status' => "Check on Hand",
+                'date_delivered' => Carbon::now()
+            ]);
+        } else {
+            $salesInvoice->update([
+                'status' => "Delivered",
+                'date_delivered' => Carbon::now() 
+            ]);
+            if ($salesInvoice->Client->payment_terms == "Cash") {
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()
+                ]);
+            } else if ($salesInvoice->Client->payment_terms == "30 Days"){
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()->addDays(30)
+                ]);
+            }  else if ($salesInvoice->Client->payment_terms == "60 Days"){
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()->addDays(60)
+                ]);
+            }
+        }
+        return redirect()->action('SalesInvoicesController@index');
+    }
+
+    public function collected() {
+        $input = Request::all();
+        $salesInvoice = SalesInvoice::find($input['id']);
+        $salesInvoice->update([
+                'status' => "Collected",
+                'date_collected' => Carbon::now(),
+                'or_number' => $input['or_number'] 
+        ]);
+        return redirect()->action('SalesInvoicesController@index');
     }
 }

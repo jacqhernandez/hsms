@@ -21,7 +21,7 @@ class InvoiceItemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show','search']]);     
+        $this->middleware('general_manager',['except' => ['index','show','search', 'store']]);     
     }
     /**
      * Display a listing of the resource.
@@ -78,7 +78,7 @@ class InvoiceItemsController extends Controller
         //$invoiceItem = new InvoiceItem;
         $salesInvoice = new SalesInvoice;
         //print_r($salesInvoice);
-        $salesInvoice->status = "draft";
+        $salesInvoice->status = "Draft";
         $salesInvoice->client_id = $input['client_id'];
         $salesInvoice->user_id = Auth::user()['id'];
         $salesInvoice->save();
@@ -124,7 +124,7 @@ class InvoiceItemsController extends Controller
             $priceLog3->stock_availability = $input[$availer3];
             $priceLog3->item_id = $input[$finder];
             $priceLog3->supplier_id = $input[$supplierer3];
-            $priceLog3->save();
+            if (Auth::user()['role'] !== 'Sales') $priceLog3->save();
         }
 
         // $invoiceItem->sales_invoice_id = $salesInvoice->id;

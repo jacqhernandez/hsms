@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-<h2>Edit Sales Invoice</h2>
+<h2 class="sub-header">Update Status</h2><hr>
+<h3 class="sub-header">Invoice #<?php echo $sales_invoice->si_no ?></h3>
+<p><b>Client:</b> <?php echo $sales_invoice->Client->name ?></p>
+<p><b>Date Created:</b> <?php echo $sales_invoice->date ?></p>
+@if ($sales_invoice->status == "Delivered") <p><b>Due Date:</b> <?php echo $sales_invoice->due_date ?> @endif</p>
+<p><b>Total Amount:</b> Php <?php echo $sales_invoice->total_amount ?></p>
+<p><b>Payment Terms:</b> <?php echo $sales_invoice->Client->payment_terms ?></p>
 
 	{!! Form::model($sales_invoice, ['method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id]]) !!}
 
@@ -11,10 +17,14 @@
 			<tbody>
 				<tr>
 					<td>{!! Form::label('status', 'Status: ') !!}</td>
-					<td>{!! Form::select('status', ['Pending' => "Pending", 'Delivered' => "Delivered", 'Collected' => "Collected"], Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
+					<td>{!! Form::select('status', ['Pending' => "Pending", 'Delivered' => "Delivered", 'Collected' => "Collected", "Check on Hand" => "Check on Hand"], Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
 				</tr>
 				<tr id="collected">
 					<td>{!! Form::label('date_collected', 'Date Collected: ') !!}</td>
+					<td>{!! Form::date('date_collected', old('date_collected'), ['class' => 'span7 form-control']) !!} </td>
+				</tr>
+				<tr id="due">
+					<td>{!! Form::label('date_collected', 'Due Date: ') !!}</td>
 					<td>{!! Form::date('date_collected', old('date_collected'), ['class' => 'span7 form-control']) !!} </td>
 				</tr>
 				<tr id="delivered">

@@ -119,4 +119,12 @@ class ItemsController extends Controller
         $item->Delete('set null');
         return redirect()->action('ItemsController@index');
     }
+
+    public function getItemTerms() {
+        $item = $_GET['item'];
+
+        $topSuppliers = PriceLog::where('item_id', $item)->orderBy('date','desc')->take(3)->get();
+
+        return $topSuppliers;
+    }
 }
