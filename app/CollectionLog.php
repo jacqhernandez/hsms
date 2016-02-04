@@ -17,7 +17,8 @@ class CollectionLog extends Model
 		'follow_up_date',
 		'note',
 		'reason_id',
-		'user_id'
+		'user_id',
+        'status'
 
 		
 	];

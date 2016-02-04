@@ -22,6 +22,7 @@ class CreateSuppliersTable extends Migration
             $table->string('payment_terms');
             $table->string('contact_person');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

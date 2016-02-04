@@ -5,10 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model implements LogsActivityInterface
 {
 	use LogsActivity;
+	use SoftDeletes;
+
+	protected $dates = ['deletd_at'];
 
     protected $fillable = [
 		'name',

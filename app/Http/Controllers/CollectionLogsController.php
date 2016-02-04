@@ -142,16 +142,18 @@ class CollectionLogsController extends Controller
     public function update(Requests $request, $id)
     {
         $cLog = CollectionLog::find($id);
-        $input = Request::all();
+        // $input = Request::all();
         $cLog->update([
-            'date' => $input['date'],
-            'action' => $input['action'],
-            'follow_up_date' => $input['follow_up_date'],
-            'note' => $input['note'],
-            'reason_id' => $input['reason_id'],
-            'user_id' => $input['user_id']
+            // 'date' => $input['date'],
+            // 'action' => $input['action'],
+            // 'follow_up_date' => $input['follow_up_date'],
+            // 'note' => $input['note'],
+            // 'reason_id' => $input['reason_id'],
+            // 'user_id' => $input['user_id']
+            'status' => 'done'
         ]);
-        return redirect()->action('CollectionLogsController@show', [$id]);
+        // return redirect()->action('CollectionLogsController@show', [$id]);
+        return "wew";
     }
 
     /**

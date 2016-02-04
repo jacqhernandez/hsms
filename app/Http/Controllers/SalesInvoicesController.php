@@ -12,8 +12,11 @@ use Request;
 use Auth;
 use App\Item;
 use DB;
-
 use Activity;
+use App\Supplier;
+use App\PriceLog;
+use App\InvoiceItem;
+use Carbon\Carbon;
 
 class SalesInvoicesController extends Controller
 {
@@ -21,6 +24,9 @@ class SalesInvoicesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');   
+        // $this->middleware('auth');  
+        // $this->middleware('general_manager',['except' => ['index','show']]);
+        // $this->middleware('sales',['except' => ['index','show']]);       
     }
     /**
      * Display a listing of the resource.
@@ -196,7 +202,8 @@ class SalesInvoicesController extends Controller
             'client_id' => $input['client_id'],
             'user_id' => $input['user_id']
         ]);
-        return redirect()->action('SalesInvoicesController@show',[$id]);
+        //return redirect()->action('SalesInvoicesController@show',[$id]);
+        return redirect()->action('SalesInvoicesController@index');
     }
 
     /**
@@ -214,10 +221,66 @@ class SalesInvoicesController extends Controller
 
     public function quotation() {
 
-        $clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
+        //$clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
+        $clientOptions = Client::all()->lists('name','id');
+        $supplierOptions = Supplier::all()->lists('name','id');
         $itemOptions = Item::all()->lists('name','id');
 
-        return view('sales_invoices.quotation', compact('clientOptions','itemOptions'));
+        return view('sales_invoices.quotation', compact('supplierOptions','itemOptions', 'clientOptions'));
+    }
+
+    public function edit_quotation() {
+
+    }
+
+    public function returnSupplierTerms($id){
+        $payment_terms = Supplier::find($id)->lists('payment_terms');
+
+        return $payment_terms;
+    }
+
+    public function make($id){
+        //$items = InvoiceItem::where('sales_invoice_id', $id)->get();
+        $items = SalesInvoice::find($id)->InvoiceItems;
+        $invoice_id = $id;
+        return view('sales_invoices.make', compact('items', 'invoice_id'));
+    }
+
+    public function creation(){
+        $input = Request::all();
+        $salesInvoice = SalesInvoice::find($input['invoice_no']);
+
+        $salesInvoice->update([
+            'si_no' => $input['si_no'],
+            'po_number' => $input['po_number'],
+            'dr_number' => $input['dr_number'],
+            'vat' => $input['vat'],
+            'wtax' => $input['wtax'],
+            'date' => Carbon::now()
+        ]);
+
+        $total_amount = 0;
+        $items = InvoiceItem::where('sales_invoice_id', $salesInvoice->id)->get();
+        //$items = $input(['items']);
+
+        foreach ($items as $item) {
+            $invoiceItem = InvoiceItem::find($item->id);
+            $invoiceItem->update([
+                'quantity' => $input['quantity' . $item->id],
+                'unit_price' => $input['unit_price' . $item->id],
+                'total_price' => $input['quantity' . $item->id] * $input['unit_price' . $item->id]
+            ]);
+
+            $total_amount += $invoiceItem->total_price;
+        }
+
+        $salesInvoice->update([
+            'total_amount' => $total_amount,
+            'status' => "Pending"
+        ]);
+
+        return redirect()->action('SalesInvoicesController@show',[$salesInvoice->id]);
+        
     }
 
     public function viewCollected()
@@ -252,5 +315,55 @@ class SalesInvoicesController extends Controller
         Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
         return $pdf->stream();
 
+    }
+
+    //WIP
+    public function getTopSuppliers() {
+        $item = $_GET['item'];
+
+        $terms = Item::where('item_id', $item)->payment_terms;
+
+        return $terms;
+    }
+
+    public function delivered($id) {
+
+        $salesInvoice = SalesInvoice::find($id);
+        if ($salesInvoice->Client->payment_terms == "PDC") {
+            $salesInvoice->update([
+                'status' => "Check on Hand",
+                'date_delivered' => Carbon::now()
+            ]);
+        } else {
+            $salesInvoice->update([
+                'status' => "Delivered",
+                'date_delivered' => Carbon::now() 
+            ]);
+            if ($salesInvoice->Client->payment_terms == "Cash") {
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()
+                ]);
+            } else if ($salesInvoice->Client->payment_terms == "30 Days"){
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()->addDays(30)
+                ]);
+            }  else if ($salesInvoice->Client->payment_terms == "60 Days"){
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()->addDays(60)
+                ]);
+            }
+        }
+        return redirect()->action('SalesInvoicesController@index');
+    }
+
+    public function collected() {
+        $input = Request::all();
+        $salesInvoice = SalesInvoice::find($input['id']);
+        $salesInvoice->update([
+                'status' => "Collected",
+                'date_collected' => Carbon::now(),
+                'or_number' => $input['or_number'] 
+        ]);
+        return redirect()->action('SalesInvoicesController@index');
     }
 }

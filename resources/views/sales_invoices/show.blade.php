@@ -1,6 +1,6 @@
 @extends ('layouts.app')
 @section('content')
-		<h2>Invoice {{ $sales_invoice['si_no'] }}</h2>
+		<h2>Invoice #{{ $sales_invoice['si_no'] }}</h2>
 		<table class="table">
 			<tbody>
 				<tr>
