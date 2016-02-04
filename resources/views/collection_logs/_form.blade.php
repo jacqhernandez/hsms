@@ -1,38 +1,42 @@
 <div>
 	<table> 
-		<thead>
-			<tr>
-				<th>Date</th>
-				<th>Action</th>
-				<th>Follow-Up Date</th>
-				<th>Notes</th>
-				<th>Reason</th>
-			</tr>
-		</thead>
 		<tbody>
 			<tr>
+				<td>Date</td>
 				<td> {!! Form::input('date', 'date', old('date'), 
-					['class' => 'form-control', 'placeholder' => 'Date']) !!} </td>
+					['class' => 'span7, form-control', 'placeholder' => 'Date']) !!} </td>
+			</tr>
+
+			<tr>
+				<td>Action</td>
 				<td> {!! Form::select('action', $actionOptions, 
-					Input::old('action')) !!} </td>
+					Input::old('action'), ['class' => 'span7, form-control']) !!} </td>
+			</tr>
+
+			<tr>
+				<td>Follow-Up Date</td>
 				<td> {!! Form::input('date', 'follow_up_date', old('follow_up_date'), 
-					['class' => 'form-control', 'placeholder' => 'Date', 'visible' => 'false']) !!}</td>
-				<td>{!! Form::text('note', old('note'), ['class' => 'span7']) !!}</td>
-				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason')) !!}</td>
+					['class' => 'span7, form-control', 'placeholder' => 'Date', 'visible' => 'false']) !!}</td>
+			</tr>
+
+			<tr>
+				<td>Notes</td>
+				<td>{!! Form::text('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
+			</tr>
+			<tr>
+				<td>Reason</td>
+				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason'), ['class' => 'span7, form-control']) !!}</td>
 				<td>
 					<a href="{{ url('/reasons/create') }}">Add Reason</a>
 				</td>
 			</tr>	
-			<tr>
-				<td> {!! Form::hidden('client_id', $id) !!}</td>
-			</tr>		
 		</tbody> 
 	</table>
 	<table>
 		<thead>
 			<tr>
 				<th></th>
-				<th>Sales Invoice Number</th>
+				<th>Sales Invoice Number Involved</th>
 			</tr>
 		</thead>
 		<tbody>

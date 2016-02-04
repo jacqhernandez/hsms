@@ -16,6 +16,7 @@ class CreateReasonsTable extends Migration
             $table->increments('id');
             $table->string('reason');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

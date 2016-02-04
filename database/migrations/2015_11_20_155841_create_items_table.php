@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('unit');
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
