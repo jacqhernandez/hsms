@@ -35,7 +35,7 @@ class SalesInvoicesController extends Controller
         } else {
             $sales_invoices = SalesInvoice::paginate(10);
         }
-        $dates = SalesInvoice::all()->lists('due_date','due_date');
+        $dates = $sales_invoices->lists('due_date','due_date');
         return view('sales_invoices.index', compact('sales_invoices','dates'));
     }
 
