@@ -58,7 +58,7 @@ class ItemsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateItemRequest $request)
     {
         $input = Request::all();
         $item = new Item;
@@ -96,7 +96,7 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateItemRequest $request, $id)
     {
         $item = Item::find($id);
         $input = Request::all();
