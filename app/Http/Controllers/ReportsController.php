@@ -389,7 +389,7 @@ class ReportsController extends Controller
                     });
 
                     $counter++;
-                    $sheet->row($counter, array('Total Quantity Sold: ', 'P' . $itemResults[0]->totalSold));
+                    $sheet->row($counter, array('Total Quantity Sold: ', $itemResults[0]->totalSold));
 
                     //style for quantity sold
                     $sheet->cells('A'.$counter.':B'.$counter, function($cells) {
