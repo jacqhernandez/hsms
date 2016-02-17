@@ -176,7 +176,7 @@
                         @else
                             <td>User Deleted</td>
                         @endif
-                        <td>{{ $activity->created_at->format('F j, Y h:i:s A') }}</td>
+                        <td>{{ $activity->created_at }}</td>
                         </tr>
                         @endforeach
                     </tbody> 

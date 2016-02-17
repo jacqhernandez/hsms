@@ -52,6 +52,8 @@ Route::resource('reasons','ReasonsController',['except' => 'show']);
 
 Route::resource('collectibles', 'CollectiblesController', ['except' => 'update', 'edit', 'show', 'destroy']);
 Route::resource('collectibles.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
+Route::get('collectibles/{id}/generate', ['as' => 'collectibles.generate_pdf', 'uses' => 'CollectiblesController@generatePdf']);
+Route::get('collectibles/{id}/email', ['as' => 'collectibles.email_pdf', 'uses' => 'CollectiblesController@emailPdf']);
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

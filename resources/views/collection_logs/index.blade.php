@@ -34,6 +34,21 @@
 @endif
 @if ($delivered !=0)
 <h3>Pending Sales Invoices</h3>
+
+<table>
+	<td>
+{!! Form::open(['route' => ['collectibles.generate_pdf', $client->id], 'method' => 'get', 'target'=>'_blank']) !!}
+<button class="btn btn-danger">Generate SOA</button>
+{!! Form::close() !!}
+	</td>
+
+<td>
+{!! Form::open(['route' => ['collectibles.email_pdf', $client->id], 'method' => 'get' ]) !!}
+<button class="btn btn-danger">Email SOA</button>
+{!! Form::close() !!}
+</td>
+
+
 <table class="table table-hover sortable">
 	<thead>
 		<tr>
