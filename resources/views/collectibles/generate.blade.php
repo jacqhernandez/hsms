@@ -51,7 +51,7 @@
 
 		#soa-to{
 			display: table-cell;
-			width: 45%;
+			width: 48%;
 			padding: 8px;
 			border-width: 1px;
 			border-style: solid;
@@ -130,7 +130,7 @@
 
 		#soa-From{
 			display: table-cell;
-			width: 50%;
+			width: 48%;
 			padding: 8px;
 			border-width: 1px;
 			border-style: solid;
@@ -146,6 +146,8 @@
 			border-width: 0px 1px 0px 0px;
 			padding-right: 10px;
 			border-color: #244062;
+			padding-top: 20px;
+			font-size: 14px;
 		}
 
 		#soaFooter-details2{
@@ -153,12 +155,40 @@
 			text-align: right;
 			border-style: solid;
 			border-width: 0px 0px 1px 0px;
+			padding-top: 20px;
 		}
 
 		#soa-footer{
 			display:table;
 			width: 100%;
 			margin-top: 3%;
+		}
+
+
+		.soa-table{
+			display:table;
+			width: 720px;
+		}
+
+		.soa-cell{
+			display:table-cell;
+			width: 50%;
+		}
+
+		.additionalText{
+			font-size: 11px;
+		}
+
+		#soaRow-Text{
+			margin-top: 20px;
+		}
+
+		#additionalText{
+			padding-left: 20px;
+		}
+		
+		#approvedBy{
+			padding-left: 120px;
 		}
 
 	</style>
@@ -201,7 +231,7 @@
 				<tr>
 					<td class="td-date">{{$collectible->date}}</td>
 
-					@if ($collectible->due_date > date("m/d/y"))
+					@if ($collectible->due_date < date("m/d/y"))
 					<td class="td-duedate"><b>Immediately</b></td>
 					@else
 					<td class="td-duedate">{{$collectible->due_date}}</td>
@@ -232,7 +262,7 @@
 					</tr>
 			</tbody>
 		</table>
-		<div id="bottom-table-message">Please pay last amount in Balance Column</div>
+		<div id="bottom-table-message"><b>Please pay last amount in Balance Column</b></div>
 	</div>
 
 	<div id="soa-footer">
@@ -240,16 +270,51 @@
 			<div id="soa-From">From:
 				<br>#8325 San Fernando St. San Antonio Valley 8 Parañaque City
 				<br>TEL NO: (02) 846-7650 (02) 846-9653 FAX: (02) 825-2306
-				<br>Email Address: yeurico@yahoo.com.ph</div>
-			<div id="soaFooter-details1">
-			<p>Amount Due</p>
+				<br>Email Address: yeurico@yahoo.com.ph
 			</div>
+
+			<div id="soaFooter-details1">
+				<p><b>Amount Due</b></p>
+			</div>
+
 			<div id="soaFooter-details2">
-			<p><b>PHP <?php echo number_format($totalDue[0]->sumTotal, 2) ?></b></p>
+				<p>PHP <?php echo number_format($totalDue[0]->sumTotal, 2) ?></p>
 			</div>
 		</div>
 	</div>
 
-<body>
+<br>
+	<div class="soa-table">
+		<div class="soa-row" id="soaRow-Text">
+			<div class="soa-cell">
+				<b class="additionalText">MAKE ALL CHECKS PAYABLE TO: Yeurico Enterprises</b>
+			</div>
+			<div class="soa-cell" id="addressText">
+				<b class="additionalText">ADDRESS QUESTIONS TO: Charo Co, Accounting Clerk</b>
+			</div>
+		</div>
+	</div>
 
-</body>
+<br>
+<br>
+	<div class="soa-table">
+		<div class="soa-row">
+			<div class="soa-cell">
+				Prepared by:
+				<br><br> ____________________
+				<br><i>Charo Co
+				<br> Accounting Clerk</i>
+			</div>
+			<div class="soa-cell" id="approvedBy">
+				Approved by:
+				<br><br> ____________________
+				<br><i>Simonette A. Crisologo
+				<br>Accounting Manager</i>
+			</div>
+		</div>
+	</div>
+<br>
+<br>
+	<div style="text-align:center; width: 100%; color:#244062">
+		<b>THANKYOU FOR YOUR BUSINESS!</b>
+</div>

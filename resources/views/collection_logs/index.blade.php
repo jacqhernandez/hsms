@@ -38,13 +38,14 @@
 <table>
 	<td>
 {!! Form::open(['route' => ['collectibles.generate_pdf', $client->id], 'method' => 'get', 'target'=>'_blank']) !!}
-<button class="btn btn-danger">Generate SOA</button>
+<button class="btn btn-success">Generate SOA</button>
 {!! Form::close() !!}
-	</td>
-
+</td>		
+<td> &nbsp; &nbsp; &nbsp;
+</td>
 <td>
 {!! Form::open(['route' => ['collectibles.email_pdf', $client->id], 'method' => 'get' ]) !!}
-<button class="btn btn-danger">Email SOA</button>
+<button class="btn btn-warning">Email SOA</button>
 {!! Form::close() !!}
 </td>
 
@@ -63,7 +64,7 @@
 				<td>{{ $d->total_amount}}</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $d->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-danger">View Details</button>
+					<button class="btn btn-primary">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>

@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url('/') }}">Hardware Sales Management System</a>
+                <a class="navbar-brand" href="{{ url('/home') }}">Hardware Sales Management System</a>
             </div>
             <!-- /.navbar-header -->
 

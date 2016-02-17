@@ -171,12 +171,12 @@
                         @foreach ($activities as $activity)
                         <tr>
                         <td>{{ $activity->text }}</td>
-                        @if (isset($activity->user))
-                            <td>{{ $activity->user->username }}</td>
+                        @if ($activity->User != null)
+                            <td>{{ $activity->User->username }}</td>
                         @else
                             <td>User Deleted</td>
                         @endif
-                        <td>{{ $activity->created_at }}</td>
+                        <td>{{ $activity->created_at->format('F j, Y h:i:s A')}}</td>
                         </tr>
                         @endforeach
                     </tbody> 

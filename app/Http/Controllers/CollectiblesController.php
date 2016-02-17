@@ -143,13 +143,15 @@ class CollectiblesController extends Controller
 
         $data = []; // Empty array
 
-        Mail::send('collectibles.email', $data, function($message) use($pdf)
+        $clientEmail = $client->email;
+
+        Mail::send('collectibles.email', $data, function($message) use($pdf, $clientEmail)
             {
                 $message->from('dummyboi24@gmail.com', 'Tester');
 
-                $message->to('jcy_424@yahoo.com')->subject('Statement of Account');
+                $message->to($clientEmail)->subject('Statement of Account');
 
-                $message->attachData($pdf->output(), "soa.pdf");
+                $message->attachData($pdf->output(), "SoA_". date('m/d/Y') . ".pdf");
             });
     }
 }
