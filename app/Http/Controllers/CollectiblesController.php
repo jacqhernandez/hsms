@@ -11,6 +11,7 @@ use App\SalesInvoice;
 use Activity;
 use Mail;
 use DB;
+use Flash;
 
 class CollectiblesController extends Controller
 {
@@ -153,5 +154,9 @@ class CollectiblesController extends Controller
 
                 $message->attachData($pdf->output(), "SoA_". date('m/d/Y') . ".pdf");
             });
+
+        Flash::success('Email sent successfully');
+
+        return redirect()->action('CollectionLogsController@index', [$client->id]);
     }
 }

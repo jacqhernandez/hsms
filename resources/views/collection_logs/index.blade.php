@@ -34,7 +34,7 @@
 @endif
 @if ($delivered !=0)
 <h3>Pending Sales Invoices</h3>
-
+@include('flash::message')
 <table>
 	<td>
 {!! Form::open(['route' => ['collectibles.generate_pdf', $client->id], 'method' => 'get', 'target'=>'_blank']) !!}
