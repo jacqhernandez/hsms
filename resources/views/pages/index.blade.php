@@ -1,6 +1,3 @@
-@extends('layouts.app')
-@section('content')
-
 @if (Auth::guest())
 	<a href="{{ url('/auth/login') }}">Login</a>
 @else
@@ -10,5 +7,3 @@
 	<br>
 	<a href="{{ url('/auth/logout') }}">Logout</a>
 @endif
-
-@stop

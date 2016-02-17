@@ -10,11 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+/*
 Route::get('/', ['as' => 'index', 'uses' => function () {
     return view('pages.index');
 }]);
+*/
 
+Route::get('/', ['as' => 'index', 'uses' => function () {
+    return view('auth.login');
+}]);
 
 //Sales Invoice CRUD route
 Route::get('invoices/search', ['as' => 'invoices.search', 'uses' => 'SalesInvoicesController@search']);
