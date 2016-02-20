@@ -12,6 +12,9 @@ use App\SalesInvoice;
 use Request;
 use Auth;
 use DB;
+use Artisan;
+use DB;
+use File;
 
 class ClientsController extends Controller
 {
@@ -40,6 +43,7 @@ class ClientsController extends Controller
         }
         //return view('clients.index', compact('clients'));
     }
+
 
     public function search()
     {

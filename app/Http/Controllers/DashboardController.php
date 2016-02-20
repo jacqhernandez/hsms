@@ -12,6 +12,8 @@ use Auth;
 use App\User;
 use App\SalesInvoice;
 use App\CollectionLog;
+use Spatie\Backup;
+use Artisan;
 
 
 
@@ -194,6 +196,18 @@ class DashboardController extends Controller
         return $collection_logs;
     }
 
+    public function backup()
+    {
+        Artisan::call('backup:run', ['--only-db' => '-db' ]);
+        return redirect()->action('DashboardController@index');
+    }
+
+    public function import()
+    {
+        //DB::statement(File::get('C:/xampp/htdocs/hsms/hsms/storage/app/backups/dump.sql'));
+        DB::unprepared(file_get_contents(storage_path()."/app/backups/dump.sql"));
+        return redirect()->action('DashboardController@index');
+    }
     public function update($id)
     {
         $cLog = CollectionLog::find($id);

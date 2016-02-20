@@ -41,7 +41,12 @@ Route::resource('invoiceitems', 'InvoiceItemsController');
 
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
 Route::get('clients/filter', ['as' => 'clients.filter', 'uses' => 'ClientsController@filter']);
+//Route::get('clients/backup', ['as' => 'clients.backup', 'uses' => 'ClientsController@backup']);
+//Route::get('clients/backup', 'ClientsController@backup');
+//Route::get('clients/import', 'ClientsController@import');
+//Route::get('clients/import', ['as' => 'clients.import', 'uses' => 'ClientsController@import']);
 Route::resource('clients', 'ClientsController');
+
 
 Route::get('suppliers/search', ['as' => 'suppliers.search', 'uses' => 'SuppliersController@search']);
 Route::resource('suppliers', 'SuppliersController');
@@ -50,7 +55,9 @@ Route::get('items/search', ['as' => 'items.search', 'uses' => 'ItemsController@s
 Route::resource('items','ItemsController');
 Route::resource('reasons','ReasonsController',['except' => 'show']); 
 
-Route::resource('collectibles', 'CollectiblesController', ['except' => 'update', 'edit', 'show', 'destroy']);
+Route::get('collectibles/search', ['as' => 'collectibles.search', 'uses' => 'CollectiblesController@search']);
+Route::get('collectibles/filter', ['as' => 'collectibles.filter', 'uses' => 'CollectiblesController@filter']);
+Route::resource('collectibles', 'CollectiblesController');
 Route::resource('collectibles.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
 Route::get('collectibles/{id}/generate', ['as' => 'collectibles.generate_pdf', 'uses' => 'CollectiblesController@generatePdf']);
 Route::get('collectibles/{id}/email', ['as' => 'collectibles.email_pdf', 'uses' => 'CollectiblesController@emailPdf']);
@@ -78,7 +85,7 @@ Route::get('/home/Collected', 'SalesInvoicesController@viewCollected');
 Route::get('/home/CurrentCollectibles', 'SalesInvoicesController@viewCollectibles');
 Route::get('/home/UpcomingCollectibles', 'SalesInvoicesController@viewUpcoming');
 Route::get('/home/OverdueCollectibles', 'SalesInvoicesController@viewOverdue');
-
+Route::get('/home/Backup', ['as' => 'backup', 'uses' => 'DashboardController@backup']);
 
 Route::get('logs', 'LogsController@index');
 Route::get('logs/filter', ['as' => 'logs.filter', 'uses' => 'LogsController@filter']);

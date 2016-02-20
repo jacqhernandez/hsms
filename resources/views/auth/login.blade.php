@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+    <!-- Favicon -->
+     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
+     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
+     <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,7 +53,10 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default" id="login-form-panel">
                     <div class="panel-heading">
-                        <center><h3 class="panel-title">Hardware Sales Management System</h3></center>
+                        <center>
+                            <img src="img/Logo.png" style="width:30px; float:left; margin-top:-2%;">
+                            <h3 class="panel-title">Hardware Sales Management System</h3>
+                        </center>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="POST" action="{{ url('/auth/login') }}">
