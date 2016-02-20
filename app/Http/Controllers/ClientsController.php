@@ -11,6 +11,7 @@ use App\User;
 use App\SalesInvoice;
 use Request;
 use Auth;
+use DB;
 
 class ClientsController extends Controller
 {
@@ -134,7 +135,10 @@ class ClientsController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
-        return view('clients.show', compact('client'));
+        // $sales_invoices = DB::select("SELECT * FROM sales_invoices si JOIN clients c ON si.client_id = c.id WHERE c.id='$id'");
+        // $sales_invoices = SalesInvoice::where('client_id', $id);
+        $sales_invoices = SalesInvoice::where('client_id',$id)->paginate(10);
+         return view('clients.show', compact('client', 'sales_invoices'));
     }
 
     /**
