@@ -41,3 +41,8 @@
 
     <!-- Date Picker -->
      <link href="{{ URL::asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Favicon -->
+     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
+     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
+     <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">

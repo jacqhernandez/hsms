@@ -34,6 +34,22 @@
 @endif
 @if ($delivered !=0)
 <h3>Pending Sales Invoices</h3>
+@include('flash::message')
+<table>
+	<td>
+{!! Form::open(['route' => ['collectibles.generate_pdf', $client->id], 'method' => 'get', 'target'=>'_blank']) !!}
+<button class="btn btn-success">Generate SOA</button>
+{!! Form::close() !!}
+</td>		
+<td> &nbsp; &nbsp; &nbsp;
+</td>
+<td>
+{!! Form::open(['route' => ['collectibles.email_pdf', $client->id], 'method' => 'get' ]) !!}
+<button class="btn btn-warning">Email SOA</button>
+{!! Form::close() !!}
+</td>
+
+
 <table class="table table-hover sortable">
 	<thead>
 		<tr>
@@ -48,7 +64,7 @@
 				<td>{{ $d->total_amount}}</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $d->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-danger">View Details</button>
+					<button class="btn btn-primary">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>

@@ -41,7 +41,7 @@ class SalesInvoicesController extends Controller
         } else {
             $sales_invoices = SalesInvoice::paginate(10);
         }
-        $dates = SalesInvoice::all()->lists('due_date','due_date');
+        $dates = $sales_invoices->lists('due_date','due_date');
         return view('sales_invoices.index', compact('sales_invoices','dates'));
     }
 
@@ -311,10 +311,13 @@ class SalesInvoicesController extends Controller
     {
         ini_set("max_execution_time", 0);
         $sales_invoice = SalesInvoice::find($id);
-        $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice'));
+        $items = DB::select("SELECT * FROM invoice_items i 
+                                JOIN sales_invoices si ON i.sales_invoice_id = si.id 
+                                JOIN items ON i.item_id = items.id WHERE si.id = '$id' ");
+
+        $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice', 'items'));
         Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
         return $pdf->stream();
-
     }
 
     //WIP

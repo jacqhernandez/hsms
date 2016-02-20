@@ -15,6 +15,7 @@
 <div class="form-group">
 {!! Form::select('filter_status', [
 						'' => 'Filter by Status',
+						'Draft' => 'Draft',
 						'Pending' => 'Pending',
 						'Delivered' => 'Delivered',
 						'Collected' => 'Collected',

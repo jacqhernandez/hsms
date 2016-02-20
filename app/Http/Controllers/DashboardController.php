@@ -34,7 +34,7 @@ class DashboardController extends Controller
         if (Auth::user()->role == 'General Manager' || Auth::user()->role == 'Accounting')
         {
         	$currentCollected = DB::SELECT("SELECT sum(total_amount) as 'total', count(*) as 'num' FROM sales_invoices
-    											WHERE week(due_date) = week(now())
+    											WHERE week(date_collected) = week(now())
     											AND status='collected'");
 
         	if ($currentCollected[0]->num == 0)
@@ -154,7 +154,10 @@ class DashboardController extends Controller
                 //$overdueCollectibleCountMonth = $overdueCollectibles[0]->num;
             }
 
-            $activities = Activity::where('user_id','!=',Auth::user()['id'])->orderBy('created_at','desc')->take(10);
+            $activities = Activity::orderby('created_at', 'desc')->take(10)->get();
+            // $activities = DB::SELECT("SELECT text, user_id, DATE_FORMAT(created_at, '%b %d, %Y %h:%i %p')  as created_at FROM activity_log ORDER BY created_at desc LIMIT 10");
+            
+            // $activities = DB::table('activity_log')->orderby('created_at', 'desc')->limit(10)->get();
             $users = User::where('role', '!=', 'General Manager')->lists('username', 'id');
 
             // $collection_logs = CollectionLog::where('week(follow_up_date'), '=', 'week(now())', 'AND', 'status', '=', 'pending');
@@ -183,6 +186,7 @@ class DashboardController extends Controller
     public function dateLog()
     {
         $date = $_GET['date'];
+        $wew = 'nice tec';
         // $collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
         $collection_logs = DB::SELECT("SELECT c.id as 'id', name, follow_up_date, note FROM collection_logs c
                                         JOIN clients cl on c.client_id = cl.id
