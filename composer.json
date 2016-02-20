@@ -12,7 +12,8 @@
         "maatwebsite/excel": "~2.0.0",
         "laravelcollective/html": "~5.0",
         "barryvdh/laravel-dompdf": "0.6.*",
-        "spatie/activitylog": "^2.3"
+        "spatie/activitylog": "^2.3",
+        "spatie/laravel-backup": "^2.9"
 
     },
     "require-dev": {

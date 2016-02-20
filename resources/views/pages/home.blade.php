@@ -149,6 +149,11 @@
                     <div id="collectionDonut" style="height: 350px;"></div>
         		</div>
     	</div>
+      @if (Auth::user()->role == 'General Manager')
+      {!!  Form::open(['route' => ['backup'], 'method' => 'get'])  !!}
+      {!!  Form::submit('Back Up Files', ['class' => 'btn btn-default'])  !!}
+      {!!  Form::close() !!}
+      @endif
    	</div>
     <!-- /.col-lg-6 -->
 
@@ -182,6 +187,8 @@
                     </tbody> 
                 </table>
     		</div>
+
+
 
             @elseif (Auth::user()->role == 'Accounting')
             <div class="panel-heading">To-do List</div>

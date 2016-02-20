@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -12,6 +12,7 @@ use Activity;
 use Mail;
 use DB;
 use Flash;
+use Request;
 
 class CollectiblesController extends Controller
 {
@@ -32,6 +33,46 @@ class CollectiblesController extends Controller
         }
         return view('collectibles.index', compact('clients', 'overdue', 'delivered'));
     }
+
+    public function search()
+    {
+        $input = Request::all();
+        $query = $input['query'];
+        $overdue = new SalesInvoice;
+        $delivered = new SalesInvoice;
+        $clients = Client::where('name','LIKE',"%$query%")->paginate(10);
+        for ($x = 1; $x < count($clients)+1; $x++)
+        {
+           $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
+           $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
+        }
+        if ($clients == "[]")
+        {
+            //flash()->error('There are no clients that match your query.');
+            return redirect()->action('CollectiblesController@index');
+        }
+        $clients->appends(Request::only('query'));
+        return view('collectibles.index',compact('clients', 'overdue', 'delivered'));
+    }
+
+    public function filter()
+    {
+        $input = Request::all();
+        $filter = $input['filter'];
+        $clients = Client::where('status',$filter)->paginate(10);
+        for ($x = 1; $x < count($clients)+1; $x++)
+        {
+           $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
+           $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
+        }
+        if ($clients == "[]")
+        {
+            return redirect()->action('CollectiblesController@index');
+        }
+        $clients->appends(Request::only('filter'));
+        return view('collectibles.index',compact('clients', 'overdue', 'delivered'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

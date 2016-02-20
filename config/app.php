@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'ASIA/Manila',
+    'timezone' => 'ASIA/MANILA',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
-
+        Spatie\Backup\BackupServiceProvider::class,
         /*
          * Application Service Providers...
          */
