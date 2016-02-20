@@ -51,7 +51,6 @@
 </table>
 <?php echo $clients->render(); ?>
 
-
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/clients/create') }}">New Client</a>
 @endif

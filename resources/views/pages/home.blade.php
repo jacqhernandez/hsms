@@ -183,6 +183,8 @@
                 </table>
     		</div>
 
+
+
             @elseif (Auth::user()->role == 'Accounting')
             <div class="panel-heading">To-do List</div>
             <div class="panel-body">
@@ -211,6 +213,11 @@
             </div>
             @endif
     	</div>
+        @if (Auth::user()->role == 'General Manager')
+        {!!  Form::open(['route' => ['backup'], 'method' => 'get'])  !!}
+        {!!  Form::submit('Back Up Files', ['class' => 'btn btn-default'])  !!}
+        {!!  Form::close() !!}
+        @endif
     </div>
 </div>
 

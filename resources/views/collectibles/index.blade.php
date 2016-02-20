@@ -36,7 +36,7 @@
 	
 	<tbody>
 		@foreach ($clients as $client)
-		@if ($overdue[$client->id] != 0 AND $delivered[$client->id] != 0)
+		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0)
 		<tr>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">{{ $client->name }}</a></td>
 			<td>{{ $client->credit_limit }}</td>
