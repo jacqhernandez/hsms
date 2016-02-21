@@ -21,8 +21,6 @@ class CreateSalesInvoicesTable extends Migration
             $table->date('date');
             $table->date('due_date');
             $table->double('total_amount', 12, 2)->unsigned();
-            $table->double('vat', 12, 2)->unsigned();
-            $table->double('wtax', 12, 2)->unsigned();
             $table->string('status');
             $table->date('date_delivered');
             $table->date('date_collected');

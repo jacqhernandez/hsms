@@ -124,6 +124,7 @@ class ClientsController extends Controller
         $client->credit_limit = $input['credit_limit'];
 		$client->status = $input['status'];
         $client->payment_terms = $input['payment_terms'];
+        $client->vat_exempt = $input['vat_exempt'];
         $client->user_id = $input['user_id'];
         $client->save();
     
@@ -191,6 +192,7 @@ class ClientsController extends Controller
             'credit_limit' => $input['credit_limit'],
 			'status' => $input['status'],
             'payment_terms' => $input['payment_terms'],
+            'vat_exempt' => $input['vat_exempt'],
             'user_id' => $input['user_id']
         ]);
         return redirect()->action('ClientsController@show',[$id]);

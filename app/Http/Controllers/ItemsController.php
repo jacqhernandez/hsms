@@ -123,8 +123,8 @@ class ItemsController extends Controller
     public function getItemTerms() {
         $item = $_GET['item'];
 
-        $topSuppliers = PriceLog::where('item_id', $item)->orderBy('date','desc')->take(3)->get();
+        $terms = PriceLog::where('item_id', $item)->orderBy('date','desc')->take(3)->get();
 
-        return $topSuppliers;
+        return $terms;
     }
 }

@@ -43,6 +43,11 @@
 				</tr>
 
 				<tr>
+					<td>VAT Exempted?</td>
+					<td>@if ($client->vat_exempt == 0) No @else Yes @endif</td>
+				</tr>
+
+				<tr>
 					<td>Sales Employee: </td>
 					<td>{{ $client->User->username }}</td>
 				</tr>
