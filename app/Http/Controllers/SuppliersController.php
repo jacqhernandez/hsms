@@ -50,7 +50,7 @@ class SuppliersController extends Controller
     {
         $input = Request::all();
         $query = $input['query'];
-        $suppliers = Supplier::where('name','LIKE',"%$query%"))->orWhere('description','LIKE',"%$query%")->paginate(10);
+        $suppliers = Supplier::where('name','LIKE',"%$query%")->orWhere('description','LIKE',"%$query%")->paginate(10);
         if ($suppliers == "[]")
         {
             //flash()->error('There are no suppliers that match your query.');
