@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
 			$table->string('telephone_number');
             $table->string('address');
             $table->string('email');
-			$table->integer('tin')->unique();
+			$table->string('tin')->unique();
             $table->string('contact_person');
             $table->double('credit_limit', 12, 2)->unsigned();
 			$table->string('status');

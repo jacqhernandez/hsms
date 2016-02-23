@@ -30,9 +30,10 @@ class CreateSupplierRequest extends Request
             {
                 return [
                     'name' => 'required',
-                    'telephone_number' => 'required',
+                    'telephone_number' => 'required|numeric',
                     'address' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:suppliers',
+                    'tin' => 'required|numeric|digits:12|unique:suppliers',
+                    'email' => 'email'
                 ];
             }
             case 'PATCH':
@@ -42,18 +43,20 @@ class CreateSupplierRequest extends Request
                 {
                     return[
                     'name' => 'required',
-                    'telephone_number' => 'required',
+                    'telephone_number' => 'required|numeric',
                     'address' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:suppliers,id'.$this->get('id'),
+                    'tin' => 'required|numeric|digits:12|unique:suppliers,id'.$this->get('id'),
+                    'email' => 'email'
                     ];
                 }
                 else
                 {
                     return[
                     'name' => 'required',
-                    'telephone_number' => 'required',
+                    'telephone_number' => 'required|numeric',
                     'address' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:suppliers',
+                    'tin' => 'required|numeric|digits:12|unique:suppliers',
+                    'email' => 'email'
                     ];
                 }
             }
