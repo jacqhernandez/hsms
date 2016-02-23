@@ -17,8 +17,6 @@ class SalesInvoice extends Model
 		'date',
 		'due_date',
 		'total_amount',
-		'vat',
-		'wtax',
 		'status',
 		'date_delivered',
 		'date_collected',

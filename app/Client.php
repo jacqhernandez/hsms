@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Client extends Model implements LogsActivityInterface
 {
@@ -24,6 +25,7 @@ class Client extends Model implements LogsActivityInterface
 		'credit_limit',
 		'status',
 		'payment_terms',
+		'vat_exempt',
 		'user_id'		
 	];
 	public function User()
@@ -46,5 +48,10 @@ class Client extends Model implements LogsActivityInterface
 	        return 'Client ' . $this->name . '  was updated';
 	    }
 	    return '';
+	}
+
+	public function currentCredit()
+	{
+		return DB::select("SELECT SUM(total_amount) AS credit FROM sales_invoices WHERE client_id='$id' AND (status='Delivered' OR status='Check on Hand' OR status='Pending' or status='Overdue')");
 	}
 }

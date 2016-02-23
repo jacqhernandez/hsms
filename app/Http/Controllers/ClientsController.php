@@ -11,6 +11,10 @@ use App\User;
 use App\SalesInvoice;
 use Request;
 use Auth;
+use DB;
+use Artisan;
+use DB;
+use File;
 
 class ClientsController extends Controller
 {
@@ -39,6 +43,7 @@ class ClientsController extends Controller
         }
         //return view('clients.index', compact('clients'));
     }
+
 
     public function search()
     {
@@ -119,6 +124,7 @@ class ClientsController extends Controller
         $client->credit_limit = $input['credit_limit'];
 		$client->status = $input['status'];
         $client->payment_terms = $input['payment_terms'];
+        $client->vat_exempt = $input['vat_exempt'];
         $client->user_id = $input['user_id'];
         $client->save();
     
@@ -134,7 +140,10 @@ class ClientsController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
-        return view('clients.show', compact('client'));
+        // $sales_invoices = DB::select("SELECT * FROM sales_invoices si JOIN clients c ON si.client_id = c.id WHERE c.id='$id'");
+        // $sales_invoices = SalesInvoice::where('client_id', $id);
+        $sales_invoices = SalesInvoice::where('client_id',$id)->paginate(10);
+         return view('clients.show', compact('client', 'sales_invoices'));
     }
 
     /**
@@ -183,6 +192,7 @@ class ClientsController extends Controller
             'credit_limit' => $input['credit_limit'],
 			'status' => $input['status'],
             'payment_terms' => $input['payment_terms'],
+            'vat_exempt' => $input['vat_exempt'],
             'user_id' => $input['user_id']
         ]);
         return redirect()->action('ClientsController@show',[$id]);

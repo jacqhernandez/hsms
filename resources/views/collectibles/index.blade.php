@@ -4,14 +4,14 @@
 <h2>Collectibles</h2>
 <hr>
 
-{!!  Form::open(['route' => ['clients.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+{!!  Form::open(['route' => ['collectibles.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Client Name', 'class' => 'form-control'])  !!} 
 </div>
 {!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
 {!!  Form::close() !!}
 
-{!!  Form::open(['route' => ['clients.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
+{!!  Form::open(['route' => ['collectibles.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
 <div class="form-group">
 {!! Form::select('filter', [
 						'' => 'Filter by Status',
@@ -30,13 +30,13 @@
 			<th>Credit Limit</th>
 			<th>Status</th>
 			<th>Overdue</th>
-			<th>Pending</th>
+			<th>Delivered</th>
 		</tr>
 	</thead>
 	
 	<tbody>
 		@foreach ($clients as $client)
-		@if ($overdue[$client->id] != 0 AND $delivered[$client->id] != 0)
+		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0)
 		<tr>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">{{ $client->name }}</a></td>
 			<td>{{ $client->credit_limit }}</td>

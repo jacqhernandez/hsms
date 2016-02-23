@@ -16,6 +16,7 @@ use Activity;
 use App\Supplier;
 use App\PriceLog;
 use App\InvoiceItem;
+use App\User;
 use Carbon\Carbon;
 
 class SalesInvoicesController extends Controller
@@ -145,7 +146,8 @@ class SalesInvoicesController extends Controller
     public function show($id)
     {
         $sales_invoice = SalesInvoice::find($id);
-        return view('sales_invoices.show', compact('sales_invoice'));
+        $items = SalesInvoice::find($id)->InvoiceItems;
+        return view('sales_invoices.show', compact('sales_invoice', 'items'));
     }
 
     public function poGuide($id)
@@ -163,7 +165,16 @@ class SalesInvoicesController extends Controller
     public function edit($id)
     {
         $sales_invoice = SalesInvoice::find($id);
-        return view('sales_invoices.edit', compact('sales_invoice'));
+        $items = SalesInvoice::find($id)->InvoiceItems;
+        $userOptions = User::where('role', 'Sales')->lists('username','id');
+        $statusOptions = [];
+            $statusOptions['Pending'] = "Pending";
+            $statusOptions['Delivered'] = "Delivered";
+            $statusOptions['Check on Hand'] = "Check on Hand";
+            $statusOptions['Collected'] = "Collected";
+        $clientOptions = Client::all()->lists('name', 'id');
+        $items = SalesInvoice::find($id)->InvoiceItems;
+        return view('sales_invoices.edit', compact('sales_invoice', 'userOptions', 'statusOptions', 'clientOptions', 'items'));
     }
 
     public function editStatus($id)
@@ -191,10 +202,8 @@ class SalesInvoicesController extends Controller
             'si_no' => $input['si_no'],
       		'po_number' => $input['po_number'],
       		'dr_number' => $input['dr_number'],
-            'date' => $input['date'],
             'due_date' => $input['due_date'],
             'vat' => $input['vat'],
-            'credit_limit' => $input['credit_limit'],
             'wtax' => $input['wtax'],
             'status' => $input['status'],
             'date_delivered' => $input['date_delivered'],
@@ -254,8 +263,6 @@ class SalesInvoicesController extends Controller
             'si_no' => $input['si_no'],
             'po_number' => $input['po_number'],
             'dr_number' => $input['dr_number'],
-            'vat' => $input['vat'],
-            'wtax' => $input['wtax'],
             'date' => Carbon::now()
         ]);
 
@@ -311,19 +318,36 @@ class SalesInvoicesController extends Controller
     {
         ini_set("max_execution_time", 0);
         $sales_invoice = SalesInvoice::find($id);
-        $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice'));
+        $items = DB::select("SELECT * FROM invoice_items i 
+                                JOIN sales_invoices si ON i.sales_invoice_id = si.id 
+                                JOIN items ON i.item_id = items.id WHERE si.id = '$id' ");
+
+        $pdf = \PDF::loadView('sales_invoices.generate', compact('sales_invoice', 'items'));
         Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
         return $pdf->stream();
-
     }
 
     //WIP
     public function getTopSuppliers() {
         $item = $_GET['item'];
 
-        $terms = Item::where('item_id', $item)->payment_terms;
+        // $terms = Item::where('item_id', $item)->payment_terms;
+        //$price_logs = PriceLog::where('item_id', $invoice_item->Item->id)->orderBy('created_at', 'desc')->take(3)->get();
+        //$terms = DB::select("SELECT * FROM items WHERE id = '$item'");
+        $terms = DB::select("SELECT DISTINCT supplier_id, date, price, stock_availability FROM price_logs WHERE item_id = '$item' ORDER BY created_at desc LIMIT 3");
 
         return $terms;
+    }
+
+    public function getClientDetails() {
+        $id = $_GET['id'];
+
+        $init = DB::select("SELECT * FROM clients WHERE id = '$id'");
+        $credit = DB::select("SELECT SUM(total_amount) AS credit FROM sales_invoices WHERE client_id='$id' AND (status='Delivered' OR status='Check on Hand' OR status='Pending' or status='Overdue')");
+
+        $client = array($init, $credit);
+
+        return $client;
     }
 
     public function delivered($id) {

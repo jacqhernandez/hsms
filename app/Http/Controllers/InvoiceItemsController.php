@@ -97,34 +97,47 @@ class InvoiceItemsController extends Controller
             $pricer = 'item_price' . strval($i);
             $availer = 'availA' . strval($i);
             $supplierer = 'supplier_id' . strval($i);
-            $priceLog->date = Carbon::now();
-            $priceLog->price = $input[$pricer];
-            $priceLog->stock_availability = $input[$availer];
-            $priceLog->item_id = $input[$finder];
-            $priceLog->supplier_id = $input[$supplierer];
-            $priceLog->save();
-
+            if ($input[$pricer] == 0) {
+              //do nothing
+            } else {
+              $priceLog->date = Carbon::now();
+              $priceLog->price = $input[$pricer];
+              $priceLog->stock_availability = $input[$availer];
+              $priceLog->item_id = $input[$finder];
+              $priceLog->supplier_id = $input[$supplierer];
+              $priceLog->save();
+            }
+            
             $priceLog2 = new PriceLog;
             $pricer2 = 'item_priceB' . strval($i);
             $availer2 = 'availB' . strval($i);
             $supplierer2 = 'supplier_idB' . strval($i);
-            $priceLog2->date = Carbon::now();
-            $priceLog2->price = $input[$pricer2];
-            $priceLog2->stock_availability = $input[$availer2];
-            $priceLog2->item_id = $input[$finder];
-            $priceLog2->supplier_id = $input[$supplierer2];
-            $priceLog2->save();
+            if ($input[$pricer2] == 0) {
+              //do nothing
+            } else {
+              $priceLog2->date = Carbon::now();
+              $priceLog2->price = $input[$pricer2];
+              $priceLog2->stock_availability = $input[$availer2];
+              $priceLog2->item_id = $input[$finder];
+              $priceLog2->supplier_id = $input[$supplierer2];
+              $priceLog2->save();
+            }
 
             $priceLog3 = new PriceLog;
             $pricer3 = 'item_priceC' . strval($i);
             $availer3 = 'availC' . strval($i);
             $supplierer3 = 'supplier_idC' . strval($i);
-            $priceLog3->date = Carbon::now();
-            $priceLog3->price = $input[$pricer3];
-            $priceLog3->stock_availability = $input[$availer3];
-            $priceLog3->item_id = $input[$finder];
-            $priceLog3->supplier_id = $input[$supplierer3];
-            if (Auth::user()['role'] !== 'Sales') $priceLog3->save();
+            if ($input[$pricer3] == 0) {
+              //do nothing
+            } else {
+              $priceLog3->date = Carbon::now();
+              $priceLog3->price = $input[$pricer3];
+              $priceLog3->stock_availability = $input[$availer3];
+              $priceLog3->item_id = $input[$finder];
+              $priceLog3->supplier_id = $input[$supplierer3];
+              $priceLog3->save();
+            }
+            //if (Auth::user()['role'] !== 'Sales') 
         }
 
         // $invoiceItem->sales_invoice_id = $salesInvoice->id;

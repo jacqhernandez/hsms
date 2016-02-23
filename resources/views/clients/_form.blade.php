@@ -49,6 +49,11 @@
 			</tr>
 
 			<tr>
+				<td>{!! Form::label('vat_exempt', 'VAT Exempted? ') !!}</td>
+				<td>{!! Form::select('vat_exempt', ['0' => "No", '1' => "Yes"], Input::old('vat_exempt'), ['class' => 'span7 form-control']) !!}</td>
+			</tr>
+
+			<tr>
 				<td>{!! Form::label('user_id', 'Sales Person: ') !!}</td>
 				<td>{!! Form::select('user_id', $userOptions, Input::old('user_id'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>

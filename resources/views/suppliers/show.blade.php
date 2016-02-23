@@ -4,6 +4,10 @@
 		<table class="table">
 			<tbody>
 				<tr>
+					<td>Description: </td>
+					<td>{{ $supplier['description']}}</td>
+				</tr>
+				<tr>
 					<td>Telephone Number: </td>
 					<td>{{ $supplier['telephone_number']}}</td>
 				</tr>

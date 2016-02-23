@@ -43,6 +43,11 @@
 				</tr>
 
 				<tr>
+					<td>VAT Exempted?</td>
+					<td>@if ($client->vat_exempt == 0) No @else Yes @endif</td>
+				</tr>
+
+				<tr>
 					<td>Sales Employee: </td>
 					<td>{{ $client->User->username }}</td>
 				</tr>
@@ -68,5 +73,35 @@
 	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
 	</td>
 	</table>
-						
+
+	<br>
+
+	<h2>List of Sales Invoices</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Invoice No.</th>
+				<th>Client</th>
+				<th>Date</th>
+				<th>Due Date</th>
+				<th>Total Amount</th>
+				<th>Payment Terms</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach ($sales_invoices as $sales_invoice)
+				<tr>
+					<td>{{ $sales_invoice->si_no }}</td>
+					<td>{{ $sales_invoice->Client->name }}</td>
+					<td>{{ $sales_invoice->date }}</td>
+					<td>{{ $sales_invoice->due_date }}</td>
+					<td>{{ $sales_invoice->total_amount }}</td>
+					<td>{{ $sales_invoice->Client->payment_terms}}</td>
+					<td>{{ $sales_invoice->status }}</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>		
+	<?php echo $sales_invoices->render(); ?>
 @stop

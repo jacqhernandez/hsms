@@ -5,6 +5,8 @@
   //namespace App\Http\Controllers;
   use App\Item;
   use App\SalesInvoice;
+  use App\PriceLog;
+  use App\Supplier;
 ?>
 
 <h2 class="sub-header">New Sales Invoice</h2><hr>
@@ -45,14 +47,6 @@
       <td>Delivery Number: </td>
       <td>{!! Form::text('dr_number', old('dr_number')) !!}</td>
     </tr>
-    <tr>
-      <td>Value Added Tax (VAT): </td>
-      <td>{!! Form::input('number', 'vat', old('vat')) !!}</td>
-    </tr>
-    <tr>
-      <td>Witholding Tax: </td>
-      <td>{!! Form::input('number', 'wtax', old('wtax')) !!}</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -64,7 +58,7 @@
 			<th>Units</th>
 			<th>Quantity</th>
 			<th>Selling Price per Unit</th>
-			<th>Total Price</th>
+      <th>Price Logs</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -73,9 +67,38 @@
 			<td><?php echo Item::find($item->item_id)->name; ?></td>
 			<td><?php echo Item::find($item->item_id)->unit; ?></td>
 			<td>{!! Form::input('number', 'quantity' . $item->id, old('quantity')) !!}</td>
-			<td>{!! Form::input('number', 'unit_price' . $item->id, old('unit_price')) !!}</td>
-			<td></td>
+			<td>{!! Form::input('number', 'unit_price' . $item->id, old('unit_price'), array('step' => '0.01')) !!}</td>
+      <td><button type="button" id="viewPO" class="btn btn-info" data-toggle="modal" data-target="#myModal">View</button><td>
 		</tr>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Latest Price Logs for <?php echo Item::find($item->item_id)->name; ?></h4>
+          </div>
+          <div class="modal-body">
+            <?php $price_logs = PriceLog::where('item_id', $item->item_id)->orderBy('created_at', 'desc')->take(3)->get(); ?>
+            @foreach ($price_logs as $price_log)
+              <p><?php echo Supplier::find($price_log->supplier_id)->name ?>: Php {{ number_format($price_log->price, 2, '.', ',') }}</p>
+            @endforeach            
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      $("#viewPO").attr('data-target', '.myModal'+<?php echo $item->id ?>);
+      $("#viewPO").attr('id', 'viewPO'+<?php echo $item->id ?>);
+      $("#myModal").attr('class', 'modal fade myModal'+<?php echo $item->id ?>);
+      $("#myModal").attr('id', 'myModal'+<?php echo $item->id ?>);
+    </script>
+
 		@endforeach
 	</tbody> 
 	</table>
@@ -85,7 +108,7 @@
 <a href="{{ action ('SalesInvoicesController@index')}}">
   <button type="button" class="btn btn-primary">Exit</button>
 </a>
-{!! Form::submit('Save and View P.O. Guide', array('class' => 'btn btn-primary', 'id' => 'generateInvoice', 'disabled' => 'disabled')) !!}
+{!! Form::submit('Finish and View Invoice', array('class' => 'btn btn-primary', 'id' => 'generateInvoice', 'disabled' => 'disabled')) !!}
 <!-- <button type="button" class="btn btn-primary" id="generateInvoice">Generate Sale Inovoice</button>
  -->{!! Form::close() !!}
 
