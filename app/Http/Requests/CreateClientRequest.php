@@ -49,7 +49,8 @@ class CreateClientRequest extends Request
                     'address' => 'required',
                     //'tin' => 'required|numeric|digits:12|unique:clients,id'.$this->get('id'),
                     'tin' => 'required|numeric|digits:12|unique:clients,tin,'.$this->segment(2),
-                    'credit_limit' => 'required'
+                    'credit_limit' => 'required',
+                    'email' => 'email'
                     ];
                 }
                 else
@@ -59,7 +60,8 @@ class CreateClientRequest extends Request
                     'telephone_number' => 'required',
                     'address' => 'required',
                     'tin' => 'required|numeric|digits:12|unique:clients',
-                    'credit_limit' => 'required'
+                    'credit_limit' => 'required',
+                    'email' => 'email'
                     ];
                 }
             }
