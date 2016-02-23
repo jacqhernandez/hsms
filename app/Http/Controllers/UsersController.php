@@ -69,9 +69,9 @@ class UsersController extends Controller {
 			array(
 				'username' => 'required|unique:users,username,'.$id,		
 				'role'=>'required',
-				'password' => 'required',
-				'old_password' => 'required|min:6',
-				'confirm_new_password' => 'required|same:password'
+				'password' => 'required|min:6',
+				'old_password' => 'required',
+				'confirm_new_password' => 'required|same:password|min:6'
 				)
 			);
 		if($validator->fails())
