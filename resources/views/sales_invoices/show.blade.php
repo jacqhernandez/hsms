@@ -123,8 +123,10 @@
 		{!! Form::close() !!}		
 	</td>
 	<td>
-		{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete' ]) !!}
-			<button class="btn btn-danger">Delete</button>
+		{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id' => 'delete' ]) !!}
+			<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+					Delete
+			</button>
 		{!! Form::close() !!}
 	</td>
 	@endif
@@ -133,5 +135,5 @@
 	<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>	
 	</td>
 	</table>
-						
+@include('includes.delete_confirm')				
 @stop

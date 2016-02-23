@@ -96,8 +96,10 @@
 		{!! Form::close() !!}		
 	</td>
 	<td>
-		{!! Form::open(['route' => ['clients.destroy', $client->id], 'method' => 'delete' ]) !!}
-			<button class="btn btn-danger">Delete</button>
+		{!! Form::open(['route' => ['clients.destroy', $client->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
+			<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+					Delete
+			</button>
 		{!! Form::close() !!}
 	</td>
 	@endif
@@ -105,4 +107,5 @@
 	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back to Clients</button></a>	
 	</td>
 	</table>
+@include('includes.delete_confirm')
 @stop
