@@ -47,7 +47,8 @@ class CreateClientRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required',
                     'address' => 'required',
-                    'tin' => 'required|numeric|digits:12|unique:clients,id'.$this->get('id'),
+                    //'tin' => 'required|numeric|digits:12|unique:clients,id'.$this->get('id'),
+                    'tin' => 'required|numeric|digits:12|unique:clients,tin,'.$this->segment(2),
                     'credit_limit' => 'required'
                     ];
                 }
