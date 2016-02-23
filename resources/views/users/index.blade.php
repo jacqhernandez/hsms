@@ -16,8 +16,10 @@
 		<td>{{ $user->username }}</td>
 		<td>{{ $user->role }}</td>
 		<td>
-			{!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete' ]) !!}
-				<button class="btn btn-warning">Delete</button>
+			{!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete', 'id' => 'delete' ]) !!}
+				<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+				Delete
+		</button>
 			{!! Form::close() !!}
 		</td>
 		<td>
@@ -32,5 +34,5 @@
 <?php echo $users->render(); ?>
 <br>
 <a href="{{ url('/auth/register') }}">New User</a>
-
+@include('includes.delete_confirm')	
 @stop

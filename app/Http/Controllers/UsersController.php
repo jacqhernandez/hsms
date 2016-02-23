@@ -67,7 +67,7 @@ class UsersController extends Controller {
 		$user = User::findOrFail($id);
 		$validator = Validator::make(Input::all(),
 			array(
-				'username' => 'required',		
+				'username' => 'required|unique:users,username,'.$id,		
 				'role'=>'required',
 				'password' => 'required',
 				'old_password' => 'required|min:6',

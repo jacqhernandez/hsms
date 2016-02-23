@@ -15,14 +15,15 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-			$table->integer('telephone_number');
+			$table->string('telephone_number');
             $table->string('address');
             $table->string('email');
-			$table->integer('tin')->unique();
+			$table->string('tin')->unique();
             $table->string('contact_person');
             $table->double('credit_limit', 12, 2)->unsigned();
 			$table->string('status');
             $table->string('payment_terms');
+            $table->boolean('vat_exempt');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')->on('users');

@@ -50,7 +50,7 @@ class SuppliersController extends Controller
     {
         $input = Request::all();
         $query = $input['query'];
-        $suppliers = Supplier::where('name','LIKE',"%$query%")->paginate(10);
+        $suppliers = Supplier::where('name','LIKE',"%$query%")->orWhere('description','LIKE',"%$query%")->paginate(10);
         if ($suppliers == "[]")
         {
             //flash()->error('There are no suppliers that match your query.');
@@ -72,6 +72,7 @@ class SuppliersController extends Controller
 		$input = Request::all();
 		$supplier = new Supplier;
 		$supplier->name = $input['name'];
+        $supplier->description = $input['description'];
 		$supplier->address = $input['address'];
 		$supplier->telephone_number = $input['telephone_number'];
 		$supplier->tin = $input['tin'];
@@ -129,6 +130,7 @@ class SuppliersController extends Controller
 		$input = Request::all();
 		$supplier->update([
 			'name' => $input['name'],
+            'description' => $input['description'],
 			'telephone_number' => $input['telephone_number'],
 			'tin' => $input['tin'],
 			'address' => $input['address'],

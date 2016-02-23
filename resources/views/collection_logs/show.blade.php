@@ -51,7 +51,7 @@
 	@if (Auth::user()['role'] == 'General Manager')
 	@endif
 	<td>
-	<a href="{{ URL::previous() }}"><button type="button" class="btn btn-info">Back</button></a>	
+	<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back to Collection Logs</button></a>
 	</td>
 	</tr>
 	</table>

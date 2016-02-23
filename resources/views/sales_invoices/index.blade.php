@@ -111,7 +111,7 @@
 								      </div>
 								      <div class="modal-body">
 								      		<p><b>Sales Invoice No: </b><?php echo $sales_invoice->si_no ?></p>
-								      		<p><b>Total Amount: </b>Php <?php echo $sales_invoice->total_amount ?></p>
+								      		<p><b>Total Amount: </b>Php <?php echo number_format($sales_invoice->total_amount, 2, '.', ',') ?></p>
 								      		{!! Form::open(['route' => ['invoices.collected'], 'method' => 'post' ]) !!}
 								      		{!! Form::hidden('id', $sales_invoice->id) !!}
 								      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
@@ -136,7 +136,7 @@
 
 <?php echo $sales_invoices->render(); ?>
 @if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
-	<a href="{{ url('/invoices/quotation') }}">New Sales Invoice</a>
+	<a href="{{ action('SalesInvoicesController@quotation') }}"><button type="button" class="btn btn-primary">New Sales Invoice</button></a>
 @endif
 <button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>
 @stop

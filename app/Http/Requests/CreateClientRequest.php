@@ -31,10 +31,11 @@ class CreateClientRequest extends Request
                 return [
                 //
                     'name' => 'required',
-                    'telephone_number' => 'required',
+                    'telephone_number' => 'required|numeric',
                     'address' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:clients',
-                    'credit_limit' => 'required'
+                    'tin' => 'required|numeric|digits:12|unique:clients',
+                    'credit_limit' => 'required',
+                    'email' => 'email'
                 ];
             }
             case 'PATCH':
@@ -46,8 +47,10 @@ class CreateClientRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required',
                     'address' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:clients,id'.$this->get('id'),
-                    'credit_limit' => 'required'
+                    //'tin' => 'required|numeric|digits:12|unique:clients,id'.$this->get('id'),
+                    'tin' => 'required|numeric|digits:12|unique:clients,tin,'.$this->segment(2),
+                    'credit_limit' => 'required',
+                    'email' => 'email'
                     ];
                 }
                 else
@@ -56,8 +59,9 @@ class CreateClientRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required',
                     'address' => 'required',
-                    'tin' => 'required|min:9|max:9|unique:clients',
-                    'credit_limit' => 'required'
+                    'tin' => 'required|numeric|digits:12|unique:clients',
+                    'credit_limit' => 'required',
+                    'email' => 'email'
                     ];
                 }
             }

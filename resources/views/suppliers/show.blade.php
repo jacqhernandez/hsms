@@ -4,6 +4,10 @@
 		<table class="table">
 			<tbody>
 				<tr>
+					<td>Description: </td>
+					<td>{{ $supplier['description']}}</td>
+				</tr>
+				<tr>
 					<td>Telephone Number: </td>
 					<td>{{ $supplier['telephone_number']}}</td>
 				</tr>
@@ -44,15 +48,17 @@
 	{!! Form::close() !!}		
 	</td>
 	<td>
-	{!! Form::open(['route' => ['suppliers.destroy', $supplier->id], 'method' => 'delete' ]) !!}
-		<button class="btn btn-danger">Delete</button>
+	{!! Form::open(['route' => ['suppliers.destroy', $supplier->id], 'method' => 'delete', 'id' => 'delete' ]) !!}
+		<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+				Delete
+		</button>
 	{!! Form::close() !!}
 	</td>
 	@endif
 	<td>
-	<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
+	<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back to Suppliers</button></a>	
 	</td>
 	</table>
-						
+@include('includes.delete_confirm')						
 @stop
 				

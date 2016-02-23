@@ -12,7 +12,9 @@
 </div>
 {!!  Form::close() !!}
 
-{!! Form::open(['route' => ['logs.delete'], 'method' => 'get', 'class' => 'navbar-form navbar-right']) !!}
+{!! Form::open(['route' => ['logs.delete'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'id' => 'delete' ]) !!}
+	<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+			Delete Oldest 50 Records
 	<button class="btn btn-danger">Delete Oldest 50 Records</button>
 {!! Form::close() !!}		
 
@@ -31,7 +33,7 @@
 		@foreach ($activities as $activity)
 		<tr>
 			<td>{{ $activity->text }}</td>
-			@if (isset($activity->user))
+			@if ($activity->user !== null)
 				<td>{{ $activity->user->username }}</td>
 			@else
 				<td>User Deleted</td>

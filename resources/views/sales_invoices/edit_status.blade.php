@@ -49,7 +49,7 @@
 		<br>
 		<div class = "submit">
 			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-			<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back</button></a>
+			<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>
 		</div>
 	</div>
 
