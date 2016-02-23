@@ -1,0 +1,13 @@
+﻿[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[user]
+	name = jacqhernandez
+	email = jm.hernandez96@yahoo.com
+[http]
+[http]
+[http]
+[url "https://"]
+	insteadOf = git://
+
