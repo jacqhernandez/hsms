@@ -47,6 +47,6 @@
 	<br>
 	<div class = "submit">
 		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-		<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back</button></a>
+		<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back to Suppliers</button></a>
 	</div>
 </div>

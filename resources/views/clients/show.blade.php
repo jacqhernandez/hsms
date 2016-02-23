@@ -54,26 +54,6 @@
 			</tbody>
 		</table>
 
-	<table>
-	<tr>
-
-	@if (Auth::user()['role'] == 'General Manager')
-	<td>
-		{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
-			<button class="btn btn-warning">Edit</button>
-		{!! Form::close() !!}		
-	</td>
-	<td>
-		{!! Form::open(['route' => ['clients.destroy', $client->id], 'method' => 'delete' ]) !!}
-			<button class="btn btn-danger">Delete</button>
-		{!! Form::close() !!}
-	</td>
-	@endif
-	<td>
-	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
-	</td>
-	</table>
-
 	<br>
 
 	<h2>List of Sales Invoices</h2>
@@ -103,5 +83,26 @@
 			@endforeach
 		</tbody>
 	</table>		
+
 	<?php echo $sales_invoices->render(); ?>
+
+	<table>
+	<tr>
+
+	@if (Auth::user()['role'] == 'General Manager')
+	<td>
+		{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
+			<button class="btn btn-warning">Edit</button>
+		{!! Form::close() !!}		
+	</td>
+	<td>
+		{!! Form::open(['route' => ['clients.destroy', $client->id], 'method' => 'delete' ]) !!}
+			<button class="btn btn-danger">Delete</button>
+		{!! Form::close() !!}
+	</td>
+	@endif
+	<td>
+	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back to Clients</button></a>	
+	</td>
+	</table>
 @stop

@@ -130,7 +130,7 @@
 	@endif
 
 	<td>
-	<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back</button></a>	
+	<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>	
 	</td>
 	</table>
 						

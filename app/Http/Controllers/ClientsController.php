@@ -13,7 +13,6 @@ use Request;
 use Auth;
 use DB;
 use Artisan;
-use DB;
 use File;
 
 class ClientsController extends Controller

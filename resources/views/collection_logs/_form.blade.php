@@ -52,7 +52,7 @@
 	{!! Form::hidden('client_id', $id) !!}
 	<div class = "submit">
 		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-		<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back</button></a>
+		<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back to Collection Logs</button></a>
 	</div>
 	@if ($errors->any())
 		<ul class="alert alert-danger">
