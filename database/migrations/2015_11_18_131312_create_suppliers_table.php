@@ -16,7 +16,7 @@ class CreateSuppliersTable extends Migration
             $table->increments('id');
 			$table->string('name');
             $table->string('description');
-			$table->integer('telephone_number');
+			$table->string('telephone_number');
 			$table->integer('tin')->unique();
 			$table->string('address');
 			$table->string('email');
