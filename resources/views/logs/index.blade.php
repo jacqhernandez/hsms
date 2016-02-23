@@ -31,7 +31,7 @@
 		@foreach ($activities as $activity)
 		<tr>
 			<td>{{ $activity->text }}</td>
-			@if (isset($activity->user))
+			@if ($activity->user !== null)
 				<td>{{ $activity->user->username }}</td>
 			@else
 				<td>User Deleted</td>
