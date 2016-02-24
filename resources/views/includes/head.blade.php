@@ -40,9 +40,12 @@
     <link href="{{ URL::asset('/bower_components/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Date Picker -->
-     <link href="{{ URL::asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS 2 -->
+    <link href="{{ URL::asset('/css/custom.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Favicon -->
      <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
-     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
+     <link rel="icon" type="image/ico" href="http://localhost/hsms/public/img/Logo.ico">
      <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">

@@ -40,16 +40,6 @@
 					<td>Total Amount: </td>
 					<td>Php {{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
 				</tr>
-				
-				<tr>
-					<td>VAT: </td>
-					<td>Php {{ number_format($sales_invoice->vat, 2, '.', ',') }}</td>
-				</tr>
-				
-				<tr>
-					<td>Withholding Tax: </td>
-					<td>Php {{ number_format($sales_invoice->wtax, 2, '.', ',') }}</td>
-				</tr>
 
 				<tr>
 					<td>Status:</td>

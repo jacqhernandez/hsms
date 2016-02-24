@@ -4,7 +4,7 @@
 <head>
     <!-- Favicon -->
      <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
-     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
+     <link rel="icon" type="image/ico" href="http://localhost/hsms/public/img/Logo.ico">
      <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
 
     <meta charset="utf-8">
@@ -54,7 +54,7 @@
                 <div class="login-panel panel panel-default" id="login-form-panel">
                     <div class="panel-heading">
                         <center>
-                            <img src="img/Logo.png" style="width:30px; float:left; margin-top:-2%;">
+                            <img src="http://localhost/hsms/public/img/Logo.png" style="width:30px; float:left; margin-top:-2%;">
                             <h3 class="panel-title">Hardware Sales Management System</h3>
                         </center>
                     </div>
