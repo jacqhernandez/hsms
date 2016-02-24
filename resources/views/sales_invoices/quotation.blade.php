@@ -78,7 +78,7 @@
       <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange')) !!}</td>
       <td><p class="supplierTerms"></p></td>
       <td><p class="contact"></p></td>
-      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice')) !!}</td>
+      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01')) !!}</td>
       <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo')) !!}</td>
       <td><p class="lastUpdated"></p></td>
     </tr>
@@ -88,7 +88,7 @@
       <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB']) !!}</td>
       <td><p class="supplierBTerms"></p></td>
       <td><p class="contactB"></p></td>
-      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01')) !!}</td>
       <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB')) !!}</td>
       <td><p class="lastUpdatedB"></p></td>
     </tr>
@@ -98,7 +98,7 @@
       <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC']) !!}</td>
       <td><p class="supplierCTerms"></p></td>
       <td><p class="contactC"></p></td>
-      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01')) !!}</td>
       <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC')) !!}</td>
       <td><p class="lastUpdatedC"></p></td>
     </tr>
@@ -444,17 +444,6 @@
               } 
           });
 
-
-          //FOR PRICE LOG DATE DIF!!!
-          var a = new Date($('.lastUpdated1').text());
-          var b = new Date($('.lastUpdated1').text());
-          var timeDiff = Math.abs(b.getTime() - a.getTime());
-          var diffDays = Math.ceil(timeDiff/(1000*3600*24));
-          if (diffDays == 0){
-            empty = true;
-          }
-
-
           if (empty) {
               $('#generateInvoice').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
           } else {
@@ -468,15 +457,38 @@
   $(document).ready(function() {
     $('form').on('submit', function(e){
       var valid = true;
-      var errorMessage;
+      var errorMessage = "";
+      var diff = 7;
 
       if ($("#clientStatus")[0].textContent == "Blacklisted") {
         valid = false;
-        errorMessage = "Sorry, the client is Blacklisted and cannot participate in further sales. ";
+        errorMessage += "Sorry, the client is Blacklisted and cannot participate in further sales. ";
       }
-
+      
       for (var i = 1; i < rowCounter; i++) {
+        var a = new Date($(".lastUpdated" + i).text());
+        if (getDateDiff(a) > diff) {
+          if ($(".itemPrice" + i).val() == 0) {
+            valid = false;
+            errorMessage += " The 1st price log in Item Row number " + i + " needs to be updated.";
+          }
+        }
 
+        var a = new Date($(".lastUpdatedB" + i).text());
+        if (getDateDiff(a) > diff) {
+          if ($(".itemPriceB" + i).val() == 0) {
+            valid = false;
+            errorMessage += " The 2nd price log in Item Row number " + i + " needs to be updated.";
+          }
+        }
+
+        var a = new Date($(".lastUpdatedC" + i).text());
+        if (getDateDiff(a) > diff) {
+          if ($(".itemPriceC" + i).val() == 0) {
+            valid = false;
+            errorMessage += " The 3rd price log in Item Row number " + i + " needs to be updated.";
+          }
+        }
       }
 
       if(!valid) {
@@ -485,6 +497,14 @@
       }
     });
   });
+
+  function getDateDiff(oldDate){
+    var a = oldDate;
+    var b = new Date();
+    var timeDiff = Math.abs(b.getTime() - a.getTime());
+    var diffDays = Math.ceil(timeDiff/(1000*3600*24));
+    return diffDays;
+  }
 
 
   //$(".clientChange")[''].disabled="disable";
