@@ -228,6 +228,14 @@ class InvoiceItemsController extends Controller
         return redirect()->action('SalesInvoicesController@edit',[$salesInvoice->id]);
     }
 
+    public function destroy($id)
+    {   dd("hello");
+        $invoiceItem = InvoiceItem::find($id);
+        $salesId = $invoiceItem->salesInvoice->id;
+        $invoiceItem->delete();
+        return redirect()->action('SalesInvoicesController@edit', [$salesId]);
+    }
+
     /**
      * Display the specified resource.
      *

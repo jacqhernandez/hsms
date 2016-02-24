@@ -444,6 +444,17 @@
               } 
           });
 
+
+          //FOR PRICE LOG DATE DIF!!!
+          var a = new Date($('.lastUpdated1').text());
+          var b = new Date($('.lastUpdated1').text());
+          var timeDiff = Math.abs(b.getTime() - a.getTime());
+          var diffDays = Math.ceil(timeDiff/(1000*3600*24));
+          if (diffDays == 0){
+            empty = true;
+          }
+
+
           if (empty) {
               $('#generateInvoice').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
           } else {
