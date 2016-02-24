@@ -9,12 +9,13 @@
 			margin-right:18px;
 			margin-bottom:0px;
 			size:a4 portrait;
-			color:blue;
+			color:#0000ff;
+			background-image:none;
 		}
 
 		body{
 			background: transparent;
-			background-image: url('http://localhost/hsms/public/img/Sales%20Invoice%20-%20A4.jpg');
+			/*background-image: url('http://localhost/hsms/public/img/Sales%20Invoice%20-%20A4.jpg');*/
 			background-repeat: no-repeat;
 			margin-top: 0px;
 			background-position: -10px 3px;
@@ -45,7 +46,7 @@
 
 <body>
 
-	<div class="filler" style="height:127px; visibility: hidden;">Invoice {{ $sales_invoice['si_no'] }}</div>
+	<div class="filler" style="height:120px; visibility: hidden;">Invoice {{ $sales_invoice['si_no'] }}</div>
 	<div class="filler" style="height:32px;"></div>
 
 	<!-- Date -->
@@ -53,7 +54,7 @@
 		<tr>
 			<td style="width:530px;">&nbsp;</td>
 			<td style="width:87px; visibility:hidden;">Date: </td>
-			<td style="width:auto;">{{ $sales_invoice['date'] }}</td>
+			<td style="font-size:11pt; width:auto;">{{ $sales_invoice['date'] }}</td>
 		</tr>
 	</table>
 	<div class="filler" style="height:16px;"></div>
@@ -61,7 +62,7 @@
 	<table class="table2">
 			<tr>
 				<td style="width:75px;  visibility:hidden;">Sold to: </td>
-				<td style="text-indent:25px;">{{ $sales_invoice->Client->name }}</td>
+				<td style="font-size:11pt; text-indent:25px;">{{ $sales_invoice->Client->name }}</td>
 
 			</tr>
 	</table>
@@ -71,7 +72,7 @@
 	<table class="table2">
 			<tr>
 				<td style="width:77px;  visibility:hidden;">TIN/SC-TIN: </td>
-				<td style="text-indent:25px; width:300px">{{ $sales_invoice->Client->tin }}</td>
+				<td style="font-size:11pt; text-indent:25px; width:300px">{{ $sales_invoice->Client->tin }}</td>
 				<td style="width:113px;  visibility:hidden;">Bus, Name/style: </td>
 				<td style="width:auto;"> </td>
 			</tr>
