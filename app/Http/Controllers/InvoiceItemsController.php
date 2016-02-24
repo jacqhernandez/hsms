@@ -11,6 +11,7 @@ use App\InvoiceItem;
 use App\SalesInvoice;
 use App\Client;
 use App\User;
+use App\Item;
 use App\PriceLog;
 use Request;
 use Auth;
@@ -153,6 +154,77 @@ class InvoiceItemsController extends Controller
         Activity::log('Quotation for invoice '. $salesInvoice['si_no'] .' was added');
         return redirect()->action('SalesInvoicesController@make',[$salesInvoice->id]);
         //return redirect()->action('ClientsController@index');
+    }
+
+    public function addItem($salesId)
+    {
+        $itemOptions = Item::all()->lists('name', 'id');
+
+        return view('invoice_items.create', compact('itemOptions', 'salesId'));
+    }
+
+    public function newItem(Requests\CreateInvoiceItemRequest $request)
+    {
+      $input = Request::all();
+      $salesId = $input['salesId'];
+      $saleItem = new InvoiceItem;
+      $saleItem->quantity = $input['quantity'];
+      $saleItem->unit_price = $input['unit_price'];
+      $saleItem->item_id = $input['item_id'];
+      $saleItem->sales_invoice_id = $salesId;
+      $saleItem->total_price = $input['quantity'] * $input['unit_price'];
+      $saleItem->save();
+
+      $items = InvoiceItem::where('sales_invoice_id', $salesId)->get();
+      $total_amount = 0;
+      foreach ($items as $item) {
+          $invoiceItem = InvoiceItem::find($item->id);
+
+          $total_amount += $invoiceItem->total_price;
+      }
+
+      $salesInvoice = $saleItem->salesInvoice;
+      $salesInvoice->update([
+          'total_amount' => $total_amount
+      ]);
+
+      return redirect()->action('SalesInvoicesController@edit',[$salesInvoice->id]);
+    }
+
+    public function edit($id)
+    {
+        $saleItem = InvoiceItem::find($id);
+
+        $itemOptions = Item::all()->lists('name', 'id');
+
+        return view('invoice_items.edit', compact('saleItem', 'itemOptions'));
+    }
+
+    public function update(Requests\CreateInvoiceItemRequest $request, $id)
+    {
+        $saleItem = InvoiceItem::find($id);
+        $input = Request::all();
+        $saleItem->update([
+            'item_id' => $input['item_id'],
+            'quantity' => $input['quantity'],
+            'unit_price' => $input['unit_price'],
+            'total_price' => $input['quantity'] * $input['unit_price']
+        ]);
+        $salesInvoice = $saleItem->salesInvoice;
+
+        $items = InvoiceItem::where('sales_invoice_id', $salesInvoice->id)->get();
+        $total_amount = 0;
+        foreach ($items as $item) {
+            $invoiceItem = InvoiceItem::find($item->id);
+
+            $total_amount += $invoiceItem->total_price;
+        }
+
+        $salesInvoice->update([
+            'total_amount' => $total_amount
+        ]);
+
+        return redirect()->action('SalesInvoicesController@edit',[$salesInvoice->id]);
     }
 
     /**
