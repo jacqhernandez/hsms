@@ -38,5 +38,7 @@
 </table>
 <?php echo $users->render(); ?>
 <br>
-<a href="{{ url('/auth/register') }}">New User</a>
+
+<a href="{{ url('/auth/register') }}" class="btn btn-primary">New User</a>
+@include('includes.delete_confirm')	
 @stop

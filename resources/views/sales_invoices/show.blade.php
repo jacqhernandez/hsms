@@ -30,6 +30,11 @@
 					<td>Payment Terms: </td>
 					<td>{{ $sales_invoice->Client->payment_terms }}</td>
 				</tr>
+
+				<tr>
+					<td>Date Delivered: </td>
+					<td>@if ($sales_invoice->date_delivered == 00-00-0000) ----- @else <?php echo Carbon\Carbon::parse($sales_invoice->date_delivered)->toFormattedDateString(); ?> @endif</td>
+				</tr>
 			
 				<tr>
 					<td>Due Date: </td>
@@ -39,16 +44,6 @@
 				<tr>
 					<td>Total Amount: </td>
 					<td>Php {{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
-				</tr>
-				
-				<tr>
-					<td>VAT: </td>
-					<td>Php {{ number_format($sales_invoice->vat, 2, '.', ',') }}</td>
-				</tr>
-				
-				<tr>
-					<td>Withholding Tax: </td>
-					<td>Php {{ number_format($sales_invoice->wtax, 2, '.', ',') }}</td>
 				</tr>
 
 				<tr>
