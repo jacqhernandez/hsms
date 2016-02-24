@@ -22,6 +22,7 @@
  -->
 
 <div class="table-responsive">
+  @include('includes.required_errors')
 <table class="table">
 <!--   <thead>
     <tr>
@@ -82,7 +83,7 @@
           <div class="modal-body">
             <?php $price_logs = PriceLog::where('item_id', $item->item_id)->orderBy('created_at', 'desc')->take(3)->get(); ?>
             @foreach ($price_logs as $price_log)
-              <p><?php echo Supplier::find($price_log->supplier_id)->name ?>: Php {{ number_format($price_log->price, 2, '.', ',') }}</p>
+              <p><?php echo Supplier::withTrashed()->find($price_log->supplier_id)->name ?>: Php {{ number_format($price_log->price, 2, '.', ',') }}</p>
             @endforeach            
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

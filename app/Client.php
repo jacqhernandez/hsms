@@ -13,7 +13,7 @@ class Client extends Model implements LogsActivityInterface
 	use LogsActivity;
 	use SoftDeletes;
 
-	protected $dates = ['deletd_at'];
+	protected $dates = ['deleted_at'];
 
     protected $fillable = [
 		'name',
@@ -30,7 +30,7 @@ class Client extends Model implements LogsActivityInterface
 	];
 	public function User()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('App\User')->withTrashed();
 	}
 	public function CollectionLog()
 	{

@@ -15,11 +15,15 @@
 			<td>{{ $reason->reason }}</td>
 		@if (Auth::user()['role'] == 'General Manager')
 			<td>
-
 				{!! Form::open(['route' => ['reasons.destroy', $reason->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
-					<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
-							Delete
-    			</button>
+					<?php echo"
+						<button id='btndelete".$reason->id."' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete".$reason->id."'>
+								Delete
+	    			</button>" ?>
+					<?php echo'
+						<div class="modal fade" id="confirmDelete'.$reason->id.'" role="dialog" aria-hidden="true">' ?>
+	  				@include('includes.delete_confirm')
+					<?php echo '</div>' ?>
 				{!! Form::close() !!}
 			</td>
 			<td>
@@ -36,5 +40,4 @@
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/reasons/create') }}">New Reason</a>
 @endif
-@include('includes.delete_confirm')
 @stop

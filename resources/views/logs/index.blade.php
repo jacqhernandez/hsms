@@ -13,9 +13,14 @@
 {!!  Form::close() !!}
 
 {!! Form::open(['route' => ['logs.delete'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'id' => 'delete' ]) !!}
-	<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
-			Delete Oldest 50 Records
-	<button class="btn btn-danger">Delete Oldest 50 Records</button>
+	<?php echo"
+						<button id='btndelete' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete'>
+								Delete Oldest Fifty Records
+	    			</button>" ?>
+					<?php echo'
+						<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>
+	  				@include('includes.delete_confirm')
+					<?php echo '</div>' ?>
 {!! Form::close() !!}		
 
 
@@ -44,6 +49,5 @@
 	</tbody> 
 </table>
 <?php echo $activities->render(); ?>
-
 
 @stop

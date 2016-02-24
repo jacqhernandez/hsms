@@ -29,9 +29,14 @@
 			@if (Auth::user()['role'] == 'General Manager')
 				<td>
 					{!! Form::open(['route' => ['items.destroy', $item->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
-						<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
-							Delete
-					</button>
+						<?php echo"
+						<button id='btndelete".$item->id."' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete".$item->id."'>
+								Delete
+	    			</button>" ?>
+					<?php echo'
+						<div class="modal fade" id="confirmDelete'.$item->id.'" role="dialog" aria-hidden="true">' ?>
+	  				@include('includes.delete_confirm')
+					<?php echo '</div>' ?>
 					{!! Form::close() !!}
 				</td>
 				<td>
@@ -48,5 +53,4 @@
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/items/create') }}">New Item</a>
 @endif
-@include('includes.delete_confirm')
 @stop

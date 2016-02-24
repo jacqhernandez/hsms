@@ -40,7 +40,7 @@
 			
 			<tbody>
 					<?php
-						$price_logs = PriceLog::where('item_id', $invoice_item->Item->id)->orderBy('created_at', 'desc')->take(3)->get();
+						$price_logs = PriceLog::where('item_id', $invoice_item->Item->id)->orderBy('created_at', 'desc')->take(3)->orderBy('price','asc')->get();
 					?>
 					@foreach($price_logs as $price_log)
 					<tr>

@@ -24,8 +24,8 @@
 					<td>{!! Form::date('date_collected', old('date_collected'), ['class' => 'span7 form-control']) !!} </td>
 				</tr>
 				<tr id="due">
-					<td>{!! Form::label('date_collected', 'Due Date: ') !!}</td>
-					<td>{!! Form::date('date_collected', old('date_collected'), ['class' => 'span7 form-control']) !!} </td>
+					<td>{!! Form::label('due_date', 'Due Date: ') !!}</td>
+					<td>{!! Form::date('dure_date', old('due_date'), ['class' => 'span7 form-control']) !!} </td>
 				</tr>
 				<tr id="delivered">
 					<td>{!! Form::label('date_delivered', 'Date Delivered: ') !!}</td>

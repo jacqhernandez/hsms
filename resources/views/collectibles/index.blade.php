@@ -15,8 +15,7 @@
 {!! Form::select('filter', [
 						'' => 'Filter by Status',
 						'Good' => 'Good',
-						'Blacklisted' => 'Blacklisted',
-						'Overdue' => 'Overdue'], 
+						'Blacklisted' => 'Blacklisted'], 
 					 	old('filter'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
 </div>
 {!!  Form::close() !!}
