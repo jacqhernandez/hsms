@@ -31,6 +31,8 @@ Route::post('invoices/collected', ['as' => 'invoices.collected', 'uses' => 'Sale
 Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
 Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' => 'SalesInvoicesController@poGuide']);
+Route::get('invoices/{invoices}/addItem', ['as' => 'invoices.addItem', 'uses' => 'InvoiceItemsController@addItem']);
+Route::post('invoices/newItem', ['as' => 'invoices.newItem', 'uses' => 'InvoiceItemsController@newItem']);
 
 
 Route::resource('invoices', 'SalesInvoicesController');

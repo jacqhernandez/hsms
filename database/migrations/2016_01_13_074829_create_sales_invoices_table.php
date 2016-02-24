@@ -15,7 +15,7 @@ class CreateSalesInvoicesTable extends Migration
         //
         Schema::create('sales_invoices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('si_no');
+            $table->string('si_no');
             $table->string('po_number');
             $table->string('dr_number');
             $table->date('date');
@@ -36,6 +36,7 @@ class CreateSalesInvoicesTable extends Migration
                   ->nullable();
 
             $table->timestamps();
+            // $table->softDeletes();
         });
     }
 

@@ -84,8 +84,8 @@
 			<tbody>
 				@foreach ($items as $item)
 				<tr>
-					<td><?php echo Item::find($item->item_id)->name; ?></td>
-					<td><?php echo Item::find($item->item_id)->unit; ?></td>
+					<td><?php echo Item::withTrashed()->find($item->item_id)->name; ?></td>
+					<td><?php echo Item::withTrashed()->find($item->item_id)->unit; ?></td>
 					<td>{{ $item->quantity }}</td>
 					<td>Php {{ number_format($item->unit_price, 2, '.', ',') }}</td>
 					<td>Php {{ number_format($item->total_price, 2, '.', ',') }}</td>
@@ -116,7 +116,7 @@
 		{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id' => 'delete' ]) !!}
 			<?php echo"
 						<button id='btndelete' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete'>
-								Delete Oldest Fifty Records
+								Delete
 	    			</button>" ?>
 					<?php echo'
 						<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>

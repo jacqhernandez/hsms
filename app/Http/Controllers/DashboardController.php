@@ -186,12 +186,10 @@ class DashboardController extends Controller
     public function dateLog()
     {
         $date = $_GET['date'];
-        $wew = 'nice tec';
         // $collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
         $collection_logs = DB::SELECT("SELECT c.id as 'id', name, follow_up_date, note FROM collection_logs c
                                         JOIN clients cl on c.client_id = cl.id
-                                        WHERE follow_up_date = '$date'
-                                        AND c.status='pending'");
+                                        WHERE follow_up_date = '$date'");
         
         return $collection_logs;
     }

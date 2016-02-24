@@ -174,7 +174,8 @@ class SalesInvoicesController extends Controller
             $statusOptions['Collected'] = "Collected";
         $clientOptions = Client::all()->lists('name', 'id');
         $items = SalesInvoice::find($id)->InvoiceItems;
-        return view('sales_invoices.edit', compact('sales_invoice', 'userOptions', 'statusOptions', 'clientOptions', 'items'));
+        $salesId = $id;
+        return view('sales_invoices.edit', compact('sales_invoice', 'userOptions', 'statusOptions', 'clientOptions', 'items', 'salesId'));
     }
 
     public function editStatus($id)
@@ -203,8 +204,6 @@ class SalesInvoicesController extends Controller
       		'po_number' => $input['po_number'],
       		'dr_number' => $input['dr_number'],
             'due_date' => $input['due_date'],
-            'vat' => $input['vat'],
-            'wtax' => $input['wtax'],
             'status' => $input['status'],
             'date_delivered' => $input['date_delivered'],
             'date_collected' => $input['date_collected'],
@@ -255,7 +254,7 @@ class SalesInvoicesController extends Controller
         return view('sales_invoices.make', compact('items', 'invoice_id'));
     }
 
-    public function creation(){
+    public function creation(Requests\CreateSalesInvoiceRequest $request){
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['invoice_no']);
 

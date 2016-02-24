@@ -8,6 +8,7 @@
 <h2>Edit Sales Invoice</h2>
 	{!! Form::model($sales_invoice, ['method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id]]) !!}
 	<table> 
+		@include('includes.required_errors')
 		<tbody>
 			<tr>
 				<td> {!! Form::label('si_no', 'Invoice Number: ') !!}</td>
@@ -57,7 +58,11 @@
 			<tr>
 				<td> {!! Form::label('or_number', 'OR Number: ') !!}</td>
 				<td> {!! Form::text('or_number', old('or_number'), ['class' => 'span7']) !!} </td>
-			</tr>	
+			</tr>
+			<tr>
+				<th>Total Amount: </th>
+				<td>Php {{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
+			</tr>		
 
 		</tbody> 
 	</table>
@@ -72,6 +77,7 @@
 					<th>Quantity</th>
 					<th>Selling Price per Unit</th>
 					<th>Subtotal</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -80,11 +86,16 @@
 					<td><?php echo Item::find($item->item_id)->name; ?></td>
 					<td><?php echo Item::find($item->item_id)->unit; ?></td>
 					<td>{{ $item->quantity }}</td>
-					<td>{!! Form::input('number','unit_price', old('unit_price'), ['class' => 'span3', 'step' => '0.01']) !!}</td>
+					<td>Php {{ number_format($item->unit_price, 2, '.', ',') }}</td>
 					<td>Php {{ number_format($item->total_price, 2, '.', ',') }}</td>
+					<td><a href="{{ action ('InvoiceItemsController@edit', [$item->id]) }}">
+						 <button type="button" class="btn btn-primary">Edit Entry</button></a>
+					</td>
 				</tr>
 				@endforeach
 			</tbody> 
+			<a href="{{ action ('InvoiceItemsController@addItem', [$sales_invoice->id]) }}">
+				<button type="button" class="btn btn-primary">New Entry</button></a>
 			</table>
 		</div>
 	

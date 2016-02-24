@@ -25,7 +25,7 @@ class InvoiceItem extends Model implements LogsActivityInterface
 
 	public function Item()
 	{
-		return $this->belongsTo('App\Item');
+		return $this->belongsTo('App\Item')->withTrashed();
 	}
 
 	public function getActivityDescriptionForEvent($eventName)

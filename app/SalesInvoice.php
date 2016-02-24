@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
+
 
 class SalesInvoice extends Model implements LogsActivityInterface
 {
 	use LogsActivity;
+
 
     protected $fillable = [
 		'si_no',
@@ -27,7 +30,7 @@ class SalesInvoice extends Model implements LogsActivityInterface
 
 	public function Client()
 	{
-		return $this->belongsTo('App\Client');
+		return $this->belongsTo('App\Client')->withTrashed();
 	}
 	public function SalesInvoiceCollectionLog()
 	{
@@ -35,7 +38,7 @@ class SalesInvoice extends Model implements LogsActivityInterface
 	}	
 	public function User()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('App\User')->withTrashed();
 	}
 
 	public function InvoiceItems()
