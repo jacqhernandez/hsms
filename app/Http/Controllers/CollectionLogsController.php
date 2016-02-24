@@ -59,6 +59,7 @@ class CollectionLogsController extends Controller
         $salesinvoices = SalesInvoice::where('client_id', $id)
                     ->where('status', '!=', 'Collected')
                     ->where('status', '!=', 'Draft')
+                    ->orderBy('status', 'asc')
                     ->get();
         $actionOptions = [];
         $actionOptions['Text'] = 'Text';
@@ -149,6 +150,7 @@ class CollectionLogsController extends Controller
         $salesinvoices = SalesInvoice::where('client_id', $id)
                     ->where('status', '!=', 'Collected')
                     ->where('status', '!=', 'Draft')
+                    ->orderBy('status', 'asc')
                     ->get();
         $date = $cLog->date;
         $method = 'patch';

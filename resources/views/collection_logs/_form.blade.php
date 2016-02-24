@@ -34,7 +34,7 @@
 			</tr>	
 		</tbody> 
 	</table>
-	<table>
+	<table class="table table-hover sortable">
 		<thead>
 			<tr>
 				<th></th>
