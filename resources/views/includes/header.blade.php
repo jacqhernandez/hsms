@@ -100,6 +100,10 @@
                                 @endif
 							</ul>
 						</li>
+                        <li>
+                            <a href="{{url::action('ReportsController@index')}}"><i class="glyphicon glyphicon-triangle-right"></i> Reports</a>
+
+                        </li>
                         @endif
 						
                     </ul>
