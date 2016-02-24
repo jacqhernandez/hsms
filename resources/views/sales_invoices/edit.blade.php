@@ -90,6 +90,10 @@
 					<td>Php {{ number_format($item->total_price, 2, '.', ',') }}</td>
 					<td><a href="{{ action ('InvoiceItemsController@edit', [$item->id]) }}">
 						 <button type="button" class="btn btn-primary">Edit Entry</button></a>
+					@if (count($items) > 1)
+						<a href="{{ action ('InvoiceItemsController@destroy', [$item->id]) }}">
+						 <button type="button" class="btn btn-danger">Delete Entry</button></a>
+					@endif
 					</td>
 				</tr>
 				@endforeach
