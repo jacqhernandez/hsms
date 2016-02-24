@@ -46,7 +46,11 @@
 	</table>
 	<br>
 	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@if(\Request::route()->getName() == 'suppliers.edit')
+			@include('includes.update_confirm')
+		@else
+			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@endif
 		<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back to Suppliers</button></a>
 	</div>
 </div>

@@ -229,9 +229,13 @@ class InvoiceItemsController extends Controller
     }
 
     public function destroy($id)
-    {   dd("hello");
+    {   
         $invoiceItem = InvoiceItem::find($id);
         $salesId = $invoiceItem->salesInvoice->id;
+        $invoice = SalesInvoice::find($salesId);
+        $invoice->update([
+            'total_amount' => $invoice->total_amount - $invoiceItem->total_price
+        ]);
         $invoiceItem->delete();
         return redirect()->action('SalesInvoicesController@edit', [$salesId]);
     }

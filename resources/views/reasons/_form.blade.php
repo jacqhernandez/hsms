@@ -11,7 +11,11 @@
 	
 	<br>
 	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@if(\Request::route()->getName() == 'reasons.edit')
+			@include('includes.update_confirm')
+		@else
+			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@endif
 		<a href="{{ action ('ReasonsController@index') }}"><button type="button" class="btn btn-info">Back to Reasons</button></a>
 	</div>
 </div>

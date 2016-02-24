@@ -6,8 +6,9 @@
 ?>
 
 <h2>Edit Sales Invoice</h2>
-	{!! Form::model($sales_invoice, ['method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id]]) !!}
-	<table> 
+{!! Form::open(array('method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id])) !!}
+	<!-- {!! Form::model($sales_invoice, ['method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id]]) !!}
+	 --><table> 
 		@include('includes.required_errors')
 		<tbody>
 			<tr>
@@ -67,6 +68,12 @@
 		</tbody> 
 	</table>
 
+	<div class = "submit">
+			@include('includes.update_confirm')
+	</div>
+
+	{!! Form::close() !!}
+
 	<h3>Item List</h3>
 		<div class="table-responsive">
 			<table class="table table-striped">
@@ -91,9 +98,11 @@
 					<td><a href="{{ action ('InvoiceItemsController@edit', [$item->id]) }}">
 						 <button type="button" class="btn btn-primary">Edit Entry</button></a>
 					@if (count($items) > 1)
-						<a href="{{ action ('InvoiceItemsController@destroy', [$item->id]) }}">
-						 <button type="button" class="btn btn-danger">Delete Entry</button></a>
-					@endif
+						{!! Form::open(['route' => ['invoiceitems.destroy', $item->id], 'method' => 'delete']) !!}
+								<button type="submit" class="btn btn-danger">Delete Entry</button>
+						{!! Form::close() !!}
+					 
+					 @endif
 					</td>
 				</tr>
 				@endforeach
@@ -104,8 +113,6 @@
 		</div>
 	
 	<br>
-	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-	</div>
+	
 	<button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>
 @stop

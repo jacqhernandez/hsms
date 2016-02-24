@@ -38,7 +38,8 @@ Route::post('invoices/newItem', ['as' => 'invoices.newItem', 'uses' => 'InvoiceI
 Route::resource('invoices', 'SalesInvoicesController');
 Route::resource('pricelogs', 'PriceLogsController');
 Route::resource('invoiceitems', 'InvoiceItemsController');
-
+Route::delete('/invoiceitems/{id}/delete','InvoiceItemsController@destroy');
+//Route::get('invoiceitems/{id}/delete', 'InvoiceItemsController@destroy');
 
 Route::get('clients/search', ['as' => 'clients.search', 'uses' => 'ClientsController@search']);
 Route::get('clients/filter', ['as' => 'clients.filter', 'uses' => 'ClientsController@filter']);
