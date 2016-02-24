@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogsActivityInterface;
+use Spatie\Activitylog\LogsActivity;
 
-class SalesInvoiceCollectionLog extends Model
+
+class SalesInvoiceCollectionLog extends Model implements LogsActivityInterface
 {
+	use LogsActivity;
+	
 	public $table = "sales_invoice_collection_logs";
     protected $fillable = [
 		'sales_invoice_id',
@@ -24,5 +29,24 @@ class SalesInvoiceCollectionLog extends Model
 	public function CollectionLog()
 	{
 		return $this->belongsTo('App\CollectionLog');
+	}
+
+	public function getActivityDescriptionForEvent($eventName)
+	{
+	    if ($eventName == 'created')
+	    {
+	        return 'Collection Log for invoice ' . $this->SaleInvoice->si_no . ' was created';
+	    }
+
+	    if ($eventName == 'updated')
+	    {
+	        return 'Collection Log for invoice ' . $this->SalesInvoice->si_no . ' was updated';
+	    }
+
+	    if ($eventName == 'deleted')
+	    {
+	        return 'Collection Log for invoice ' . $this->SalesInvoice->si_no . ' was deleted';
+	    }
+	    return '';
 	}
 }

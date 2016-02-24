@@ -285,7 +285,7 @@ class SalesInvoicesController extends Controller
             'total_amount' => $total_amount,
             'status' => "Pending"
         ]);
-
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was completed');
         return redirect()->action('SalesInvoicesController@show',[$salesInvoice->id]);
         
     }

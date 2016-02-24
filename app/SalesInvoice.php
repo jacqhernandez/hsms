@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-//use Spatie\Activitylog\LogsActivityInterface;
-//use Spatie\Activitylog\LogsActivity;
+use Spatie\Activitylog\LogsActivityInterface;
+use Spatie\Activitylog\LogsActivity;
 
-class SalesInvoice extends Model
+class SalesInvoice extends Model implements LogsActivityInterface
 {
-	//use LogsActivity;
+	use LogsActivity;
 
     protected $fillable = [
 		'si_no',
@@ -45,12 +45,7 @@ class SalesInvoice extends Model
 
 	public function getActivityDescriptionForEvent($eventName)
 	{
-	    if ($eventName == 'created')
-	    {
-	        return 'Sales Invoice ' . $this->si_no . ' was created';
-	    }
-
-	    if ($eventName == 'updated')
+	   	if ($eventName == 'updated')
 	    {
 	        return 'Sales Invoice ' . $this->si_no . ' was updated';
 	    }

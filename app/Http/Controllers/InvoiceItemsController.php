@@ -15,6 +15,7 @@ use App\PriceLog;
 use Request;
 use Auth;
 use Carbon\Carbon;
+use Activity;
 
 class InvoiceItemsController extends Controller
 {
@@ -149,7 +150,7 @@ class InvoiceItemsController extends Controller
   //       $priceLog->supplier_id = $input['supplier_id'];
   //       $priceLog->item_id = $input['item_id'];
 		// $priceLog->save();
-    
+        Activity::log('Quotation for invoice '. $salesInvoice['si_no'] .' was added');
         return redirect()->action('SalesInvoicesController@make',[$salesInvoice->id]);
         //return redirect()->action('ClientsController@index');
     }

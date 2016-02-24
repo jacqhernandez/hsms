@@ -17,7 +17,7 @@ class LogsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager');     
+        //$this->middleware('general_manager');     
     }
     /**
      * Display a listing of the resource.
@@ -27,8 +27,8 @@ class LogsController extends Controller
     public function index()
     {
         //assumes only one general manager
-        //$activities = Activity::where('user_id','!=',Auth::user()['id'])->orderBy('created_at','desc')->paginate(10);
-        $activities = Activity::all();//orderBy('created_at','desc')->paginate(10);
+        $activities = Activity::where('user_id','!=',Auth::user()['id'])->orderBy('created_at','desc')->paginate(10);
+        //$activities = Activity::all();//orderBy('created_at','desc')->paginate(10);
         $users = User::where('role', '!=', 'General Manager')->lists('username', 'id');
 
         return view('logs.index', compact('activities','users'));
