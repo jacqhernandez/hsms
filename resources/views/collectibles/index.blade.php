@@ -3,7 +3,6 @@
 <br>
 <h2>Collectibles</h2>
 <hr>
-
 {!!  Form::open(['route' => ['collectibles.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Client Name', 'class' => 'form-control'])  !!} 
@@ -21,7 +20,6 @@
 					 	old('filter'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
 </div>
 {!!  Form::close() !!}
-
 <br><br>
 <table class="table table-hover sortable"> 
 	<thead>
@@ -29,6 +27,7 @@
 			<th>Name</th>
 			<th>Credit Limit</th>
 			<th>Status</th>
+			<th>Pending</th>
 			<th>Overdue</th>
 			<th>Delivered</th>
 		</tr>
@@ -36,12 +35,13 @@
 	
 	<tbody>
 		@foreach ($clients as $client)
-		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0)
+		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0 OR $pending[$client->id])
 		<tr>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">{{ $client->name }}</a></td>
 			<td>{{ $client->credit_limit }}</td>
 			<td>{{ $client->status }}</td>
 			<td>{{ $overdue[$client->id] }}</td>
+			<td>{{ $pending[$client->id] }}</td>
 			<td>{{ $delivered[$client->id] }}</td>
 			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
 		</tr>
@@ -50,10 +50,4 @@
 	</tbody> 
 </table>
 <?php echo $clients->render(); ?>
-
-
-@if (Auth::user()['role'] == 'General Manager')
-	<a href="{{ url('/clients/create') }}">New Client</a>
-@endif
-
 @stop

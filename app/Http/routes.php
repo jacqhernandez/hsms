@@ -57,7 +57,7 @@ Route::resource('reasons','ReasonsController',['except' => 'show']);
 Route::get('collectibles/search', ['as' => 'collectibles.search', 'uses' => 'CollectiblesController@search']);
 Route::get('collectibles/filter', ['as' => 'collectibles.filter', 'uses' => 'CollectiblesController@filter']);
 Route::resource('collectibles', 'CollectiblesController');
-Route::resource('collectibles.collection_logs', 'CollectionLogsController', ['except' => 'update', 'edit']);
+Route::resource('collectibles.collection_logs', 'CollectionLogsController');
 Route::get('collectibles/{id}/generate', ['as' => 'collectibles.generate_pdf', 'uses' => 'CollectiblesController@generatePdf']);
 Route::get('collectibles/{id}/email', ['as' => 'collectibles.email_pdf', 'uses' => 'CollectiblesController@emailPdf']);
 // Authentication routes...

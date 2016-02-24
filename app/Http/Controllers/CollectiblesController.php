@@ -26,12 +26,14 @@ class CollectiblesController extends Controller
         $clients = Client::paginate(10);
         $overdue = new SalesInvoice;
         $delivered = new SalesInvoice;
+        $pending = new SalesInvoice;
         for ($x = 1; $x < count($clients)+1; $x++)
         {
            $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
            $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
+           $pending[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Pending')->count();
         }
-        return view('collectibles.index', compact('clients', 'overdue', 'delivered'));
+        return view('collectibles.index', compact('clients', 'overdue', 'delivered', 'pending'));
     }
 
     public function search()
@@ -40,11 +42,13 @@ class CollectiblesController extends Controller
         $query = $input['query'];
         $overdue = new SalesInvoice;
         $delivered = new SalesInvoice;
+        $pending = new SalesInvoice;
         $clients = Client::where('name','LIKE',"%$query%")->paginate(10);
         for ($x = 1; $x < count($clients)+1; $x++)
         {
            $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
            $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
+           $pending[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Pending')->count();
         }
         if ($clients == "[]")
         {
@@ -52,7 +56,7 @@ class CollectiblesController extends Controller
             return redirect()->action('CollectiblesController@index');
         }
         $clients->appends(Request::only('query'));
-        return view('collectibles.index',compact('clients', 'overdue', 'delivered'));
+        return view('collectibles.index',compact('clients', 'overdue', 'delivered', 'pending'));
     }
 
     public function filter()
@@ -64,13 +68,14 @@ class CollectiblesController extends Controller
         {
            $overdue[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Overdue')->count();
            $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
+           $pending[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Pending')->count();
         }
         if ($clients == "[]")
         {
             return redirect()->action('CollectiblesController@index');
         }
         $clients->appends(Request::only('filter'));
-        return view('collectibles.index',compact('clients', 'overdue', 'delivered'));
+        return view('collectibles.index',compact('clients', 'overdue', 'delivered', 'pending'));
     }
 
 
