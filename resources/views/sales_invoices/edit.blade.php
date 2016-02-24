@@ -8,6 +8,7 @@
 <h2>Edit Sales Invoice</h2>
 	{!! Form::model($sales_invoice, ['method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id]]) !!}
 	<table> 
+		@include('includes.required_errors')
 		<tbody>
 			<tr>
 				<td> {!! Form::label('si_no', 'Invoice Number: ') !!}</td>

@@ -31,7 +31,6 @@ class CreateSalesInvoiceRequest extends Request
             {
                 return [
                 //
-                    'status' => 'required',
                     'si_no' => 'numeric|unique:sales_invoices',
                     'po_number' => 'numeric|unique:sales_invoices',
                     'dr_number' => 'numeric|unique:sales_invoices'
@@ -39,7 +38,7 @@ class CreateSalesInvoiceRequest extends Request
             }
             case 'PATCH':
             {
-                $rules = array('status' => 'required');
+                $rules = array();
 
                 $sales_invoice = SalesInvoice::find($this->segment(2)); //this gets the second segment in the url which is the id of the invoice
 

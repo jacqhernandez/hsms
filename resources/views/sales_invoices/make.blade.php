@@ -22,6 +22,7 @@
  -->
 
 <div class="table-responsive">
+  @include('includes.required_errors')
 <table class="table">
 <!--   <thead>
     <tr>

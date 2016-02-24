@@ -126,7 +126,7 @@
 		{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id' => 'delete' ]) !!}
 			<?php echo"
 						<button id='btndelete' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete'>
-								Delete Oldest Fifty Records
+								Delete
 	    			</button>" ?>
 					<?php echo'
 						<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>

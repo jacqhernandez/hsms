@@ -254,7 +254,7 @@ class SalesInvoicesController extends Controller
         return view('sales_invoices.make', compact('items', 'invoice_id'));
     }
 
-    public function creation(){
+    public function creation(Requests\CreateSalesInvoiceRequest $request){
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['invoice_no']);
 
