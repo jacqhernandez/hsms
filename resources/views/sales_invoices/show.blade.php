@@ -94,8 +94,8 @@
 			<tbody>
 				@foreach ($items as $item)
 				<tr>
-					<td><?php echo Item::find($item->item_id)->name; ?></td>
-					<td><?php echo Item::find($item->item_id)->unit; ?></td>
+					<td><?php echo Item::withTrashed()->find($item->item_id)->name; ?></td>
+					<td><?php echo Item::withTrashed()->find($item->item_id)->unit; ?></td>
 					<td>{{ $item->quantity }}</td>
 					<td>Php {{ number_format($item->unit_price, 2, '.', ',') }}</td>
 					<td>Php {{ number_format($item->total_price, 2, '.', ',') }}</td>

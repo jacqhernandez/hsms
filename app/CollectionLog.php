@@ -22,11 +22,11 @@ class CollectionLog extends Model implements LogsActivityInterface
 
 	public function Reason()
     {
-        return $this->belongsTo('App\Reason');
+        return $this->belongsTo('App\Reason')->withTrashed();
     }
     public function Client()
     {
-    	return $this->belongsTo('App\Client');
+    	return $this->belongsTo('App\Client')->withTrahsed();
     }
     public function SalesInvoiceCollectionLog()
     {

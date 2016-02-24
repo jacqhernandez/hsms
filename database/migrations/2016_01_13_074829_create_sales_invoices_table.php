@@ -36,6 +36,7 @@ class CreateSalesInvoicesTable extends Migration
                   ->nullable();
 
             $table->timestamps();
+            // $table->softDeletes();
         });
     }
 

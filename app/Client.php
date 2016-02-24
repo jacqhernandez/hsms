@@ -30,7 +30,7 @@ class Client extends Model implements LogsActivityInterface
 	];
 	public function User()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('App\User')->withTrashed();
 	}
 	public function CollectionLog()
 	{

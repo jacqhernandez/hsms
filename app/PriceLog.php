@@ -20,12 +20,12 @@ class PriceLog extends Model implements LogsActivityInterface
 
 	public function Supplier()
 	{
-		return $this->belongsTo('App\Supplier');
+		return $this->belongsTo('App\Supplier')->withTrashed();
 	}
 
 	public function Item()
 	{
-		return $this->belongsTo('App\Item');
+		return $this->belongsTo('App\Item')->withTrashed();
 	}
 
 	public function getActivityDescriptionForEvent($eventName)

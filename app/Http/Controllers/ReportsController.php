@@ -411,6 +411,7 @@ class ReportsController extends Controller
                     foreach($results as $result)
                     {
                         $sheet->row($counter, array($result->name));
+
                         //style for quantity sold
                         $sheet->cells('A'.$counter, function($cells) {
                             $cells->setFontWeight('bold');
