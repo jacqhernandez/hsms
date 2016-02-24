@@ -81,7 +81,8 @@ class InvoiceItemsController extends Controller
         //print_r($salesInvoice);
         $salesInvoice->status = "Draft";
         $salesInvoice->client_id = $input['client_id'];
-        $salesInvoice->user_id = Auth::user()['id'];
+        $client = Client::find($input['client_id']);
+        $salesInvoice->user_id = $client->user_id;
         $salesInvoice->save();
 
         $no_items = $input['item_count'];

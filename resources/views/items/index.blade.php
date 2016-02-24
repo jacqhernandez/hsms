@@ -53,5 +53,4 @@
 @if (Auth::user()['role'] == 'General Manager')
 	<a href="{{ url('/items/create') }}">New Item</a>
 @endif
-@include('includes.delete_confirm')
 @stop

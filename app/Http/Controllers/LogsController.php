@@ -17,7 +17,7 @@ class LogsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        //$this->middleware('general_manager');     
+        $this->middleware('general_manager');     
     }
     /**
      * Display a listing of the resource.
