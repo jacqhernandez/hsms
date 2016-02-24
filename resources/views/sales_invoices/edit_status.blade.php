@@ -25,24 +25,28 @@
 				</tr>
 				<tr id="due">
 					<td>{!! Form::label('due_date', 'Due Date: ') !!}</td>
-					<td>{!! Form::date('dure_date', old('due_date'), ['class' => 'span7 form-control']) !!} </td>
+					<td>{!! Form::date('due_date', old('due_date'), ['class' => 'span7 form-control']) !!} </td>
 				</tr>
 				<tr id="delivered">
 					<td>{!! Form::label('date_delivered', 'Date Delivered: ') !!}</td>
 					<td>{!! Form::date('date_delivered', old('date_delivered'), ['class' => 'span7 form-control']) !!} </td>
+				</tr>
+
+				<tr id="or_number">
+					<td>{!! Form::label('or_number', 'OR Number: ') !!}</td>
+					<td>{!! Form::number('or_number', old('or_number')) !!}</td>
 				</tr>
 				
 				{!! Form::hidden('si_no', old('si_no')) !!}
 				{!! Form::hidden('po_number', old('po_number')) !!}
 				{!! Form::hidden('dr_number', old('dr_number')) !!}
 				{!! Form::hidden('date', old('date')) !!}
-				{!! Form::hidden('due_date', old('due_date')) !!}
+				<!-- {!! Form::hidden('due_date', old('due_date')) !!} -->
 				{!! Form::hidden('vat', old('vat')) !!}
 				{!! Form::hidden('credit_limit', old('credit_limit')) !!}
 				{!! Form::hidden('wtax', old('wtax')) !!}
 				{!! Form::hidden('client_id', old('client_id')) !!}
 				{!! Form::hidden('user_id', old('user_id')) !!}
-
 			</tbody> 
 		</table>
 		
@@ -58,28 +62,52 @@
 	<script type="text/javascript">
 		$('#collected').hide();
 		$('#delivered').hide();
+		$('#due').hide();
+		$('#or_number').hide();
 
-		if($('#status').val() === 'Collected') {
+		if($('#status').val() == 'Collected') {
 			$('#collected').show();
+			$('#or_number').show();
 		}
-		if($('#status').val() === 'Delivered') {
+
+		if($('#status').val() == 'Delivered') {
 			$('#delivered').show();
+	    	$('#due').show();
 		}
+
+		if($('#status').val() == 'Cash on Hand') {
+			$('#delivered').show();
+	    	$('#due').show();
+		}
+
 
 		$('#status').change(function() {
-		    if($(this).val() === 'Collected') {
+		    if($(this).val() == 'Collected') {
 		        $('#delivered').hide();
+		        $('#due').hide();
 		        $('#collected').show();
+		        $('#or_number').show();
 		    }
 
-		    if ($(this).val() === 'Delivered'){
+		    if ($(this).val() == 'Delivered'){
 		    	$('#collected').hide();
+		    	$('#or_number').hide();
+		    	$('#due').show();
 		    	$('#delivered').show();
 		    }
 
-		    if($(this).val() === 'Pending') {
-		        $('#delivered').hide();
+		    if($(this).val() == 'Pending') {
 		        $('#collected').hide();
+				$('#delivered').hide();
+				$('#due').hide();
+				$('#or_number').hide();
+		    }
+
+		    if($(this).val() == 'Check on Hand') {
+		        $('#collected').hide();
+		    	$('#or_number').hide();
+		    	$('#due').show();
+		    	$('#delivered').show();
 		    }
 		});
 	</script>
