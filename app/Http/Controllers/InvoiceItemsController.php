@@ -44,6 +44,45 @@ class InvoiceItemsController extends Controller
         $no_items = $input['item_count'];
         //print_r($no_items);
 
+        $sameItem = false;
+        $sameSupplier = false;
+
+        $itemList = [];
+        for ($i = 1; $i <= $no_items; $i++) {
+          $finder = 'item_id' . strval($i);
+
+          try {
+            array_push($itemList, $input[$finder]);
+          } catch(Exception $e) {
+
+          }
+
+          $supplierList = [];
+
+          $supplierer = $input['supplier_id' . strval($i)];
+          $supplierer2 = $input['supplier_idB' . strval($i)];
+          $supplierer3 = $input['supplier_idC' . strval($i)];
+          if (($supplierer3) == "none"){
+            $supplierer3 = "hello";
+          }
+          
+          if ($supplierer == $supplierer2 || $supplierer2 == $supplierer3 || $supplierer == $supplierer3){
+            $sameSupplier = true;
+          }
+        }
+
+        if (count($itemList) !== count(array_unique($itemList))){
+          $sameItem = true;
+        }
+
+        if ($sameItem == true){
+            return redirect()->back()->withInput()->with('message','You cannot have the same item in the sales invoice.');
+        }
+
+        if ($sameSupplier == true){
+            return redirect()->back()->withInput()->with('message','You cannot have the same supplier for a single item.');
+        }
+
         for ($i = 1; $i <= $no_items; $i++) {
             $invoiceItem = new InvoiceItem;
             $finder = 'item_id' . strval($i);
@@ -55,7 +94,7 @@ class InvoiceItemsController extends Controller
             $pricer = 'item_price' . strval($i);
             $availer = 'availA' . strval($i);
             $supplierer = 'supplier_id' . strval($i);
-            if ($input[$pricer] == 0) {
+            if ($input[$pricer] == 0 || $input[$supplierer] == "none") {
               //do nothing
             } else {
               $priceLog->date = Carbon::now();
@@ -70,7 +109,7 @@ class InvoiceItemsController extends Controller
             $pricer2 = 'item_priceB' . strval($i);
             $availer2 = 'availB' . strval($i);
             $supplierer2 = 'supplier_idB' . strval($i);
-            if ($input[$pricer2] == 0) {
+            if ($input[$pricer2] == 0 || $input[$supplierer] == "none") {
               //do nothing
             } else {
               $priceLog2->date = Carbon::now();
@@ -85,7 +124,7 @@ class InvoiceItemsController extends Controller
             $pricer3 = 'item_priceC' . strval($i);
             $availer3 = 'availC' . strval($i);
             $supplierer3 = 'supplier_idC' . strval($i);
-            if ($input[$pricer3] == 0) {
+            if ($input[$pricer3] == 0 || $input[$supplierer3] == "none") {
               //do nothing
             } else {
               $priceLog3->date = Carbon::now();

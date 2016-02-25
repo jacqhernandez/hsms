@@ -213,13 +213,17 @@ class SalesInvoicesController extends Controller
     }
 
     public function quotation() {
-
-        //$clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
-        $clientOptions = Client::all()->lists('name','id');
+        if (Auth::user()['role'] == 'Sales') {
+            $clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
+        } else {
+            $clientOptions = Client::all()->lists('name','id');
+        }
         $supplierOptions = Supplier::all()->lists('name','id');
+        $supplierOptions["none"] = "NONE";
+        $supplierOptions1 = Supplier::all()->lists('name','id');
         $itemOptions = Item::all()->lists('name','id');
 
-        return view('sales_invoices.quotation', compact('supplierOptions','itemOptions', 'clientOptions'));
+        return view('sales_invoices.quotation', compact('supplierOptions','itemOptions', 'clientOptions', 'supplierOptions1'));
     }
 
     public function edit_quotation() {
@@ -242,6 +246,24 @@ class SalesInvoicesController extends Controller
     public function creation(Requests\CreateSalesInvoiceRequest $request){
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['invoice_no']);
+
+        $items = InvoiceItem::where('sales_invoice_id', $salesInvoice->id)->get();
+
+        $output = $salesInvoice->Client->currentCredit();
+        $creditOutput = $output[0]->credit;
+
+        if ($creditOutput == null) $creditOutput = 0;
+
+        $remaining = $salesInvoice->Client->credit_limit - $creditOutput;
+
+        foreach ($items as $item) {
+            $invoiceItem = InvoiceItem::find($item->id);
+            $creditOutput += $input['quantity' . $item->id] * $input['unit_price' . $item->id];
+        }
+
+        if ($creditOutput > $salesInvoice->Client->credit_limit ){
+            return redirect()->back()->withInput()->with('message','Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
+        }
 
         $salesInvoice->update([
             'si_no' => $input['si_no'],
@@ -359,6 +381,15 @@ class SalesInvoicesController extends Controller
                 $salesInvoice->update([
                     'due_date' => Carbon::now()->addDays(60)
                 ]);
+            }  else if ($salesInvoice->Client->payment_terms == "75 Days"){
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()->addDays(75)
+                ]);
+            }  else if ($salesInvoice->Client->payment_terms == "90 Days"){
+                $salesInvoice->update([
+                    'due_date' => Carbon::now()->addDays(90)
+                ]);
+
             }
         }
         return redirect()->action('SalesInvoicesController@index');
@@ -372,6 +403,16 @@ class SalesInvoicesController extends Controller
                 'date_collected' => Carbon::now(),
                 'or_number' => $input['or_number'] 
         ]);
+
+        $clientId = $salesInvoice->client_id;
+        $hasOverdue = DB::SELECT("SELECT COUNT(*) FROM sales_invoices WHERE status='overdue'");
+        if ($hasOverdue == 0) {
+            $client = Client::find($clientId);
+            $client->update([
+                'status' => "Good"
+            ]);
+        }
+
         return redirect()->action('SalesInvoicesController@index');
     }
 }
