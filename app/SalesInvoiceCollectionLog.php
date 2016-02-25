@@ -35,7 +35,7 @@ class SalesInvoiceCollectionLog extends Model implements LogsActivityInterface
 	{
 	    if ($eventName == 'created')
 	    {
-	        return 'Collection Log for invoice ' . $this->SaleInvoice->si_no . ' was created';
+	        return 'Collection Log for invoice ' . $this->SalesInvoice->si_no . ' was created';
 	    }
 
 	    if ($eventName == 'updated')
