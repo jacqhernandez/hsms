@@ -19,12 +19,10 @@ use Artisan;
 
 class DashboardController extends Controller
 {
-    //
-    //  public function __construct()
-    // {
-    //     $this->middleware('auth');  
-    //     $this->middleware('general_manager');     
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');  
+    }
 
 
     public function index()

@@ -58,13 +58,15 @@
 
 	<table>
 		<tr>
+			@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 			<td>
 				{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get' ]) !!}
 					<button class="btn btn-success">Print Invoice</button>
 				{!! Form::close() !!}
 			</td>
+			@endif
 			<td>
-					<button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>
+					<a href="{{ action('SalesInvoicesController@show',[$sales_invoice->id]) }}"><button type="button" class="btn btn-info">Back to Invoice</button>
 			</td>
 		</tr>
 						

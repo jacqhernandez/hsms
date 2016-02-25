@@ -25,7 +25,8 @@ class CollectiblesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');   
+        $this->middleware('auth');  
+        $this->middleware('not_for_sales');
     }
     public function index()
     {
