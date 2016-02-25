@@ -14,10 +14,6 @@ use Auth;
 use Carbon\Carbon;
 use Request;
 
-
-
-
-
 class CollectionLogsController extends Controller
 {
     /**
@@ -25,29 +21,36 @@ class CollectionLogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');  
+    
+    }
    public function index($id)
     {
-        
-        $client = Client::find($id);
-        
-        $overdue = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->count();
-        if ($overdue != 0)
+        if(Auth::user()['role'] == 'Accounting' OR Auth::user()['role'] =='General Manager')
         {
-            $overdues = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->get();
+            $client = Client::find($id);
+            $overdue = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->count();
+            if ($overdue != 0)
+            {
+                $overdues = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->get();
+            }
+            $delivered = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->count();
+            if ($delivered != 0)
+            {
+                $delivereds = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->get();
+            }
+            $pending = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->count();
+            if ($pending != 0)
+            {
+                $pendings = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->get();
+            }
+            $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')->paginate(10);
+            $salesinvoices = new SalesInvoiceCollectionLog;
+            return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'delivered', 'pending', 'overdues', 'delivereds', 'pendings'));
         }
-        $delivered = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->count();
-        if ($delivered != 0)
-        {
-            $delivereds = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->get();
-        }
-        $pending = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->count();
-        if ($pending != 0)
-        {
-            $pendings = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->get();
-        }
-        $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')->paginate(10);
-        $salesinvoices = new SalesInvoiceCollectionLog;
-        return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'delivered', 'pending', 'overdues', 'delivereds', 'pendings'));
     }
     /**
      * Show the form for creating a new resource.
