@@ -25,8 +25,9 @@ class SalesInvoicesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('general_manager',['only' => ['edit','update','destroy']]);
-        $this->middleware('not_for_accounting',['only' => ['create','store','quotation','make','creation','generatePdf']]);
+        $this->middleware('general_manager',['only' => ['edit','update','destroy','editStatus']]);
+        $this->middleware('not_for_accounting',['only' => ['create','store','quotation','make','creation','generatePdf','delivered']]);
+        $this->middleware('not_for_sales',['only'=> ['collected']]);
     }
     /**
      * Display a listing of the resource.
@@ -97,65 +98,46 @@ class SalesInvoicesController extends Controller
      */
     public function create()
     {
-		//return 'wtf';
-		//$statusOptions = ['good', 'blacklisted'];
-		// $statusOptions = [];
-		// $statusOptions['Good'] = 'Good';
-		// $statusOptions['Blacklisted'] = 'Blacklisted';
-
-  //       $paymentOptions = [];
-  //       $paymentOptions['Cash'] = 'Cash';
-  //       $paymentOptions['15 Days'] = '15 Days';
-  //       $paymentOptions['30 Days'] = '30 Days';
-  //       $paymentOptions['60 Days'] = '60 Days';
         $clientOptions = Client::where('user_id', Auth::user()['id'])->lists('name','id');
 
         return view('sales_invoices.create', compact('clientOptions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Requests\CreateSalesInvoiceRequest $request)
-    {
-        $input = Request::all();
-        $sales_invoice = new SalesInvoice;
-        $sales_invoice->si_no = $input['si_no'];
-    		$sales_invoice->po_number = $input['po_number'];
-    		$sales_invoice->dr_number = $input['dr_number'];
-        $sales_invoice->date = Carbon\Carbon::now();
-		    $sales_invoice->due_date = $input['due_date'];
-        //$salesInvoice->total_amount = $input['total_amount'];
-        $sales_invoice->vat = $input['vat'];
-		    $sales_invoice->wtax = $input['wtax'];
-        $sales_invoice->status = "Pending";
-        //$salesInvoice->date_delivered = $input['date_delivered'];
-        //$salesInvoice->date_collected = $input['date_collected'];
-        $sales_invoice->client_id = $input['client_id'];
-        $sales_invoice->user_id = $input['user_id'];
-        $sales_invoice->save();
-        return redirect()->action('SalesInvoicesController@index');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $sales_invoice = SalesInvoice::find($id);
         $items = SalesInvoice::find($id)->InvoiceItems;
+        if ((Auth::user()['role'] == 'Sales') && ($sales_invoice['user_id'] !== Auth::user()['id'])) 
+        {
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        elseif ((Auth::user()['role'] == 'Accounting') && (($sales_invoice['status'] == "Draft") || ($sales_invoice['status'] == "Pending")) )
+        {    
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        else
+        {
+            return view('sales_invoices.show', compact('sales_invoice', 'items'));
+        }
         return view('sales_invoices.show', compact('sales_invoice', 'items'));
     }
 
     public function poGuide($id)
     {
         $sales_invoice = SalesInvoice::find($id);
+        if ((Auth::user()['role'] == 'Sales') && ($sales_invoice['user_id'] != Auth::user()['id'])) 
+        {
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        elseif ((Auth::user()['role'] == 'Accounting') && (($sales_invoice['status'] == "Draft") || ($sales_invoice['status'] == "Pending")) )
+        {    
+            return redirect()->action('SalesInvoicesController@index');
+        }
+        else
+        {
+            return view('sales_invoices.po_guide', compact('sales_invoice'));
+        }
         return view('sales_invoices.po_guide', compact('sales_invoice'));
     }
 

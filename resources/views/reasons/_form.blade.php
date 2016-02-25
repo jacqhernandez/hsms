@@ -16,6 +16,10 @@
 		@else
 			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
 		@endif
-		<a href="{{ action ('ReasonsController@index') }}"><button type="button" class="btn btn-info">Back to Reasons</button></a>
-	</div>
+		@if(Auth::user()['role'] == 'General Manager')
+			<a href="{{ action ('ReasonsController@index') }}"><button type="button" class="btn btn-info">Back to Reasons</button></a>
+		@else
+			<a href="{{ action ('CollectiblesController@index') }}"><button type="button" class="btn btn-info">Back to Collectibles</button></a>
+		@endif
+		</div>
 </div>

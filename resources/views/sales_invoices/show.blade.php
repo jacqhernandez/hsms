@@ -103,11 +103,13 @@
 	<table>
 	<tr>
 
+	@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 	<td>
 		{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get' ]) !!}
 			<button class="btn btn-success">Print Invoice</button>
 		{!! Form::close() !!}	
 	</td>
+	@endif
 	<td>
 		<a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}"><button class="btn btn-primary">PO Guide</button></a>
 	</td>

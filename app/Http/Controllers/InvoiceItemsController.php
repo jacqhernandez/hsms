@@ -23,7 +23,8 @@ class InvoiceItemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show','search', 'store']]);     
+        $this->middleware('general_manager',['except' => ['index','show','search', 'store']]);
+        $this->middleware('not_for_accounting',['only' => ['store']]);
     }
 
     public function store()
