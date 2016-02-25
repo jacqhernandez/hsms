@@ -66,6 +66,25 @@ class CreateSalesInvoiceRequest extends Request
                 {
                     $rules['dr_number'] = 'numeric|unique:sales_invoices';
                 }
+
+                if ($this->get('status') == 'Delivered')
+                {
+                    $rules['due_date'] = 'required';
+                    $rules['date_delivered'] = 'required';
+                }
+
+                if ($this->get('status') == 'Cash on Hand')
+                {
+                    $rules['due_date'] = 'required';
+                    $rules['date_delivered'] = 'required';
+                }
+
+                if ($this->get('status') == 'Collected')
+                {
+                    $rules['or_number'] = 'required';
+                    $rules['date_collected'] = 'required';
+                }
+
                 return $rules;
             }
             default:break;
