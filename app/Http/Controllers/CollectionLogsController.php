@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\CollectionLog;
@@ -13,11 +11,8 @@ use App\Client;
 use App\SalesInvoice;
 use App\SalesInvoiceCollectionLog;
 use Auth;
+use Carbon\Carbon;
 use Request;
-
-
-
-
 
 class CollectionLogsController extends Controller
 {
@@ -26,40 +21,48 @@ class CollectionLogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');  
+    
+    }
    public function index($id)
     {
-        
-        $client = Client::find($id);
-        
-        $overdue = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->count();
-        if ($overdue != 0)
+        if(Auth::user()['role'] == 'Accounting' OR Auth::user()['role'] =='General Manager')
         {
-            $overdues = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->get();
+            $client = Client::find($id);
+            $overdue = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->count();
+            if ($overdue != 0)
+            {
+                $overdues = SalesInvoice::where('client_id', $id)->where('status', 'Overdue')->get();
+            }
+            $delivered = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->count();
+            if ($delivered != 0)
+            {
+                $delivereds = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->get();
+            }
+            $pending = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->count();
+            if ($pending != 0)
+            {
+                $pendings = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->get();
+            }
+            $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')->paginate(10);
+            $salesinvoices = new SalesInvoiceCollectionLog;
+            return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'delivered', 'pending', 'overdues', 'delivereds', 'pendings'));
         }
-        $delivered = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->count();
-        if ($delivered != 0)
-        {
-            $delivereds = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->get();
-        }
-        $pending = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->count();
-        if ($pending != 0)
-        {
-            $pendings = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->get();
-        }
-        $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')->paginate(10);
-        $salesinvoices = new SalesInvoiceCollectionLog;
-        return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'delivered', 'overdues', 'delivereds', 'pendings'));
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($id, Request $request)
     {
         $salesinvoices = SalesInvoice::where('client_id', $id)
                     ->where('status', '!=', 'Collected')
                     ->where('status', '!=', 'Draft')
+                    ->orderBy('status', 'asc')
                     ->get();
         $actionOptions = [];
         $actionOptions['Text'] = 'Text';
@@ -69,7 +72,10 @@ class CollectionLogsController extends Controller
         $actionOptions['Email'] = 'Email';
         $actionOptions['Visit'] = 'Visit';
         $reasonOptions = Reason::lists('reason', 'id');
-        return view('collection_logs.create', compact('actionOptions', 'reasonOptions', 'id', 'salesinvoices'));
+        $date = Carbon::now()->toDateString();
+        $method = 'post';
+
+        return view('collection_logs.create', compact('id', 'method', 'date', 'actionOptions', 'reasonOptions', 'id', 'salesinvoices'));
     }
 
     /**
@@ -78,7 +84,7 @@ class CollectionLogsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Requests\CreateCollectionLogRequest $request)
     {
         $salesinvoice = Request::get('check_list');
 
@@ -101,7 +107,6 @@ class CollectionLogsController extends Controller
             $sicl->save();
         }
         $id = $cLog->client_id;
-
         return redirect()->action('CollectionLogsController@index', [$id]);
     }
 
@@ -134,10 +139,25 @@ class CollectionLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id, $cLog_id)
     {
-        $cLog = CollectionLog::find($id);
-        return view('collection_logs.edit', compact('cLog'));
+        $cLog = CollectionLog::find($cLog_id);
+        $actionOptions = [];
+        $actionOptions['Text'] = 'Text';
+        $actionOptions['Call'] = 'Call';
+        $actionOptions['Fax'] = 'Fax';
+        $actionOptions['Send SOA'] = 'Send SOA';
+        $actionOptions['Email'] = 'Email';
+        $actionOptions['Visit'] = 'Visit';
+        $reasonOptions = Reason::lists('reason', 'id');
+        $salesinvoices = SalesInvoice::where('client_id', $id)
+                    ->where('status', '!=', 'Collected')
+                    ->where('status', '!=', 'Draft')
+                    ->orderBy('status', 'asc')
+                    ->get();
+        $date = $cLog->date;
+        $method = 'patch';
+        return view('collection_logs.edit', compact('method', 'cLog', 'date', 'actionOptions', 'reasonOptions', 'id', 'salesinvoices'));
     }
 
     /**
@@ -147,21 +167,32 @@ class CollectionLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests $request, $id)
+    public function update($client_id, $cLog_id, Requests\CreateCollectionLogRequest $request)
     {
-        $cLog = CollectionLog::find($id);
-        // $input = Request::all();
+        $salesinvoice = Request::get('check_list');
+        $cLog = CollectionLog::find($cLog_id);
+        $input = Request::all();
         $cLog->update([
-            // 'date' => $input['date'],
-            // 'action' => $input['action'],
-            // 'follow_up_date' => $input['follow_up_date'],
-            // 'note' => $input['note'],
-            // 'reason_id' => $input['reason_id'],
-            // 'user_id' => $input['user_id']
-            'status' => 'done'
+            'action' => $input['action'],
+            'follow_up_date' => $input['follow_up_date'],
+            'note' => $input['note'],   
+            'reason_id' => $input['reason_id'],
+            'user_id' => Auth::user()['id'],
+            'client_id' => $input['client_id']
         ]);
-        // return redirect()->action('CollectionLogsController@show', [$id]);
-        return "wew";
+        $sicls = SalesInvoiceCollectionLog::where('sales_invoice_collection_logs.client_id', $input['client_id'])
+                            ->where('sales_invoice_collection_logs.collection_log_id', $cLog_id)
+                            ->delete();
+        foreach ($salesinvoice as $key)
+        {
+            $sicl = new SalesInvoiceCollectionLog;
+            $sicl->sales_invoice_id = $key;
+            $sicl->client_id = $cLog->client_id;
+            $sicl->collection_log_id = $cLog->id;
+            $sicl->save();
+        }
+        $id = $cLog->client_id;
+         return redirect()->action('CollectionLogsController@index', [$id]);
     }
 
     /**
@@ -172,6 +203,8 @@ class CollectionLogsController extends Controller
      */
     public function destroy($id, $client_id)
     {
+        $sicls = SalesInvoiceCollectionLog::where('sales_invoice_collection_logs.collection_log_id', $id)
+                            ->delete();
         $cLog = CollectionLog::find($id);
         $cLog->delete();
         return redirect()->action('CollectionLogsController@index', [$client_id]);
