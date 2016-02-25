@@ -10,6 +10,15 @@
 			margin-bottom:0px;
 			size:a4 portrait;
 			color:#0000ff;
+			background-image:none;
+		}
+
+		body{
+			background: transparent;
+			/*background-image: url('http://localhost/hsms/public/img/Sales%20Invoice%20-%20A4.jpg');*/
+			background-repeat: no-repeat;
+			margin-top: 0px;
+			background-position: -10px 3px;
 		}
 
 		.table{
@@ -25,6 +34,10 @@
 			font-size: 10pt;
 		}
 
+		.filler{
+			background: transparent;
+		}
+
 		td{
 			border: none;
 		}
@@ -33,33 +46,33 @@
 
 <body>
 
-	<div style="height:240px; background:white; visibility: hidden;">Invoice {{ $sales_invoice['si_no'] }}</div>
-	<div style="height:32px; background:white;"></div>
+	<div class="filler" style="height:120px; visibility: hidden;">Invoice {{ $sales_invoice['si_no'] }}</div>
+	<div class="filler" style="height:32px;"></div>
 
 	<!-- Date -->
 	<table class="table2" style="width:100%;">
 		<tr>
 			<td style="width:530px;">&nbsp;</td>
 			<td style="width:87px; visibility:hidden;">Date: </td>
-			<td style="width:auto;">{{ $sales_invoice['date'] }}</td>
+			<td style="font-size:11pt; width:auto;">{{ $sales_invoice['date'] }}</td>
 		</tr>
 	</table>
-	<div style="height:19px; background:white;"></div>
+	<div class="filler" style="height:16px;"></div>
 	<!-- Sold to -->
 	<table class="table2">
 			<tr>
 				<td style="width:75px;  visibility:hidden;">Sold to: </td>
-				<td style="text-indent:25px;">{{ $sales_invoice->Client->name }}</td>
+				<td style="font-size:11pt; text-indent:25px;">{{ $sales_invoice->Client->name }}</td>
 
 			</tr>
 	</table>
 
-	<div style="height:2px; background:white;"></div>
+	<div class="filler" style="height:2px;"></div>
 	<!-- TIN/SC-TIN: -->
 	<table class="table2">
 			<tr>
 				<td style="width:77px;  visibility:hidden;">TIN/SC-TIN: </td>
-				<td style="text-indent:25px; width:300px">{{ $sales_invoice->Client->tin }}</td>
+				<td style="font-size:11pt; text-indent:25px; width:300px">{{ $sales_invoice->Client->tin }}</td>
 				<td style="width:113px;  visibility:hidden;">Bus, Name/style: </td>
 				<td style="width:auto;"> </td>
 			</tr>
@@ -73,7 +86,7 @@
 			</tr>
 	</table>
 
-	<div style="height:6px; background:white;"></div>
+	<div class="filler" style="height:6px;"></div>
 	<!-- Address -->
 	<table class="table2">
 			<tr>
@@ -82,7 +95,7 @@
 			</tr>
 	</table>
 
-	<div style="height:13px; background:white;"></div>
+	<div class="filler" style="height:17px;"></div>
 	<!-- Customer ID | PO Number | Payment Terms -->
 	<table class="table" style="text-align:center;">
 			<tr style="font-size: 11pt;  visibility:hidden;">
@@ -92,12 +105,12 @@
 			</tr>
 			<tr>
 				<td>{{ $sales_invoice->Client->id }}</td>
-				<td>{{ $sales_invoice['po_number'] }}</td>
+				<td>PO# {{ $sales_invoice['po_number'] }}</td>
 				<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			</tr>
 	</table>
 
-	<div style="height:35px; background:white;"></div>
+	<div class="filler" style="height:35px;"></div>
 	<!-- Quantity | Unit/M | Description | Item Code | Unit Price | Amount -->
 	<table class="table" style="text-align:center;">
 			<tr style="font-size: 10pt;  visibility:hidden;">
@@ -111,11 +124,11 @@
 			@foreach ($items as $item)
 			<tr>
 				<td style="text-align: center;">{{$item->quantity}}</td>
-				<td style="text-align: center;">{{$item->unit}}</td>
-				<td style="text-align: left; text-indent: 10px;">{{$item->description}}</td>
+				<td style="text-align: center; text-indent: 10px;">{{$item->unit}}</td>
+				<td style="text-align: left; text-indent: 20px;">{{$item->name}}</td>
 				<td>&nbsp;</td>
-				<td style="text-align: left; text-indent: 10px;">{{$item->unit_price}}</td>
-				<td style="text-align: left; text-indent: 10px;">{{$item->total_price}}</td>
+				<td style="text-align: left; text-indent: 10px;">{{ number_format($item->unit_price,2) }}</td>
+				<td style="text-align: left; text-indent: 10px;">{{ number_format($item->total_price,2) }}</td>
 			</tr>
 			@endforeach
 
@@ -263,7 +276,13 @@
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td colspan=2 style="font-size:9pt; text-align: right; visibility: hidden;">Add: VAT&nbsp;</td>
-				<td style="font-size:10pt; text-align: left; text-indent: 5px;">{{ $sales_invoice['vat'] }}</td>
+				<!-- For VAT Computation -->
+				<?php $vat_rate = 0.12; ?>
+				@if ($sales_invoice->Client->vat_exempt == false)
+					<td style="font-size:11pt; text-align: left; text-indent: 5px;"><div style="margin-top:-14px;">{{ number_format(($sales_invoice['total_amount'] * $vat_rate), 2) }}</div></td>
+				@else
+					<td>&nbsp;</td>
+				@endif
 			</tr>
 
 			<tr>
@@ -271,9 +290,9 @@
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td colspan=2 style="font-size:9pt; text-align: right; font-weight: bold; visibility: hidden;">TOTAL AMOUNT DUE&nbsp;</td>
-				<td style="font-size:10pt; text-align: left; text-indent: 5px;">{{ $sales_invoice['total_amount'] }}</td>
+				<td style="font-size:11pt; text-align: left; text-indent: 5px;">{{ number_format($sales_invoice['total_amount'], 2) }}</td>
 			</tr>
 	</table>
-	<div style="background:white; height:150px;"></div>
+	<div class="filler" style="height:150px;"></div>
 
 </body>

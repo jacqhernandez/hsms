@@ -20,7 +20,11 @@
 	
 	<br>
 	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@if(\Request::route()->getName() == 'invoiceitems.edit')
+			@include('includes.update_confirm')
+		@else
+			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@endif
 		<button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>
 	</div>
 </div>

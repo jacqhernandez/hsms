@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div style="float:left;"><img src="img/Logo.png" style="width:30px; margin-top: 30%; margin-left:30%;"></div>
+                <div style="float:left;"><img src="http://localhost/hsms/public/img/Logo.png" style="width:30px; margin-top: 30%; margin-left:30%;"></div>
                 <div style="float:right;"><a class="navbar-brand" href="{{ url('/home') }}">Hardware Sales Management System</a></div>
             </div>
             <!-- /.navbar-header -->
@@ -100,6 +100,10 @@
                                 @endif
 							</ul>
 						</li>
+                        <li>
+                            <a href="{{url::action('ReportsController@index')}}"><i class="glyphicon glyphicon-triangle-right"></i> Reports</a>
+
+                        </li>
                         @endif
 						
                     </ul>

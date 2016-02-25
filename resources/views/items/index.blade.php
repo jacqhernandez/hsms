@@ -51,6 +51,6 @@
 </table>
 <?php echo $items->render(); ?>
 @if (Auth::user()['role'] == 'General Manager')
-	<a href="{{ url('/items/create') }}">New Item</a>
+	<a href="{{ url('/items/create') }}" class="btn btn-primary">New Item</a>
 @endif
 @stop

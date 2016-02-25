@@ -3,14 +3,15 @@
 	<table> 
 		<tbody>
 			<tr>
-				<td> {!! Form::label('name', 'Name: ') !!}</td>
+				<td> {!! Form::label('name', 'Name: ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::text('name', old('name'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>	
-			
+			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td> {!! Form::label('unit', 'Unit: ') !!}</td>
-				<td> {!! Form::text('unit', old('unit'), ['class' => 'span7']) !!} </td>
+				<td> {!! Form::label('unit', 'Unit: ', ['class' => 'required-field']) !!}</td>
+				<td> {!! Form::text('unit', old('unit'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>
+			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td> {!! Form::label('description', 'Description: ') !!}</td>
 				<td> {!! Form::text('description', old('description'), ['class' => 'span7 form-control']) !!} </td>
@@ -20,7 +21,11 @@
 	
 	<br>
 	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@if(\Request::route()->getName() == 'items.edit')
+			@include('includes.update_confirm')
+		@else
+			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@endif
 		<a href="{{ action ('ItemsController@index') }}"><button type="button" class="btn btn-info">Back to Items</button></a>
 	</div>
 </div>

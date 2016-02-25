@@ -3,7 +3,7 @@
 	<table>
 		<tbody>
 			<tr>
-				<td> {!! Form::label('name', 'Name: ') !!}</td>
+				<td> {!! Form::label('name', 'Name: ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::text('name', old('name'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>
 
@@ -13,12 +13,12 @@
 			</tr>	
 			
 			<tr>
-				<td> {!! Form::label('telephone_number', 'Telephone Number: ') !!} </td>
+				<td> {!! Form::label('telephone_number', 'Telephone Number: ', ['class' => 'required-field']) !!} </td>
 				<td> {!! Form::input('number', 'telephone_number', old('telephone_number'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 			
 			<tr>
-				<td> {!! Form::label('tin', 'TIN: ') !!} </td>
+				<td> {!! Form::label('tin', 'TIN: ', ['class' => 'required-field']) !!} </td>
 				<td> {!! Form::input('number', 'tin', old('tin'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 			
@@ -28,7 +28,7 @@
 			</tr>
 			
 			<tr>
-				<td> {!! Form::label('email', 'E-mail: ') !!} </td>
+				<td> {!! Form::label('email', 'E-mail: ', ['class' => 'required-field']) !!} </td>
 				<td> {!! Form::email('email', old('email'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
@@ -46,7 +46,11 @@
 	</table>
 	<br>
 	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@if(\Request::route()->getName() == 'suppliers.edit')
+			@include('includes.update_confirm')
+		@else
+			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		@endif
 		<a href="{{ action ('SuppliersController@index') }}"><button type="button" class="btn btn-info">Back to Suppliers</button></a>
 	</div>
 </div>
