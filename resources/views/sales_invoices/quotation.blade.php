@@ -445,14 +445,14 @@
           });
 
 
-          //FOR PRICE LOG DATE DIF!!!
-          var a = new Date($('.lastUpdated1').text());
-          var b = new Date($('.lastUpdated1').text());
-          var timeDiff = Math.abs(b.getTime() - a.getTime());
-          var diffDays = Math.ceil(timeDiff/(1000*3600*24));
-          if (diffDays == 0){
-            empty = true;
-          }
+          // //FOR PRICE LOG DATE DIF!!!
+          // var a = new Date($('.lastUpdated1').text());
+          // var b = new Date($('.lastUpdated1').text());
+          // var timeDiff = Math.abs(b.getTime() - a.getTime());
+          // var diffDays = Math.ceil(timeDiff/(1000*3600*24));
+          // if (diffDays == 0){
+          //   empty = true;
+          // }
 
 
           if (empty) {
