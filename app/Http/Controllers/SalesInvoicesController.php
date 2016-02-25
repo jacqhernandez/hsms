@@ -108,7 +108,7 @@ class SalesInvoicesController extends Controller
     {
         $sales_invoice = SalesInvoice::find($id);
         $items = SalesInvoice::find($id)->InvoiceItems;
-        if ((Auth::user()['role'] == 'Sales') && ($sales_invoice['id'] != Auth::user()['id'])) 
+        if ((Auth::user()['role'] == 'Sales') && ($sales_invoice['user_id'] !== Auth::user()['id'])) 
         {
             return redirect()->action('SalesInvoicesController@index');
         }
@@ -126,7 +126,7 @@ class SalesInvoicesController extends Controller
     public function poGuide($id)
     {
         $sales_invoice = SalesInvoice::find($id);
-        if ((Auth::user()['role'] == 'Sales') && ($sales_invoice['id'] != Auth::user()['id'])) 
+        if ((Auth::user()['role'] == 'Sales') && ($sales_invoice['user_id'] != Auth::user()['id'])) 
         {
             return redirect()->action('SalesInvoicesController@index');
         }
