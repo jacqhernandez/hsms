@@ -97,6 +97,9 @@
                                             <a href="{{url::action('LogsController@index')}}">Activity Log</a>
                                         </li>
                                     @endif
+                                    <li>
+                                        <a href="{{url::action('PriceLogsController@index')}}">Price Log</a>
+                                    </li>
                                 @endif
 							</ul>
 						</li>

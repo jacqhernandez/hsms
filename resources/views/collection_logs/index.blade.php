@@ -45,6 +45,61 @@
 	</tbody>
 </table>
 @endif
+@if ($delivered !=0)
+<h3>Delivered Sales Invoices</h3>
+<table class="table table-hover sortable">
+	<thead>
+		<tr>
+			<th>Sales Invoice Number</th>
+			<th>Total Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+			@foreach ($delivereds as $d)
+			<tr>
+				<td>{{ $d->si_no }}</td>
+				<td>{{ $d->total_amount}}</td>
+				<td>
+					<button type="button" id="confirmCollection" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">Confirm Collection</button>
+						<div id="modalPopper" class="modal fade modal-hello1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							<script>
+								$("#confirmCollection").attr('data-target', '.modal-hello'+<?php echo $d->id ?>);
+								$("#confirmCollection").attr('id', 'confirmCollection'+<?php echo $d->id ?>);
+								$("#modalPopper").attr('class', 'modal fade modal-hello'+<?php echo $d->id ?>);
+								$("#modalPopper").attr('id', 'modalPopper'+<?php echo $d->id ?>);
+							</script>
+						  <div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel">Confirm Collection</h4>
+						      </div>
+						      <div class="modal-body">
+						      		<p><b>Sales Invoice No: </b><?php echo $d->si_no ?></p>
+						      		<p><b>Total Amount: </b>Php <?php echo number_format($d->total_amount, 2, '.', ',') ?></p>
+						      		{!! Form::open(['route' => ['invoices.collected'], 'method' => 'post' ]) !!}
+						      		{!! Form::hidden('id', $d->id) !!}
+						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						        <button type="submit" class="btn btn-primary">Confirm</button>
+						        {!! Form::close() !!}
+						      </div>
+						    </div>
+						  </div>
+					</div>
+				</td>
+				<td>
+					{!! Form::open(['route' => ['invoices.show', $d->id], 'method' => 'get' ]) !!}
+					<button class="btn btn-primary">View Details</button>
+					{!! Form::close() !!}
+				</td>
+			</tr>
+			@endforeach
+	</tbody>
+</table>
+@endif
 @if ($overdue !=0)
 <h3>Overdue Sales Invoices</h3>
 <table class="table table-hover">
@@ -62,32 +117,39 @@
 				<td>{{ $o->si_no }}</td>
 				<td>{{ $o->total_amount}}</td>
 				<td>
+					<button type="button" id="confirmCollection" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">Confirm Collection</button>
+						<div id="modalPopper" class="modal fade modal-hello1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							<script>
+								$("#confirmCollection").attr('data-target', '.modal-hello'+<?php echo $o->id ?>);
+								$("#confirmCollection").attr('id', 'confirmCollection'+<?php echo $o->id ?>);
+								$("#modalPopper").attr('class', 'modal fade modal-hello'+<?php echo $o->id ?>);
+								$("#modalPopper").attr('id', 'modalPopper'+<?php echo $o->id ?>);
+							</script>
+						  <div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel">Confirm Collection</h4>
+						      </div>
+						      <div class="modal-body">
+						      		<p><b>Sales Invoice No: </b><?php echo $o->si_no ?></p>
+						      		<p><b>Total Amount: </b>Php <?php echo number_format($o->total_amount, 2, '.', ',') ?></p>
+						      		{!! Form::open(['route' => ['invoices.collected'], 'method' => 'post' ]) !!}
+						      		{!! Form::hidden('id', $o->id) !!}
+						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						        <button type="submit" class="btn btn-primary">Confirm</button>
+						        {!! Form::close() !!}
+						      </div>
+						    </div>
+						  </div>
+					</div>
+				</td>
+				<td>
 					{!! Form::open(['route' => ['invoices.show', $o->id], 'method' => 'get' ]) !!}
 					<button class="btn btn-danger">View Details</button>
-					{!! Form::close() !!}
-				</td>
-			</tr>
-			@endforeach
-	</tbody>
-</table>
-@endif
-@if ($delivered !=0)
-<h3>Delivered Sales Invoices</h3>
-<table class="table table-hover sortable">
-	<thead>
-		<tr>
-			<th>Sales Invoice Number</th>
-			<th>Total Amount</th>
-		</tr>
-	</thead>
-	<tbody>
-			@foreach ($delivereds as $d)
-			<tr>
-				<td>{{ $d->si_no }}</td>
-				<td>{{ $d->total_amount}}</td>
-				<td>
-					{!! Form::open(['route' => ['invoices.show', $d->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-primary">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>
