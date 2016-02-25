@@ -138,5 +138,5 @@
 @if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 	<a href="{{ action('SalesInvoicesController@quotation') }}"><button type="button" class="btn btn-primary">New Sales Invoice</button></a>
 @endif
-<button type="button" class="btn btn-info" onclick="history.go(-1);">Back </button>
+
 @stop
