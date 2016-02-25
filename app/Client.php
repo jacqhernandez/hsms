@@ -52,6 +52,6 @@ class Client extends Model implements LogsActivityInterface
 
 	public function currentCredit()
 	{
-		return DB::select("SELECT SUM(total_amount) AS credit FROM sales_invoices WHERE client_id='$id' AND (status='Delivered' OR status='Check on Hand' OR status='Pending' or status='Overdue')");
+		return DB::select("SELECT SUM(total_amount) AS credit FROM sales_invoices WHERE client_id='$this->id' AND (status='Delivered' OR status='Check on Hand' OR status='Pending' or status='Overdue')");
 	}
 }
