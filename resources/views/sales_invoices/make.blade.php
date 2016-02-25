@@ -23,6 +23,7 @@
 
 <div class="table-responsive">
   @include('includes.required_errors')
+  <?php echo Session::get('message'); ?>
 <table class="table">
 <!--   <thead>
     <tr>

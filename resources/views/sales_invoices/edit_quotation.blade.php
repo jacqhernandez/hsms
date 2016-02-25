@@ -177,20 +177,20 @@
     $(".yesNoB").attr("class", newName19);
     $(".yesNoC").attr("class", newName20);
 
-    var caster = "." + newName9;
-    $(caster).change(function(a){
-      var searcher = a.currentTarget.value;
-      var supplierChange = "." + newName2;
-      var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
-      $(supplierChange).text(suppliers[searcher]);
-    });
-
     var caster2 = "." + newName5;
     $(caster2).change(function(a){
       var searcher = a.currentTarget.value;
       var unitChange = "." + newName6;
       var items = <?php echo Item::all()->lists('unit', 'id') ?>;
       $(unitChange).text(items[searcher]);
+    });
+
+    var caster = "." + newName9;
+    $(caster).change(function(a){
+      var searcher = a.currentTarget.value;
+      var supplierChange = "." + newName2;
+      var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
+      $(supplierChange).text(suppliers[searcher]);
     });
 
     var caster3 = "." + newName10;

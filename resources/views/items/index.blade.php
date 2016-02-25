@@ -26,7 +26,7 @@
 			<td>{{ $item->name }}</td>
 			<td>{{ $item->unit}} </td>
 			<td>{{ $item->description }}</td>
-			@if (Auth::user()['role'] == 'General Manager')
+			@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 				<td>
 					{!! Form::open(['route' => ['items.destroy', $item->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
 						<?php echo"
