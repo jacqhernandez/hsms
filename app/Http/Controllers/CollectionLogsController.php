@@ -43,14 +43,9 @@ class CollectionLogsController extends Controller
             {
                 $delivereds = SalesInvoice::where('client_id', $id)->where('status', 'Delivered')->get();
             }
-            $pending = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->count();
-            if ($pending != 0)
-            {
-                $pendings = SalesInvoice::where('client_id', $id)->where('status', 'Pending')->get();
-            }
             $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')->paginate(10);
             $salesinvoices = new SalesInvoiceCollectionLog;
-            return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'delivered', 'pending', 'overdues', 'delivereds', 'pendings'));
+            return view('collection_logs.index', compact('collection_logs', 'client', 'overdue', 'delivered', 'overdues', 'delivereds'));
         }
     }
     /**
@@ -63,6 +58,7 @@ class CollectionLogsController extends Controller
         $salesinvoices = SalesInvoice::where('client_id', $id)
                     ->where('status', '!=', 'Collected')
                     ->where('status', '!=', 'Draft')
+                    ->where('status', '!=', 'Pending')
                     ->orderBy('status', 'asc')
                     ->get();
         $actionOptions = [];

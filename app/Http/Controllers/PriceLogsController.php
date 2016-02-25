@@ -103,7 +103,7 @@ class PriceLogsController extends Controller
         //return redirect()->action('ClientsController@index');
     }
 
-    public function store2()
+    public function store2(Requests\CreatePriceLogRequest $request)
     {
         $input = Request::all();
         //print_r(array_values($input));
@@ -119,7 +119,7 @@ class PriceLogsController extends Controller
         //return redirect()->action('ClientsController@index');
     }
 
-    public function update($id)
+    public function update(Requests\CreatePriceLogRequest $request, $id)
     {
         $input = Request::all();
         $priceLog = PriceLog::find($id);

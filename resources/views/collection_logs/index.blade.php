@@ -2,7 +2,7 @@
 @section('content')
 <br>
 <h1> {{ $client->name }} </h1>
-<h2>Sales Invoices: {{$pending}} Pending, {{$overdue}} Overdue, {{$delivered}} Delivered</h2>
+<h2>Sales Invoices: {{$overdue}} Overdue, {{$delivered}} Delivered</h2>
 <hr>
 @include('flash::message')
 <table>
@@ -19,32 +19,6 @@
 	{!! Form::close() !!}
 	</td>
 </table>
-@if ($pending !=0)
-<h3>Pending Sales Invoices</h3>
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th>Sales Invoice Number</th>
-			<th>Total Amount</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		
-			@foreach ($pendings as $p)
-			<tr>
-				<td>{{ $p->si_no }}</td>
-				<td>{{ $p->total_amount}}</td>
-				<td>
-					{!! Form::open(['route' => ['invoices.show', $p->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-danger">View Details</button>
-					{!! Form::close() !!}
-				</td>
-			</tr>
-			@endforeach
-	</tbody>
-</table>
-@endif
 @if ($delivered !=0)
 <h3>Delivered Sales Invoices</h3>
 <table class="table table-hover sortable">
