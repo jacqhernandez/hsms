@@ -95,8 +95,13 @@
                                     <li>
                                         <a href="{{url::action('UsersController@index')}}">Users</a>
                                     </li>
+                                    @if (Auth::user()['role'] == 'General Manager')
+                                        <li>
+                                            <a href="{{url::action('LogsController@index')}}">Activity Log</a>
+                                        </li>
+                                    @endif
                                     <li>
-                                        <a href="{{url::action('LogsController@index')}}">Activity Log</a>
+                                        <a href="{{url::action('PriceLogsController@index')}}">Price Log</a>
                                     </li>
 							</ul>
 						</li>
