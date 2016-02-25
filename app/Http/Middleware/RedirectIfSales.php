@@ -3,7 +3,7 @@
 use Closure;
 use Auth;
 
-class RedirectIfNotGeneralManager {
+class RedirectIfSales {
 
 	/**
 	 * Handle an incoming request.
@@ -18,7 +18,7 @@ class RedirectIfNotGeneralManager {
 		{
 			return redirect('/auth/login');	
 		}
-		elseif ( $request->user()->isGeneralManager())
+		elseif ( $request->user()->isGeneralManager() || $request->user()->isAccounting() )
 		{			
 			return $next($request);
 		}

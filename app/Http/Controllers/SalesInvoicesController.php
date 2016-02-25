@@ -24,10 +24,9 @@ class SalesInvoicesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');   
-        // $this->middleware('auth');  
-        // $this->middleware('general_manager',['except' => ['index','show']]);
-        // $this->middleware('sales',['except' => ['index','show']]);       
+        $this->middleware('auth');
+        $this->middleware('general_manager',['only' => ['edit','update','destroy']]);
+        $this->middleware('not_for_accounting',['only' => ['create','store','quotation','make','creation','generatePdf']]);
     }
     /**
      * Display a listing of the resource.
@@ -39,7 +38,11 @@ class SalesInvoicesController extends Controller
         if (Auth::user()['role'] == 'Sales') {
             $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->paginate(10);
             //IMPORTANT: this displays ALL invoices instead of until last month
-        } else {
+        } 
+        elseif (Auth::user()['role'] == 'Accounting'){
+            $sales_invoices = SalesInvoice::where('status','!=','Draft')->where('status','!=',"Pending")->paginate(10);
+        }
+        else {
             $sales_invoices = SalesInvoice::paginate(10);
         }
         $dates = $sales_invoices->lists('due_date','due_date');

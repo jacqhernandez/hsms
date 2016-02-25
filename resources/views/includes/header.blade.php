@@ -14,6 +14,7 @@
 
             @if (Auth::user()['role'] === 'General Manager' || Auth::user()['role'] === 'Accounting' || Auth::user()['role'] === 'Sales')
             <ul class="nav navbar-top-links navbar-right">
+                Welcome {{ Auth::user()['username'] }} !
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -64,13 +65,15 @@
                         <li>
                             <a href="{{url::action('SuppliersController@index')}}">Suppliers</a>
                         </li>
+                        <li>
+                            <a href="{{url::action('ItemsController@index')}}">Items</a>
+                        </li>
                         @endif
 
                         @if (Auth::user()['role'] === 'General Manager')
 						<li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Admin Maintenance<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                @if (Auth::check())
                                     <li>
                                         <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
                                     </li>
@@ -92,17 +95,13 @@
                                     <li>
                                         <a href="{{url::action('UsersController@index')}}">Users</a>
                                     </li>
-                                    @if (Auth::user()['role'] == 'General Manager')
-                                        <li>
-                                            <a href="{{url::action('LogsController@index')}}">Activity Log</a>
-                                        </li>
-                                    @endif
-                                @endif
+                                    <li>
+                                        <a href="{{url::action('LogsController@index')}}">Activity Log</a>
+                                    </li>
 							</ul>
 						</li>
                         <li>
                             <a href="{{url::action('ReportsController@index')}}"><i class="glyphicon glyphicon-triangle-right"></i> Reports</a>
-
                         </li>
                         @endif
 						

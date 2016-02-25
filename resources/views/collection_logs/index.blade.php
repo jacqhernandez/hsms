@@ -2,7 +2,7 @@
 @section('content')
 <br>
 <h1> {{ $client->name }} </h1>
-<h2>Sales Invoices: {{$overdue}} Overdue, {{$delivered}} Delivered</h2>
+<h2>Sales Invoices: {{$pending}} Pending, {{$overdue}} Overdue, {{$delivered}} Delivered</h2>
 <hr>
 @include('flash::message')
 <table>
@@ -19,6 +19,32 @@
 	{!! Form::close() !!}
 	</td>
 </table>
+@if ($pending !=0)
+<h3>Pending Sales Invoices</h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Sales Invoice Number</th>
+			<th>Total Amount</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		
+			@foreach ($pendings as $p)
+			<tr>
+				<td>{{ $p->si_no }}</td>
+				<td>{{ $p->total_amount}}</td>
+				<td>
+					{!! Form::open(['route' => ['invoices.show', $p->id], 'method' => 'get' ]) !!}
+					<button class="btn btn-danger">View Details</button>
+					{!! Form::close() !!}
+				</td>
+			</tr>
+			@endforeach
+	</tbody>
+</table>
+@endif
 @if ($overdue !=0)
 <h3>Overdue Sales Invoices</h3>
 <table class="table table-hover">
@@ -88,6 +114,7 @@ function confirmDelete()
 			<th>Follow-Up Date</th>
 			<th>Notes</th>
 			<th>Reason</th>
+			<th>Sales Invoices</th>
 			
 		</tr>
 	</thead>
@@ -119,9 +146,14 @@ function confirmDelete()
 				<a href="{{ action ('SalesInvoicesController@show', [$salesinvoice->SalesInvoice->id])}}">{{$salesinvoice->SalesInvoice->si_no}}</a>
 				<br>
 				@endforeach
-			</td>	
+			</td>
 			<td>
-				{!! Form::open(['route' => ['collectibles.collection_logs.destroy', $cLog->id, $cLog->client_id], 'onsubmit' => 'return confirmDelete()', 'method' => 'delete' ]) !!}
+				{!! Form::open(['route' => ['collectibles.collection_logs.edit', $client->id, $cLog->id], 'method' => 'get' ]) !!}
+				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
+				{!! Form::close() !!}
+			</td>
+			<td>
+				{!! Form::open(['route' => ['collectibles.collection_logs.destroy', $cLog->id, $client->id], 'onsubmit' => 'return confirmDelete()', 'method' => 'delete' ]) !!}
 				<button class="btn btn-danger">Delete</button>
 				{!! Form::close() !!}
 			</td>	
@@ -130,6 +162,6 @@ function confirmDelete()
 	</tbody> 
 </table>
 <?php echo $collection_logs->render(); ?>
-<a href="{{ action ('CollectionLogsController@create', [$client->id] ) }}">New Log</a>
+<a href="{{ action ('CollectionLogsController@create', [$client->id] ) }}"><button type="button" class="btn btn-primary">New Log</button></a>
 <a href="{{ action ('CollectiblesController@index') }}"><button type="button" class="btn btn-info">Back to Collectibles</button></a>
 @stop

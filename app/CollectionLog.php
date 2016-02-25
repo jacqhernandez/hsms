@@ -26,7 +26,7 @@ class CollectionLog extends Model implements LogsActivityInterface
     }
     public function Client()
     {
-    	return $this->belongsTo('App\Client')->withTrahsed();
+    	return $this->belongsTo('App\Client')->withTrashed();
     }
     public function SalesInvoiceCollectionLog()
     {
@@ -37,17 +37,17 @@ class CollectionLog extends Model implements LogsActivityInterface
     {
         if ($eventName == 'created')
         {
-            return 'Collection Log for client' . $this->Client->name . ' was created';
+            return 'Collection Log for client ' . $this->Client->name . ' was created';
         }
 
         if ($eventName == 'updated')
         {
-            return 'Collection Log for client' . $this->Client->name . ' was updated';
+            return 'Collection Log for client ' . $this->Client->name . ' was updated';
         }
 
         if ($eventName == 'deleted')
         {
-            return 'Collection Log for client' . $this->Client->name . ' was deleted';
+            return 'Collection Log for client ' . $this->Client->name . ' was deleted';
         }
         return '';
     }

@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\SalesInvoice;
+use App\Client;
 
 class UpdateOverdue extends Command
 {
@@ -37,7 +39,15 @@ class UpdateOverdue extends Command
      */
     public function handle()
     {
-        \DB::table('sales_invoices')->whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")')->update(['status' => "Overdue"]);
+        //\DB::table('sales_invoices')->whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")')->update(['status' => "Overdue"]);
+        $invoices = \DB::table('sales_invoices')->whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")');
+        $invoices->update(['status' => "Overdue"]);
+        foreach ($invoices as $invoice)
+        {
+            $client = Client::find($invoice->client_id);
+            $client->update(['status'=>"Blacklisted"]);
+        }
+
         //problem is if saturday, it will be 6-7 so it will subtract
         //\DB::table('sales_invoices')->whereRaw('((date_add(due_date,interval 6-dayofweek(due_date) day)) < (date_add(date(now()),interval 6-dayofweek(date(now())) day))) and (status != "Collected")')->update(['status'=>"Overdue"]);
     }
