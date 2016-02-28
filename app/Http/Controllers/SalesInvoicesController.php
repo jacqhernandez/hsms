@@ -427,29 +427,39 @@ class SalesInvoicesController extends Controller
                     'date_delivered' => Carbon::now() 
                 ]);
 
-                if ($salesInvoice->Client->payment_terms == "Cash") {
-                    $salesInvoice->update([
-                        'due_date' => Carbon::now()
-                    ]);
-                } else if ($salesInvoice->Client->payment_terms == "30 Days"){
-                    $salesInvoice->update([
-                        'due_date' => Carbon::now()->addDays(30)
-                    ]);
-                }  else if ($salesInvoice->Client->payment_terms == "60 Days"){
-                    $salesInvoice->update([
-                        'due_date' => Carbon::now()->addDays(60)
-                    ]);
-                }
+                if ($salesInvoice->Client->payment_terms == "Cash") 
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()
+                        ]);
+                    } 
+                else if ($salesInvoice->Client->payment_terms == "30 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(30)
+                        ]);
+                    }  
 
-            }  else if ($salesInvoice->Client->payment_terms == "75 Days"){
-                $salesInvoice->update([
-                    'due_date' => Carbon::now()->addDays(75)
-                ]);
-            }  else if ($salesInvoice->Client->payment_terms == "90 Days"){
-                $salesInvoice->update([
-                    'due_date' => Carbon::now()->addDays(90)
-                ]);
-            }
+                else if ($salesInvoice->Client->payment_terms == "60 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(60)
+                        ]);
+                    }
+
+                else if ($salesInvoice->Client->payment_terms == "75 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(75)
+                        ]);
+                    }  
+                else if ($salesInvoice->Client->payment_terms == "90 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(90)
+                        ]);
+                    }
+            }  
 
         //create 2 collection logs
         $DueDate_Components = DB::SELECT("SELECT YEAR(due_date) as Year, MONTH(due_date) as Month, DAYOFMONTH(due_date) as Day FROM sales_invoices
