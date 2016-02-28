@@ -111,10 +111,11 @@ function confirmDelete()
 		<tr>
 			<th>Date</th>
 			<th>Action</th>
-			<th>Follow-Up Date</th>
+			<!-- <th>Follow-Up Date</th> -->
 			<th>Notes</th>
 			<th>Reason</th>
 			<th>Sales Invoices</th>
+			<th>Status</th>
 			
 		</tr>
 	</thead>
@@ -124,7 +125,6 @@ function confirmDelete()
 		<tr>
 			<?php 
 			$date = Carbon\Carbon::parse($cLog->date)->toFormattedDateString();
-			$follow_up_date = Carbon\Carbon::parse($cLog->follow_up_date)->toFormattedDateString();
 
 			$salesinvoices = App\SalesInvoiceCollectionLog::join('clients', 'sales_invoice_collection_logs.client_id', '=', 'clients.id')
                    ->join('sales_invoices', 'sales_invoice_collection_logs.sales_invoice_id', '=', 'sales_invoices.id')
@@ -138,20 +138,29 @@ function confirmDelete()
 
 			<td>{{ $date }}</td>
 			<td>{{ $cLog->action }}</td>
-			<td>{{ $follow_up_date }}</td>
+			
 			<td>{{ $cLog->note }}</td>
+			@if ($cLog->Reason == null)
+			<td>---------</td>
+			@else
 			<td>{{ $cLog->Reason->reason }}</td>
+			@endif
 			<td>
 				@foreach($salesinvoices as $salesinvoice)
 				<a href="{{ action ('SalesInvoicesController@show', [$salesinvoice->SalesInvoice->id])}}">{{$salesinvoice->SalesInvoice->si_no}}</a>
 				<br>
 				@endforeach
 			</td>
+			<td>{{ $cLog->status}}</td>
+			@if ($cLog->status == 'To Do')
 			<td>
 				{!! Form::open(['route' => ['collectibles.collection_logs.edit', $client->id, $cLog->id], 'method' => 'get' ]) !!}
-				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
+				{!! Form::button('Perform Action', ['type' => 'submit', 'class' => 'btn']) !!}
 				{!! Form::close() !!}
 			</td>
+			@else
+			<td>&nbsp;</td>
+			@endif
 			<td>
 				{!! Form::open(['route' => ['collectibles.collection_logs.destroy', $cLog->id, $client->id], 'onsubmit' => 'return confirmDelete()', 'method' => 'delete' ]) !!}
 				<button class="btn btn-danger">Delete</button>
