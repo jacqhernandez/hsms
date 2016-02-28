@@ -38,9 +38,8 @@ class ClientsController extends Controller
              // $clients = Client::all();
              $clients = Client::paginate(10);
              $clients->setpath('hsms/public/clients/');
-             return view('clients.index', compact('clients'));
         }
-        //return view('clients.index', compact('clients'));
+        return view('clients.index', compact('clients'));
     }
 
 
@@ -95,9 +94,10 @@ class ClientsController extends Controller
 
         $paymentOptions = [];
         $paymentOptions['Cash'] = 'Cash';
-        //$paymentOptions['15 Days'] = '15 Days';
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
+        $paymentOptions['60 Days'] = '75 Days';
+        $paymentOptions['60 Days'] = '90 Days';
         $paymentOptions['PDC'] = 'PDC';
 
         $userOptions = User::where('role', 'Sales')->lists('username', 'id');
@@ -160,9 +160,10 @@ class ClientsController extends Controller
 
         $paymentOptions = [];
         $paymentOptions['Cash'] = 'Cash';
-        //$paymentOptions['15 Days'] = '15 Days';
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
+        $paymentOptions['60 Days'] = '75 Days';
+        $paymentOptions['60 Days'] = '90 Days';
         $paymentOptions['PDC'] = 'PDC';
 
         $userOptions = User::where('role', 'Sales')->lists('username', 'id');

@@ -12,19 +12,34 @@
 
 <h2 class="sub-header">New Sales Invoice</h2><hr>
 <p><b>Date Today:</b> <?php echo date("m/d/Y")?></p>
-<p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p>
-<h3 class="sub-header">Add Quotation</h3>
+<p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p><br>
+<h3 class="sub-header">Add Quotation</h3><hr><br>
 
 {!! Form::open(['route' => ['invoiceitems.store'], 'method' => 'post' ]) !!}
 
 {!! Form::hidden('item_count', 1, ['class' => 'itemCount']) !!}
 
+<table style="float:left;">
+      <tr>
+        <th>Client:</th>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>
+            <?php $clientOptions[""] = "- Select Client -"; ?>
+            {!! Form::select('client_id', $clientOptions, Input::old('client_id'), array('class' => 'clientChange', 'selected' => '', 'id' => 'form_control')) !!}
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+      <tr>
+</table>
+
+<?php echo Session::get('message'); ?>
+
 <p>Client:</p>
 <?php $clientOptions[""] = "- Select Client -"; ?>
-{!! Form::select('client_id', $clientOptions, Input::old('client_id'), array('class' => 'clientChange', 'selected' => '')) !!}
+{!! Form::select('client_id', $clientOptions, old('client_id'), array('class' => 'clientChange', 'selected' => '')) !!}
 
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table class="table table-striped" style="float:right;">
     <tbody>
       <tr>
         <th>Client Status</th>
@@ -72,34 +87,39 @@
   <tbody id="itemBody">
     <tr class="superRow">
       <?php $itemOptions[''] = "- Select Item -"; ?>
-      <td>{!! Form::select('item_id', $itemOptions, Input::old('item_id'), array('class' => 'itemChange')) !!}</td>
+      <td>{!! Form::select('item_id', $itemOptions, Input::old('item_id'), array('class' => 'itemChange', 'id' => 'form_control')) !!}</td>
       <td><p class="itemUnit"></p></td>
       <?php $supplierOptions[''] = "- Select Supplier -"; ?>
-      <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange')) !!}</td>
+
+      <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange', 'id' => 'form_control')) !!}</td>
+
+      <?php $supplierOptions1[''] = "- Select Supplier -"; ?>
+      <td>{!! Form::select('supplier_id1', $supplierOptions1, Input::old('supplier_id'), array('class' => 'supplierChange')) !!}</td>
+
       <td><p class="supplierTerms"></p></td>
       <td><p class="contact"></p></td>
-      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01')) !!}</td>
-      <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo')) !!}</td>
+      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdated"></p></td>
     </tr>
     <tr>
       <td></td>
       <td></td>
-      <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB']) !!}</td>
+      <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB', 'id' => 'form_control']) !!}</td>
       <td><p class="supplierBTerms"></p></td>
       <td><p class="contactB"></p></td>
-      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01')) !!}</td>
-      <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdatedB"></p></td>
     </tr>
     <tr>
       <td></td>
       <td></td>
-      <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC']) !!}</td>
+      <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC', 'id' => 'form_control']) !!}</td>
       <td><p class="supplierCTerms"></p></td>
       <td><p class="contactC"></p></td>
-      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01')) !!}</td>
-      <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdatedC"></p></td>
     </tr>
   </tbody>
@@ -250,37 +270,53 @@
 
       $.get('getTopSuppliers', {item: searcher}, function(data){
       
-      if (data[1] == null) {
-
-      } else {
-        $("." + newName9).val(data[0].supplier_id);
-        $("." + newName10).val(data[1].supplier_id);
-        $("." + newName11).val(data[2].supplier_id);
-
-        $("." + newName12).attr("placeholder", data[0].price);
-        $("." + newName13).attr("placeholder", data[1].price);
-        $("." + newName14).attr("placeholder", data[2].price);
-
-        $("." + newName27).text(data[0].date);
-        $("." + newName28).text(data[1].date);
-        $("." + newName29).text(data[2].date);
-
-        $("." + newName18).val(data[0].stock_availability);
-        $("." + newName19).val(data[1].stock_availability);
-        $("." + newName20).val(data[2].stock_availability);
-
         var terms = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
-        $("." + newName2).text(terms[data[0].supplier_id]);
-        $("." + newName7).text(terms[data[1].supplier_id]);
-        $("." + newName8).text(terms[data[2].supplier_id]);
-
         var contact = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
-        $("." + newName30).text(contact[data[0].supplier_id]);
-        $("." + newName31).text(contact[data[1].supplier_id]);
-        $("." + newName32).text(contact[data[2].supplier_id]);
-      }
 
-    }, 'json');
+        if (data[0]) {
+          $("." + newName9).val(data[0].supplier_id);
+          $("." + newName12).attr("placeholder", data[0].price);
+          $("." + newName27).text(data[0].date);
+          $("." + newName18).val(data[0].stock_availability);
+          $("." + newName2).text(terms[data[0].supplier_id]);
+          $("." + newName30).text(contact[data[0].supplier_id]);
+        } else {
+          $("." + newName12).attr("placeholder", "");
+          $("." + newName27).text('');
+          $("." + newName2).text('');
+          $("." + newName30).text('');
+        }
+        if (data[1]) {
+          $("." + newName10).val(data[1].supplier_id);
+          $("." + newName13).attr("placeholder", data[1].price);
+          $("." + newName28).text(data[1].date);
+          $("." + newName19).val(data[1].stock_availability);
+          $("." + newName7).text(terms[data[1].supplier_id]);
+          $("." + newName31).text(contact[data[1].supplier_id]);
+        } else {
+          $("." + newName10).val("none");
+          $("." + newName13).attr("placeholder", "");
+          $("." + newName28).text('');
+          $("." + newName7).text('');
+          $("." + newName31).text('');
+        }
+
+        if (data[2]) {
+          $("." + newName11).val(data[2].supplier_id);
+          $("." + newName14).attr("placeholder", data[2].price);
+          $("." + newName29).text(data[2].date);
+          $("." + newName20).val(data[2].stock_availability);
+          $("." + newName8).text(terms[data[2].supplier_id]);
+          $("." + newName32).text(contact[data[2].supplier_id]);
+        } else {
+          $("." + newName11).val("none");
+          $("." + newName14).attr("placeholder", "");
+          $("." + newName29).text('');
+          $("." + newName8).text('');
+          $("." + newName32).text('');
+        }
+
+      }, 'json');
 
     });
 
@@ -306,9 +342,8 @@
     //NOTE TO SELF, HAVE TO UNBIND PREVIOUS EVENT
 
     //console.log($(".itemCount"));
-    $(".itemCount")[0].value = rowCounter;
+    $(".itemCount")[0].value = rowCounter++;
 
-    rowCounter++;
   });
 
   $(".clientChange1").change(function(a){
@@ -326,7 +361,6 @@
       }
 
     }, 'json');
-    console.log($("#clientStatus")[0].textContent);
   });
 
   $(".supplierChange1").change(function(a){
@@ -370,37 +404,51 @@
     $(unitChange).text(items[searcher]);
 
     $.get('getTopSuppliers', {item: searcher}, function(data){
-      if (data[1] == null) {
-        $(".itemPrice1").attr("value", "");
-        $(".itemPriceB1").attr("value", "");
-        $(".itemPriceC1").attr("value", "");
 
-      } else {
+      var terms = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
+      var contact = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+
+      if (data[0]) {
         $(".supplierChange1").val(data[0].supplier_id);
-        $(".supplierChangeB1").val(data[1].supplier_id);
-        $(".supplierChangeC1").val(data[2].supplier_id);
-
         $(".itemPrice1").attr("placeholder", data[0].price);
-        $(".itemPriceB1").attr("placeholder", data[1].price);
-        $(".itemPriceC1").attr("placeholder", data[2].price);
-
         $(".lastUpdated1").text(data[0].date);
-        $(".lastUpdatedB1").text(data[1].date);
-        $(".lastUpdatedC1").text(data[2].date);
-
         $(".yesNo1").val(data[0].stock_availability);
-        $(".yesNoB1").val(data[1].stock_availability);
-        $(".yesNoC1").val(data[2].stock_availability);
-
-        var terms = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
         $(".supplierTerms1").text(terms[data[0].supplier_id]);
-        $(".supplierBTerms1").text(terms[data[1].supplier_id]);
-        $(".supplierCTerms1").text(terms[data[2].supplier_id]);
-
-        var contact = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
         $(".contact1").text(contact[data[0].supplier_id]);
+      } else {
+        $(".itemPrice1").attr("placeholder", "");
+        $(".lastUpdated1").text('');
+        $(".supplierTerms1").text('');
+        $(".contact1").text('');
+      }
+      if (data[1]) {
+        $(".supplierChangeB1").val(data[1].supplier_id);
+        $(".itemPriceB1").attr("placeholder", data[1].price);
+        $(".lastUpdatedB1").text(data[1].date);
+        $(".yesNoB1").val(data[1].stock_availability);
+        $(".supplierBTerms1").text(terms[data[1].supplier_id]);
         $(".contactB1").text(contact[data[1].supplier_id]);
+      } else {
+        $(".supplierChangeB1").val("none");
+        $(".itemPriceB1").attr("placeholder", "");
+        $(".lastUpdatedB1").text('');
+        $(".supplierBTerms1").text('');
+        $(".contactB1").text('');
+      }
+
+      if (data[2]) {
+        $(".supplierChangeC1").val(data[2].supplier_id);
+        $(".itemPriceC1").attr("placeholder", data[2].price);
+        $(".lastUpdatedC1").text(data[2].date);
+        $(".yesNoC1").val(data[2].stock_availability);
+        $(".supplierCTerms1").text(terms[data[2].supplier_id]);
         $(".contactC1").text(contact[data[2].supplier_id]);
+      } else {
+        $(".supplierChangeC1").val("none");
+        $(".itemPriceC1").attr("placeholder", "");
+        $(".lastUpdatedC1").text('');
+        $(".supplierCTerms1").text('');
+        $(".contactC1").text('');
       }
 
     }, 'json');
@@ -424,9 +472,9 @@
           });
 
           if (empty) {
-              $('#generateInvoice').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+              $('#generateInvoice').attr('disabled', 'disabled');
           } else {
-              $('#generateInvoice').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+              $('#generateInvoice').removeAttr('disabled');
           }
       });
 
@@ -445,9 +493,9 @@
           });
 
           if (empty) {
-              $('#generateInvoice').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+              $('#generateInvoice').attr('disabled', 'disabled');
           } else {
-              $('#generateInvoice').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+              $('#generateInvoice').removeAttr('disabled');
           }
       });
   }
@@ -466,27 +514,32 @@
       }
       
       for (var i = 1; i < rowCounter; i++) {
-        var a = new Date($(".lastUpdated" + i).text());
-        if (getDateDiff(a) > diff) {
-          if ($(".itemPrice" + i).val() == 0) {
-            valid = false;
-            errorMessage += " The 1st price log in Item Row number " + i + " needs to be updated.";
+        if ($(".lastUpdated" + i).text() != null) {
+          var a = new Date($(".lastUpdated" + i).text());
+          if (getDateDiff(a) > diff) {
+            if ($(".itemPrice" + i).val() == 0) {
+              valid = false;
+              errorMessage += " The 1st price log in Item Row number " + i + " needs to be updated.";
+            }
+          }
+        }
+        if ($(".lastUpdatedB" + i).text() != null) {
+          var a = new Date($(".lastUpdatedB" + i).text());
+          if (getDateDiff(a) > diff) {
+            if ($(".itemPriceB" + i).val() == 0) {
+              valid = false;
+              errorMessage += " The 2nd price log in Item Row number " + i + " needs to be updated.";
+            }
           }
         }
 
-        var a = new Date($(".lastUpdatedB" + i).text());
-        if (getDateDiff(a) > diff) {
-          if ($(".itemPriceB" + i).val() == 0) {
-            valid = false;
-            errorMessage += " The 2nd price log in Item Row number " + i + " needs to be updated.";
-          }
-        }
-
-        var a = new Date($(".lastUpdatedC" + i).text());
-        if (getDateDiff(a) > diff) {
-          if ($(".itemPriceC" + i).val() == 0) {
-            valid = false;
-            errorMessage += " The 3rd price log in Item Row number " + i + " needs to be updated.";
+        if ($(".lastUpdatedC" + i).text() != null) {
+          var a = new Date($(".lastUpdatedC" + i).text());
+          if (getDateDiff(a) > diff) {
+            if ($(".itemPriceC" + i).val() == 0) {
+              valid = false;
+              errorMessage += " The 3rd price log in Item Row number " + i + " needs to be updated.";
+            }
           }
         }
       }

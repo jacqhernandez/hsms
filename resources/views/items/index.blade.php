@@ -26,7 +26,7 @@
 			<td>{{ $item->name }}</td>
 			<td>{{ $item->unit}} </td>
 			<td>{{ $item->description }}</td>
-			@if (Auth::user()['role'] == 'General Manager')
+			@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 				<td>
 					{!! Form::open(['route' => ['items.destroy', $item->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
 						<?php echo"
@@ -39,6 +39,8 @@
 					<?php echo '</div>' ?>
 					{!! Form::close() !!}
 				</td>
+			@endif
+			@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Accounting') 
 				<td>
 					{!! Form::open(['route' => ['items.edit', $item->id], 'method' => 'get' ]) !!}
 					{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
@@ -50,7 +52,7 @@
 	</tbody> 
 </table>
 <?php echo $items->render(); ?>
-@if (Auth::user()['role'] == 'General Manager')
+@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Accounting') 
 	<a href="{{ url('/items/create') }}" class="btn btn-primary">New Item</a>
 @endif
 @stop

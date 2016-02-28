@@ -4,77 +4,77 @@
 <?php
 	use App\Item;
 ?>
-		<h2>Invoice#{{ $sales_invoice['si_no'] }}: {{ $sales_invoice->Client->name }}</h2>
-		<table class="table">
+		<h2>Invoice #{{ $sales_invoice['si_no'] }} - {{ $sales_invoice->Client->name }}</h2>
+		<table class="table table-striped">
 			<tbody>
 				<tr>
-					<td>PO Number: </td>
+					<th>PO Number</th>
 					<td>{{ $sales_invoice['po_number'] }}</td>
 				</tr>
 				
 				<tr>
-					<td>DR Number: </td>
+					<th>DR Number</th>
 					<td>{{ $sales_invoice['dr_number'] }}</td>
 				
 				<tr>
-					<td>Date Created: </td>
+					<th>Date Created</th>
 					<td><?php echo Carbon\Carbon::parse($sales_invoice->date)->toFormattedDateString();	?></td>
 				</tr>
 
 				<tr>
-					<td>Sales Employee: </td>
+					<th>Sales Employee</th>
 					<td>{{ $sales_invoice->User->username }}</td>
 				</tr>
 
 				<tr>
-					<td>Payment Terms: </td>
+					<th>Payment Terms</th>
 					<td>{{ $sales_invoice->Client->payment_terms }}</td>
 				</tr>
 
 				<tr>
-					<td>Date Delivered: </td>
+					<th>Date Delivered</th>
 					<td>@if ($sales_invoice->date_delivered == 00-00-0000) ----- @else <?php echo Carbon\Carbon::parse($sales_invoice->date_delivered)->toFormattedDateString(); ?> @endif</td>
 				</tr>
 			
 				<tr>
-					<td>Due Date: </td>
+					<th>Due Date</th>
 					<td>@if ($sales_invoice->due_date == 00-00-0000) ----- @else <?php echo Carbon\Carbon::parse($sales_invoice->due_date)->toFormattedDateString(); ?> @endif</td>
 				</tr>
 
 				<tr>
-					<td>Total Amount: </td>
+					<th>Total Amount</th>
 					<td>Php {{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
 				</tr>
 
 				<tr>
-					<td>Status:</td>
+					<th>Status</th>
 					<td>{{ $sales_invoice['status'] }}</td>
 				</tr>
 
 				@if ($sales_invoice->status == "Delivered" || $sales_invoice->status == "Collected" || $sales_invoice->status == "Check on Hand")
 				<tr>
-					<td>Date Delivered:</td>
+					<th>Date Delivered</th>
 					<td><?php echo Carbon\Carbon::parse($sales_invoice->date_delivered)->toFormattedDateString(); ?></td>
 				</tr>
 				@endif
 
 				@if ($sales_invoice->status == "Collected")
 				<tr>
-					<td>Date Collected:</td>
+					<th>Date Collected</th>
 					<td><?php echo Carbon\Carbon::parse($sales_invoice->date_collected)->toFormattedDateString(); ?></td>
 				</tr>
 				
 
 				<tr>
-					<td>OR Number:</td>
+					<th>OR Number</th>
 					<td>{{ $sales_invoice['or_number'] }}</td>
 				</tr>
 				@endif
 
 			</tbody>
 		</table>
-
-		<h3>Item List</h3>
+		<br>
+		<h3>Item List</h3><hr>
 		<div class="table-responsive">
 			<table class="table table-striped">
 			<thead>
@@ -100,14 +100,16 @@
 			</table>
 		</div>
 
-	<table>
+	<table class="button-tables">
 	<tr>
 
+	@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 	<td>
 		{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get' ]) !!}
 			<button class="btn btn-success">Print Invoice</button>
 		{!! Form::close() !!}	
 	</td>
+	@endif
 	<td>
 		<a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}"><button class="btn btn-primary">PO Guide</button></a>
 	</td>

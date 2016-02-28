@@ -15,7 +15,7 @@ class ItemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','search']]);     
+        $this->middleware('not_for_sales',['except' => ['index','search']]);   
     }
     /**
      * Display a listing of the resource.
@@ -102,6 +102,7 @@ class ItemsController extends Controller
         $input = Request::all();
         $item->update([
             'name' => $input['name'],
+            'unit' => $input['unit'],
             'description' => $input['description']
         ]);
         return redirect()->action('ItemsController@index');
