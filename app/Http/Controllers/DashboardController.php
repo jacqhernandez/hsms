@@ -187,7 +187,7 @@ class DashboardController extends Controller
     {
         $date = $_GET['date'];
         // $collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
-        $collection_logs = DB::SELECT("SELECT c.id as 'id', name, action, note FROM collection_logs c
+        $collection_logs = DB::SELECT("SELECT c.id as 'id', name, action, note, client_id FROM collection_logs c
                                         JOIN clients cl on c.client_id = cl.id
                                         WHERE date = '$date' AND c.status='To Do'");
         

@@ -207,7 +207,7 @@
                             <td>{{$toDo->name}}</td>
                             <td>{{$toDo->action}}</td>
                             <td>{{$toDo->note}}</td>
-                            <!-- <td><a href="{{ action ('DashboardController@update', [$toDo->id]) }}">Mark as Done</a></td> -->
+                            <td><a href="{{ action ('CollectionLogsController@edit', [$toDo->client_id,$toDo->id]) }}">Perform Action</a></td>
                             <!-- {!! Form::open(['method' => 'PATCH', 'action' => ['DashboardController@update', $toDo->id]]) !!} -->
 
 <!--                             {!! Form::open(['route' => ['collectibles.collection_logs.edit', $toDo->client_id, $toDo->id], 'method' => 'get' ]) !!}
@@ -268,11 +268,15 @@
 
 
         // var formOpenString = data[i].id;
-        var appendstring = '<tr><td>' + data[i].name + '</td><td>' + data[i].action + '</td><td>' + data[i].note + '</td>';
+        // var appendstring = '<tr><td>' + data[i].name + '</td><td>' + data[i].action + '</td><td>' + data[i].note + '</td>';
+
+        var appendstring =  '<tr><td>' + data[i].name + '</td><td>' + data[i].action + '</td><td>' + data[i].note + '</td>'
+                            + '<td><a href="{{ action ("CollectionLogsController@edit", [99999999999,999999999999]) }}">Perform Action</a></td>';
 
 
+        var res = appendstring.replace(99999999999, data[i].client_id);
+        var res2 = res.replace(999999999999, data[i].id);
 
-        // var res = appendstring.replace(99999999999, data[i].id);
 
 
         // $('#todoTable tbody').append('<tr><td>' + data[i].name + '</td><td>' + data[i].follow_up_date + '</td><td>' + data[i].note + '</td>' 
@@ -283,8 +287,10 @@
         //   );
 
 
-      $('#todoTable tbody').append(appendstring);
-      //console.log(res);
+      // $('#todoTable tbody').append(appendstring);
+      $('#todoTable tbody').append(res2);
+
+      // console.log(res2);
       }
 
       console.log(data);
