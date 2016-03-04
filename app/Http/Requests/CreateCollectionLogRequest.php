@@ -31,23 +31,21 @@ class CreateCollectionLogRequest extends Request
             {
                 return [
                 //
-                    
-                   
-                    'follow_up_date' => 'required',
+                    'date' => 'required',
                     'check_list' => 'required'
-                    
                 ];
             }
             case 'PATCH':
             {
                 {
                     return[
-                        'follow_up_date' => 'required',
+
                         'check_list' => 'required'
                     ];
                 }
             }
             default:break;
         }
+
     }
 }

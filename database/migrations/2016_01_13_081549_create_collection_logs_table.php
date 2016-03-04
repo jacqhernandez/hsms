@@ -16,15 +16,17 @@ class CreateCollectionLogsTable extends Migration
             $table->increments('id');
             $table->date('date');
             $table->string('action');
-            $table->date('follow_up_date');
+            // $table->date('follow_up_date');
             $table->string('note');
             $table->string('status');
-            $table->integer('reason_id')->unsigned();
+            $table->integer('reason_id')->unsigned()->nullable();
             $table->foreign('reason_id')
-                  ->references('id')->on('reasons');
-            $table->integer('user_id')->unsigned();
+                  ->references('id')->on('reasons')
+                  ->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')
-                  ->references('id')->on('users');
+                  ->references('id')->on('users')
+                  ->nullable();
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')
                   ->references('id')->on('clients');

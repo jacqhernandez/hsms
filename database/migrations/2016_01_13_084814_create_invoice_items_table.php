@@ -20,9 +20,10 @@ class CreateInvoiceItemsTable extends Migration
             $table->integer('sales_invoice_id')->unsigned();
             $table->integer('item_id')->unsigned();
 
-            // $table->foreign('sales_invoice_id')
-            //       ->references('id')
-            //       ->on('sales_invoices');
+            $table->foreign('sales_invoice_id')
+                  ->references('id')
+                  ->on('sales_invoices')
+                  ->onDelete('cascade');
 
             $table->foreign('item_id')
                   ->references('id')

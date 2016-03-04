@@ -18,6 +18,9 @@ use App\PriceLog;
 use App\InvoiceItem;
 use App\User;
 use Carbon\Carbon;
+use App\SalesInvoiceCollectionLog;
+use App\CollectionLog;
+
 
 class SalesInvoicesController extends Controller
 {
@@ -195,6 +198,56 @@ class SalesInvoicesController extends Controller
             'client_id' => $input['client_id'],
             'user_id' => $input['user_id']
         ]);
+
+        //create collection To Do's
+        $DueDate_Components = DB::SELECT("SELECT YEAR(due_date) as Year, MONTH(due_date) as Month, DAYOFMONTH(due_date) as Day FROM sales_invoices
+                                            WHERE sales_invoices.id = '$id'");
+        $clientId = $sales_invoice->client_id;
+        $status = $sales_invoice->status;
+        $mondayOf = Carbon::create($DueDate_Components[0]->Year, $DueDate_Components[0]->Month, $DueDate_Components[0]->Day)->startOfWeek()->subweek();
+        $thusOf = Carbon::create($DueDate_Components[0]->Year, $DueDate_Components[0]->Month, $DueDate_Components[0]->Day)->startOfWeek()->addDays(3);
+
+
+        // $terms = Client::find($clientId)->payment_terms;
+
+        if ($status = 'Delivered')
+        {
+            //delete everything first to avoid duplication if you update it to delivered again
+            $siclsId = SalesInvoiceCollectionLog::where('sales_invoice_id', $id)->lists('collection_log_id');
+
+            foreach ($siclsId as $collectionlogIDs)
+            {
+                $cLog = CollectionLog::find($collectionlogIDs)->delete();
+            }
+
+             $cLog = new CollectionLog;
+             $cLog->date = $mondayOf;
+             $cLog->action = 'Call and Send SOA';
+             $cLog->client_id = $sales_invoice->client_id;
+             $cLog->status = 'To Do';
+             $cLog->save();
+
+            $sicl = new SalesInvoiceCollectionLog;
+            $sicl->sales_invoice_id = $id;
+            $sicl->client_id = $cLog->client_id;
+            $sicl->collection_log_id = $cLog->id;
+            $sicl->save();
+            // $collectionToDo = new SalesInvoiceCollectionLog;
+             $cLog2 = new CollectionLog;
+             $cLog2->date = $thusOf;
+             $cLog2->action = 'Confirm Collection';
+             $cLog2->client_id = $sales_invoice->client_id;
+             $cLog2->status = 'To Do';
+             $cLog2->save();
+
+            $sicl2 = new SalesInvoiceCollectionLog;
+            $sicl2->sales_invoice_id = $id;
+            $sicl2->client_id = $cLog2->client_id;
+            $sicl2->collection_log_id = $cLog2->id;
+            $sicl2->save();
+        }
+
+        // return $thusOf;
         //return redirect()->action('SalesInvoicesController@show',[$id]);
         return redirect()->action('SalesInvoicesController@index');
     }
@@ -359,39 +412,96 @@ class SalesInvoicesController extends Controller
     public function delivered($id) {
 
         $salesInvoice = SalesInvoice::find($id);
-        if ($salesInvoice->Client->payment_terms == "PDC") {
-            $salesInvoice->update([
-                'status' => "Check on Hand",
-                'date_delivered' => Carbon::now()
-            ]);
-        } else {
-            $salesInvoice->update([
-                'status' => "Delivered",
-                'date_delivered' => Carbon::now() 
-            ]);
-            if ($salesInvoice->Client->payment_terms == "Cash") {
+        if ($salesInvoice->Client->payment_terms == "PDC") 
+            {
                 $salesInvoice->update([
-                    'due_date' => Carbon::now()
+                    'status' => "Check on Hand",
+                    'date_delivered' => Carbon::now()
                 ]);
-            } else if ($salesInvoice->Client->payment_terms == "30 Days"){
+            } 
+
+        else 
+            {
                 $salesInvoice->update([
-                    'due_date' => Carbon::now()->addDays(30)
-                ]);
-            }  else if ($salesInvoice->Client->payment_terms == "60 Days"){
-                $salesInvoice->update([
-                    'due_date' => Carbon::now()->addDays(60)
-                ]);
-            }  else if ($salesInvoice->Client->payment_terms == "75 Days"){
-                $salesInvoice->update([
-                    'due_date' => Carbon::now()->addDays(75)
-                ]);
-            }  else if ($salesInvoice->Client->payment_terms == "90 Days"){
-                $salesInvoice->update([
-                    'due_date' => Carbon::now()->addDays(90)
+                    'status' => "Delivered",
+                    'date_delivered' => Carbon::now() 
                 ]);
 
+                if ($salesInvoice->Client->payment_terms == "Cash") 
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()
+                        ]);
+                    } 
+                else if ($salesInvoice->Client->payment_terms == "30 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(30)
+                        ]);
+                    }  
+
+                else if ($salesInvoice->Client->payment_terms == "60 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(60)
+                        ]);
+                    }
+
+                else if ($salesInvoice->Client->payment_terms == "75 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(75)
+                        ]);
+                    }  
+                else if ($salesInvoice->Client->payment_terms == "90 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(90)
+                        ]);
+                    }
+            }  
+
+        //create 2 collection logs
+        $DueDate_Components = DB::SELECT("SELECT YEAR(due_date) as Year, MONTH(due_date) as Month, DAYOFMONTH(due_date) as Day FROM sales_invoices
+                                            WHERE sales_invoices.id = '$id'");
+        $clientId = $salesInvoice->client_id;
+        $status = $salesInvoice->status;
+        $mondayOf = Carbon::create($DueDate_Components[0]->Year, $DueDate_Components[0]->Month, $DueDate_Components[0]->Day)->startOfWeek()->subweek();
+        $thusOf = Carbon::create($DueDate_Components[0]->Year, $DueDate_Components[0]->Month, $DueDate_Components[0]->Day)->startOfWeek()->addDays(3);
+
+        $siclsId = SalesInvoiceCollectionLog::where('sales_invoice_id', $id)->lists('collection_log_id');
+
+            foreach ($siclsId as $collectionlogIDs)
+            {
+                $cLog = CollectionLog::find($collectionlogIDs)->delete();
             }
-        }
+
+             $cLog = new CollectionLog;
+             $cLog->date = $mondayOf;
+             $cLog->action = 'Call and Send SOA';
+             $cLog->client_id = $salesInvoice->client_id;
+             $cLog->status = 'To Do';
+             $cLog->save();
+
+            $sicl = new SalesInvoiceCollectionLog;
+            $sicl->sales_invoice_id = $id;
+            $sicl->client_id = $cLog->client_id;
+            $sicl->collection_log_id = $cLog->id;
+            $sicl->save();
+            // $collectionToDo = new SalesInvoiceCollectionLog;
+             $cLog2 = new CollectionLog;
+             $cLog2->date = $thusOf;
+             $cLog2->action = 'Confirm Collection';
+             $cLog2->client_id = $salesInvoice->client_id;
+             $cLog2->status = 'To Do';
+             $cLog2->save();
+
+            $sicl2 = new SalesInvoiceCollectionLog;
+            $sicl2->sales_invoice_id = $id;
+            $sicl2->client_id = $cLog2->client_id;
+            $sicl2->collection_log_id = $cLog2->id;
+            $sicl2->save();
+
         return redirect()->action('SalesInvoicesController@index');
     }
 

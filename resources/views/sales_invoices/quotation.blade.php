@@ -12,12 +12,25 @@
 
 <h2 class="sub-header">New Sales Invoice</h2><hr>
 <p><b>Date Today:</b> <?php echo date("m/d/Y")?></p>
-<p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p>
-<h3 class="sub-header">Add Quotation</h3>
+<p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p><br>
+<h3 class="sub-header">Add Quotation</h3><hr><br>
 
 {!! Form::open(['route' => ['invoiceitems.store'], 'method' => 'post' ]) !!}
 
 {!! Form::hidden('item_count', 1, ['class' => 'itemCount']) !!}
+
+<table style="float:left;">
+      <tr>
+        <th>Client:</th>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>
+            <?php $clientOptions[""] = "- Select Client -"; ?>
+            {!! Form::select('client_id', $clientOptions, Input::old('client_id'), array('class' => 'clientChange', 'selected' => '', 'id' => 'form_control')) !!}
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+      <tr>
+</table>
 
 <?php echo Session::get('message'); ?>
 
@@ -26,7 +39,7 @@
 {!! Form::select('client_id', $clientOptions, old('client_id'), array('class' => 'clientChange', 'selected' => '')) !!}
 
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table class="table table-striped" style="float:right;">
     <tbody>
       <tr>
         <th>Client Status</th>
@@ -74,35 +87,39 @@
   <tbody id="itemBody">
     <tr class="superRow">
       <?php $itemOptions[''] = "- Select Item -"; ?>
-      <td>{!! Form::select('item_id', $itemOptions, Input::old('item_id'), array('class' => 'itemChange')) !!}</td>
+      <td>{!! Form::select('item_id', $itemOptions, Input::old('item_id'), array('class' => 'itemChange', 'id' => 'form_control')) !!}</td>
       <td><p class="itemUnit"></p></td>
       <?php $supplierOptions[''] = "- Select Supplier -"; ?>
+
+      <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange', 'id' => 'form_control')) !!}</td>
+
       <?php $supplierOptions1[''] = "- Select Supplier -"; ?>
       <td>{!! Form::select('supplier_id1', $supplierOptions1, Input::old('supplier_id'), array('class' => 'supplierChange')) !!}</td>
+
       <td><p class="supplierTerms"></p></td>
       <td><p class="contact"></p></td>
-      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01')) !!}</td>
-      <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo')) !!}</td>
+      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdated"></p></td>
     </tr>
     <tr>
       <td></td>
       <td></td>
-      <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB']) !!}</td>
+      <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB', 'id' => 'form_control']) !!}</td>
       <td><p class="supplierBTerms"></p></td>
       <td><p class="contactB"></p></td>
-      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01')) !!}</td>
-      <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdatedB"></p></td>
     </tr>
     <tr>
       <td></td>
       <td></td>
-      <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC']) !!}</td>
+      <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC', 'id' => 'form_control']) !!}</td>
       <td><p class="supplierCTerms"></p></td>
       <td><p class="contactC"></p></td>
-      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01')) !!}</td>
-      <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdatedC"></p></td>
     </tr>
   </tbody>
