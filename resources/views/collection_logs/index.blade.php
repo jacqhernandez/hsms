@@ -108,7 +108,7 @@
 						      <div class="modal-body">
 						      		<p><b>Sales Invoice No: </b><?php echo $o->si_no ?></p>
 						      		<p><b>Total Amount: </b>Php <?php echo number_format($o->total_amount, 2, '.', ',') ?></p>
-						      		{!! Form::open(['route' => ['invoices.collected'], 'method' => 'post' ]) !!}
+						      		{!! Form::open(['route' => ['invoices.collectedFromLog'], 'method' => 'post' ]) !!}
 						      		{!! Form::hidden('id', $o->id) !!}
 						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
 						      </div>
@@ -167,7 +167,6 @@ function confirmDelete()
                    ->join('collection_logs', 'sales_invoice_collection_logs.collection_log_id', '=', 'collection_logs.id')
                    ->where('sales_invoice_collection_logs.client_id', $cLog->client_id)
                    ->where('sales_invoice_collection_logs.collection_log_id', $cLog->id)
-                   ->where('sales_invoices.status', '!=', 'Collected')
                    ->select('*')
                    ->get();
 			?>
