@@ -15,29 +15,29 @@
 				<option value="item">Item</option>
 				<option value="client">Client</option>
 				</select></td> -->
-				<td>{!! Form::select('report_type', $reportOptions, null, ['id' => 'report_type']) !!}</td>
+				<td>{!! Form::select('report_type', $reportOptions, null, ['id' => 'report_type', 'class' => 'form-control']) !!}</td>
 		</tr>
 
 		<tr id="item">
 			<td>{!! Form::label('item', 'Item: ') !!}</td>
-			<td>{!! Form::select('item', $items, null, ['id' => 'item_select']) !!}</td>
+			<td>{!! Form::select('item', $items, null, ['id' => 'item_select', 'class' => 'form-control']) !!}</td>
 		</tr>
 		
 		<tr id="month">
 			<td>{!! Form::label('month', 'Month: ') !!}</td>
-			<td>{!! Form::selectMonth('select_monthFrom') !!}</td>
+			<td>{!! Form::selectMonth('select_monthFrom', null, ['class' => 'form-control']) !!}</td>
 			<td>{!! Form::label('monthTo', ' To ') !!}</td>
-			<td>{!! Form::selectMonth('select_monthTo') !!}</td>
+			<td>{!! Form::selectMonth('select_monthTo', null, ['class' => 'form-control']) !!}</td>
 		</tr>
 
 		<tr id="year">
 			<td>{!! Form::label('month', 'Year: ') !!}</td>
-			<td>{!! Form::select('year', $years, null, ['id' => 'year_select']) !!}</td>
+			<td>{!! Form::select('year', $years, null, ['id' => 'year_select', 'class' => 'form-control']) !!}</td>
 		</tr>
 
 		<tr id="client">
 			<td>{!! Form::label('client', 'Client: ') !!}</td>
-			<td>{!! Form::select('client', $clients, null, ['id' => 'client_select']) !!}</td>
+			<td>{!! Form::select('client', $clients, null, ['id' => 'client_select', 'class' => 'form-control']) !!}</td>
 		</tr>
 	</tbody>
 </table>

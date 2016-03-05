@@ -525,4 +525,27 @@ class SalesInvoicesController extends Controller
 
         return redirect()->action('SalesInvoicesController@index');
     }
+
+    //for 'Confirm Collection' in the Collection Log index page
+    public function collectedFromLog() {
+        $input = Request::all();
+        $salesInvoice = SalesInvoice::find($input['id']);
+        $salesInvoice->update([
+                'status' => "Collected",
+                'date_collected' => Carbon::now(),
+                'or_number' => $input['or_number'] 
+        ]);
+
+        $clientId = $salesInvoice->client_id;
+        $hasOverdue = DB::SELECT("SELECT COUNT(*) FROM sales_invoices WHERE status='overdue'");
+        if ($hasOverdue == 0) {
+            $client = Client::find($clientId);
+            $client->update([
+                'status' => "Good"
+            ]);
+        }
+
+        return redirect()->action('CollectiblesController@index');
+    }
+
 }
