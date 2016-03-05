@@ -206,6 +206,7 @@ function confirmDelete()
 	</tbody> 
 </table>
 <?php echo $collection_logs->render(); ?>
-<a href="{{ action ('CollectionLogsController@create', [$client->id] ) }}"><button type="button" class="btn btn-primary">New Log</button></a>
+<br>
+<a href="{{ action ('CollectionLogsController@create', [$client->id] ) }}"><button type="button" class="btn btn-primary">Create Collection Action</button></a>
 <a href="{{ action ('CollectiblesController@index') }}"><button type="button" class="btn btn-info">Back to Collectibles</button></a>
 @stop
