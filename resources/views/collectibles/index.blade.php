@@ -41,6 +41,7 @@
 			<td>{{ $client->status }}</td>
 			<td>{{ $overdue[$client->id] }}</td>
 			<td>{{ $delivered[$client->id] }}</td>
+			<td>{{ $salesinvoiceTotal[$client->id] }}</td>
 			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
 		</tr>
 		@endif

@@ -35,12 +35,20 @@ class CollectiblesController extends Controller
             $clients = Client::paginate(10);
             $overdue = new SalesInvoice;
             $delivered = new SalesInvoice;
-            //$salesinvoice = new SalesInvoice;
+            
+            $salesinvoice = new SalesInvoice;
+            $salesinvoice2 = new SalesInvoice;
+            $salesinvoiceTotal;
             foreach($clients as $client)
             {
                  $overdue[$client->id] = SalesInvoice::where('client_id', $client->id)->where('status', 'Overdue')->count();
                  $delivered[$client->id] = SalesInvoice::where('client_id', $client->id)->where('status', 'Delivered')->count();
-                 //$salesinvoice[$client->id] = SalesInvoice::where('client_id', $client->id)->where('status', 'Overdue')->orWhere('status', 'Delivered')->get();
+                 // $salesinvoice[$client->id] = DB::SELECT("SELECT sum(total_amount) as total FROM sales_invoices 
+                 //                        WHERE (status = 'Overdue' or  status = 'Delivered') and client_id = '$client->id'");
+                 $salesinvoice = SalesInvoice::where('status', '=', 'Overdue')->where('client_id','=', $client->id)->sum('total_amount');
+                 $salesinvoice2 = SalesInvoice::where('status', 'Delivered')->where('client_id', $client->id)->sum('total_amount');
+                 $salesinvoiceTotal[$client->id] = $salesinvoice + $salesinvoice2;
+                 //$salesinvoice[$client->id] = SalesInvoice::where('status = Overdue or status = Delivered and client_id = '.$client->id.'')->sum('total_amount');
             }
 
             // for ($x = 1; $x < count($clients)+1; $x++)
@@ -49,7 +57,7 @@ class CollectiblesController extends Controller
             //    $delivered[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Delivered')->count();
             //    $pending[$x] = SalesInvoice::where('client_id', $x)->where('status', 'Pending')->count();
             // }
-            return view('collectibles.index', compact('clients', 'overdue', 'delivered'));
+            return view('collectibles.index', compact('clients', 'overdue', 'delivered', 'salesinvoiceTotal'));
         }
     }
 

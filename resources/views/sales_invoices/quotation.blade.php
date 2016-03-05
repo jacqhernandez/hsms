@@ -34,10 +34,6 @@
 
 <?php echo Session::get('message'); ?>
 
-<p>Client:</p>
-<?php $clientOptions[""] = "- Select Client -"; ?>
-{!! Form::select('client_id', $clientOptions, old('client_id'), array('class' => 'clientChange', 'selected' => '')) !!}
-
 <div class="table-responsive">
   <table class="table table-striped" style="float:right;">
     <tbody>
@@ -93,8 +89,6 @@
 
       <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange', 'id' => 'form_control')) !!}</td>
 
-      <?php $supplierOptions1[''] = "- Select Supplier -"; ?>
-      <td>{!! Form::select('supplier_id1', $supplierOptions1, Input::old('supplier_id'), array('class' => 'supplierChange')) !!}</td>
 
       <td><p class="supplierTerms"></p></td>
       <td><p class="contact"></p></td>
