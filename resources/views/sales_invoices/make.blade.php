@@ -23,6 +23,7 @@
 
 <div class="table-responsive">
   @include('includes.required_errors')
+  <?php echo Session::get('message'); ?>
 <table class="table">
 <!--   <thead>
     <tr>
@@ -38,15 +39,15 @@
   <tbody>
     <tr>
       <td>Sales Invoice ID: </td>
-      <td>{!! Form::text('si_no', old('si_no')) !!}</td>
+      <td>{!! Form::text('si_no', old('si_no'), ['id' => 'form_control']) !!}</td>
     </tr>
     <tr>
       <td>PO Number: </td>
-      <td>{!! Form::text('po_number', old('po_number')) !!}</td>
+      <td>{!! Form::text('po_number', old('po_number'), ['id' => 'form_control']) !!}</td>
     </tr>
     <tr>
       <td>Delivery Number: </td>
-      <td>{!! Form::text('dr_number', old('dr_number')) !!}</td>
+      <td>{!! Form::text('dr_number', old('dr_number'), ['id' => 'form_control']) !!}</td>
     </tr>
   </tbody>
 </table>
@@ -67,8 +68,8 @@
 		<tr>
 			<td><?php echo Item::find($item->item_id)->name; ?></td>
 			<td><?php echo Item::find($item->item_id)->unit; ?></td>
-			<td>{!! Form::input('number', 'quantity' . $item->id, old('quantity')) !!}</td>
-			<td>{!! Form::input('number', 'unit_price' . $item->id, old('unit_price'), array('step' => '0.01')) !!}</td>
+			<td>{!! Form::input('number', 'quantity' . $item->id, old('quantity'), ['id' => 'form_control']) !!}</td>
+			<td>{!! Form::input('number', 'unit_price' . $item->id, old('unit_price'), array('step' => '0.01', 'id' => 'form_control')) !!}</td>
       <td><button type="button" id="viewPO" class="btn btn-info" data-toggle="modal" data-target="#myModal">View</button><td>
 		</tr>
     <div id="myModal" class="modal fade" role="dialog">

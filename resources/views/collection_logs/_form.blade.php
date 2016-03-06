@@ -3,10 +3,8 @@
 	<table> 
 		<tbody>
 			<tr>
-				<td>{!! Form::label('datenow', 'Date:') !!}</td>
-
-				<td> {!! Form::label('datelbl', $date, Input::old('date'), ['class' => 'span7']) !!} </td>
-				{!! Form::hidden('date', $date ) !!}
+				<td>{!! Form::label('date', 'Date:') !!}</td>
+				<td> {!! Form::date('date', old('date'), ['class' => 'span7']) !!} </td>
 			</tr>
 
 			<tr>
@@ -15,23 +13,27 @@
 					Input::old('action'), ['class' => 'span7, form-control']) !!} </td>
 			</tr>
 
-			<tr>
+			<!-- <tr>
 				<td>{!! Form::label('flwuplbl', 'Follow-Up Date:') !!}</td>
 				<td> {!! Form::input('date', 'follow_up_date', old('follow_up_date'), 
 					['class' => 'span7, form-control', 'placeholder' => 'Date', 'visible' => 'false']) !!}</td>
-			</tr>
+			</tr> -->
 
-			<tr>
+			<tr id="note">
 				<td>{!! Form::label('noteslbl', 'Notes:') !!}</td>
 				<td>{!! Form::text('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
 			</tr>
-			<tr>
+			<tr id="reason">
 				<td>{!! Form::label('reasonslbl', 'Reason:') !!}</td>
 				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason'), ['class' => 'span7, form-control']) !!}</td>
 				<td>
 					<a href="{{ url('/reasons/create') }}">Add Reason</a>
 				</td>
 			</tr>	
+			<tr>
+				<td>{!! Form::label('status', 'Status: ') !!}</td>
+				<td>{!! Form::select('status', $statusOptions, Input::old('status'), ['class'=> 'span7, form-control', 'id'=>'status_select']) !!}</td>
+			</tr>
 		</tbody> 
 	</table>
 	<table class="table table-hover sortable">
@@ -50,7 +52,6 @@
 				<?php
 				if ($method == 'post')
 				{
-
 					$salescount = 0;
 				}
 				else
@@ -59,7 +60,6 @@
 									->where('sales_invoice_id', '=', $salesinvoice->id)
 									->where('collection_log_id', '=', $cLog->id)
 									->count();
-				
 				}		
 				?>
 				@if ($salescount != 0)
@@ -82,3 +82,39 @@
 		<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back to Collection Logs</button></a>
 	</div>
 </div>
+
+<script>
+
+$('#note').hide();
+$('#reason').hide();
+
+
+$( document ).ready(function() {
+    if($('#status_select').val() == 'To Do')
+    {
+    	$('#note').hide();
+		$('#reason').hide();
+    }
+
+    else
+    {
+    	$('#note').show();
+		$('#reason').show();
+    }
+});
+
+
+$('#status_select').change(function() {
+	if($(this).val() == 'To Do')
+	{
+		$('#note').hide();
+		$('#reason').hide();
+	}
+
+	else
+	{
+		$('#note').show();
+		$('#reason').show();
+	}
+});
+</script>

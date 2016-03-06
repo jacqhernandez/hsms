@@ -160,16 +160,18 @@ class DashboardController extends Controller
             $users = User::where('role', '!=', 'General Manager')->lists('username', 'id');
 
             // $collection_logs = CollectionLog::where('week(follow_up_date'), '=', 'week(now())', 'AND', 'status', '=', 'pending');
-            $collection_logs = DB::SELECT("SELECT c.id, name, follow_up_date, note FROM collection_logs c
+            $collection_logs = DB::SELECT("SELECT c.id, name, action, date, note, c.client_id FROM collection_logs c
                                                 JOIN clients cl on c.client_id = cl.id
-                                                WHERE  DATE(now()) = follow_up_date
-                                                AND c.status='pending'");
+                                                WHERE  DATE(now()) = date
+                                                AND c.status='To Do'");
 
+            $collection_logs_all = CollectionLog::where('status', 'To Do')->get();
 
 
         	return view('pages.home', compact('currentAmount', 'currentCount', 'currentCollectibleCount', 'currentCollectibleAmount',
         		'upcomingCollectibleCount', 'upcomingCollectibleAmount', 'overdueCollectibleCount', 'overdueCollectibleAmount', 'dailySales',
-                'currentAmountMonth', 'currentCollectibleAmountMonth', 'overdueCollectibleAmountMonth', 'activities', 'users', 'collection_logs'));
+                'currentAmountMonth', 'currentCollectibleAmountMonth', 'overdueCollectibleAmountMonth', 'activities', 'users', 'collection_logs', 'collection_logs_all'));
+            // return $collection_logs_all;
         	//return $currentCollectiblesMonth[0]->total;
         }
 
@@ -186,9 +188,9 @@ class DashboardController extends Controller
     {
         $date = $_GET['date'];
         // $collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
-        $collection_logs = DB::SELECT("SELECT c.id as 'id', name, follow_up_date, note FROM collection_logs c
+        $collection_logs = DB::SELECT("SELECT c.id as 'id', name, action, note, client_id FROM collection_logs c
                                         JOIN clients cl on c.client_id = cl.id
-                                        WHERE follow_up_date = '$date'");
+                                        WHERE date = '$date' AND c.status='To Do'");
         
         return $collection_logs;
     }

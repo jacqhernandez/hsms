@@ -26,22 +26,22 @@
 			<th>Name</th>
 			<th>Credit Limit</th>
 			<th>Status</th>
-			<th>Pending</th>
 			<th>Overdue</th>
 			<th>Delivered</th>
+			<th>Total Amount Due </th>
 		</tr>
 	</thead>
 	
 	<tbody>
 		@foreach ($clients as $client)
-		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0 OR $pending[$client->id])
+		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0)
 		<tr>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">{{ $client->name }}</a></td>
 			<td>{{ $client->credit_limit }}</td>
 			<td>{{ $client->status }}</td>
 			<td>{{ $overdue[$client->id] }}</td>
-			<td>{{ $pending[$client->id] }}</td>
 			<td>{{ $delivered[$client->id] }}</td>
+			<td>{{ $salesinvoiceTotal[$client->id] }}</td>
 			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
 		</tr>
 		@endif

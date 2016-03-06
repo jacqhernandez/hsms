@@ -13,7 +13,6 @@ class CollectionLog extends Model implements LogsActivityInterface
     protected $fillable = [
 		'date',
 		'action',
-		'follow_up_date',
 		'note',
 		'reason_id',
 		'user_id',

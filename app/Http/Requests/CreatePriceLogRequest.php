@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Client;
-use App\CollectionLog;
+use App\Item;
 
-class CreateCollectionLogRequest extends Request
+class CreatePriceLogRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,21 +30,17 @@ class CreateCollectionLogRequest extends Request
             {
                 return [
                 //
-                    'date' => 'required',
-                    'check_list' => 'required'
+                    'price' => 'required|numeric|min:1'
                 ];
             }
             case 'PATCH':
             {
-                {
-                    return[
-
-                        'check_list' => 'required'
-                    ];
-                }
+                return [
+                //
+                'price' => 'required|min:1'
+                ];
             }
             default:break;
         }
-
     }
 }

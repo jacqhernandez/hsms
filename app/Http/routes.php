@@ -28,6 +28,7 @@ Route::get('make/{id}', ['as' => 'invoices.make', 'uses' => 'SalesInvoicesContro
 Route::post('invoices/creation', ['as' => 'invoices.creation', 'uses' => 'SalesInvoicesController@creation']);
 Route::get('invoices/delivered/{id}', ['as' => 'invoices.delivered', 'uses' => 'SalesInvoicesController@delivered']);
 Route::post('invoices/collected', ['as' => 'invoices.collected', 'uses' => 'SalesInvoicesController@collected']);
+Route::post('invoices/collectedFromLog', ['as' => 'invoices.collected', 'uses' => 'SalesInvoicesController@collectedFromLog']);
 Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
 Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' => 'SalesInvoicesController@poGuide']);
@@ -36,7 +37,10 @@ Route::post('invoices/newItem', ['as' => 'invoices.newItem', 'uses' => 'InvoiceI
 
 
 Route::resource('invoices', 'SalesInvoicesController');
-Route::resource('pricelogs', 'PriceLogsController');
+
+Route::get('price_logs/search', ['as' => 'price_logs.search', 'uses' => 'PriceLogsController@search']);
+Route::post('price_logs/create', ['as' => 'price_logs.store2', 'uses' => 'PriceLogsController@store2']);
+Route::resource('price_logs', 'PriceLogsController');
 Route::resource('invoiceitems', 'InvoiceItemsController');
 Route::delete('/invoiceitems/{id}/delete','InvoiceItemsController@destroy');
 //Route::get('invoiceitems/{id}/delete', 'InvoiceItemsController@destroy');

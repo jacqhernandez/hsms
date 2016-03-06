@@ -3,6 +3,8 @@
 
 <?php
 	use App\Item;
+	use App\PriceLog;
+	use App\Supplier;
 ?>
 
 <h2>Edit Sales Invoice</h2>
@@ -96,6 +98,35 @@
 						{!! Form::open(['route' => ['invoiceitems.destroy', $item->id], 'method' => 'delete']) !!}
 								<button type="submit" class="btn btn-danger">Delete Entry</button>
 						{!! Form::close() !!}
+						<button type="button" id="viewPO" class="btn btn-info" data-toggle="modal" data-target="#myModal">View P.O.</button>
+
+					<div id="myModal" class="modal fade" role="dialog">
+				      <div class="modal-dialog modal-sm">
+
+				        <!-- Modal content-->
+				        <div class="modal-content">
+				          <div class="modal-header">
+				            <button type="button" class="close" data-dismiss="modal">&times;</button>
+				            <h4 class="modal-title">Latest Price Logs for <?php echo Item::find($item->item_id)->name; ?></h4>
+				          </div>
+				          <div class="modal-body">
+				            <?php $price_logs = PriceLog::where('item_id', $item->item_id)->orderBy('created_at', 'desc')->take(3)->get(); ?>
+				            @foreach ($price_logs as $price_log)
+				              <p><?php echo Supplier::withTrashed()->find($price_log->supplier_id)->name ?>: Php {{ number_format($price_log->price, 2, '.', ',') }}</p>
+				            @endforeach            
+				          <div class="modal-footer">
+				            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+
+				    <script>
+				      $("#viewPO").attr('data-target', '.myModal'+<?php echo $item->id ?>);
+				      $("#viewPO").attr('id', 'viewPO'+<?php echo $item->id ?>);
+				      $("#myModal").attr('class', 'modal fade myModal'+<?php echo $item->id ?>);
+				      $("#myModal").attr('id', 'myModal'+<?php echo $item->id ?>);
+				    </script>
 					 
 					 @endif
 					</td>

@@ -39,9 +39,12 @@ class SuppliersController extends Controller
     {
         $paymentOptions = [];
         $paymentOptions['Cash'] = 'Cash';
+        $paymentOptions['7 Days'] = '7 Days';
         $paymentOptions['15 Days'] = '15 Days';
         $paymentOptions['30 Days'] = '30 Days';
         $paymentOptions['60 Days'] = '60 Days';
+        $paymentOptions['75 Days'] = '75 Days';
+        $paymentOptions['90 Days'] = '90 Days';
 
         return view('suppliers.create', compact('paymentOptions'));
     }
