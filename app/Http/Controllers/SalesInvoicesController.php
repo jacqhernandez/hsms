@@ -193,7 +193,11 @@ class SalesInvoicesController extends Controller
             'date_delivered' => $input['date_delivered'],
             'date_collected' => $input['date_collected'],
             'client_id' => $input['client_id'],
-            'user_id' => $input['user_id']
+            'or_number' => $input['or_number']
+        ]);
+        $client = Client::find($input['client_id']);
+        $sales_invoice->update([
+            'user_id' => $client->user_id
         ]);
         //return redirect()->action('SalesInvoicesController@show',[$id]);
         return redirect()->action('SalesInvoicesController@index');

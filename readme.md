@@ -52,3 +52,18 @@ To make this work,
 Activity log
 
 By default records older than 2 months will be deleted. The number of months can be modified in the config-file of the package.
+
+------------------------
+
+for emailing soa, configure .env file 
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=dummyboi24@gmail.com
+MAIL_PASSWORD=onyxsolutions
+MAIL_ENCRYPTION=ssl
+
+--------------------------
+
+backup saved in hsms>storage>app>backups

@@ -14,7 +14,7 @@ use App\SalesInvoice;
 use App\CollectionLog;
 use Spatie\Backup;
 use Artisan;
-
+use Flash;
 
 
 class DashboardController extends Controller
@@ -152,7 +152,8 @@ class DashboardController extends Controller
                 //$overdueCollectibleCountMonth = $overdueCollectibles[0]->num;
             }
 
-            $activities = Activity::orderby('created_at', 'desc')->take(10)->get();
+            //assumes general manager is logged in
+            $activities = Activity::where('user_id','!=',Auth::user()['id'])->orderBy('created_at','desc')->take(10)->get();
             // $activities = DB::SELECT("SELECT text, user_id, DATE_FORMAT(created_at, '%b %d, %Y %h:%i %p')  as created_at FROM activity_log ORDER BY created_at desc LIMIT 10");
             
             // $activities = DB::table('activity_log')->orderby('created_at', 'desc')->limit(10)->get();
@@ -195,6 +196,7 @@ class DashboardController extends Controller
     public function backup()
     {
         Artisan::call('backup:run', ['--only-db' => '-db' ]);
+        Flash::success('Files backed up successfully');
         return redirect()->action('DashboardController@index');
     }
 

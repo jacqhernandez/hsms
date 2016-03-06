@@ -30,12 +30,7 @@
 				<td> {!! Form::label('dr_number', 'DR Number: ') !!} </td>
 				<td> {!! Form::text('dr_number', old('dr_number')) !!}</td>
 			</tr>
-			
-			<tr>
-				<td>{!! Form::label('user_id', 'Sales Employee: ') !!}</td>
-				<td>{!! Form::select('user_id', $userOptions, Input::old('user_id')) !!}</td>
-			</tr>
-			
+						
 			<tr>
 				<td> {!! Form::label('due_date', 'Due Date: ') !!} </td>
 				<td> {!! Form::date('due_date', old('due_date')) !!}</td>
