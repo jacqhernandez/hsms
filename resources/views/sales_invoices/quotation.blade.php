@@ -19,6 +19,17 @@
 
 {!! Form::hidden('item_count', 1, ['class' => 'itemCount']) !!}
 
+@if (Session::get('message') == null)
+@else
+  <?php 
+    echo "<div class='alert alert-danger'>";
+    echo Session::get('message'); 
+    echo '</div>';
+  ?>
+@endif
+
+
+
 <table style="float:left;">
       <tr>
         <th>Client:</th>
@@ -31,8 +42,6 @@
       </tr>
       <tr>
 </table>
-
-<?php echo Session::get('message'); ?>
 
 <div class="table-responsive">
   <table class="table table-striped" style="float:right;">
@@ -513,7 +522,7 @@
           if (getDateDiff(a) > diff) {
             if ($(".itemPrice" + i).val() == 0) {
               valid = false;
-              errorMessage += " The 1st price log in Item Row number " + i + " needs to be updated.";
+              errorMessage += " The 1st price log in Item Row number " + i + " needs to be updated.<br>";
             }
           }
         }
@@ -522,7 +531,7 @@
           if (getDateDiff(a) > diff) {
             if ($(".itemPriceB" + i).val() == 0) {
               valid = false;
-              errorMessage += " The 2nd price log in Item Row number " + i + " needs to be updated.";
+              errorMessage += " The 2nd price log in Item Row number " + i + " needs to be updated.<br>";
             }
           }
         }
@@ -532,7 +541,7 @@
           if (getDateDiff(a) > diff) {
             if ($(".itemPriceC" + i).val() == 0) {
               valid = false;
-              errorMessage += " The 3rd price log in Item Row number " + i + " needs to be updated.";
+              errorMessage += " The 3rd price log in Item Row number " + i + " needs to be updated.<br>";
             }
           }
         }
@@ -540,7 +549,9 @@
 
       if(!valid) {
         e.preventDefault();
-        alert(errorMessage);
+        //alert(errorMessage);
+        document.getElementById("error").innerHTML = errorMessage;
+        $("#error-dialog").modal("show");
       }
     });
   });
@@ -580,5 +591,24 @@
   // });
 
 </script>
+
+<!-- Modal -->
+  <div class="modal fade" id="error-dialog" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ERROR</h4>
+        </div>
+        <div class="modal-body">
+          <p id="error"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 @stop
