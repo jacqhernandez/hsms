@@ -99,7 +99,7 @@
 	<table>
 	<tr>
 
-	@if (Auth::user()['role'] == 'General Manager')
+	@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 	<td>
 		{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
 			<button class="btn btn-warning">Edit</button>

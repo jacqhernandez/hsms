@@ -15,7 +15,7 @@ class SuppliersController extends Controller
     {
 
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show', 'search']]);     
+        $this->middleware('not_for_sales',['except' => ['index','show', 'search']]);     
 
     }
     /**

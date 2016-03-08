@@ -48,11 +48,6 @@ class SalesInvoice extends Model implements LogsActivityInterface
 
 	public function getActivityDescriptionForEvent($eventName)
 	{
-	   	if ($eventName == 'updated')
-	    {
-	        return 'Sales Invoice ' . $this->si_no . ' was updated';
-	    }
-
 	    if ($eventName == 'deleted')
 	    {
 	        return 'Sales Invoice ' . $this->si_no . ' was deleted';

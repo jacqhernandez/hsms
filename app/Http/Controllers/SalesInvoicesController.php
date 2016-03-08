@@ -253,6 +253,7 @@ class SalesInvoicesController extends Controller
 
         // return $thusOf;
         //return redirect()->action('SalesInvoicesController@show',[$id]);
+        Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was updated');
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -505,7 +506,7 @@ class SalesInvoicesController extends Controller
             $sicl2->client_id = $cLog2->client_id;
             $sicl2->collection_log_id = $cLog2->id;
             $sicl2->save();
-
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was delivered');
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -526,7 +527,7 @@ class SalesInvoicesController extends Controller
                 'status' => "Good"
             ]);
         }
-
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was delivered');
         return redirect()->action('SalesInvoicesController@index');
     }
 
