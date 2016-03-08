@@ -279,7 +279,7 @@ class SalesInvoicesController extends Controller
         $supplierOptions = Supplier::all()->lists('name','id');
         $supplierOptions["none"] = "NONE";
         $supplierOptions1 = Supplier::all()->lists('name','id');
-        $itemOptions = Item::all()->lists('name','id');
+        $itemOptions = DB::table('items')->where('deleted_at', null)->orderBy('name', 'asc')->lists('name','id');
 
         return view('sales_invoices.quotation', compact('supplierOptions','itemOptions', 'clientOptions', 'supplierOptions1'));
     }
@@ -510,7 +510,7 @@ class SalesInvoicesController extends Controller
         return redirect()->action('SalesInvoicesController@index');
     }
 
-    public function collected() {
+    public function collected(Requests\CreateSalesInvoiceRequest $request) {
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['id']);
         $salesInvoice->update([
@@ -532,7 +532,7 @@ class SalesInvoicesController extends Controller
     }
 
     //for 'Confirm Collection' in the Collection Log index page
-    public function collectedFromLog() {
+    public function collectedFromLog(Requests\CreateSalesInvoiceRequest $request) {
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['id']);
         $salesInvoice->update([

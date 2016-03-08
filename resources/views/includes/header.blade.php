@@ -52,21 +52,21 @@
 
                         @if (Auth::user()['role'] === 'Accounting')
                         <li>
-                            <a href="{{url::action('CollectiblesController@index')}}">Collectibles</a>
+                            <a href="{{url::action('CollectiblesController@index')}}"><i class="glyphicon glyphicon-rub"></i> Collectibles</a>
                         </li>
                         @endif
                         @if (Auth::user()['role'] === 'Accounting' || Auth::user()['role'] === 'Sales')
                         <li>
-                            <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
+                            <a href="{{url::action('SalesInvoicesController@index')}}"><i class="glyphicon glyphicon-equalizer"></i> Sales Invoices</a>
                         </li>
                         <li>
-                            <a href="{{url::action('ClientsController@index')}}">Clients</a>
+                            <a href="{{url::action('ClientsController@index')}}"><i class="glyphicon glyphicon-user"></i> Clients</a>
                         </li>
                         <li>
-                            <a href="{{url::action('SuppliersController@index')}}">Suppliers</a>
+                            <a href="{{url::action('SuppliersController@index')}}"><i class="glyphicon glyphicon-wrench"></i> Suppliers</a>
                         </li>
                         <li>
-                            <a href="{{url::action('ItemsController@index')}}">Items</a>
+                            <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-paperclip"></i> Items</a>
                         </li>
                         @endif
 
@@ -106,7 +106,7 @@
 							</ul>
 						</li>
                         <li>
-                            <a href="{{url::action('ReportsController@index')}}"><i class="glyphicon glyphicon-triangle-right"></i> Reports</a>
+                            <a href="{{url::action('ReportsController@index')}}"><i class="glyphicon glyphicon-stats"></i> Reports</a>
                         </li>
                         @endif
 						

@@ -11,8 +11,6 @@
 ?>
 
 <h2 class="sub-header">New Sales Invoice</h2><hr>
-<p><b>Date Today:</b> <?php echo date("m/d/Y")?></p>
-<p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p><br>
 <h3 class="sub-header">Add Quotation</h3><hr><br>
 
 {!! Form::open(['route' => ['invoiceitems.store'], 'method' => 'post' ]) !!}
@@ -95,13 +93,14 @@
       <td>{!! Form::select('item_id', $itemOptions, Input::old('item_id'), array('class' => 'itemChange', 'id' => 'form_control')) !!}</td>
       <td><p class="itemUnit"></p></td>
       <?php $supplierOptions[''] = "- Select Supplier -"; ?>
+      <?php $supplierOptions1[''] = "- Select Supplier -"; ?>
 
-      <td>{!! Form::select('supplier_id1', $supplierOptions, Input::old('supplier_id'), array('class' => 'supplierChange', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::select('supplier_id1', $supplierOptions1, Input::old('supplier_id'), array('class' => 'supplierChange', 'id' => 'form_control')) !!}</td>
 
 
       <td><p class="supplierTerms"></p></td>
       <td><p class="contact"></p></td>
-      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::input('number', 'item_price', old('item_price'), array('class'=>'itemPrice', 'step'=>'0.01', 'id' => 'form_control',  'onkeypress' => 'return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46')) !!}</td>
       <td>{!! Form::select('availA', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNo', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdated"></p></td>
     </tr>
@@ -111,7 +110,7 @@
       <td>{!! Form::select('supplier_idB1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeB', 'id' => 'form_control']) !!}</td>
       <td><p class="supplierBTerms"></p></td>
       <td><p class="contactB"></p></td>
-      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceB', old('supplier_id_2'), array('class'=>'itemPriceB', 'step'=>'0.01', 'id' => 'form_control',  'onkeypress' => 'return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46')) !!}</td>
       <td>{!! Form::select('availB', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoB', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdatedB"></p></td>
     </tr>
@@ -121,7 +120,7 @@
       <td>{!! Form::select('supplier_idC1', $supplierOptions, Input::old('supplier_id'), ['class' => 'supplierChangeC', 'id' => 'form_control']) !!}</td>
       <td><p class="supplierCTerms"></p></td>
       <td><p class="contactC"></p></td>
-      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01', 'id' => 'form_control')) !!}</td>
+      <td>{!! Form::input('number', 'item_priceC', old('supplier_id_3'), array('class'=>'itemPriceC', 'step'=>'0.01', 'id' => 'form_control',  'onkeypress' => 'return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46')) !!}</td>
       <td>{!! Form::select('availC', array(true=>'Yes', false=>'No'), old(''), array('class'=>'yesNoC', 'id' => 'form_control')) !!}</td>
       <td><p class="lastUpdatedC"></p></td>
     </tr>
@@ -130,9 +129,27 @@
 </div>
 
 <button type="button" id="addItem" class="btn btn-primary">Add Item</button><br><br>
-<a href="{{ action ('SalesInvoicesController@index') }}">
-  <button type="button" class="btn btn-primary">Exit</button>
-</a>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Exit</button>
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cancel Sales Invoice</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to exit the invoice process? This will discard all changes made.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <a href="{{ action ('SalesInvoicesController@index') }}">
+            <button type="button" class="btn btn-danger">Yes</button>
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 <button type="submit" class="btn btn-primary" id="generateInvoice" disabled="disabled">Generate Sales Invoice</button>
 {!! Form::close() !!}
