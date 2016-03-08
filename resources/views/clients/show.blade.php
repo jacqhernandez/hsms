@@ -26,6 +26,16 @@
 					<td>Contact Person: </td>
 					<td>{{ $client['contact_person'] }}</td>
 				</tr>
+
+				<tr>
+					<td>Accounting Contact Person: </td>
+					<td>{{ $client['accounting_contact_person'] }}</td>
+				</tr>
+
+				<tr>
+					<td>Accounting Email: </td>
+					<td>{{ $client['accounting_email'] }}</td>
+				</tr>
 				
 				<tr>
 					<td>Credit Limit: </td>

@@ -120,6 +120,8 @@ class ClientsController extends Controller
         $client->email = $input['email'];
 		$client->tin = $input['tin'];
         $client->contact_person = $input['contact_person'];
+        $client->accounting_contact_person = $input['accounting_contact_person'];
+        $client->accounting_email = $input['accounting_email'];
         $client->credit_limit = $input['credit_limit'];
 		$client->status = $input['status'];
         $client->payment_terms = $input['payment_terms'];
@@ -189,6 +191,8 @@ class ClientsController extends Controller
             'email' => $input['email'],
 			'tin' => $input['tin'],
             'contact_person' => $input['contact_person'],
+            'accounting_contact_person' => $input['accounting_contact_person'],
+            'accounting_email' => $input['accounting_email'],
             'credit_limit' => $input['credit_limit'],
 			'status' => $input['status'],
             'payment_terms' => $input['payment_terms'],

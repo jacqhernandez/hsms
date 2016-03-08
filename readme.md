@@ -44,7 +44,28 @@ To make this work,
 8. Browse to the batch file created and then click Next then click Finish.
 9. Select Task Scheduler Library on the left, and find task in the middle pane and right-click and click Properties
 10. Go to the Triggers tab, click Daily in the list and click Edit. 
-11. In the Start field, change time to 12:00:00 AM (this updates the status at 12 midnight)
+11. In the Start field, change time to 9:00:00 AM (this updates the status at 9 am). Change this if desired.
+13. Click OK. Done.
+
+-----------------------
+
+Command for automatic db backup (php artisan backup:run --only-db)
+
+To make this work,
+
+1. I created a batch file scheduler.bat with the following contents:
+	cd C:\xampp\htdocs\hsms
+	php artisan backup:run --only-db
+2. Launch the task scheduler Windows Key + R then paste in Taskschd.msc and hit enter.
+3. Click Create Basic Task on the right in the Actions pane.
+4. Name the task "HSMS Backup" then click Next.
+5. Leave page set to Daily and click Next.
+6. Leave page as defaults and click Next.
+7. Make sure Start a Program is selected and click Next.
+8. Browse to the batch file created and then click Next then click Finish.
+9. Select Task Scheduler Library on the left, and find task in the middle pane and right-click and click Properties
+10. Go to the Triggers tab, click Daily in the list and click Edit. 
+11. In the Start field, change time to 9:00:00 AM (this backs up db at 9 am). Change this if desired.
 13. Click OK. Done.
 
 -----------------------

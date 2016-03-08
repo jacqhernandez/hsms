@@ -22,6 +22,8 @@ class Client extends Model implements LogsActivityInterface
 		'email',
 		'tin',
 		'contact_person',
+		'accounting_contact_person',
+		'accounting_email',
 		'credit_limit',
 		'status',
 		'payment_terms',
