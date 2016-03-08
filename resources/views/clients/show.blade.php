@@ -84,8 +84,12 @@
 				<tr>
 					<td>{{ $sales_invoice->si_no }}</td>
 					<td>{{ $sales_invoice->Client->name }}</td>
-					<td>{{ $sales_invoice->date }}</td>
-					<td>{{ $sales_invoice->due_date }}</td>
+
+					<?php $date = Carbon\Carbon::parse($sales_invoice->date)->toFormattedDateString(); ?>
+					<td>{{ $date }}</td>
+
+					<?php $duedate = Carbon\Carbon::parse($sales_invoice->due_date)->toFormattedDateString(); ?>
+					<td>{{ $duedate }}</td>
 					<td>{{ $sales_invoice->total_amount }}</td>
 					<td>{{ $sales_invoice->Client->payment_terms}}</td>
 					<td>{{ $sales_invoice->status }}</td>
