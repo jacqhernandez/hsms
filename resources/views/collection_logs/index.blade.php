@@ -51,7 +51,7 @@
 						      <div class="modal-body">
 						      		<p><b>Sales Invoice No: </b><?php echo $d->si_no ?></p>
 						      		<p><b>Total Amount: </b>Php <?php echo number_format($d->total_amount, 2, '.', ',') ?></p>
-						      		{!! Form::open(['route' => ['invoices.collected'], 'method' => 'post' ]) !!}
+						      		{!! Form::open(['route' => ['invoices.collectedFromLog'], 'method' => 'post' ]) !!}
 						      		{!! Form::hidden('id', $d->id) !!}
 						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
 						      </div>
