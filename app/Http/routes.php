@@ -28,7 +28,7 @@ Route::get('make/{id}', ['as' => 'invoices.make', 'uses' => 'SalesInvoicesContro
 Route::post('invoices/creation', ['as' => 'invoices.creation', 'uses' => 'SalesInvoicesController@creation']);
 Route::get('invoices/delivered/{id}', ['as' => 'invoices.delivered', 'uses' => 'SalesInvoicesController@delivered']);
 Route::post('invoices/collected', ['as' => 'invoices.collected', 'uses' => 'SalesInvoicesController@collected']);
-Route::post('invoices/collectedFromLog', ['as' => 'invoices.collected', 'uses' => 'SalesInvoicesController@collectedFromLog']);
+Route::post('invoices/collectedFromLog', ['as' => 'invoices.collectedFromLog', 'uses' => 'SalesInvoicesController@collectedFromLog']);
 Route::get('invoices/{invoices}/generate', ['as' => 'invoices.generate_pdf', 'uses' => 'SalesInvoicesController@generatePdf']);
 Route::get('invoices/{invoices}/edit_status',['as' => 'invoices.edit_status', 'uses' => 'SalesInvoicesController@editStatus']);
 Route::get('invoices/{invoices}/po_guide', ['as' => 'invoices.po_guide', 'uses' => 'SalesInvoicesController@poGuide']);
