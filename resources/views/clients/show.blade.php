@@ -26,6 +26,16 @@
 					<td>Contact Person: </td>
 					<td>{{ $client['contact_person'] }}</td>
 				</tr>
+
+				<tr>
+					<td>Accounting Contact Person: </td>
+					<td>{{ $client['accounting_contact_person'] }}</td>
+				</tr>
+
+				<tr>
+					<td>Accounting Email: </td>
+					<td>{{ $client['accounting_email'] }}</td>
+				</tr>
 				
 				<tr>
 					<td>Credit Limit: </td>
@@ -89,7 +99,7 @@
 	<table>
 	<tr>
 
-	@if (Auth::user()['role'] == 'General Manager')
+	@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 	<td>
 		{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
 			<button class="btn btn-warning">Edit</button>

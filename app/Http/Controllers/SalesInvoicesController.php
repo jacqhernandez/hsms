@@ -196,7 +196,11 @@ class SalesInvoicesController extends Controller
             'date_delivered' => $input['date_delivered'],
             'date_collected' => $input['date_collected'],
             'client_id' => $input['client_id'],
-            'user_id' => $input['user_id']
+            'or_number' => $input['or_number']
+        ]);
+        $client = Client::find($input['client_id']);
+        $sales_invoice->update([
+            'user_id' => $client->user_id
         ]);
 
         //create collection To Do's
@@ -249,6 +253,7 @@ class SalesInvoicesController extends Controller
 
         // return $thusOf;
         //return redirect()->action('SalesInvoicesController@show',[$id]);
+        Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was updated');
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -501,7 +506,7 @@ class SalesInvoicesController extends Controller
             $sicl2->client_id = $cLog2->client_id;
             $sicl2->collection_log_id = $cLog2->id;
             $sicl2->save();
-
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was delivered');
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -522,7 +527,7 @@ class SalesInvoicesController extends Controller
                 'status' => "Good"
             ]);
         }
-
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was delivered');
         return redirect()->action('SalesInvoicesController@index');
     }
 
