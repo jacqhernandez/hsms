@@ -220,6 +220,8 @@ class CollectiblesController extends Controller
 
         $clientEmail = $client->accounting_email;
 
+        try{
+
         Mail::send('collectibles.email', $data, function($message) use($pdf, $clientEmail)
             {
                 $message->from('dummyboi24@gmail.com', 'Tester');
@@ -230,7 +232,15 @@ class CollectiblesController extends Controller
             });
 
         Flash::success('Email sent successfully');
-
         return redirect()->action('CollectionLogsController@index', [$client->id]);
+
+        }
+
+        catch(\Exception $e){
+        Flash::error('Failed to send email! Please check if the Client\'s accounting email is correct');
+        return redirect()->action('CollectionLogsController@index', [$client->id]);
+
+        }
+
     }
 }
