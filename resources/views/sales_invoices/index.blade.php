@@ -91,7 +91,7 @@
 								  </div>
 							</div>
 					@endif
-				@elseif (Auth::user()['role'] == 'General Manager' && $sales_invoice->status != "Pending")
+				@elseif (Auth::user()['role'] == 'General Manager' && $sales_invoice->status != "Draft")
 					 	<a href="{{ action ('SalesInvoicesController@editStatus', [$sales_invoice->id]) }}">Update Status</a>
 				@else 
 					@if ($sales_invoice->status == "Delivered" || $sales_invoice->status == "Check on Hand" )

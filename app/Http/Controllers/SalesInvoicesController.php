@@ -47,7 +47,7 @@ class SalesInvoicesController extends Controller
             $sales_invoices = SalesInvoice::where('status','!=','Draft')->where('status','!=',"Pending")->orderByRaw("FIELD(status, 'Check on Hand', 'Delivered') DESC, si_no DESC")->paginate(10);
         }
         else {
-            $sales_invoices = SalesInvoice::orderBy('si_no', 'desc')->paginate(10);
+            $sales_invoices = SalesInvoice::orderBy('created_at', 'desc')->paginate(10);
         }
         $dates = $sales_invoices->lists('due_date','due_date');
         return view('sales_invoices.index', compact('sales_invoices','dates'));
