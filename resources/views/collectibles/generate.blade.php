@@ -202,7 +202,7 @@
 
 	<div id="soa-header2">
 		<div class="soa-row">
-		<div id="soa-to">To: {{$client->name}}</div>
+		<div id="soa-to">To: {{$client->name}}<br> Attn: {{$client->accounting_contact_person}}<br> Address: {{$client->address}} </div>
 		<div id="soa-details1">
 			<p>Statement Date</p>
 			<p>Amount Due</p>

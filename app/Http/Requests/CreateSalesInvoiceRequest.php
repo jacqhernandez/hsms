@@ -33,7 +33,8 @@ class CreateSalesInvoiceRequest extends Request
                 //
                     'si_no' => 'numeric|unique:sales_invoices',
                     'po_number' => 'numeric|unique:sales_invoices',
-                    'dr_number' => 'numeric|unique:sales_invoices'
+                    'dr_number' => 'numeric|unique:sales_invoices',
+                    'or_number' => 'numeric|unique:sales_invoices'
                 ];
             }
             case 'PATCH':
@@ -66,7 +67,14 @@ class CreateSalesInvoiceRequest extends Request
                 {
                     $rules['dr_number'] = 'numeric|unique:sales_invoices';
                 }
-
+                if ($this->get('or_number') == $sales_invoice['or_number'])
+                {
+                    $rules['or_number'] = 'numeric|unique:sales_invoices,or_number,'.$this->segment(2);
+                }
+                else
+                {
+                    $rules['si_no'] = 'numeric|unique:sales_invoices';
+                }
                 if ($this->get('status') == 'Delivered')
                 {
                     $rules['due_date'] = 'required';

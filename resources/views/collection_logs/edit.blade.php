@@ -20,16 +20,17 @@
 			</tr>
 
 			<tr>
-				<td>{!! Form::label('noteslbl', 'Notes:') !!}</td>
-				<td>{!! Form::text('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
-			</tr>
-			<tr>
 				<td>{!! Form::label('reasonslbl', 'Reason:') !!}</td>
 				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason'), ['class' => 'span7, form-control']) !!}</td>
 				<td>
 					<a href="{{ url('/reasons/create') }}">Add Reason</a>
 				</td>
 			</tr>	
+
+			<tr>
+				<td>{!! Form::label('noteslbl', 'Notes:') !!}</td>
+				<td>{!! Form::textarea('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
+			</tr>
 		</tbody> 
 	</table>
 	<table class="table table-hover sortable">
@@ -48,7 +49,8 @@
 				<td> {{ $salesinvoice->si_no }} </td>
 				<td> {{ $salesinvoice->status }} </td>
 				<td> {{ $salesinvoice->total_amount }} </td>
-				<td> {{ $salesinvoice->date }} </td>
+				<?php $date = Carbon\Carbon::parse($salesinvoice->date)->toFormattedDateString(); ?>
+				<td> {{ $date }} </td>
 			</tr>
 			@endforeach
 		</tbody>

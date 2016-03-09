@@ -26,6 +26,16 @@
 					<td>Contact Person: </td>
 					<td>{{ $client['contact_person'] }}</td>
 				</tr>
+
+				<tr>
+					<td>Accounting Contact Person: </td>
+					<td>{{ $client['accounting_contact_person'] }}</td>
+				</tr>
+
+				<tr>
+					<td>Accounting Email: </td>
+					<td>{{ $client['accounting_email'] }}</td>
+				</tr>
 				
 				<tr>
 					<td>Credit Limit: </td>
@@ -74,8 +84,12 @@
 				<tr>
 					<td>{{ $sales_invoice->si_no }}</td>
 					<td>{{ $sales_invoice->Client->name }}</td>
-					<td>{{ $sales_invoice->date }}</td>
-					<td>{{ $sales_invoice->due_date }}</td>
+
+					<?php $date = Carbon\Carbon::parse($sales_invoice->date)->toFormattedDateString(); ?>
+					<td>{{ $date }}</td>
+
+					<?php $duedate = Carbon\Carbon::parse($sales_invoice->due_date)->toFormattedDateString(); ?>
+					<td>{{ $duedate }}</td>
 					<td>{{ $sales_invoice->total_amount }}</td>
 					<td>{{ $sales_invoice->Client->payment_terms}}</td>
 					<td>{{ $sales_invoice->status }}</td>
@@ -89,7 +103,7 @@
 	<table>
 	<tr>
 
-	@if (Auth::user()['role'] == 'General Manager')
+	@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 	<td>
 		{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
 			<button class="btn btn-warning">Edit</button>

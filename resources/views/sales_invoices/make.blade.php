@@ -38,15 +38,15 @@
   </thead> -->
   <tbody>
     <tr>
-      <td>Sales Invoice ID: </td>
+      <td>{!! Form::label('si_id', 'Sales Invoice ID: ', ['class' => 'required-field']) !!}</td>
       <td>{!! Form::text('si_no', old('si_no'), ['id' => 'form_control']) !!}</td>
     </tr>
     <tr>
-      <td>PO Number: </td>
+      <td>{!! Form::label('po_no', 'PO Number: ', ['class' => 'required-field']) !!}</td>
       <td>{!! Form::text('po_number', old('po_number'), ['id' => 'form_control']) !!}</td>
     </tr>
     <tr>
-      <td>Delivery Number: </td>
+      <td>{!! Form::label('del_no', 'Delivery Number: ', ['class' => 'required-field']) !!}</td>
       <td>{!! Form::text('dr_number', old('dr_number'), ['id' => 'form_control']) !!}</td>
     </tr>
   </tbody>
@@ -58,8 +58,8 @@
 		<tr>
 			<th>Item</th>
 			<th>Units</th>
-			<th>Quantity</th>
-			<th>Selling Price per Unit</th>
+			<th><label class='required-field'>Quantity</label></th>
+			<th><label class='required-field'>Selling Price per Unit</label></th>
       <th>Price Logs</th>
 		</tr>
 	</thead>
@@ -107,9 +107,28 @@
 </div>
 <br>
 
-<a href="{{ action ('SalesInvoicesController@index')}}">
-  <button type="button" class="btn btn-primary">Exit</button>
-</a>
+ <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Exit</button>
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cancel Sales Invoice</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to exit the finish invoice process? This will revert the invoice to a draft.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <a href="{{ action ('SalesInvoicesController@index') }}">
+            <button type="button" class="btn btn-danger">Yes</button>
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 {!! Form::submit('Finish and View Invoice', array('class' => 'btn btn-primary', 'id' => 'generateInvoice', 'disabled' => 'disabled')) !!}
 <!-- <button type="button" class="btn btn-primary" id="generateInvoice">Generate Sale Inovoice</button>
  -->{!! Form::close() !!}

@@ -21,7 +21,7 @@
 
 			<tr id="note">
 				<td>{!! Form::label('noteslbl', 'Notes:') !!}</td>
-				<td>{!! Form::text('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
+				<td>{!! Form::textarea('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
 			</tr>
 			<tr id="reason">
 				<td>{!! Form::label('reasonslbl', 'Reason:') !!}</td>
@@ -70,7 +70,8 @@
 				<td> {{ $salesinvoice->si_no }} </td>
 				<td> {{ $salesinvoice->status }} </td>
 				<td> {{ $salesinvoice->total_amount }} </td>
-				<td> {{ $salesinvoice->date }} </td>
+				<?php $date = Carbon\Carbon::parse($salesinvoice->date)->toFormattedDateString(); ?>
+				<td> {{ $date }} </td>
 			</tr>
 			@endforeach
 		</tbody>
@@ -85,20 +86,17 @@
 
 <script>
 
-$('#note').hide();
 $('#reason').hide();
 
 
 $( document ).ready(function() {
     if($('#status_select').val() == 'To Do')
     {
-    	$('#note').hide();
 		$('#reason').hide();
     }
 
     else
     {
-    	$('#note').show();
 		$('#reason').show();
     }
 });
@@ -107,13 +105,11 @@ $( document ).ready(function() {
 $('#status_select').change(function() {
 	if($(this).val() == 'To Do')
 	{
-		$('#note').hide();
 		$('#reason').hide();
 	}
 
 	else
 	{
-		$('#note').show();
 		$('#reason').show();
 	}
 });

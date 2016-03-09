@@ -60,7 +60,7 @@
 		<tr>
 			@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 			<td>
-				{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get' ]) !!}
+				{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get', 'target'=>'_blank']) !!}
 					<button class="btn btn-success">Print Invoice</button>
 				{!! Form::close() !!}
 			</td>

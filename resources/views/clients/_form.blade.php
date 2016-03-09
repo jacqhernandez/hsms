@@ -32,6 +32,16 @@
 				<td>{!! Form::label('contact_person', 'Contact Person: ') !!}</td>
 				<td>{!! Form::text('contact_person', old('contact_person'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
+
+			<tr>
+				<td>{!! Form::label('accounting_contact_person', 'Accounting Contact Person: ') !!}</td>
+				<td>{!! Form::text('accounting_contact_person', old('accounting_contact_person'), ['class' => 'span7 form-control']) !!}</td>
+			</tr>
+
+			<tr>
+				<td>{!! Form::label('accounting_email', 'Accounting Email: ') !!}</td>
+				<td>{!! Form::text('accounting_email', old('accounting_email'), ['class' => 'span7 form-control']) !!}</td>
+			</tr>
 			
 			<tr>
 				<td> {!!Form::label('credit_limit', 'Credit Limit: ') !!}</td>

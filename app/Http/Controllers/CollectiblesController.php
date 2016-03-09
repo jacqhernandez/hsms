@@ -218,7 +218,7 @@ class CollectiblesController extends Controller
 
         $data = []; // Empty array
 
-        $clientEmail = $client->email;
+        $clientEmail = $client->accounting_email;
 
         Mail::send('collectibles.email', $data, function($message) use($pdf, $clientEmail)
             {

@@ -37,7 +37,7 @@
 </table>
 <?php echo $suppliers->render(); ?>
 <br>
-@if (Auth::user()['role'] == 'General Manager')
+@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 <a href="{{ url('/suppliers/create') }}" class="btn btn-primary">Create New Supplier</a>
 @endif
 

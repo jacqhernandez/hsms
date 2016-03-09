@@ -20,7 +20,7 @@ class ClientsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show','search','filter']]);     
+        $this->middleware('not_for_sales',['except' => ['index','show','search','filter']]);
     }
     /**
      * Display a listing of the resource.
@@ -120,6 +120,8 @@ class ClientsController extends Controller
         $client->email = $input['email'];
 		$client->tin = $input['tin'];
         $client->contact_person = $input['contact_person'];
+        $client->accounting_contact_person = $input['accounting_contact_person'];
+        $client->accounting_email = $input['accounting_email'];
         $client->credit_limit = $input['credit_limit'];
 		$client->status = $input['status'];
         $client->payment_terms = $input['payment_terms'];
@@ -141,7 +143,7 @@ class ClientsController extends Controller
         $client = Client::find($id);
         // $sales_invoices = DB::select("SELECT * FROM sales_invoices si JOIN clients c ON si.client_id = c.id WHERE c.id='$id'");
         // $sales_invoices = SalesInvoice::where('client_id', $id);
-        $sales_invoices = SalesInvoice::where('client_id',$id)->paginate(10);
+        $sales_invoices = SalesInvoice::where('client_id',$id)->orderby('date', 'desc')->paginate(10);
          return view('clients.show', compact('client', 'sales_invoices'));
     }
 
@@ -189,6 +191,8 @@ class ClientsController extends Controller
             'email' => $input['email'],
 			'tin' => $input['tin'],
             'contact_person' => $input['contact_person'],
+            'accounting_contact_person' => $input['accounting_contact_person'],
+            'accounting_email' => $input['accounting_email'],
             'credit_limit' => $input['credit_limit'],
 			'status' => $input['status'],
             'payment_terms' => $input['payment_terms'],
