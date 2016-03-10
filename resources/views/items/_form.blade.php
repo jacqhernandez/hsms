@@ -26,6 +26,27 @@
 		@else
 			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
 		@endif
-		<a href="{{ action ('ItemsController@index') }}"><button type="button" class="btn btn-info">Back to Items</button></a>
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Back to Items</button>
+		<div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cancel Add/Edit Item</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to Cancel?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <a href="{{ action ('ItemsController@index') }}">
+                                <button type="button" class="btn btn-danger">Yes</button>
+                            </a>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
 	</div>
 </div>

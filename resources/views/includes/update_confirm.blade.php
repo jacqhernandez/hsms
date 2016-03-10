@@ -1,5 +1,5 @@
 <button id='btnupdate' class='btn btn-primary' type='button' data-toggle='modal' data-target='#confirmUpdate'>
-		Submit
+		Update
 </button>
 <div class="modal fade" id="confirmUpdate" role="dialog" aria-hidden="true">
  	<div class="modal-dialog">

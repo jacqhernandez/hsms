@@ -51,12 +51,32 @@
     <div class="register-button">
         <br>
         
-        <button type="submit" class="btn btn-warning register-submit" align="center">
-            Update
-        </button>
-        <a href="{{ url('/users') }}" class="btn btn-default register-submit" color="gray">
-            Cancel
-        </a>
+            @include('includes.update_confirm')
+
+
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Cancel</button>
+        <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cancel Edit User</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to Cancel? This will discard all changes made.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <a href="{{ url('/users') }}">
+                                <button type="button" class="btn btn-danger">Yes</button>
+                            </a>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+
     </div>
 </form>
 

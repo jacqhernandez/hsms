@@ -41,7 +41,7 @@
 	        </div>
 	        <a href="{{ action ('SalesInvoicesController@viewCollected')}}">
 	            <div class="panel-footer">
-	                <span class="pull-left">View Details</span>
+	                <span class="pull-left">View Invoices</span>
 	                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 	                <div class="clearfix"></div>
 	            </div>
@@ -66,7 +66,7 @@
             </div>
             <a href="{{ action ('SalesInvoicesController@viewCollectibles')}}">
                 <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
+                    <span class="pull-left">View Invoices</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -89,7 +89,7 @@
             </div>
             <a href="{{ action ('SalesInvoicesController@viewUpcoming')}}">
                 <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
+                    <span class="pull-left">View Invoices</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -112,7 +112,7 @@
             </div>
             <a href="{{ action ('SalesInvoicesController@viewOverdue')}}">
                 <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
+                    <span class="pull-left">View Invoices</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>

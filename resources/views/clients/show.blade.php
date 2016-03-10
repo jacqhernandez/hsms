@@ -82,14 +82,14 @@
 		<tbody>
 		@foreach ($sales_invoices as $sales_invoice)
 				<tr>
-					<td>{{ $sales_invoice->si_no }}</td>
+					<td>@if ($sales_invoice->si_no == 0) ----- @else {{ $sales_invoice->si_no }} @endif</td>
 					<td>{{ $sales_invoice->Client->name }}</td>
 
 					<?php $date = Carbon\Carbon::parse($sales_invoice->date)->toFormattedDateString(); ?>
 					<td>{{ $date }}</td>
 
 					<?php $duedate = Carbon\Carbon::parse($sales_invoice->due_date)->toFormattedDateString(); ?>
-					<td>{{ $duedate }}</td>
+					<td>@if ($sales_invoice->status == "Draft" || $sales_invoice->status == "Pending" || $sales_invoice->Client->payment_terms == "PDC") ----- @else {{ $duedate }} @endif</td>
 					<td>{{ $sales_invoice->total_amount }}</td>
 					<td>{{ $sales_invoice->Client->payment_terms}}</td>
 					<td>{{ $sales_invoice->status }}</td>
