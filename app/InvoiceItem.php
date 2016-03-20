@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
 
-class InvoiceItem extends Model implements LogsActivityInterface
+class InvoiceItem extends Model 
+// implements LogsActivityInterface
 {
-		use LogsActivity;
+		//use LogsActivity;
 
     protected $fillable = [
     	'quantity',
@@ -28,23 +29,23 @@ class InvoiceItem extends Model implements LogsActivityInterface
 		return $this->belongsTo('App\Item')->withTrashed();
 	}
 
-	public function getActivityDescriptionForEvent($eventName)
-  {
-      if ($eventName == 'created')
-      {
-          return 'Invoice Item for invoice ' . $this->SalesInvoice->si_no . ' was created';
-      }
+	// public function getActivityDescriptionForEvent($eventName)
+ //  {
+ //      if ($eventName == 'created')
+ //      {
+ //          return 'Invoice Item for invoice ' . $this->SalesInvoice->si_no . ' was created';
+ //      }
 
-      if ($eventName == 'updated')
-      {
-          return 'Invoice Item for invoice ' . $this->SalesInvoice->si_no . ' was updated';
-      }
+ //      if ($eventName == 'updated')
+ //      {
+ //          return 'Invoice Item for invoice ' . $this->SalesInvoice->si_no . ' was updated';
+ //      }
 
-      if ($eventName == 'deleted')
-      {
-          return 'Invoice Item for invoice ' . $this->SalesInvoice->si_no . ' was deleted';
-      }
-      return '';
-  }
+ //      if ($eventName == 'deleted')
+ //      {
+ //          return 'Invoice Item for invoice ' . $this->SalesInvoice->si_no . ' was deleted';
+ //      }
+ //      return '';
+ //  }
 
 }

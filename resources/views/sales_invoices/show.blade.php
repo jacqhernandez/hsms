@@ -136,6 +136,13 @@
 	<td>
 	<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>	
 	</td>
+	@if (Auth::user()['role'] != 'Sales')
+	{
+		<td>
+		<a href="{{ action ('CollectionLogsController@index', $sales_invoice->client_id) }}"><button type="button" class="btn btn-info">Back to Collection Log</button></a>	
+		</td>
+	}
+	@endif
 	</table>
 		
 @stop

@@ -14,6 +14,7 @@
 <div class="form-group">
 {!! Form::select('filter', [
 						'' => 'Filter by Status',
+						'All' => 'All',
 						'Good' => 'Good',
 						'Blacklisted' => 'Blacklisted'], 
 					 	old('filter'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
@@ -28,19 +29,21 @@
 			<th>Status</th>
 			<th>Overdue</th>
 			<th>Delivered</th>
+			<th>Check on Hand</th>
 			<th>Total Amount Due </th>
 		</tr>
 	</thead>
 	
 	<tbody>
 		@foreach ($clients as $client)
-		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0)
+		@if ($overdue[$client->id] != 0 OR $delivered[$client->id] != 0 OR $check[$client->id])
 		<tr>
 			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">{{ $client->name }}</a></td>
 			<td>{{ $client->credit_limit }}</td>
 			<td>{{ $client->status }}</td>
 			<td>{{ $overdue[$client->id] }}</td>
 			<td>{{ $delivered[$client->id] }}</td>
+			<td>{{ $check[$client->id] }}</td>
 			<td>{{ $salesinvoiceTotal[$client->id] }}</td>
 			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
 		</tr>

@@ -63,7 +63,8 @@ class ReportsController extends Controller
         {
             $monthStart = $input['select_monthFrom'];
             $monthEnd = $input['select_monthTo'];
-            $year = $input['year'];
+            $yearStart = $input['yearFrom'];
+            $yearEnd = $input['yearTo'];
 
             $monthStartName = date("F", mktime(0, 0, 0, $monthStart, 10));
             $monthEndName = date("F", mktime(0, 0, 0, $monthEnd, 10));
@@ -71,28 +72,28 @@ class ReportsController extends Controller
 
             $results = DB::select("SELECT SUM(total_amount) as 'total' FROM sales_invoices si
                                     WHERE MONTH(si.date) >= '$monthStart' AND MONTH(si.date) <= '$monthEnd'
-                                    AND YEAR(si.date) = '$year'");
+                                    AND YEAR(si.date) >= '$yearStart' AND YEAR(si.date) <= '$yearEnd'");
 
             $resultsClient = DB::select("SELECT name, SUM(total_amount) as 'total'  FROM clients c
                                         JOIN sales_invoices si ON si.client_id = c.id
                                         WHERE MONTH(si.date) >= '$monthStart' AND MONTH(si.date) <= '$monthEnd'
-                                        AND YEAR(si.date) = '$year' GROUP BY c.id");
+                                        AND YEAR(si.date) >= '$yearStart' AND YEAR(si.date) <= '$yearEnd' GROUP BY c.id");
 
             $resultsSales = DB::select("SELECT username, SUM(total_amount) as 'total'  FROM users u
                                         JOIN clients c ON c.user_id = u.id
                                         JOIN sales_invoices si ON si.client_id = c.id 
                                         WHERE MONTH(si.date) >= '$monthStart' AND MONTH(si.date) <= '$monthEnd'
-                                        AND YEAR(si.date) = '$year' GROUP BY u.id");
+                                        AND YEAR(si.date) >= '$yearStart' AND YEAR(si.date) <= '$yearEnd' GROUP BY u.id");
 
             Excel::create('Sales Report ' . \Carbon\Carbon::today()->format('m-d-y'), function($excel) use($results, $resultsClient, $resultsSales,
                 $counter, $monthStartName, $monthEndName, $salesCounter, $counterClientBreakdown, $counterClientLabel, $counterClientData,
-                $year) {
+                $yearStart, $yearEnd) {
             $excel->sheet('Data', function($sheet) use($results, $resultsClient, $resultsSales, $counter, $monthEndName, $monthStartName,
-                $salesCounter, $counterClientBreakdown, $counterClientLabel, $counterClientData, $year) {
+                $salesCounter, $counterClientBreakdown, $counterClientLabel, $counterClientData, $yearStart, $yearEnd) {
 
                 $sheet->row($counter, array('Sales Report'));
                 $counter++;
-                $sheet->row($counter, array('For ' . $monthStartName . ' To ' . $monthEndName . ', Year ' . $year));
+                $sheet->row($counter, array('For ' . $monthStartName . ' ' . $yearStart . ' To ' . $monthEndName . ' ' . $yearEnd ));
                 $counter++;
                 $sheet->row($counter, array('Total Sales: ', 'P' . $results[0]->total));
 
@@ -260,7 +261,8 @@ class ReportsController extends Controller
         {
             $monthStart = $input['select_monthFrom'];
             $monthEnd = $input['select_monthTo'];
-            $year = $input['year'];
+            $yearStart = $input['yearFrom'];
+            $yearEnd = $input['yearTo'];
 
             $monthStartName = date("F", mktime(0, 0, 0, $monthStart, 10));
             $monthEndName = date("F", mktime(0, 0, 0, $monthEnd, 10));
@@ -270,25 +272,25 @@ class ReportsController extends Controller
             $results = DB::select("SELECT sum(total_amount) as 'total', count(*) as 'numCount' FROM sales_invoices si
                                     WHERE (si.status = 'delivered' OR si.status = 'overdue')
                                     AND MONTH(si.due_date) >= '$monthStart' AND MONTH(si.due_date) <= '$monthEnd'
-                                    AND YEAR(si.due_date) = '$year'");
+                                    AND YEAR(si.due_date) >= '$yearStart' AND YEAR(si.date) <= '$yearEnd'");
 
             $resultsCollected = DB::select("SELECT sum(total_amount) as 'total', count(*) as 'numCount' FROM sales_invoices si
                                                 WHERE si.status = 'collected'
                                                 AND MONTH(si.due_date) >= '$monthStart' AND MONTH(si.due_date) <= '$monthEnd'
-                                                AND YEAR(si.due_date) = '$year'");
+                                                AND YEAR(si.due_date) >= '$yearStart' AND YEAR(si.date) <= '$yearEnd'");
 
             $resultsInvoices = DB::select("SELECT name, si_no, date, due_date, total_amount, si.status FROM sales_invoices si
                                             JOIN clients c ON si.client_id = c.id
                                             WHERE MONTH(si.due_date) >= '$monthStart' AND MONTH(si.due_date) <= '$monthEnd'
-                                            AND YEAR(si.due_date) = '$year' ORDER BY name, si.status");
+                                            AND YEAR(si.due_date) >= '$yearStart' AND YEAR(si.date) <= '$yearEnd' ORDER BY name, si.status");
 
-            Excel::create('Collection Report ' . \Carbon\Carbon::today()->format('m-d-y'), function($excel) use($results, $counter, $monthStartName, $monthEndName, $year,
-                $resultsCollected, $resultsInvoices) {
-            $excel->sheet('Data', function($sheet) use($results, $counter, $monthStartName, $monthEndName, $year, $resultsCollected, $resultsInvoices) {
+            Excel::create('Collection Report ' . \Carbon\Carbon::today()->format('m-d-y'), function($excel) use($results, $counter, $monthStartName, $monthEndName, $yearStart,
+                $yearEnd, $resultsCollected, $resultsInvoices) {
+            $excel->sheet('Data', function($sheet) use($results, $counter, $monthStartName, $monthEndName, $yearStart, $yearEnd, $resultsCollected, $resultsInvoices) {
 
                     $sheet->row($counter, array('Collection Report'));
                     $counter++;
-                    $sheet->row($counter, array('For ' . $monthStartName . ' To ' . $monthEndName . ', Year ' . $year));
+                    $sheet->row($counter, array('For ' . $monthStartName . ' ' . $yearStart . ' To ' . $monthEndName . ' ' . $yearEnd));
                     $counter++;
                     $sheet->row($counter, array('Total Amount Collected: ', $resultsCollected[0]->total));
                     $counter++;
@@ -344,7 +346,8 @@ class ReportsController extends Controller
 
             $monthStart = $input['select_monthFrom'];
             $monthEnd = $input['select_monthTo'];
-            $year = $input['year'];
+            $yearStart = $input['yearFrom'];
+            $yearEnd = $input['yearTo'];
 
             $monthStartName = date("F", mktime(0, 0, 0, $monthStart, 10));
             $monthEndName = date("F", mktime(0, 0, 0, $monthEnd, 10));
@@ -355,7 +358,7 @@ class ReportsController extends Controller
             $results = DB::select("SELECT name, supplier_id FROM price_logs pl
                 JOIN suppliers s ON pl.supplier_id = s.id 
                 WHERE item_id = '$itemID' AND MONTH(pl.date) >= '$monthStart' 
-                AND MONTH(pl.date) <= '$monthEnd' AND YEAR(pl.date) = '$year' 
+                AND MONTH(pl.date) <= '$monthEnd' AND YEAR(pl.date) >= '$yearStart' AND YEAR(pl.date) <= '$yearEnd'
                 GROUP BY pl.supplier_id");
 
             $itemResults = DB::select("SELECT name, sum(quantity) as 'totalSold', sum(total_price) as 'totalAmount' FROM invoice_items ii
@@ -364,9 +367,9 @@ class ReportsController extends Controller
 
 
             Excel::create('Item Report-'. $itemName . ' '. \Carbon\Carbon::today()->format('m-d-y'), function($excel) use($results, $counter, $itemID,
-                $monthStart, $monthStartName, $monthEnd, $monthEndName, $year, $itemResults, $itemName, $counterLabel, $counterData) {
-            $excel->sheet('Data', function($sheet) use($results, $counter, $itemID, $monthStart, $monthStartName, $monthEnd, $monthEndName, $year,
-                $itemResults, $itemName, $counterLabel, $counterData) {
+                $monthStart, $monthStartName, $monthEnd, $monthEndName, $yearStart, $yearEnd, $itemResults, $itemName, $counterLabel, $counterData) {
+            $excel->sheet('Data', function($sheet) use($results, $counter, $itemID, $monthStart, $monthStartName, $monthEnd, $monthEndName, $yearStart,
+                $yearEnd, $itemResults, $itemName, $counterLabel, $counterData) {
 
                     $sheet->row($counter, array('Item Report'));
 
@@ -377,7 +380,7 @@ class ReportsController extends Controller
                     });
 
                     $counter++;
-                    $sheet->row($counter, array('For ' . $monthStartName . ' To ' . $monthEndName . ', Year ' . $year));
+                    $sheet->row($counter, array('For ' . $monthStartName . ' ' . $yearStart . ' To ' . $monthEndName . ' ' . $yearEnd));
                     $counter++;
                     $sheet->row($counter, array('Item Name: ' . $itemName));
 
@@ -426,7 +429,7 @@ class ReportsController extends Controller
                         $logs = DB::select("SELECT date, price FROM price_logs pl 
                                             WHERE item_id = '$itemID' AND supplier_id = '$result->supplier_id'
                                             AND MONTH(pl.date) >= '$monthStart' 
-                                            AND MONTH(pl.date) <= '$monthEnd' AND YEAR(pl.date) = '$year'");
+                                            AND MONTH(pl.date) <= '$monthEnd' AND YEAR(pl.date) >= '$yearStart' AND YEAR(pl.date) <= '$yearEnd'");
 
                         foreach($logs as $log)
                         {
