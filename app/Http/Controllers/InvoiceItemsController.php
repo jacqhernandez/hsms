@@ -109,7 +109,7 @@ class InvoiceItemsController extends Controller
             $pricer2 = 'item_priceB' . strval($i);
             $availer2 = 'availB' . strval($i);
             $supplierer2 = 'supplier_idB' . strval($i);
-            if ($input[$pricer2] == 0 || $input[$supplierer] == "none") {
+            if ($input[$pricer2] == 0 || $input[$supplierer2] == "none") {
               //do nothing
             } else {
               $priceLog2->date = Carbon::now();

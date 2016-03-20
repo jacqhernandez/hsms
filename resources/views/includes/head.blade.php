@@ -9,6 +9,10 @@
 
     <script src="{{ URL::asset('/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
+    <script src="{{ URL::asset('/bower_components/select2-4.0.2-rc.1/dist/js/select2.js')}}"></script>
+
+    <link href="{{ URL::asset('/bower_components/select2-4.0.2-rc.1/dist/css/select2.css')}}" rel="stylesheet">
+
     <!-- <link href="{{ URL::asset('/bower_components/jquery/dist/jquery.min.js')}}" rel="script"> -->
 <!-- Latest compiled and minified CSS -->
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">-->

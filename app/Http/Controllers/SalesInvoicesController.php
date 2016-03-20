@@ -40,7 +40,7 @@ class SalesInvoicesController extends Controller
     public function index()
     {
         if (Auth::user()['role'] == 'Sales') {
-            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->orderByRaw("FIELD(status, 'Pending', 'Draft') DESC, si_no DESC")->paginate(10);
+            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->where('date', '>=', Carbon::now()->subMonth(2))->orWhere('date','0000-00-00')->orderByRaw("FIELD(status, 'Pending', 'Draft') DESC, si_no DESC")->paginate(10);
             //IMPORTANT: this displays ALL invoices instead of until last month
         } 
         elseif (Auth::user()['role'] == 'Accounting'){

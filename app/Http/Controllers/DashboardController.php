@@ -177,9 +177,10 @@ class DashboardController extends Controller
 
         else if (Auth::user()->role == 'Sales')
         {
-            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->paginate(10);
-            $dates = SalesInvoice::all()->lists('due_date','due_date');
-            return view('sales_invoices.index', compact('sales_invoices','dates'));
+            // $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->paginate(10);
+            // $dates = SalesInvoice::all()->lists('due_date','due_date');
+            // return view('sales_invoices.index', compact('sales_invoices','dates'));
+            return redirect()->action('SalesInvoicesController@index');
         }
     }
 
