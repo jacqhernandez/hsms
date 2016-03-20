@@ -20,7 +20,7 @@
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td> {!! Form::label('price', 'Price: ', ['class' => 'required-field']) !!}</td>
-				<td> {!! Form::input('number', 'price', old('price'), ['class' => 'span7 form-control']) !!} </td>
+				<td> {!! Form::input('number', 'price', old('price'), ['class' => 'span7 form-control', 'step' => '0.01']) !!} </td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>

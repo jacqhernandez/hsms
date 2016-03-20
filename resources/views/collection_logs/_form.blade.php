@@ -80,7 +80,29 @@
 	{!! Form::hidden('client_id', $id) !!}
 	<div class = "submit">
 		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-		<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back to Collection Logs</button></a>
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Back to Collection Logs</button>
+		<div class="modal fade" id="myModal" role="dialog">
+    		<div class="modal-dialog modal-sm">
+     			<div class="modal-content">
+       				<div class="modal-header">
+          				<button type="button" class="close" data-dismiss="modal">&times;</button>
+          				<h4 class="modal-title">Cancel Create Collection Action</h4>
+        			</div>
+        			<div class="modal-body">
+          				<p>Are you sure you want to Cancel?</p>
+        			</div>
+        			<div class="modal-footer">
+          				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          			<a href="{{ action ('CollectionLogsController@index', $id ) }}">
+            			<button type="button" class="btn btn-danger">Yes</button>
+          			</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
 	</div>
 </div>
 

@@ -40,14 +40,14 @@ class SalesInvoicesController extends Controller
     public function index()
     {
         if (Auth::user()['role'] == 'Sales') {
-            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->paginate(10);
+            $sales_invoices = SalesInvoice::where('user_id', Auth::user()['id'])->orderByRaw("FIELD(status, 'Pending', 'Draft') DESC, si_no DESC")->paginate(10);
             //IMPORTANT: this displays ALL invoices instead of until last month
         } 
         elseif (Auth::user()['role'] == 'Accounting'){
-            $sales_invoices = SalesInvoice::where('status','!=','Draft')->where('status','!=',"Pending")->paginate(10);
+            $sales_invoices = SalesInvoice::where('status','!=','Draft')->where('status','!=',"Pending")->orderByRaw("FIELD(status, 'Check on Hand', 'Delivered') DESC, si_no DESC")->paginate(10);
         }
         else {
-            $sales_invoices = SalesInvoice::paginate(10);
+            $sales_invoices = SalesInvoice::orderBy('created_at', 'desc')->paginate(10);
         }
         $dates = $sales_invoices->lists('due_date','due_date');
         return view('sales_invoices.index', compact('sales_invoices','dates'));
