@@ -32,7 +32,9 @@
 
 		<tr id="year">
 			<td>{!! Form::label('month', 'Year: ') !!}</td>
-			<td>{!! Form::select('year', $years, null, ['id' => 'year_select', 'class' => 'form-control']) !!}</td>
+			<td>{!! Form::select('yearFrom', $years, null, ['id' => 'year_select', 'class' => 'form-control']) !!}</td>
+            <td>{!! Form::label('month', 'To ') !!}</td>
+            <td>{!! Form::select('yearTo', $years, null, ['id' => 'year_select', 'class' => 'form-control']) !!}</td>
 		</tr>
 
 		<tr id="client">

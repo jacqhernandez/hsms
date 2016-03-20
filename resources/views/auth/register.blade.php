@@ -43,7 +43,7 @@
         <button type="submit" class="btn btn-warning" align="center">
             Register
         </button>
-        <a href="../" class="btn btn-default" color="gray">
+        <a href="{{ action ('UsersController@index' ) }}" class="btn btn-default" color="gray">
             Back
         </a>
     </div>

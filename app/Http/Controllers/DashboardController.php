@@ -200,8 +200,15 @@ class DashboardController extends Controller
     public function backup()
     {
         Artisan::call('backup:run', ['--only-db' => '-db' ]);
-        Flash::success('Files backed up successfully');
-        return redirect()->action('DashboardController@index');
+        try{
+            Flash::success('Files backed up successfully');
+            return redirect()->action('DashboardController@index');
+        }
+        catch(\Exception $e){
+            Flash::error('Files not backed up successfully. Please try again later.');
+            return redirect()->action('DashboardController@index');
+
+        }
     }
 
     public function import()

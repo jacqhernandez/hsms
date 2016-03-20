@@ -2,7 +2,7 @@
 @section('content')
 <br>
 <h1> {{ $client->name }} </h1>
-<h2>Sales Invoices: {{$overdue}} Overdue, {{$delivered}} Delivered</h2>
+<h2>Sales Invoices: {{$delivered}} Delivered, {{$overdue}} Overdue, {{$check}} Check on Hand</h2>
 <hr>
 @include('flash::message')
 <table>
@@ -110,7 +110,7 @@
 						      		<p><b>Total Amount: </b>Php <?php echo number_format($o->total_amount, 2, '.', ',') ?></p>
 						      		{!! Form::open(['route' => ['invoices.collectedFromLog'], 'method' => 'post' ]) !!}
 						      		{!! Form::hidden('id', $o->id) !!}
-						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
+						      		<p><b>OR Number: </b>{!! Form::input('number', 'or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -123,6 +123,63 @@
 				</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $o->id], 'method' => 'get' ]) !!}
+					<button class="btn btn-primary">View Details</button>
+					{!! Form::close() !!}
+				</td>
+			</tr>
+			@endforeach
+	</tbody>
+</table>
+@endif
+@if ($check !=0)
+<h3>Check on Hand Sales Invoices</h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Sales Invoice Number</th>
+			<th>Total Amount</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		
+			@foreach ($checks as $c)
+			<tr>
+				<td>{{ $c->si_no }}</td>
+				<td>{{ $c->total_amount}}</td>
+				<td>
+					<button type="button" id="confirmCollection" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">Confirm Collection</button>
+						<div id="modalPopper" class="modal fade modal-hello1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							<script>
+								$("#confirmCollection").attr('data-target', '.modal-hello'+<?php echo $c->id ?>);
+								$("#confirmCollection").attr('id', 'confirmCollection'+<?php echo $c->id ?>);
+								$("#modalPopper").attr('class', 'modal fade modal-hello'+<?php echo $c->id ?>);
+								$("#modalPopper").attr('id', 'modalPopper'+<?php echo $c->id ?>);
+							</script>
+						  <div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel">Confirm Collection</h4>
+						      </div>
+						      <div class="modal-body">
+						      		<p><b>Sales Invoice No: </b><?php echo $c->si_no ?></p>
+						      		<p><b>Total Amount: </b>Php <?php echo number_format($c->total_amount, 2, '.', ',') ?></p>
+						      		{!! Form::open(['route' => ['invoices.collectedFromLog'], 'method' => 'post' ]) !!}
+						      		{!! Form::hidden('id', $c->id) !!}
+						      		<p><b>OR Number: </b>{!! Form::input('number', 'or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						        <button type="submit" class="btn btn-primary">Confirm</button>
+						        {!! Form::close() !!}
+						      </div>
+						    </div>
+						  </div>
+					</div>
+				</td>
+				<td>
+					{!! Form::open(['route' => ['invoices.show', $c->id], 'method' => 'get' ]) !!}
 					<button class="btn btn-primary">View Details</button>
 					{!! Form::close() !!}
 				</td>
