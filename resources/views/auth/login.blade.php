@@ -54,7 +54,8 @@
                 <div class="login-panel panel panel-default" id="login-form-panel">
                     <div class="panel-heading">
                         <center>
-                            <img src="http://localhost/hsms/public/img/Logo.png" style="width:30px; float:left; margin-top:-2%;">
+                            <!-- <img src="http://localhost/hsms/public/img/Logo.png" style="width:30px; float:left; margin-top:-2%;"> -->
+                            {!! HTML::image("/img/Logo.png", 'logo', array('style' => 'width:30px; margin-top: -2%; float:left;')) !!}
                             <h3 class="panel-title">Hardware Sales Management System</h3>
                         </center>
                     </div>

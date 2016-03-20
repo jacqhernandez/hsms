@@ -123,7 +123,7 @@
 				</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $o->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-danger">View Details</button>
+					<button class="btn btn-primary">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>
