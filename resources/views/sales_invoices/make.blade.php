@@ -10,8 +10,6 @@
 ?>
 
 <h2 class="sub-header">New Sales Invoice</h2><hr>
-<p><b>Date Today:</b> <?php echo date("m/d/Y")?></p>
-<p><b>Time:</b> <?php date_default_timezone_set("Singapore"); echo date("h:i a")?></p>
 <h3 class="sub-header"><?php echo SalesInvoice::find($invoice_id)->Client->name; ?> Sales Invoice</h3>
 
 {!! Form::open(['route' => ['invoices.creation'], 'method' => 'post' ]) !!}

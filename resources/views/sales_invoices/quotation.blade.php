@@ -282,6 +282,11 @@
 
     //ITEM
     var caster2 = "." + newName5;
+    // console.log($(caster2));
+    // $(caster2).select2({
+    //   placeholder: "- Select Item -"
+    // });
+
     $(caster2).change(function(a){
       var searcher = a.currentTarget.value;
       var unitChange = "." + newName6;
@@ -340,7 +345,6 @@
 
     });
 
-
     var caster3 = "." + newName10;
     $(caster3).change(function(a){
       var searcher = a.currentTarget.value;
@@ -364,6 +368,11 @@
     //console.log($(".itemCount"));
     $(".itemCount")[0].value = rowCounter++;
 
+  });
+
+  //console.log($(".itemChange1"));
+  $(".itemChange1").select2({
+    placeholder: "- Select Item -"
   });
 
   $(".clientChange1").change(function(a){

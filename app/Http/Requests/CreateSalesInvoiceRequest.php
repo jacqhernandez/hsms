@@ -73,7 +73,7 @@ class CreateSalesInvoiceRequest extends Request
                 }
                 else
                 {
-                    $rules['si_no'] = 'numeric|unique:sales_invoices';
+                    $rules['or_number'] = 'numeric|unique:sales_invoices';
                 }
                 if ($this->get('status') == 'Delivered')
                 {
