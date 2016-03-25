@@ -392,6 +392,19 @@ class SalesInvoicesController extends Controller
         return $pdf->stream();
     }
 
+    public function generateDR_Pdf($id)
+    {
+        ini_set("max_execution_time", 0);
+        $sales_invoice = SalesInvoice::find($id);
+        $items = DB::select("SELECT * FROM invoice_items i 
+                                JOIN sales_invoices si ON i.sales_invoice_id = si.id 
+                                JOIN items ON i.item_id = items.id WHERE si.id = '$id' ");
+
+        $pdf = \PDF::loadView('sales_invoices.generateDR', compact('sales_invoice', 'items'));
+        Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was generated');
+        return $pdf->stream();
+    }
+
     //WIP
     public function getTopSuppliers() {
         $item = $_GET['item'];
