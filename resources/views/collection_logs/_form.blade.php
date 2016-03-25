@@ -36,6 +36,7 @@
 			</tr>
 		</tbody> 
 	</table>
+	<h3 class='required-field'>Sales Invoices Involved</h3>
 	<table class="table table-hover sortable">
 		<thead>
 			<tr>

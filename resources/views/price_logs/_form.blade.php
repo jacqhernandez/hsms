@@ -24,7 +24,7 @@
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td> {!! Form::label('stock_availability', 'Stock Availability: ', ['class' => 'required-field']) !!}</td>
+				<td> {!! Form::label('stock_availability', 'Stock Available? ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::select('stock_availability', $availability, Input::old('stock_availability'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>
 		</tbody> 

@@ -18,10 +18,9 @@
 
 <!-- {!! Form::hidden('item_count', 1, ['class' => 'itemCount']) !!}
  -->
-
+@include('flash::message')
 <div class="table-responsive">
-  @include('includes.required_errors')
-  <?php echo Session::get('message'); ?>
+  
 <table class="table">
 <!--   <thead>
     <tr>
