@@ -5,7 +5,12 @@
 			<tr>
 				<td> {!! Form::label('name', 'Name: ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::text('name', old('name'), ['class' => 'span7 form-control']) !!} </td>
-			</tr>	
+			</tr>
+
+			<tr>
+				<td> {!! Form::label('customer_id', 'Customer ID') !!}</td>
+				<td> {!! Form::text('customer_id', old('customer_id'), ['class' => 'span7 form-control']) !!}</td>
+			</tr>
 			
 			<tr>
 				<td> {!! Form::label('telephone_number', 'Telephone Number: ', ['class' => 'required-field']) !!}</td>

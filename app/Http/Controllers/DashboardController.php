@@ -105,7 +105,7 @@ class DashboardController extends Controller
             //FOR DONUT CHART. MONTH OVERVIEW OF COLLECTED / COLLETIBLES
 
             $currentCollectedMonth = DB::SELECT("SELECT sum(total_amount) as 'total', count(*) as 'num' FROM sales_invoices
-                                                WHERE MONTH(due_date) = MONTH(now())
+                                                WHERE MONTH(date_collected) = MONTH(now())
                                                 AND status='collected'");
 
             if ($currentCollectedMonth[0]->num == 0)

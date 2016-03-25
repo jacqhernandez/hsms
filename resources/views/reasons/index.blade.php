@@ -13,7 +13,7 @@
 		@foreach ($reasons as $reason)
 		<tr>
 			<td>{{ $reason->reason }}</td>
-		@if (Auth::user()['role'] == 'General Manager')
+		@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Accounting')
 			<td>
 				{!! Form::open(['route' => ['reasons.destroy', $reason->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
 					<?php echo"
@@ -37,7 +37,7 @@
 	</tbody> 
 </table>
 <?php echo $reasons->render(); ?>
-@if (Auth::user()['role'] == 'General Manager')
+@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Accounting')
 	<a href="{{ url('/reasons/create') }}" class="btn btn-primary">New Reason</a>
 @endif
 @stop

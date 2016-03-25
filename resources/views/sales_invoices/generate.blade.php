@@ -104,7 +104,7 @@
 				<td style="width:208px;">Payment Terms</td>
 			</tr>
 			<tr>
-				<td>{{ $sales_invoice->Client->id }}</td>
+				<td>{{ $sales_invoice->Client->customer_id }}</td>
 				<td>PO# {{ $sales_invoice['po_number'] }}</td>
 				<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			</tr>

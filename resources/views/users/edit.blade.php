@@ -19,20 +19,20 @@
 
     <table class = "register-table" cellpadding="5px"> <tbody>
         <tr>
-            <td align="right">{!! Form::label('username', 'Username:') !!}</td>
+            <td align="right">{!! Form::label('username', 'Username:', ['class' => 'required-field']) !!}</td>
             <td>{!! Form::text('username',old('username'), ['class' => 'form-control']) !!}</td>
         </tr>
         <tr>
-            <td align="right">{!! Form::label('old_password', 'Old Password:') !!}</td>
-            <td>{!! Form::password('old_password',null, ['class' => 'form-control']) !!}</td>
+            <td align="right">{!! Form::label('old_password', 'Old Password:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::password('old_password', ['class' => 'form-control']) !!}</td>
         </tr>
         <tr>
-            <td align="right">{!! Form::label('password', 'New Password:') !!}</td>
-            <td>{!! Form::password('password',null, ['class' => 'form-control']) !!}</td>
+            <td align="right">{!! Form::label('password', 'New Password:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::password('password', ['class' => 'form-control']) !!}</td>
         </tr>
         <tr>
-            <td align="right">{!! Form::label('confirm_new_password', 'Confirm New Password:') !!}</td>
-            <td>{!! Form::password('confirm_new_password',null, ['class' => 'form-control']) !!}</td>
+            <td align="right">{!! Form::label('confirm_new_password', 'Confirm New Password:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::password('confirm_new_password', ['class' => 'form-control']) !!}</td>
         </tr>
 
         <tr>

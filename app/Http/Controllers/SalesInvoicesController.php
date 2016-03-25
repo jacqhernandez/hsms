@@ -357,7 +357,7 @@ class SalesInvoicesController extends Controller
 
     public function viewCollected()
     {
-        $sales_invoices = SalesInvoice::whereRaw("week(due_date) = week(now()) AND sales_invoices.status='collected'")->paginate(10);
+        $sales_invoices = SalesInvoice::whereRaw("week(date_collected) = week(now()) AND sales_invoices.status='collected'")->paginate(10);
         return view('sales_invoices.index', compact('sales_invoices'));
     }
 

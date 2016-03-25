@@ -57,7 +57,7 @@ class CollectionLogsController extends Controller
             {
                 $checks = SalesInvoice::where('client_id', $id)->where('status', 'Check on Hand')->get();
             }
-            $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'desc')
+            $collection_logs= CollectionLog::where('client_id', $id)->orderBy('date', 'asc')
                                                                     ->orderBy('status', 'desc')
                                                                     ->paginate(10);
             // $collection_logs= CollectionLog::where('client_id', $id)->orderBy('status', 'desc', 'date', 'asc')->paginate(10);
