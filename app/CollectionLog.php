@@ -39,10 +39,10 @@ class CollectionLog extends Model implements LogsActivityInterface
             return 'Collection Log for client ' . $this->Client->name . ' was created';
         }
 
-        if ($eventName == 'updated')
-        {
-            return 'Collection Log for client ' . $this->Client->name . ' was updated';
-        }
+        // if ($eventName == 'updated')
+        // {
+        //     return 'Collection Log for client ' . $this->Client->name . ' was updated';
+        // }
 
         if ($eventName == 'deleted')
         {

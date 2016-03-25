@@ -221,7 +221,7 @@ class CollectionLogsController extends Controller
         //     $sicl->save();
         // }
         $id = $cLog->client_id;
-        Activity::log($cLog->action . ' to' . $client['name'] .' was performed');
+        Activity::log($cLog->action . ' to ' . $client['name'] .' was performed');
          return redirect()->action('CollectionLogsController@index', [$id]);
     }
 

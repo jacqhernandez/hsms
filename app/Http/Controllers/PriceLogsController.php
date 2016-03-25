@@ -18,7 +18,7 @@ class PriceLogsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['index','show','search']]);     
+        $this->middleware('general_manager');     
     }
     /**
      * Display a listing of the resource.
@@ -27,9 +27,11 @@ class PriceLogsController extends Controller
      */
     public function index()
     {
+        
         $price_logs = PriceLog::orderBy('date', 'desc')->paginate(10);
 
         return view('price_logs.index', compact('price_logs'));
+        
     }
 
     public function search()
