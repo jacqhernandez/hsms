@@ -115,6 +115,7 @@ class ClientsController extends Controller
         $input = Request::all();
         $client = new Client;
         $client->name = $input['name'];
+        $client->customer_id = $input['customer_id'];
 		$client->telephone_number = $input['telephone_number'];
 		$client->address = $input['address'];
         $client->email = $input['email'];
@@ -186,6 +187,7 @@ class ClientsController extends Controller
         $input = Request::all();
         $client->update([
             'name' => $input['name'],
+            'customer_id' => $input['customer_id'],
 			'telephone_number' => $input['telephone_number'],
 			'address' => $input['address'],
             'email' => $input['email'],

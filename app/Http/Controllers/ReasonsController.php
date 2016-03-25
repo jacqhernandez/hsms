@@ -20,7 +20,7 @@ class ReasonsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');  
-        $this->middleware('general_manager',['except' => ['create','store']]);     
+        // $this->middleware('general_manager',['except' => ['create','store']]); 
         $this->middleware('not_for_sales',['only'=>['create']]);
     }
 
@@ -58,12 +58,13 @@ class ReasonsController extends Controller
             $reason->reason = $input['reason'];
             $reason->save();
             $id = $reason->id;
-            if (Auth::user()['role'] == 'General Manager'){
-                return redirect()->action('ReasonsController@index');
-            }
-            elseif (Auth::user()['role'] == 'Accounting') {
-                return redirect()->action('CollectiblesController@index');
-            }
+            // if (Auth::user()['role'] == 'General Manager'){
+            //     return redirect()->action('ReasonsController@index');
+            // }
+            // elseif (Auth::user()['role'] == 'Accounting') {
+            //     return redirect()->action('CollectiblesController@index');
+            // }
+            return redirect()->action('ReasonsController@index');
         }
     }
 

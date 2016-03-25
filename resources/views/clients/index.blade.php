@@ -26,6 +26,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Customer ID</th>
 			<th>Telephone Number</th>
 			<th>Email</th>
 			<th>Credit Limit</th>
@@ -38,6 +39,7 @@
 		@foreach ($clients as $client)
 		<tr>
 			<td>{{ $client->name }}</td>
+			<td>{{ $client->customer_id }}</td>
 			<td>{{ $client->telephone_number }}</td>
 			<td>{{ $client->email }}</td>
 			<td>{{ $client->credit_limit }}</td>

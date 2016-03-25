@@ -17,8 +17,8 @@
 	<tr>
 		<th>Name</th>
 		<th>Telephone Number</th>
-		<th>TIN</th>
-		<th>Address</th>
+		<th>Contact Person</th>
+		<th>Terms</th>
 		<th>E-mail</th>
 	</tr>
 </thead>
@@ -27,8 +27,8 @@
 	<tr>
 		<td>{{ $supplier->name }}</td>
 		<td>{{ $supplier->telephone_number }}</td>
-		<td>{{ $supplier->tin }}</td>
-		<td>{{ $supplier->address }}</td>
+		<td>{{ $supplier->contact_person }}</td>
+		<td>{{ $supplier->payment_terms }}</td>
 		<td>{{ $supplier->email }}</td>
 		<td><a href="{{ action ('SuppliersController@show', [$supplier->id]) }}">View</a></td>
 	</tr>

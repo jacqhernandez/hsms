@@ -26,6 +26,7 @@ class CreateClientsTable extends Migration
 			$table->string('status');
             $table->string('payment_terms');
             $table->boolean('vat_exempt');
+            $table->string('customer_id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')->on('users');

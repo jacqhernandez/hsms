@@ -31,7 +31,7 @@ class CreateClientRequest extends Request
                 return [
                 //
                     'name' => 'required',
-                    'telephone_number' => 'required|numeric',
+                    'telephone_number' => 'required',
                     'address' => 'required',
                     'tin' => 'required|numeric|unique:clients',
                     'credit_limit' => 'required'

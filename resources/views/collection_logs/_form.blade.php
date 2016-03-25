@@ -3,12 +3,12 @@
 	<table> 
 		<tbody>
 			<tr>
-				<td>{!! Form::label('date', 'Date:') !!}</td>
+				<td>{!! Form::label('date', 'Date:', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::date('date', old('date'), ['class' => 'span7']) !!} </td>
 			</tr>
 
 			<tr>
-				<td>{!! Form::label('actionlbl', 'Action:') !!}</td>
+				<td>{!! Form::label('actionlbl', 'Action:', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::select('action', $actionOptions, 
 					Input::old('action'), ['class' => 'span7, form-control']) !!} </td>
 			</tr>
@@ -24,7 +24,7 @@
 				<td>{!! Form::textarea('note', old('note'), ['class' => 'span7, form-control']) !!}</td>
 			</tr>
 			<tr id="reason">
-				<td>{!! Form::label('reasonslbl', 'Reason:') !!}</td>
+				<td>{!! Form::label('reasonslbl', 'Reason:', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason'), ['class' => 'span7, form-control']) !!}</td>
 				<td>
 					<a href="{{ url('/reasons/create') }}">Add Reason</a>

@@ -3,17 +3,22 @@
 	<table> 
 		<tbody>
 			<tr>
-				<td> {!! Form::label('name', 'Name: ') !!}</td>
+				<td> {!! Form::label('name', 'Name: ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::text('name', old('name'), ['class' => 'span7 form-control']) !!} </td>
-			</tr>	
+			</tr>
+
+			<tr>
+				<td> {!! Form::label('customer_id', 'Customer ID') !!}</td>
+				<td> {!! Form::text('customer_id', old('customer_id'), ['class' => 'span7 form-control']) !!}</td>
+			</tr>
 			
 			<tr>
-				<td> {!! Form::label('telephone_number', 'Telephone Number: ') !!}</td>
+				<td> {!! Form::label('telephone_number', 'Telephone Number: ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::text('telephone_number', old('telephone_number'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>	
 			
 			<tr>
-				<td> {!! Form::label('address', 'Address: ') !!} </td>
+				<td> {!! Form::label('address', 'Address: ', ['class' => 'required-field']) !!} </td>
 				<td> {!! Form::textarea('address', old('address'), ['class' => 'span7 form-control', 'rows' => '2']) !!}</td>
 			</tr>
 			
@@ -24,7 +29,7 @@
 			
 			
 			<tr>
-				<td> {!! Form::label('tin', 'TIN: ') !!} </td>
+				<td> {!! Form::label('tin', 'TIN: ', ['class' => 'required-field']) !!} </td>
 				<td> {!! Form::input('number', 'tin', old('tin'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
@@ -44,7 +49,7 @@
 			</tr>
 			
 			<tr>
-				<td> {!!Form::label('credit_limit', 'Credit Limit: ') !!}</td>
+				<td> {!!Form::label('credit_limit', 'Credit Limit: ', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::input('number','credit_limit', old('credit_limit'), ['class' => 'span3 form-control', 'step' => '1', 'min'=>0]) !!} </td>
 			</tr>
 			

@@ -56,6 +56,7 @@
                             <a href="{{url::action('CollectiblesController@index')}}"><i class="glyphicon glyphicon-rub"></i> Collectibles</a>
                         </li>
                         @endif
+
                         @if (Auth::user()['role'] === 'Accounting' || Auth::user()['role'] === 'Sales')
                         <li>
                             <a href="{{url::action('SalesInvoicesController@index')}}"><i class="glyphicon glyphicon-equalizer"></i> Sales Invoices</a>
@@ -68,6 +69,12 @@
                         </li>
                         <li>
                             <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-paperclip"></i> Items</a>
+                        </li>
+                        @endif
+
+                        @if (Auth::user()['role'] === 'Accounting')
+                        <li>
+                            <a href="{{url::action('ReasonsController@index')}}"><i class=" glyphicon glyphicon-bullhorn"></i> Reasons</a>
                         </li>
                         @endif
 

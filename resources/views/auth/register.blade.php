@@ -17,15 +17,15 @@
 
     <table cellpadding="5px"> <tbody>
         <tr>
-            <td align="right"> Username: </td>
+            <td align="right" class="required-field"> Username: </td>
             <td><input type="text" class="form-control" name="username" value="{{ old('username') }}"></td>
         </tr>
         <tr>
-            <td align="right"> Password: </td>
+            <td align="right" class="required-field"> Password: </td>
             <td><input type="password" class="form-control" name="password"></td>
         </tr>
         <tr>
-            <td align="right"> Confirm Password: </td>
+            <td align="right" class="required-field"> Confirm Password: </td>
             <td><input type="password" class="form-control" name="password_confirmation"></td>
         </tr>
         <tr>
