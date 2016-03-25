@@ -12,6 +12,7 @@ use App\Item;
 use Request;
 use Auth;
 use Carbon\Carbon;
+use Activity;
 
 class PriceLogsController extends Controller
 {
@@ -28,7 +29,7 @@ class PriceLogsController extends Controller
     public function index()
     {
         
-        $price_logs = PriceLog::orderBy('date', 'desc')->paginate(10);
+        $price_logs = PriceLog::orderBy('id', 'desc')->paginate(10);
 
         return view('price_logs.index', compact('price_logs'));
         
@@ -45,7 +46,7 @@ class PriceLogsController extends Controller
                             ->join('items', 'price_logs.item_id', '=', 'items.id')
                             ->where('suppliers.name','LIKE',"%$query%")
                             ->orWhere('items.name', 'LIKE', "%$query%")
-                            ->orderBy('date', 'desc')
+                            ->orderBy('id', 'desc')
                             ->paginate(10);
         
         if ($price_logs == "[]")
@@ -100,7 +101,7 @@ class PriceLogsController extends Controller
         $priceLog->supplier_id = $input['supplier_id'];
         $priceLog->item_id = $input['item_id'];
 		$priceLog->save();
-    
+        
         return response()->json();
         //return redirect()->action('ClientsController@index');
     }
@@ -116,7 +117,7 @@ class PriceLogsController extends Controller
         $priceLog->supplier_id = $input['supplier_id'];
         $priceLog->item_id = $input['item_id'];
         $priceLog->save();
-    
+        Activity::log('Price log for item ' . $priceLog->Item->name . ' was created.');
         return redirect()->action('PriceLogsController@index');
         //return redirect()->action('ClientsController@index');
     }
@@ -132,7 +133,7 @@ class PriceLogsController extends Controller
             'price' => $input['price'],
             'stock_availability' => $input['stock_availability']
             ]);
-    
+
         return redirect()->action('PriceLogsController@index');
         //return redirect()->action('ClientsController@index');
     }
@@ -141,6 +142,7 @@ class PriceLogsController extends Controller
     {
         $priceLog =PriceLog::find($id);
         $priceLog->delete();
+
         return redirect()->action('PriceLogsController@index');
     }
     /**

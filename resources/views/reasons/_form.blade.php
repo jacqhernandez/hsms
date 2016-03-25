@@ -3,7 +3,7 @@
 	<table> 
 		<tbody>
 			<tr>
-				<td> {!! Form::label('reason', 'Reason: ') !!}</td>
+				<td> {!! Form::label('reason', 'Reason:', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::text('reason', old('reason'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>	
 		</tbody> 

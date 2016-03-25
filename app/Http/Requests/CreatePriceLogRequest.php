@@ -30,14 +30,22 @@ class CreatePriceLogRequest extends Request
             {
                 return [
                 //
-                    'price' => 'required|numeric|min:1'
+                    'supplier_id' => 'required',
+                    'item_id' => 'required',
+                    'price' => 'required|numeric|min:1',
+                    'stock_availability' => 'required'
+                    
+
                 ];
             }
             case 'PATCH':
             {
                 return [
                 //
-                'price' => 'required|min:1'
+                'supplier_id' => 'required',
+                'item_id' => 'required',
+                'price' => 'required|numeric|min:1',
+                'stock_availability' => 'required'
                 ];
             }
             default:break;

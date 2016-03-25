@@ -20,7 +20,7 @@ use App\User;
 use Carbon\Carbon;
 use App\SalesInvoiceCollectionLog;
 use App\CollectionLog;
-
+use Flash;
 
 class SalesInvoicesController extends Controller
 {
@@ -320,7 +320,8 @@ class SalesInvoicesController extends Controller
         }
 
         if ($creditOutput > $salesInvoice->Client->credit_limit ){
-            return redirect()->back()->withInput()->with('message','Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
+            Flash::error('Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
+            return redirect()->back();
         }
 
         $salesInvoice->update([

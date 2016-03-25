@@ -17,19 +17,22 @@
 
     <table cellpadding="5px"> <tbody>
         <tr>
-            <td align="right"> Username: </td>
+            <td class="required-field" align="right"> Username:</td>
+
             <td><input type="text" class="form-control" name="username" value="{{ old('username') }}"></td>
         </tr>
         <tr>
-            <td align="right"> Password: </td>
+            <td class="required-field" align="right"> Password:</td>
+
             <td><input type="password" class="form-control" name="password"></td>
         </tr>
         <tr>
-            <td align="right"> Confirm Password: </td>
+            <td class="required-field" align="right"> Confirm Password:</td>
+
             <td><input type="password" class="form-control" name="password_confirmation"></td>
         </tr>
         <tr>
-            <td align="right"> Role: </td>
+            <td class="required-field" align="right">Role:</td>
             <td><select class="form-control" name="role" value="{{ old('role') }}">
                 <option value="General Manager">General Manager</option>
                 <option value="Sales">Sales</option>
