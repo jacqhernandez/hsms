@@ -58,6 +58,18 @@
 			<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			<td>{{ $sales_invoice->status }}</td>
 			<td>@if ($sales_invoice->status === "Draft") <a href="{{ action ('SalesInvoicesController@make', [$sales_invoice->id]) }}">Finish</a>
+					@if (Auth::user()['role'] == "General Manager")
+						{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
+								<?php echo"<td>
+										<a id='btndelete' data-toggle='modal' data-target='#confirmDelete'>
+												<p>Delete</p>
+					    			</a> </td>" ?>
+									<?php echo'
+										<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>
+					  				@include('includes.delete_confirm')
+									<?php echo '</div>' ?>
+						{!! Form::close() !!}
+					@endif
 				@else <a href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}">View</a> @endif </td>
 			<td>@if ($sales_invoice->status !== "Draft" && Auth::user()['role'] != 'Accounting') <a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a>@endif</td>
 			<td>@if (Auth::user()['role'] == 'Sales')

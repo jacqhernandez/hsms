@@ -155,6 +155,9 @@
 {!! Form::close() !!}
 
 <script>
+jQuery.noConflict();
+
+jQuery( document ).ready(function( $ ) {
 
   $("select option[value='']").attr("style", "display:none");
   $("select option[value='']").attr("disabled", "disabled");
@@ -278,14 +281,17 @@
       var supplierChange = "." + newName2;
       var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
       $(supplierChange).text(suppliers[searcher]);
+      var supplierChange2 = "." + newName30;
+      var suppliers2 = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+      $(supplierChange2).text(suppliers2[searcher]);
     });
 
     //ITEM
     var caster2 = "." + newName5;
-    // console.log($(caster2));
-    // $(caster2).select2({
-    //   placeholder: "- Select Item -"
-    // });
+    $(caster2).select2({
+      placeholder: "- Select Item -"
+    });
+
 
     $(caster2).change(function(a){
       var searcher = a.currentTarget.value;
@@ -351,6 +357,9 @@
       var supplierChange = "." + newName7;
       var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
       $(supplierChange).text(suppliers[searcher]);
+      var supplierChange2 = "." + newName31;
+      var suppliers2 = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+      $(supplierChange2).text(suppliers2[searcher]);
     });
 
     var caster4 = "." + newName11;
@@ -359,6 +368,9 @@
       var supplierChange = "." + newName8;
       var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
       $(supplierChange).text(suppliers[searcher]);
+      var supplierChange2 = "." + newName32;
+      var suppliers2 = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+      $(supplierChange2).text(suppliers2[searcher]);
     });
 
     checkButton();
@@ -370,7 +382,6 @@
 
   });
 
-  //console.log($(".itemChange1"));
   $(".itemChange1").select2({
     placeholder: "- Select Item -"
   });
@@ -615,7 +626,7 @@
   //     console.log($(itemName)[0].value);
   //   }
   // });
-
+});
 </script>
 
 <!-- Modal -->

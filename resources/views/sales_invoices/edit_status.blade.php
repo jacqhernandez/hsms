@@ -17,7 +17,7 @@
 			<tbody>
 				<tr>
 					<td>{!! Form::label('status', 'Status: ') !!}</td>
-					<td>{!! Form::select('status', ['Pending' => "Pending", 'Delivered' => "Delivered", 'Collected' => "Collected", "Check on Hand" => "Check on Hand"], Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
+					<td>{!! Form::select('status', ['Pending' => "Pending", 'Delivered' => "Delivered", 'Collected' => "Collected", "Check on Hand" => "Check on Hand", "Overdue" => "Overdue", "Cancelled" => "Cancelled"], Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
 				</tr>
 				<tr id="collected">
 					<td>{!! Form::label('date_collected', 'Date Collected: ') !!}</td>
