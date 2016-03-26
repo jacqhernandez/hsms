@@ -71,7 +71,7 @@ class ClientsController extends Controller
         $input = Request::all();
         $filter = $input['filter'];
         $clients = Client::where('status',$filter)->paginate(10);
-        if ($clients == "[]")
+        if ($filter == "All")
         {
             return redirect()->action('ClientsController@index');
         }

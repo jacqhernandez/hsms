@@ -39,7 +39,7 @@ class LogsController extends Controller
         $input = Request::all();
         $filter = $input['filter'];
         $activities = Activity::where('user_id',$filter)->paginate(10);
-        if ($activities == "[]")
+        if ($filter == "All")
         {
             return redirect()->action('LogsController@index');
         }
