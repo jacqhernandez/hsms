@@ -52,9 +52,10 @@
 		
 		<br>
 		<div class = "submit">
-			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+			@include('includes.update_confirm')
 			<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back</button></a>
 		</div>
+
 	</div>
 
 	{!! Form::close() !!}
