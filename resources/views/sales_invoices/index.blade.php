@@ -15,6 +15,7 @@
 <div class="form-group">
 {!! Form::select('filter_status', [
 						'' => 'Filter by Status',
+						'All' => 'Show All',	
 						'Draft' => 'Draft',
 						'Pending' => 'Pending',
 						'Delivered' => 'Delivered',
@@ -26,7 +27,8 @@
 
 {!!  Form::open(['route' => ['invoices.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
 <div class="form-group">
-<?php $dates[''] = "Filter by Due Date"; ?>
+<?php $dates[''] = "Filter by Due Date"; 
+	  $dates['All'] = "Show All";	?>
 {!! Form::select('filter_date', $dates,
 					 	old('filter_date'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
 </div>

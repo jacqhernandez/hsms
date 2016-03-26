@@ -76,20 +76,34 @@ class SalesInvoicesController extends Controller
         $input = Request::all();
         if (isset($input['filter_status']))
         {
-            $filter_status = $input['filter_status'];
-            $sales_invoices = SalesInvoice::where('status',$filter_status)->paginate(10);
-            $sales_invoices->appends(Request::only('filter_status'));
+            if ($input['filter_status'] == "All")
+            {
+                return redirect()->action('SalesInvoicesController@index');
+            }
+            else
+            {
+                $filter_status = $input['filter_status'];
+                $sales_invoices = SalesInvoice::where('status',$filter_status)->paginate(10);
+                $sales_invoices->appends(Request::only('filter_status'));
+            }
         }
         else
         {
-            $filter_date = $input['filter_date'];
-            $sales_invoices = SalesInvoice::where('due_date',$filter_date)->paginate(10); //and where status !== collected
-            $sales_invoices->appends(Request::only('filter_date'));
+            if ($input['filter_date'] == "All")
+            {
+                return redirect()->action('SalesInvoicesController@index');
+            }
+            else
+            {
+                $filter_date = $input['filter_date'];
+                $sales_invoices = SalesInvoice::where('due_date',$filter_date)->where('status', '!=', 'Collected')->paginate(10); //and where status !== collected
+                $sales_invoices->appends(Request::only('filter_date'));
+            }
         }
-        if ($sales_invoices == "[]")
-        {
-            return redirect()->action('SalesInvoicesController@index');
-        }
+        // if ($input['filter_status'] == "[]")
+        // {
+        //     return redirect()->action('SalesInvoicesController@index');
+        // }
         $dates = SalesInvoice::all()->lists('due_date','due_date');
         return view('sales_invoices.index',compact('sales_invoices','dates'));
     }
