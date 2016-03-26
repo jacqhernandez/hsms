@@ -3,7 +3,7 @@
 	use Carbon\Carbon;
 ?>
 <head>
-	<title>Print - Sales Invoice {{ $sales_invoice['si_no'] }}</title>
+	<title>Print - Delivery Receipt {{ $sales_invoice['si_no'] }}</title>
 	<!-- Favicon -->
     <link rel="icon" type="image/png" href="http://localhost/hsms/public/img/Logo.png">
     <link rel="icon" type="image/ico" href="http://localhost/hsms/public/img/Logo.ico">
@@ -43,7 +43,6 @@
 			width:100%;
 			font-size: 10pt;
 		}
-
 
 		/*
 		.table{
@@ -144,7 +143,7 @@
 				<td style="width:208px;">Payment Terms</td>
 			</tr>
 			<tr>
-				<td>{{ $sales_invoice->Client->customer_id }}</td>
+				<td>{{ $sales_invoice->Client->id }}</td>
 				<td>PO# {{ $sales_invoice['po_number'] }}</td>
 				<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			</tr>
@@ -167,48 +166,12 @@
 				<td style="text-align: center; text-indent: 10px;">{{$item->unit}}</td>
 				<td style="text-align: left; text-indent: 20px;">{{$item->name}}</td>
 				<td>&nbsp;</td>
-				<td style="text-align: left; text-indent: 10px;">{{ number_format($item->unit_price,2) }}</td>
+				<td style="text-align: left; text-indent: 10px;">&nbsp;</td>
 				<td style="text-align: left; text-indent: 10px;">{{ number_format($item->total_price,2) }}</td>
 			</tr>
 			@endforeach
-<!--
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
--->
 </table>
+
 	<div>
 	<table class="table3" style="text-align:center;">
 				<tr>
