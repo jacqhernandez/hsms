@@ -19,7 +19,7 @@
 			margin-right:18px;
 			margin-bottom:0px;
 			size:a4 portrait;
-			color:#0000ff;
+			color:#000000;
 			background-image:none;
 		}
 
@@ -35,6 +35,9 @@
 			border: none;
 			border-collapse: collapse;
 			width:100%;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
 		}
 
 		.table2{
@@ -42,9 +45,36 @@
 			border-collapse: collapse;
 			width:100%;
 			font-size: 10pt;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
 		}
 
 
+		.table3{
+			border: none;
+			border-collapse: collapse;
+			width:100%;
+			position:absolute;
+			left:0px;
+			top:633.5px;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
+		}
+
+		.table4{
+			border: none;
+			border-collapse: collapse;
+			width:100%;
+			position:absolute;
+			left:40px;
+			top:810px;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
+		}
+		
 		/*
 		.table{
 			border: 1px solid #000;
@@ -56,17 +86,29 @@
 			width:100%;
 			font-size: 10pt;
 		}
-		*/
 
 		.table3{
-			border: none;
-			border-collapse: collapse;
+			border: 1px solid #000;
 			width:100%;
 			position:absolute;
 			left:0px;
 			top:633.5px;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
 		}
 
+		.table4{
+			border: 1px solid #000;
+			width:100%;
+			position:absolute;
+			left:40px;
+			top:810px;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
+		}
+		*/
 
 		.filler{
 			background: transparent;
@@ -74,6 +116,9 @@
 
 		td{
 			border: none;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
 		}
 	</style>
 </head>
@@ -102,7 +147,7 @@
 	<table class="table2">
 			<tr>
 				<td style="width:75px;  visibility:hidden;">Sold to: </td>
-				<td style="font-size:11pt; text-indent:25px;">{{ $sales_invoice->Client->name }} YE<?php echo sprintf("%03d", $sales_invoice->Client->id)?></td>
+				<td style="font-size:11pt; text-indent:25px;">{{ $sales_invoice->Client->name }}</td>
 
 			</tr>
 	</table>
@@ -171,6 +216,7 @@
 				<td style="text-align: left; text-indent: 10px;">{{ number_format($item->total_price,2) }}</td>
 			</tr>
 			@endforeach
+	</table>
 <!--
 			<tr>
 				<td>&nbsp;</td>
@@ -208,9 +254,8 @@
 				<td>&nbsp;</td>
 			</tr>
 -->
-</table>
 	<div>
-	<table class="table3" style="text-align:center;">
+		<table class="table4" style="text-align:center;">
 				<tr>
 					<td style="width:70px;">&nbsp;</td>
 					<td style="width:65px;">&nbsp;</td>
@@ -242,6 +287,46 @@
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>ATTN: {{ $sales_invoice->Client->contact_person }}</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+		</table>
+	</div>
+
+	<div>
+	<table class="table3" style="text-align:center;">
+				<tr>
+					<td style="width:70px;">&nbsp;</td>
+					<td style="width:65px;">&nbsp;</td>
+					<td style="width:auto;">&nbsp;</td>
+					<td style="width:94px;">&nbsp;</td>
+					<td style="width:92px;">&nbsp;</td>
+					<td style="width:97px;">&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>

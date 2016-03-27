@@ -7,7 +7,7 @@
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Client Name', 'class' => 'form-control'])  !!} 
 </div>
-{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::submit('Search', ['class' => 'btn btn-success'])  !!}
 {!!  Form::close() !!}
 
 {!!  Form::open(['route' => ['collectibles.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
@@ -31,6 +31,7 @@
 			<th>Delivered</th>
 			<th>Check on Hand</th>
 			<th>Total Amount Due </th>
+			<th class="sorttable_nosort"></th>
 		</tr>
 	</thead>
 	
@@ -45,7 +46,7 @@
 			<td>{{ $delivered[$client->id] }}</td>
 			<td>{{ $check[$client->id] }}</td>
 			<td>{{ $salesinvoiceTotal[$client->id] }}</td>
-			<td><a href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
+			<td><a class="btn btn-info" href="{{ action ('CollectionLogsController@index', [$client->id]) }}">View</a></td>
 		</tr>
 		@endif
 		@endforeach

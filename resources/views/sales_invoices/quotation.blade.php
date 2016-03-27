@@ -129,7 +129,7 @@
 </div>
 
 <button type="button" id="addItem" class="btn btn-primary">Add Item</button><br><br>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Exit</button>
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Exit</button>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -141,20 +141,23 @@
           <p>Are you sure you want to exit the invoice process? This will discard all changes made.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-          <a href="{{ action ('SalesInvoicesController@index') }}">
-            <button type="button" class="btn btn-danger">Yes</button>
+          <a href="{{ action ('SalesInvoicesController@index') }}" id="positiveBtn">
+            <button class="btn btn-danger">Yes</button>
           </a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
         </div>
         
       </div>
     </div>
   </div>
 
-<button type="submit" class="btn btn-primary" id="generateInvoice" disabled="disabled">Generate Sales Invoice</button>
+<button type="submit" class="btn btn-success" id="generateInvoice" disabled="disabled">Generate Sales Invoice</button>
 {!! Form::close() !!}
 
 <script>
+jQuery.noConflict();
+
+jQuery( document ).ready(function( $ ) {
 
   $("select option[value='']").attr("style", "display:none");
   $("select option[value='']").attr("disabled", "disabled");
@@ -278,14 +281,17 @@
       var supplierChange = "." + newName2;
       var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
       $(supplierChange).text(suppliers[searcher]);
+      var supplierChange2 = "." + newName30;
+      var suppliers2 = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+      $(supplierChange2).text(suppliers2[searcher]);
     });
 
     //ITEM
     var caster2 = "." + newName5;
-    // console.log($(caster2));
-    // $(caster2).select2({
-    //   placeholder: "- Select Item -"
-    // });
+    $(caster2).select2({
+      placeholder: "- Select Item -"
+    });
+
 
     $(caster2).change(function(a){
       var searcher = a.currentTarget.value;
@@ -351,6 +357,9 @@
       var supplierChange = "." + newName7;
       var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
       $(supplierChange).text(suppliers[searcher]);
+      var supplierChange2 = "." + newName31;
+      var suppliers2 = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+      $(supplierChange2).text(suppliers2[searcher]);
     });
 
     var caster4 = "." + newName11;
@@ -359,6 +368,9 @@
       var supplierChange = "." + newName8;
       var suppliers = <?php echo Supplier::all()->lists('payment_terms', 'id') ?>;
       $(supplierChange).text(suppliers[searcher]);
+      var supplierChange2 = "." + newName32;
+      var suppliers2 = <?php echo Supplier::all()->lists('telephone_number', 'id') ?>;
+      $(supplierChange2).text(suppliers2[searcher]);
     });
 
     checkButton();
@@ -370,7 +382,6 @@
 
   });
 
-  //console.log($(".itemChange1"));
   $(".itemChange1").select2({
     placeholder: "- Select Item -"
   });
@@ -615,14 +626,14 @@
   //     console.log($(itemName)[0].value);
   //   }
   // });
-
+});
 </script>
 
 <!-- Modal -->
   <div class="modal fade" id="error-dialog" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header error">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">ERROR</h4>
         </div>
@@ -630,7 +641,7 @@
           <p id="error"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

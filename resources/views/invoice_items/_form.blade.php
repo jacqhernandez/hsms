@@ -1,6 +1,6 @@
 <div>
 	@include('includes.required_errors')
-	<table> 
+	<table id="form-blades"> 
 		<tbody>
 			<tr>
 				<td>{!! Form::label('item_id', 'Item: ') !!}</td>
@@ -13,7 +13,7 @@
 			
 			<tr>
 				<td> {!! Form::label('unit_price', 'Price Per Unit: ') !!}</td>
-				<td> {!! Form::input('number', 'unit_price', old('unit_price'), array('step' => '0.01', 'class' => 'span7')) !!} </td>
+				<td> {!! Form::input('number', 'unit_price', old('unit_price'), array('step' => '0.01', 'class' => 'span7 form-control')) !!} </td>
 			</tr>
 		</tbody> 
 	</table>

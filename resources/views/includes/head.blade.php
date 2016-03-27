@@ -9,9 +9,9 @@
 
     <script src="{{ URL::asset('/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
-    <script src="{{ URL::asset('/bower_components/select2-4.0.2-rc.1/dist/js/select2.js')}}"></script>
+    <script src="{{ URL::asset('/bower_components/select/dist/js/select2.min.js')}}"></script>
 
-    <link href="{{ URL::asset('/bower_components/select2-4.0.2-rc.1/dist/css/select2.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('/bower_components/select/dist/css/select2.min.css')}}" rel="stylesheet">
 
     <!-- <link href="{{ URL::asset('/bower_components/jquery/dist/jquery.min.js')}}" rel="script"> -->
 <!-- Latest compiled and minified CSS -->

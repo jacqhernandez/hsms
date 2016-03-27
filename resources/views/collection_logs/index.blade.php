@@ -1,21 +1,21 @@
 @extends('layouts.app')
 @section('content')
 <br>
-<h1> {{ $client->name }} </h1>
-<h2>Sales Invoices: {{$delivered}} Delivered, {{$overdue}} Overdue, {{$check}} Check on Hand</h2>
+<h2> {{ $client->name }} </h2><hr>
+<h3>Sales Invoices: {{$delivered}} Delivered, {{$overdue}} Overdue, {{$check}} Check on Hand</h3>
 <hr>
 @include('flash::message')
 <table>
 	<td>
 	{!! Form::open(['route' => ['collectibles.generate_pdf', $client->id], 'method' => 'get', 'target'=>'_blank']) !!}
-	<button class="btn btn-success">Generate SOA</button>
+	<button class="btn btn-success"><i class="glyphicon glyphicon-flash"></i> Generate SOA</button>
 	{!! Form::close() !!}
 	</td>		
 	<td> &nbsp; &nbsp; &nbsp;
 	</td>
 	<td>
 	{!! Form::open(['route' => ['collectibles.email_pdf', $client->id], 'method' => 'get' ]) !!}
-	<button class="btn btn-warning">Email SOA</button>
+	<button class="btn btn-warning"><i class="glyphicon glyphicon-envelope"></i> Email SOA</button>
 	{!! Form::close() !!}
 	</td>
 </table>
@@ -198,7 +198,8 @@ function confirmDelete()
 	return false;
 }
 </script>
-<h1>Collection Logs for {{ $client->name }}</h1>
+<br><br>
+<h2>Collection Logs for {{ $client->name }}</h2><hr>
 <table class="table table-hover sortable"> 
 	<thead>
 		<tr>
@@ -247,7 +248,7 @@ function confirmDelete()
 			@if ($cLog->status == 'To Do')
 			<td>
 				{!! Form::open(['route' => ['collectibles.collection_logs.edit', $client->id, $cLog->id], 'method' => 'get' ]) !!}
-				{!! Form::button('Perform Action', ['type' => 'submit', 'class' => 'btn']) !!}
+				{!! Form::button('Perform Action', ['type' => 'submit', 'class' => 'btn btn-action']) !!}
 				{!! Form::close() !!}
 			</td>
 			@else

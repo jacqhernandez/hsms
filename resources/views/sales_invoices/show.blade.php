@@ -101,11 +101,10 @@
 		</div>
 	<table class="button-tables">
 	<tr>
-
 	@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 	<td>
 		{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get', 'target' => '_blank' ]) !!}
-			<button class="btn btn-success">Print Invoice</button>
+			<button class="btn btn-success">Print Sales Invoice</button>
 		{!! Form::close() !!}	
 	</td>
 
@@ -116,19 +115,19 @@
 	</td>
 	@endif
 	<td>
-		<a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}"><button class="btn btn-primary">PO Guide</button></a>
+		<a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}"><button class="btn btn-primary">View PO Guide</button></a>
 	</td>
 	@if (Auth::user()['role'] == 'General Manager')
 	<td>
 		{!! Form::open(['route' => ['invoices.edit', $sales_invoice->id], 'method' => 'get' ]) !!}
-			<button class="btn btn-warning">Edit</button>
+			<button class="btn btn-warning">Edit Sales Invoice</button>
 		{!! Form::close() !!}		
 	</td>
 	<td>
 		{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id' => 'delete' ]) !!}
 			<?php echo"
 						<button id='btndelete' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete'>
-								Delete
+								Delete Sales Invoice
 	    			</button>" ?>
 					<?php echo'
 						<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>
@@ -137,16 +136,23 @@
 		{!! Form::close() !!}
 	</td>
 	@endif
-
-	<td>
-	<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>	
-	</td>
+	
+	<tr>
 	@if (Auth::user()['role'] != 'Sales')
-	{
 		<td>
-		<a href="{{ action ('CollectionLogsController@index', $sales_invoice->client_id) }}"><button type="button" class="btn btn-info">Back to Collection Log</button></a>	
+		<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>	
 		</td>
-	}
+
+
+		@if (Auth::user()['role'] != 'Sales')
+		{
+			<td>
+			<a href="{{ action ('CollectionLogsController@index', $sales_invoice->client_id) }}"><button type="button" class="btn btn-info">Back to Collection Log</button></a>	
+			</td>
+		}
+		@endif
+	</tr>
+
 	@endif
 	</table>
 		

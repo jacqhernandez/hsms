@@ -5,7 +5,7 @@
 <hr>
 
 {!! Form::open(['route' => ['reports.generate'], 'method' => 'post' ]) !!}
-<table>
+<table id="form-blades">
 	<tbody>
 		<tr>
 			<td>{!! Form::label('report_type', 'Report Type: ') !!}</td>
@@ -46,7 +46,7 @@
 
 <br>
 	<div class = "submit">
-		{!! Form::submit('Generate', ['class' => 'btn btn-primary', 'id' => 'mySubmit']) !!}
+		{!! Form::submit('Generate', ['class' => 'btn btn-success', 'id' => 'mySubmit']) !!}
 		<!-- <a href="{{ action ('ReportsController@generate') }}"><button type="button" class="btn btn-info">Generate</button></a> -->
 	</div>
 {!! Form::close() !!}

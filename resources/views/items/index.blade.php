@@ -8,7 +8,7 @@
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Item Name or Description', 'class' => 'form-control'])  !!} 
 </div>
-{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::submit('Search', ['class' => 'btn btn-success'])  !!}
 {!!  Form::close() !!}
 
 <br><br>
@@ -18,6 +18,8 @@
 			<th>Name</th>
 			<th>Unit</th>
 			<th>Description</th>
+			<th class="sorttable_nosort"></th>
+			<th class="sorttable_nosort"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,7 +45,7 @@
 			@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Accounting') 
 				<td>
 					{!! Form::open(['route' => ['items.edit', $item->id], 'method' => 'get' ]) !!}
-					{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
+					{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn btn-warning']) !!}
 					{!! Form::close() !!}
 				</td>
 			@endif

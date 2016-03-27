@@ -104,7 +104,7 @@
 </div>
 <br>
 
- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Exit</button>
+ <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Exit</button>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -116,10 +116,10 @@
           <p>Are you sure you want to exit the finish invoice process? This will revert the invoice to a draft.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-          <a href="{{ action ('SalesInvoicesController@index') }}">
+          <a href="{{ action ('SalesInvoicesController@index') }}"  id="positiveBtn">
             <button type="button" class="btn btn-danger">Yes</button>
           </a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
         </div>
         
       </div>

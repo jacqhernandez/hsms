@@ -33,3 +33,41 @@ input[type=number]::-webkit-outer-spin-button {
  {
  	padding:5px;
  }
+
+ .modal-header.error
+ {
+    background: pink;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #D9534F;
+    color: #fff;
+    font-weight:strong;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+ }
+
+ #form-blades td{
+    padding: 10px;
+ }
+
+ #positiveBtn{
+    text-decoration: none;
+ }
+
+ .poguide-strong{
+    font-weight: bold;
+ }
+
+ .btn-action{
+    background: #4C2882;
+    color: #fff;
+ }
+
+ .btn-action:hover, .btn-action:visited{
+    background: #9F00FF;
+    color: #fff;
+ }

@@ -8,7 +8,7 @@
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'SI Number or Client Name', 'class' => 'form-control'])  !!} 
 </div>
-{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::submit('Search', ['class' => 'btn btn-success'])  !!}
 {!!  Form::close() !!}
 
 {!!  Form::open(['route' => ['invoices.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
@@ -43,6 +43,9 @@
 			<th>Total Amount</th>
 			<th>Payment Terms</th>
 			<th>Status</th>
+			<th class="sorttable_nosort">&nbsp;</th>
+			<th class="sorttable_nosort">&nbsp;</th>
+			<th class="sorttable_nosort">&nbsp;</th>
 		</tr>
 	</thead>
 	
@@ -59,9 +62,23 @@
 			<td>{{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
 			<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			<td>{{ $sales_invoice->status }}</td>
-			<td>@if ($sales_invoice->status === "Draft") <a href="{{ action ('SalesInvoicesController@make', [$sales_invoice->id]) }}">Finish</a>
-				@else <a href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}">View</a> @endif </td>
-			<td>@if ($sales_invoice->status !== "Draft" && Auth::user()['role'] != 'Accounting') <a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a>@endif</td>
+
+			<td>@if ($sales_invoice->status === "Draft") <a class="btn btn-info" href="{{ action ('SalesInvoicesController@make', [$sales_invoice->id]) }}">Finish</a>
+					@if (Auth::user()['role'] == "General Manager")
+						{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
+								<?php echo"<td>
+										<a id='btndelete' data-toggle='modal' data-target='#confirmDelete' class='btn btn-danger'>
+												Delete
+					    			</a> </td>" ?>
+									<?php echo'
+										<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>
+					  				@include('includes.delete_confirm')
+									<?php echo '</div>' ?>
+						{!! Form::close() !!}
+					@endif
+				@else <a href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}" class="btn btn-info">View</a> @endif </td>
+			<td>@if ($sales_invoice->status !== "Draft" && Auth::user()['role'] != 'Accounting') <a class="btn btn-primary" href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a>@endif</td>
+
 			<td>@if (Auth::user()['role'] == 'Sales')
 					@if ($sales_invoice->status === "Pending" )
 							<button type="button" id="confirmDelivery" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">@if ($sales_invoice->Client->payment_terms == 'PDC') PDC Acquired @else Confirm Delivery @endif</button>
@@ -94,7 +111,7 @@
 							</div>
 					@endif
 				@elseif (Auth::user()['role'] == 'General Manager' && $sales_invoice->status != "Draft")
-					 	<a href="{{ action ('SalesInvoicesController@editStatus', [$sales_invoice->id]) }}">Update Status</a>
+					 	<a class="btn btn-warning" href="{{ action ('SalesInvoicesController@editStatus', [$sales_invoice->id]) }}">Update Status</a>
 				@else 
 					@if ($sales_invoice->status == "Delivered" || $sales_invoice->status == "Check on Hand" )
 							<button type="button" id="confirmCollection" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">Confirm Collection</button>
@@ -138,7 +155,7 @@
 
 <?php echo $sales_invoices->render(); ?>
 @if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
-	<a href="{{ action('SalesInvoicesController@quotation') }}"><button type="button" class="btn btn-primary">New Sales Invoice</button></a>
+	<br><a href="{{ action('SalesInvoicesController@quotation') }}"><button type="button" class="btn btn-primary">New Sales Invoice</button></a><br><br>
 @endif
 
 @stop

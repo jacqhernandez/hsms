@@ -8,7 +8,7 @@
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Supplier or Item', 'class' => 'form-control'])  !!} 
 </div>
-{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::submit('Search', ['class' => 'btn btn-success'])  !!}
 {!!  Form::close() !!}
 
 <br><br>
@@ -20,6 +20,8 @@
 			<th>Price</th>
 			<th>Stock Available?</th>
 			<th>Last Updated Date</th>
+			<th class="sorttable_nosort"></th>
+			<th class="sorttable_nosort"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,11 +37,6 @@
 			@endif
 			<td>{{ $log->date }}</td>
 			<td>
-				{!! Form::open(['route' => ['price_logs.edit', $log->id], 'method' => 'get' ]) !!}
-				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
-				{!! Form::close() !!}
-			</td>
-			<td>
 				{!! Form::open(['route' => ['price_logs.destroy', $log->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
 					<?php echo"
 					<button id='btndelete".$log->id."' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete".$log->id."'>
@@ -51,12 +48,17 @@
 					<?php echo '</div>' ?>
 				{!! Form::close() !!}
 			</td>
+			<td>
+				{!! Form::open(['route' => ['price_logs.edit', $log->id], 'method' => 'get' ]) !!}
+				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn btn-warning']) !!}
+				{!! Form::close() !!}
+			</td>
 		</tr>
 		@endforeach
 	</tbody> 
 </table>
 <?php echo $price_logs->render(); ?>
 @if (Auth::user()['role'] == 'General Manager')
-	<a href="{{ url('/price_logs/create') }}" class="btn btn-primary">New Price Log</a>
+	<br><a href="{{ url('/price_logs/create') }}" class="btn btn-primary">New Price Log</a><br><br>
 @endif
 @stop

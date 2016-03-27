@@ -53,7 +53,7 @@
 
                         @if (Auth::user()['role'] === 'Accounting')
                         <li>
-                            <a href="{{url::action('CollectiblesController@index')}}"><i class="glyphicon glyphicon-rub"></i> Collectibles</a>
+                            <a href="{{url::action('CollectiblesController@index')}}"><i class="glyphicon glyphicon-certificate"></i> Collectibles</a>
                         </li>
                         @endif
 
@@ -68,7 +68,7 @@
                             <a href="{{url::action('SuppliersController@index')}}"><i class="glyphicon glyphicon-wrench"></i> Suppliers</a>
                         </li>
                         <li>
-                            <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-paperclip"></i> Items</a>
+                            <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-th-list"></i> Items</a>
                         </li>
                         @endif
 
@@ -83,33 +83,33 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Admin Maintenance<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="{{url::action('SalesInvoicesController@index')}}">Sales Invoices</a>
+                                        <a href="{{url::action('SalesInvoicesController@index')}}"><i class="glyphicon glyphicon-equalizer"></i> Sales Invoices</a>
                                     </li>
                                     <li>
-                                        <a href="{{url::action('CollectiblesController@index')}}">Collectibles</a>
+                                        <a href="{{url::action('CollectiblesController@index')}}"><i class="glyphicon glyphicon-certificate"></i> Collectibles</a>
                                     </li>
                                     <li>
-                                        <a href="{{url::action('ClientsController@index')}}">Clients</a>
+                                        <a href="{{url::action('ClientsController@index')}}"><i class="glyphicon glyphicon-user"></i> Clients</a>
                                     </li>
                                     <li>
-                                        <a href="{{url::action('SuppliersController@index')}}">Suppliers</a>
+                                        <a href="{{url::action('SuppliersController@index')}}"><i class="glyphicon glyphicon-wrench"></i> Suppliers</a>
                                     </li>
                                     <li>
-                                        <a href="{{url::action('ReasonsController@index')}}">Reasons</a>
+                                        <a href="{{url::action('ReasonsController@index')}}"><i class="glyphicon glyphicon-bullhorn"></i> Reasons</a>
                                     </li>
                                     <li>
-                                        <a href="{{url::action('ItemsController@index')}}">Items</a>
+                                        <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-th-list"></i> Items</a>
                                     </li>
                                     <li>
-                                        <a href="{{url::action('UsersController@index')}}">Users</a>
+                                        <a href="{{url::action('UsersController@index')}}"><i class="glyphicon glyphicon-magnet"></i> Users</a>
                                     </li>
                                     @if (Auth::user()['role'] == 'General Manager')
                                         <li>
-                                            <a href="{{url::action('LogsController@index')}}">Activity Log</a>
+                                            <a href="{{url::action('LogsController@index')}}"><i class="glyphicon glyphicon-transfer"></i> Activity Log</a>
                                         </li>
                                     @endif
                                     <li>
-                                        <a href="{{url::action('PriceLogsController@index')}}">Price Log</a>
+                                        <a href="{{url::action('PriceLogsController@index')}}"><i class="glyphicon glyphicon-rub"></i> Price Log</a>
                                     </li>
 							</ul>
 						</li>

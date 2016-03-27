@@ -174,6 +174,8 @@ class SalesInvoicesController extends Controller
             $statusOptions['Delivered'] = "Delivered";
             $statusOptions['Check on Hand'] = "Check on Hand";
             $statusOptions['Collected'] = "Collected";
+            $statusOptions['Overdue'] = "Overdue";
+            $statusOptions['Cancelled'] = "Cancelled";
         $clientOptions = Client::all()->lists('name', 'id');
         $items = SalesInvoice::find($id)->InvoiceItems;
         $salesId = $id;
@@ -183,9 +185,9 @@ class SalesInvoicesController extends Controller
     public function editStatus($id)
     {
         $sales_invoice = SalesInvoice::find($id);
-        if ($sales_invoice->status === "Overdue"){
-            return redirect()->action('SalesInvoicesController@index');
-        }
+        // if ($sales_invoice->status === "Overdue"){
+        //     return redirect()->action('SalesInvoicesController@index');
+        // }
         return view('sales_invoices.edit_status',compact('sales_invoice'));
     }
 
@@ -335,7 +337,7 @@ class SalesInvoicesController extends Controller
 
         if ($creditOutput > $salesInvoice->Client->credit_limit ){
             Flash::error('Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
 
         $salesInvoice->update([

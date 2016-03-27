@@ -7,71 +7,73 @@
 	use App\Supplier;
 ?>
 
-<h2>Edit Sales Invoice</h2>
+<h2>Edit Sales Invoice</h2><hr>
 {!! Form::open(array('method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id])) !!}
 	<!-- {!! Form::model($sales_invoice, ['method' => 'PATCH', 'action' => ['SalesInvoicesController@update', $sales_invoice->id]]) !!}
-	 --><table> 
+	 --><table id="form-blades"> 
 		@include('includes.required_errors')
 		<tbody>
 			<tr>
 				<td> {!! Form::label('si_no', 'Invoice Number: ') !!}</td>
-				<td> {!! Form::text('si_no', old('si_no'), ['class' => 'span7']) !!} </td>
+				<td> {!! Form::text('si_no', old('si_no'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>	
 
 			<tr>
 				<td>{!! Form::label('client_id', 'Client: ') !!}</td>
-				<td>{!! Form::select('client_id', $clientOptions, Input::old('client_id')) !!}</td>
+				<td>{!! Form::select('client_id', $clientOptions, Input::old('client_id'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 			
 			<tr>
 				<td> {!! Form::label('po_number', 'PO Number: ') !!}</td>
-				<td> {!! Form::text('po_number', old('po_number'), ['class' => 'span7']) !!} </td>
+				<td> {!! Form::text('po_number', old('po_number'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>	
 			
 			<tr>
 				<td> {!! Form::label('dr_number', 'DR Number: ') !!} </td>
-				<td> {!! Form::text('dr_number', old('dr_number')) !!}</td>
+				<td> {!! Form::text('dr_number', old('dr_number'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 						
 			<tr>
 				<td> {!! Form::label('due_date', 'Due Date: ') !!} </td>
-				<td> {!! Form::date('due_date', old('due_date')) !!}</td>
+				<td> {!! Form::date('due_date', old('due_date'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
 			<tr>
 				<td>{!! Form::label('status', 'Status: ') !!}</td>
-				<td>{!! Form::select('status', $statusOptions, Input::old('status')) !!}</td>
+				<td>{!! Form::select('status', $statusOptions, Input::old('status'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
 			<tr>
 				<td> {!! Form::label('date_delivered', 'Date Delivered: ') !!} </td>
-				<td> {!! Form::date('date_delivered', old('date_delivered')) !!}</td>
+				<td> {!! Form::date('date_delivered', old('date_delivered'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
 			<tr>
 				<td> {!! Form::label('date_collected', 'Date Collected: ') !!} </td>
-				<td> {!! Form::date('date_collected', old('date_collected')) !!}</td>
+				<td> {!! Form::date('date_collected', old('date_collected'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
 			<tr>
 				<td> {!! Form::label('or_number', 'OR Number: ') !!}</td>
-				<td> {!! Form::text('or_number', old('or_number'), ['class' => 'span7']) !!} </td>
+				<td> {!! Form::text('or_number', old('or_number'), ['class' => 'span7 form-control']) !!} </td>
 			</tr>
 			<tr>
 				<th>Total Amount: </th>
 				<td>Php {{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
 			</tr>		
 
+			<tr>
+				<td colspan=2><div class="submit" style="float:right;">@include('includes.update_confirm')</div></td>
+			</tr>
+
 		</tbody> 
 	</table>
 
-	<div class = "submit">
-			@include('includes.update_confirm')
-	</div>
-
 	{!! Form::close() !!}
 
-	<h3>Item List</h3>
+	<hr>
+	<br>
+	<h3>Item List</h3><hr>
 		<div class="table-responsive">
 			<table class="table table-striped">
 			<thead>
@@ -93,7 +95,7 @@
 					<td>Php {{ number_format($item->unit_price, 2, '.', ',') }}</td>
 					<td>Php {{ number_format($item->total_price, 2, '.', ',') }}</td>
 					<td><a href="{{ action ('InvoiceItemsController@edit', [$item->id]) }}">
-						 <button type="button" class="btn btn-primary">Edit Entry</button></a>
+						 <button type="button" class="btn btn-warning">Edit Entry</button></a>
 					@if (count($items) > 1)
 						{!! Form::open(['route' => ['invoiceitems.destroy', $item->id], 'method' => 'delete']) !!}
 								<button type="submit" class="btn btn-danger">Delete Entry</button>
@@ -133,12 +135,14 @@
 				</tr>
 				@endforeach
 			</tbody> 
-			<a href="{{ action ('InvoiceItemsController@addItem', [$sales_invoice->id]) }}">
-				<button type="button" class="btn btn-primary">New Entry</button></a>
 			</table>
+
+			<a href="{{ action ('InvoiceItemsController@addItem', [$sales_invoice->id]) }}">
+				<button type="button" class="btn btn-primary">New Entry for Item List</button>
+			</a>
 		</div>
 	
 	<br>
 	
-	<a href="{{action ('SalesInvoicesController@show', [$sales_invoice->id])}}"><button type="button" class="btn btn-info">Back </button></a>
+	<a href="{{action ('SalesInvoicesController@show', [$sales_invoice->id])}}"><button type="button" class="btn btn-info">Back to View Sales Invoice </button></a>
 @stop

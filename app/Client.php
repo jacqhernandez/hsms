@@ -28,6 +28,7 @@ class Client extends Model implements LogsActivityInterface
 		'status',
 		'payment_terms',
 		'vat_exempt',
+		'customer_id',
 		'user_id'		
 	];
 	public function User()
