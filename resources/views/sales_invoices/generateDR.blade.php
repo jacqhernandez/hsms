@@ -147,7 +147,7 @@
 	<table class="table2">
 			<tr>
 				<td style="width:75px;  visibility:hidden;">Delivered to: </td>
-				<td style="font-size:11pt; text-indent:45px;">{{ $sales_invoice->Client->name }} YE<?php echo sprintf("%03d", $sales_invoice->Client->id)?></td>
+				<td style="font-size:11pt; text-indent:45px;">{{ $sales_invoice->Client->name }}</td>
 
 			</tr>
 	</table>

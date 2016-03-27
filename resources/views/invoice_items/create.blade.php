@@ -2,6 +2,7 @@
 @section('content')
 
 <h2>Add to Item List</h2>
+<hr>
 
 	{!! Form::open(['route' => ['invoices.newItem'], 'method' => 'post' ]) !!}
 	@include('invoice_items._form')

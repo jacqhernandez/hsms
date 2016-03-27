@@ -104,7 +104,7 @@
 </div>
 <br>
 
- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Exit</button>
+ <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Exit</button>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">

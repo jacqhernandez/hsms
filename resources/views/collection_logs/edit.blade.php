@@ -6,16 +6,16 @@
 
 	<div>
 	@include('includes.required_errors')
-	<table> 
+	<table id="form-blades"> 
 		<tbody>
 			<tr>
-				<td>Date: </td>
+				<td class="poguide-strong">Date: </td>
 
 				<td>{{$date}}</td> 
 			</tr>
 
 			<tr>
-				<td>Action: </td>
+				<td class="poguide-strong">Action: </td>
 				<td> {{$cLog->action }} </td>
 			</tr>
 
@@ -23,7 +23,7 @@
 				<td>{!! Form::label('reasonslbl', 'Reason:') !!}</td>
 				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason'), ['class' => 'span7, form-control']) !!}</td>
 				<td>
-					<a href="{{ url('/reasons/create') }}">Add Reason</a>
+					<a class="btn btn-primary" href="{{ url('/reasons/create') }}">Add Reason</a>
 				</td>
 			</tr>	
 
@@ -33,6 +33,7 @@
 			</tr>
 		</tbody> 
 	</table>
+	<br><br>
 	<table class="table table-hover sortable">
 		<thead>
 			<tr>
@@ -58,7 +59,7 @@
 	<br>
 	{!! Form::hidden('client_id', $id) !!}
 	<div class = "submit">
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		{!! Form::submit('Submit', ['class' => 'btn btn-success']) !!}
 		<a href="{{ action ('CollectionLogsController@index', $id ) }}"><button type="button" class="btn btn-info">Back to Collection Logs</button></a>
 	</div>
 </div>

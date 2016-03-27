@@ -8,24 +8,25 @@
 		<table class="table">
 			<tbody>
 				<tr>
-					<td>Invoice: </td>
+					<td class="poguide-strong">Invoice: </td>
 					<td>{{ $sales_invoice['si_no'] }}</td>
 				</tr>
 
 				<tr>
-					<td>Client: </td>
+					<td class="poguide-strong">Client: </td>
 					<td>{{ $sales_invoice->Client->name }}</td>
 				</tr>
 				
 				<tr>
-					<td>Payment Terms: </td>
+					<td class="poguide-strong">Payment Terms: </td>
 					<td>{{ $sales_invoice->Client->payment_terms }}</td>
 				</tr>
 			</tbody>
 		</table>
 
 		@foreach($sales_invoice->InvoiceItems as $invoice_item)
-		<h3>{{ $invoice_item->Item->name }}</h3>
+		<br>
+		<h3>{{ $invoice_item->Item->name }}</h3><hr>
 		<table class="table table-hover sortable"> 
 			<thead>
 				<tr>
@@ -66,7 +67,7 @@
 			</td>
 			@endif
 			<td>
-					<a href="{{ action('SalesInvoicesController@show',[$sales_invoice->id]) }}"><button type="button" class="btn btn-info">Back to Invoice</button>
+					<a id="positiveBtn" href="{{ action('SalesInvoicesController@show',[$sales_invoice->id]) }}">&nbsp;<button type="button" class="btn btn-info">Back to Invoice</button>
 			</td>
 		</tr>
 						

@@ -61,8 +61,8 @@
 			<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			<td>{{ $sales_invoice->status }}</td>
 			<td>@if ($sales_invoice->status === "Draft") <a class="btn btn-info" href="{{ action ('SalesInvoicesController@make', [$sales_invoice->id]) }}">Finish</a>
-				@else <a href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}">View</a> @endif </td>
-			<td>@if ($sales_invoice->status !== "Draft" && Auth::user()['role'] != 'Accounting') <a href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a>@endif</td>
+				@else <a class="btn btn-info" href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}">View</a> @endif </td>
+			<td>@if ($sales_invoice->status !== "Draft" && Auth::user()['role'] != 'Accounting') <a class="btn btn-primary" href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a>@endif</td>
 			<td>@if (Auth::user()['role'] == 'Sales')
 					@if ($sales_invoice->status === "Pending" )
 							<button type="button" id="confirmDelivery" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">@if ($sales_invoice->Client->payment_terms == 'PDC') PDC Acquired @else Confirm Delivery @endif</button>
@@ -95,7 +95,7 @@
 							</div>
 					@endif
 				@elseif (Auth::user()['role'] == 'General Manager' && $sales_invoice->status != "Draft")
-					 	<a href="{{ action ('SalesInvoicesController@editStatus', [$sales_invoice->id]) }}">Update Status</a>
+					 	<a class="btn btn-warning" href="{{ action ('SalesInvoicesController@editStatus', [$sales_invoice->id]) }}">Update Status</a>
 				@else 
 					@if ($sales_invoice->status == "Delivered" || $sales_invoice->status == "Check on Hand" )
 							<button type="button" id="confirmCollection" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">Confirm Collection</button>

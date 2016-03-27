@@ -57,3 +57,17 @@ input[type=number]::-webkit-outer-spin-button {
  #positiveBtn{
     text-decoration: none;
  }
+
+ .poguide-strong{
+    font-weight: bold;
+ }
+
+ .btn-action{
+    background: #4C2882;
+    color: #fff;
+ }
+
+ .btn-action:hover, .btn-action:visited{
+    background: #9F00FF;
+    color: #fff;
+ }
