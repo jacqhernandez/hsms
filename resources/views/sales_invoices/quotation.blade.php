@@ -622,7 +622,7 @@
   <div class="modal fade" id="error-dialog" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header error">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">ERROR</h4>
         </div>
@@ -630,7 +630,7 @@
           <p id="error"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

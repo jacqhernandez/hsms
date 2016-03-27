@@ -116,6 +116,9 @@
 
 		td{
 			border: none;
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space:nowrap;
 		}
 	</style>
 </head>
@@ -181,9 +184,9 @@
 	<!-- Customer ID | PO Number | Payment Terms -->
 	<table class="table" style="text-align:center;">
 			<tr style="font-size: 11pt;  visibility:hidden;">
-				<td style="width:208px;">Customer ID</td>
+				<td style="width:227px;">Customer ID</td>
 				<td style="width:auto; ">PO Number</td>
-				<td style="width:208px;">Payment Terms</td>
+				<td style="width:227px;">Payment Terms</td>
 			</tr>
 			<tr>
 				<td>{{ $sales_invoice->Client->customer_id }}</td>

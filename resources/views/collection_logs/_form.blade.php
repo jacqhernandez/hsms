@@ -1,10 +1,10 @@
 <div>
 	@include('includes.required_errors')
-	<table> 
+	<table id="form-blades"> 
 		<tbody>
 			<tr>
 				<td>{!! Form::label('date', 'Date:', ['class' => 'required-field']) !!}</td>
-				<td> {!! Form::date('date', old('date'), ['class' => 'span7']) !!} </td>
+				<td> {!! Form::date('date', old('date'), ['class' => 'span7, form-control']) !!} </td>
 			</tr>
 
 			<tr>

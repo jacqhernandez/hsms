@@ -1,6 +1,6 @@
 <div>
 	@include('includes.required_errors')
-	<table> 
+	<table id="form-blades"> 
 		<tbody>
 			<tr>
 				<td> {!! Form::label('name', 'Name: ', ['class' => 'required-field']) !!}</td>
