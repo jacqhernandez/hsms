@@ -45,9 +45,11 @@
 
 
     <!-- bootstrap Date Picker -->
-    
     <script src="{{ URL::asset('/bower_components/moment/min/moment.min.js')}}"></script>
     <script src="{{ URL::asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
+
+    <!-- Text Fill -->
+    <script src="{{ URL::asset('/js/jquery.textfill.min.js')}}"></script>
 
 </body>
 </html>
