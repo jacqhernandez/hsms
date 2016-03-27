@@ -554,7 +554,7 @@ jQuery( document ).ready(function( $ ) {
       }
       
       for (var i = 1; i < rowCounter; i++) {
-        if ($(".lastUpdated" + i).text() != null) {
+        if ($(".lastUpdated" + i).text() != '') {
           var a = new Date($(".lastUpdated" + i).text());
           if (getDateDiff(a) > diff) {
             if ($(".itemPrice" + i).val() == 0) {
@@ -562,6 +562,9 @@ jQuery( document ).ready(function( $ ) {
               errorMessage += " The 1st price log in Item Row number " + i + " needs to be updated.<br>";
             }
           }
+        } else if ($(".itemPrice" + i).val() == 0) {
+          valid = false;
+          errorMessage += "You need to have at least one updated price to create the sales invoice.";
         }
         if ($(".lastUpdatedB" + i).text() != null) {
           var a = new Date($(".lastUpdatedB" + i).text());
@@ -588,7 +591,7 @@ jQuery( document ).ready(function( $ ) {
         e.preventDefault();
         //alert(errorMessage);
         document.getElementById("error").innerHTML = errorMessage;
-        $("#error-dialog").modal("show");
+        jQuery("#error-dialog").modal("show");
       }
     });
   });
