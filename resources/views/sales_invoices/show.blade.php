@@ -101,7 +101,6 @@
 		</div>
 	<table class="button-tables">
 	<tr>
-
 	@if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
 	<td>
 		{!! Form::open(['route' => ['invoices.generate_pdf', $sales_invoice->id], 'method' => 'get', 'target' => '_blank' ]) !!}
@@ -142,11 +141,9 @@
 	<a href="{{ action ('SalesInvoicesController@index') }}"><button type="button" class="btn btn-info">Back to Invoices</button></a>	
 	</td>
 	@if (Auth::user()['role'] != 'Sales')
-	{
 		<td>
 		<a href="{{ action ('CollectionLogsController@index', $sales_invoice->client_id) }}"><button type="button" class="btn btn-info">Back to Collection Log</button></a>	
 		</td>
-	}
 	@endif
 	</table>
 		
