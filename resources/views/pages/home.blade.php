@@ -34,7 +34,7 @@
 	                    <i class="fa fa-tasks fa-5x"></i>
 	                </div>
 	                <div class="col-xs-9 text-right">
-	                    <div class="huge">{{ '₱' . $currentAmount }}</div>
+	                    <div class="huge">{{ '₱' . $currentAmount }}</div><br>
 	                    <div>{{ $currentCount }} Sale Invoice(s) Collected This Week</div>
 	                </div>
 	            </div>
@@ -59,7 +59,7 @@
                         <i class="fa fa-bank fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ '₱' . $currentCollectibleAmount }}</div>
+                        <div class="huge">{{ '₱' . $currentCollectibleAmount }}</div><br>
                         <div>{{ $currentCollectibleCount }} Sale Invoice(s) Due This Week</div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                         <i class="fa fa-shopping-cart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ '₱' . $upcomingCollectibleAmount }}</div>
+                        <div class="huge">{{ '₱' . $upcomingCollectibleAmount }}</div><br>
                         <div>{{ $upcomingCollectibleCount }} Sale Invoice(s) Due Next Week</div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <i class="fa fa-support fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ '₱' . $overdueCollectibleAmount }}</div>
+                        <div class="huge">{{ '₱' . $overdueCollectibleAmount }}</div><br>
                         <div>{{ $overdueCollectibleCount }} Sale Invoice(s) Overdue</div>
                     </div>
                 </div>

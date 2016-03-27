@@ -8,7 +8,7 @@
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Client Name', 'class' => 'form-control'])  !!} 
 </div>
-{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::submit('Search', ['class' => 'btn btn-success'])  !!}
 {!!  Form::close() !!}
 
 {!!  Form::open(['route' => ['clients.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
@@ -32,6 +32,7 @@
 			<th>Credit Limit</th>
 			<th>Status</th>
 			<th>Sales Employee</th>
+			<th class="sorttable_nosort"></th>
 		</tr>
 	</thead>
 	
@@ -45,7 +46,7 @@
 			<td>{{ $client->credit_limit }}</td>
 			<td>{{ $client->status }}</td>
 			<td>{{ $client->User->username }}</td>
-			<td><a href="{{ action ('ClientsController@show', [$client->id]) }}">View</a></td>
+			<td><a class="btn btn-info" href="{{ action ('ClientsController@show', [$client->id]) }}">View</a></td>
 		</tr>
 		@endforeach
 	</tbody> 

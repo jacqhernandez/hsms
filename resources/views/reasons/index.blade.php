@@ -7,6 +7,8 @@
 	<thead>
 		<tr>
 			<th>Reason</th>
+			<th class="sorttable_nosort"></th>
+			<th class="sorttable_nosort"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,7 +30,7 @@
 			</td>
 			<td>
 				{!! Form::open(['route' => ['reasons.edit', $reason->id], 'method' => 'get' ]) !!}
-				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn']) !!}
+				{!! Form::button('Edit', ['type' => 'submit', 'class' => 'btn btn-warning']) !!}
 				{!! Form::close() !!}
 			</td>
 		@endif

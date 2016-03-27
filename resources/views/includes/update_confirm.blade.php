@@ -1,4 +1,4 @@
-<button id='btnupdate' class='btn btn-primary' type='button' data-toggle='modal' data-target='#confirmUpdate'>
+<button id='btnupdate' class='btn btn-success' type='button' data-toggle='modal' data-target='#confirmUpdate'>
 		Update
 </button>
 <div class="modal fade" id="confirmUpdate" role="dialog" aria-hidden="true">

@@ -8,7 +8,7 @@
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'Supplier Name', 'class' => 'form-control'])  !!} 
 </div>
-{!!  Form::submit('Search', ['class' => 'btn btn-default'])  !!}
+{!!  Form::submit('Search', ['class' => 'btn btn-success'])  !!}
 {!!  Form::close() !!}
 
 <br><br>
@@ -20,6 +20,7 @@
 		<th>Contact Person</th>
 		<th>Terms</th>
 		<th>E-mail</th>
+		<th class="sorttable_nosort"></th>
 	</tr>
 </thead>
 <tbody>
@@ -30,7 +31,7 @@
 		<td>{{ $supplier->contact_person }}</td>
 		<td>{{ $supplier->payment_terms }}</td>
 		<td>{{ $supplier->email }}</td>
-		<td><a href="{{ action ('SuppliersController@show', [$supplier->id]) }}">View</a></td>
+		<td><a class="btn btn-info" href="{{ action ('SuppliersController@show', [$supplier->id]) }}">View</a></td>
 	</tr>
 	@endforeach
 	</tbody>

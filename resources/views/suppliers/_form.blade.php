@@ -63,10 +63,10 @@
                                 <p>Are you sure you want to Cancel?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            <a href="{{ action ('SuppliersController@index') }}">
+                            <a href="{{ action ('SuppliersController@index') }}"  id="positiveBtn">
                                 <button type="button" class="btn btn-danger">Yes</button>
                             </a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 </div>
                 
               </div>

@@ -2,7 +2,7 @@
 @section('content')
 
 {!! Form::model($user, ['method' => 'POST', 'action' => ['UsersController@postUpdateAccount', $user->id], 'class' => 'form_horizontal register']) !!}
-    <h2> Editing {{ $user->username }}'s Account </h2>
+    <h2> Editing {{ $user->username }}'s Account </h2><hr>
 
     @if (count($errors) > 0)
         <div class="alert alert-danger register-danger">
@@ -17,26 +17,26 @@
     <br> <br>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-    <table class = "register-table" cellpadding="5px"> <tbody>
+    <table class = "register-table" id="form-blades" cellpadding="5px"> <tbody>
         <tr>
-            <td align="right">{!! Form::label('username', 'Username:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::label('username', 'Username:', ['class' => 'required-field']) !!}</td>
             <td>{!! Form::text('username',old('username'), ['class' => 'form-control']) !!}</td>
         </tr>
         <tr>
-            <td align="right">{!! Form::label('old_password', 'Old Password:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::label('old_password', 'Old Password:', ['class' => 'required-field']) !!}</td>
             <td>{!! Form::password('old_password', ['class' => 'form-control']) !!}</td>
         </tr>
         <tr>
-            <td align="right">{!! Form::label('password', 'New Password:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::label('password', 'New Password:', ['class' => 'required-field']) !!}</td>
             <td>{!! Form::password('password', ['class' => 'form-control']) !!}</td>
         </tr>
         <tr>
-            <td align="right">{!! Form::label('confirm_new_password', 'Confirm New Password:', ['class' => 'required-field']) !!}</td>
+            <td>{!! Form::label('confirm_new_password', 'Confirm New Password:', ['class' => 'required-field']) !!}</td>
             <td>{!! Form::password('confirm_new_password', ['class' => 'form-control']) !!}</td>
         </tr>
 
         <tr>
-            <td align="right">{!! Form::label('role', 'Role:') !!}</td>
+            <td>{!! Form::label('role', 'Role:') !!}</td>
             <td><select class="form-control" name="role" value={{ old('role') }}>
                 <option value= "General Manager" <?php if($user->role == 'General Manager') {echo("selected");} ?>> 
                     General Manager</option>

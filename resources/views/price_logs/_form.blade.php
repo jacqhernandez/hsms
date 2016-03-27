@@ -31,7 +31,7 @@
 		@if(\Request::route()->getName() == 'price_logs.edit')
 			@include('includes.update_confirm')
 		@else
-			{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+			{!! Form::submit('Submit', ['class' => 'btn btn-success']) !!}
 		@endif
 		<a href="{{ action ('PriceLogsController@index') }}"><button type="button" class="btn btn-info">Back to Price Logs</button></a>
 	</div>
