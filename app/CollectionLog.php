@@ -34,10 +34,10 @@ class CollectionLog extends Model implements LogsActivityInterface
 
     public function getActivityDescriptionForEvent($eventName)
     {
-        if ($eventName == 'created')
-        {
-            return 'Collection Log for client ' . $this->Client->name . ' was created';
-        }
+        // if ($eventName == 'created')
+        // {
+        //     return 'Collection Log for client ' . $this->Client->name . ' was created';
+        // }
 
         // if ($eventName == 'updated')
         // {

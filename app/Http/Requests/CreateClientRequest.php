@@ -33,7 +33,8 @@ class CreateClientRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required',
                     'address' => 'required',
-                    'tin' => 'required|numeric|unique:clients',
+                    //'tin' => 'required|numeric|unique:clients',
+                    'tin' => 'required|numeric',
                     'credit_limit' => 'required'
                 ];
             }
@@ -47,7 +48,8 @@ class CreateClientRequest extends Request
                     'telephone_number' => 'required',
                     'address' => 'required',
                     //'tin' => 'required|numeric|digits:12|unique:clients,id'.$this->get('id'),
-                    'tin' => 'required|numeric|unique:clients,tin,'.$this->segment(2),
+                    //use this --> 'tin' => 'required|numeric|unique:clients,tin,'.$this->segment(2),
+                    'tin' => 'required|numeric',
                     'credit_limit' => 'required'
                     ];
                 }
@@ -57,7 +59,8 @@ class CreateClientRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required',
                     'address' => 'required',
-                    'tin' => 'required|numeric|unique:clients',
+                    //'tin' => 'required|numeric|unique:clients',
+                    'tin' => 'required|numeric',
                     'credit_limit' => 'required'
                     ];
                 }
