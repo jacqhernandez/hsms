@@ -32,8 +32,7 @@ class CreateSupplierRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required|numeric',
                     'address' => 'required',
-                    //'tin' => 'required|numeric|unique:suppliers',
-                    'tin' => 'required|numeric'
+                    'tin' => 'required|numeric|unique:suppliers'
                 ];
             }
             case 'PATCH':
@@ -46,8 +45,7 @@ class CreateSupplierRequest extends Request
                     'telephone_number' => 'required|numeric',
                     'address' => 'required',
                     //'tin' => 'required|numeric|digits:12|unique:suppliers,id'.$this->get('id'),
-                    //use this --> 'tin' => 'required|numeric|unique:suppliers,tin,'.$this->segment(2),
-                    'tin' => 'required|numeric'
+                    'tin' => 'required|numeric|unique:suppliers,tin,'.$this->segment(2),
                     ];
                 }
                 else
@@ -56,8 +54,8 @@ class CreateSupplierRequest extends Request
                     'name' => 'required',
                     'telephone_number' => 'required|numeric',
                     'address' => 'required',
-                    //'tin' => 'required|numeric|unique:suppliers',
-                    'tin' => 'required|numeric'
+                    'tin' => 'required|numeric|unique:suppliers',
+                    //'tin' => 'required|numeric'
                     ];
                 }
             }
