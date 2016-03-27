@@ -120,6 +120,7 @@ class CollectionLogsController extends Controller
         $cLog->client_id = $input['client_id'];
         $cLog->status = $input['status'];
         $cLog->save();
+        Activity::log('Collection Log for Client '. $cLog->Client->name .' was created');
         foreach ($salesinvoice as $key)
         {
             $sicl = new SalesInvoiceCollectionLog;
