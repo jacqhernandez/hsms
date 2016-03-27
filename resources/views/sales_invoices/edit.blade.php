@@ -144,5 +144,5 @@
 	
 	<br>
 	
-	<button type="button" class="btn btn-info" onclick="history.go(-1);">Back to View Sales Invoice </button>
+	<a href="{{action ('SalesInvoicesController@show', [$sales_invoice->id])}}"><button type="button" class="btn btn-info">Back to View Sales Invoice </button></a>
 @stop

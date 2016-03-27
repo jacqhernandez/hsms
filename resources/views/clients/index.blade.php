@@ -15,6 +15,7 @@
 <div class="form-group">
 {!! Form::select('filter', [
 						'' => 'Filter by Status',
+						'All' => 'Show All',
 						'Good' => 'Good',
 						'Blacklisted' => 'Blacklisted'], 
 					 	old('filter'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}

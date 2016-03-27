@@ -6,7 +6,9 @@
 
 {!!  Form::open(['route' => ['logs.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
 <div class="form-group">
-<?php $users[''] = "Filter by User"; ?>
+<?php $users[''] = "Filter by User"; 
+	  $users['All'] = "Show All";	
+		?>
 {!! Form::select('filter', $users,
 					 	old('filter'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
 </div>

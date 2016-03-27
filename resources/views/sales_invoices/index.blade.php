@@ -15,6 +15,7 @@
 <div class="form-group">
 {!! Form::select('filter_status', [
 						'' => 'Filter by Status',
+						'All' => 'Show All',	
 						'Draft' => 'Draft',
 						'Pending' => 'Pending',
 						'Delivered' => 'Delivered',
@@ -26,7 +27,8 @@
 
 {!!  Form::open(['route' => ['invoices.filter'], 'method' => 'get', 'class' => 'navbar-form navbar-right'])  !!}
 <div class="form-group">
-<?php $dates[''] = "Filter by Due Date"; ?>
+<?php $dates[''] = "Filter by Due Date"; 
+	  $dates['All'] = "Show All";	?>
 {!! Form::select('filter_date', $dates,
 					 	old('filter_date'), ['class' => 'form-control', 'onchange' => 'this.form.submit()']) !!}
 </div>
@@ -60,9 +62,23 @@
 			<td>{{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
 			<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			<td>{{ $sales_invoice->status }}</td>
+
 			<td>@if ($sales_invoice->status === "Draft") <a class="btn btn-info" href="{{ action ('SalesInvoicesController@make', [$sales_invoice->id]) }}">Finish</a>
-				@else <a class="btn btn-info" href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}">View</a> @endif </td>
+					@if (Auth::user()['role'] == "General Manager")
+						{!! Form::open(['route' => ['invoices.destroy', $sales_invoice->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
+								<?php echo"<td>
+										<a id='btndelete' data-toggle='modal' data-target='#confirmDelete' class='btn btn-danger'>
+												Delete
+					    			</a> </td>" ?>
+									<?php echo'
+										<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>
+					  				@include('includes.delete_confirm')
+									<?php echo '</div>' ?>
+						{!! Form::close() !!}
+					@endif
+				@else <a href="{{ action ('SalesInvoicesController@show', [$sales_invoice->id]) }}" class="btn btn-info">View</a> @endif </td>
 			<td>@if ($sales_invoice->status !== "Draft" && Auth::user()['role'] != 'Accounting') <a class="btn btn-primary" href="{{ action ('SalesInvoicesController@poGuide', [$sales_invoice->id]) }}">PO Guide</a>@endif</td>
+
 			<td>@if (Auth::user()['role'] == 'Sales')
 					@if ($sales_invoice->status === "Pending" )
 							<button type="button" id="confirmDelivery" class="btn btn-primary" data-toggle="modal" data-target=".modal-hello">@if ($sales_invoice->Client->payment_terms == 'PDC') PDC Acquired @else Confirm Delivery @endif</button>

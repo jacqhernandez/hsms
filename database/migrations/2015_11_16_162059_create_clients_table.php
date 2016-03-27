@@ -18,7 +18,8 @@ class CreateClientsTable extends Migration
 			$table->string('telephone_number');
             $table->string('address');
             $table->string('email');
-			$table->string('tin')->unique();
+            $table->string('tin');
+			// $table->string('tin')->unique();
             $table->string('contact_person');
             $table->string('accounting_contact_person');
             $table->string('accounting_email');
