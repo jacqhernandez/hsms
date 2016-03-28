@@ -27,7 +27,7 @@
 				<td>{!! Form::label('reasonslbl', 'Reason:', ['class' => 'required-field']) !!}</td>
 				<td> {!! Form::select('reason_id', $reasonOptions, Input::old('reason'), ['class' => 'span7, form-control']) !!}</td>
 				<td>
-					<a href="{{ url('/reasons/create') }}">Add Reason</a>
+					<a class="btn btn-primary" href="{{ url('/reasons/create') }}">Add Reason</a>
 				</td>
 			</tr>	
 			<tr>

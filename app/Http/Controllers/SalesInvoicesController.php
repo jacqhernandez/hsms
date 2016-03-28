@@ -336,8 +336,9 @@ class SalesInvoicesController extends Controller
         }
 
         if ($creditOutput > $salesInvoice->Client->credit_limit ){
-            Flash::error('Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
-            return redirect()->back()->withInput();
+            //Flash::error('Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
+            //return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->with('message','Cannot add the invoice, client would exceed the credit limit. The remaining allowable credit is only Php ' . $remaining . '.');
         }
 
         $salesInvoice->update([

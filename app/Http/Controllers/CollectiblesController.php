@@ -32,7 +32,6 @@ class CollectiblesController extends Controller
     {
         if(Auth::user()['role'] == 'Accounting' OR Auth::user()['role'] =='General Manager')
         {
-            $clients = Client::paginate(10);
             $overdue = new SalesInvoice;
             $delivered = new SalesInvoice;
             $check = new SalesInvoice;

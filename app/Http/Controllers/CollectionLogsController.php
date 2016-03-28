@@ -115,7 +115,10 @@ class CollectionLogsController extends Controller
         $cLog->action = $input['action'];
         // $cLog->follow_up_date = $input['follow_up_date'];
         $cLog->note = $input['note'];
-        $cLog->reason_id = $input['reason_id'];
+        if ($input['status'] == 'Done')
+        {
+           $cLog->reason_id = $input['reason_id'];
+        }
         $cLog->user_id = Auth::user()['id'];
         $cLog->client_id = $input['client_id'];
         $cLog->status = $input['status'];
