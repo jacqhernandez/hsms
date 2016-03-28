@@ -207,6 +207,7 @@ class SalesInvoicesController extends Controller
             'si_no' => $input['si_no'],
       		'po_number' => $input['po_number'],
       		'dr_number' => $input['dr_number'],
+            'date' => $input['date'],
             'due_date' => $input['due_date'],
             'status' => $input['status'],
             'date_delivered' => $input['date_delivered'],
@@ -270,7 +271,8 @@ class SalesInvoicesController extends Controller
         // return $thusOf;
         //return redirect()->action('SalesInvoicesController@show',[$id]);
         Activity::log('Sales Invoice '. $sales_invoice['si_no'] .' was updated');
-        return redirect()->action('SalesInvoicesController@index');
+        //return redirect()->action('SalesInvoicesController@index');
+        return redirect()->action('SalesInvoicesController@show',[$id]);
     }
 
     /**

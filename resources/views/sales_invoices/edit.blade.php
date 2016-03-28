@@ -32,7 +32,12 @@
 				<td> {!! Form::label('dr_number', 'DR Number: ') !!} </td>
 				<td> {!! Form::text('dr_number', old('dr_number'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
-						
+				
+			<tr>
+				<td> {!! Form::label('date', 'Date Created: ') !!} </td>
+				<td> {!! Form::date('date', old('date'), ['class' => 'span7 form-control']) !!}</td>
+			</tr>
+
 			<tr>
 				<td> {!! Form::label('due_date', 'Due Date: ') !!} </td>
 				<td> {!! Form::date('due_date', old('due_date'), ['class' => 'span7 form-control']) !!}</td>
