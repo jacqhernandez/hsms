@@ -32,7 +32,7 @@ class CreateSalesInvoiceRequest extends Request
                 return [
                 //
                     'si_no' => 'numeric|unique:sales_invoices',
-                    'po_number' => 'numeric|unique:sales_invoices',
+                    'po_number' => 'unique:sales_invoices',
                     'dr_number' => 'numeric|unique:sales_invoices',
                     'or_number' => 'numeric|unique:sales_invoices'
                 ];
@@ -53,7 +53,7 @@ class CreateSalesInvoiceRequest extends Request
                 }
                 if ($this->get('po_number') == $sales_invoice['po_number'])
                 {
-                    $rules['po_number'] = 'numeric|unique:sales_invoices,po_number,'.$this->segment(2);
+                    $rules['po_number'] = 'unique:sales_invoices,po_number,'.$this->segment(2);
                 }
                 else
                 {
