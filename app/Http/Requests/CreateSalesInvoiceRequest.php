@@ -34,7 +34,7 @@ class CreateSalesInvoiceRequest extends Request
                     'si_no' => 'numeric|unique:sales_invoices',
                     'po_number' => 'unique:sales_invoices',
                     'dr_number' => 'numeric|unique:sales_invoices',
-                    'or_number' => 'numeric|unique:sales_invoices'
+                    'or_number' => 'numeric'
                 ];
             }
             case 'PATCH':
