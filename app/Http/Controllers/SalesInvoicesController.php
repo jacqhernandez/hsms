@@ -560,7 +560,7 @@ class SalesInvoicesController extends Controller
                 'status' => "Good"
             ]);
         }
-        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was delivered');
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was collected');
         return redirect()->action('SalesInvoicesController@index');
     }
 
@@ -583,6 +583,7 @@ class SalesInvoicesController extends Controller
             ]);
         }
 
+        Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was collected');
         return redirect()->action('CollectiblesController@index');
     }
 
