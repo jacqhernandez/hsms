@@ -25,10 +25,28 @@ class CreateSalesInvoiceRequest extends Request
     public function rules()
     {
         //UNFINISHED
+
+
+
+        $input = Request::all();
+        $po = $input['po_number'];
+
+
         switch($this->method())
         {
             case 'POST':
             {
+                if (($po == 'cash') || ($po == 'Cash'))
+                {
+                    return [
+                    'si_no' => 'numeric|unique:sales_invoices',
+                    'dr_number' => 'numeric|unique:sales_invoices',
+                    'or_number' => 'numeric'
+                    ];
+                }
+
+                else
+                {
                 return [
                 //
                     'si_no' => 'numeric|unique:sales_invoices',
@@ -36,7 +54,8 @@ class CreateSalesInvoiceRequest extends Request
                     'dr_number' => 'numeric|unique:sales_invoices',
                     'or_number' => 'numeric'
                 ];
-            }
+                }
+            }   
             case 'PATCH':
             {
                 $rules = array();
@@ -51,14 +70,23 @@ class CreateSalesInvoiceRequest extends Request
                 {
                     $rules['si_no'] = 'numeric|unique:sales_invoices';
                 }
-                if ($this->get('po_number') == $sales_invoice['po_number'])
+
+
+                if ($this->get('po_number') != 'cash' && $this->get('po_number') != 'Cash')
                 {
-                    $rules['po_number'] = 'unique:sales_invoices,po_number,'.$this->segment(2);
+                    if ($this->get('po_number') == $sales_invoice['po_number'])
+                    {
+                        $rules['po_number'] = 'unique:sales_invoices,po_number,'.$this->segment(2);
+                    }
+
+                    else
+                    {
+                        $rules['po_number'] = 'unique:sales_invoices';
+                    }
                 }
-                else
-                {
-                    $rules['po_number'] = 'numeric|unique:sales_invoices';
-                }
+
+
+
                 if ($this->get('dr_number') == $sales_invoice['dr_number'])
                 {
                     $rules['dr_number'] = 'numeric|unique:sales_invoices,dr_number,'.$this->segment(2);
