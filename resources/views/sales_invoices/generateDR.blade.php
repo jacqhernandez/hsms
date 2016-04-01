@@ -116,7 +116,7 @@
 <body>
 
 	<div class="filler" style="height:120px; visibility: hidden;">Invoice {{ $sales_invoice['si_no'] }}</div>
-	<div class="filler" style="height:17px;"></div>
+	<div class="filler" style="height:25px;"></div>
 
 	<!-- Date -->
 	<table class="table2" style="width:100%;">
@@ -142,7 +142,7 @@
 			</tr>
 	</table>
 
-	<div class="filler" style="height:5px;"></div>
+	<div class="filler" style="height:4px;"></div>
 	<!-- TIN/SC-TIN: -->
 	<table class="table2">
 			<tr>
