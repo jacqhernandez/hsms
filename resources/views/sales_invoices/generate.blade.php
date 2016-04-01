@@ -35,9 +35,6 @@
 			border: none;
 			border-collapse: collapse;
 			width:100%;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
 		}
 
 		.table2{
@@ -45,9 +42,6 @@
 			border-collapse: collapse;
 			width:100%;
 			font-size: 10pt;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
 		}
 
 
@@ -57,10 +51,7 @@
 			width:100%;
 			position:absolute;
 			left:0px;
-			top:633.5px;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
+			top:603.5px;
 		}
 
 		.table4{
@@ -69,13 +60,11 @@
 			width:100%;
 			position:absolute;
 			left:40px;
-			top:810px;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
+			top:650px;
+
 		}
 		
-		/*
+		/* 
 		.table{
 			border: 1px solid #000;
 			width:100%;
@@ -92,7 +81,7 @@
 			width:100%;
 			position:absolute;
 			left:0px;
-			top:633.5px;
+			top:603.5px;
 			text-overflow: ellipsis; 
 			overflow: hidden; 
 			white-space:nowrap;
@@ -103,7 +92,7 @@
 			width:100%;
 			position:absolute;
 			left:40px;
-			top:810px;
+			top:650px;
 			text-overflow: ellipsis; 
 			overflow: hidden; 
 			white-space:nowrap;
@@ -115,9 +104,7 @@
 		}
 
 		td{
-			border: none;
-			text-overflow: ellipsis;  
-			white-space:nowrap;
+			border: none;  
 		}
 	</style>
 </head>
@@ -216,43 +203,7 @@
 			</tr>
 			@endforeach
 	</table>
-<!--
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
 
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
--->
 	<div>
 		<table class="table4" style="text-align:center;">
 				<tr>

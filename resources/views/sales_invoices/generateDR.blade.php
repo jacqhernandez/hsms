@@ -35,9 +35,6 @@
 			border: none;
 			border-collapse: collapse;
 			width:100%;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
 		}
 
 		.table2{
@@ -45,9 +42,6 @@
 			border-collapse: collapse;
 			width:100%;
 			font-size: 10pt;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
 		}
 
 
@@ -58,9 +52,6 @@
 			position:absolute;
 			left:0px;
 			top:633.5px;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
 		}
 
 		.table4{
@@ -70,9 +61,6 @@
 			position:absolute;
 			left:110px;
 			top:700px;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space:nowrap;
 		}
 		
 /*		
@@ -116,8 +104,11 @@
 
 		td{
 			border: none;
+			/*
 			text-overflow: ellipsis;  
 			white-space:nowrap;
+			overflow: hidden;
+			*/
 		}
 	</style>
 </head>

@@ -36,25 +36,13 @@ class CreateSalesInvoiceRequest extends Request
         {
             case 'POST':
             {
-                if (($po == 'cash') || ($po == 'Cash'))
-                {
-                    return [
-                    'si_no' => 'numeric|unique:sales_invoices',
-                    'dr_number' => 'numeric|unique:sales_invoices',
-                    'or_number' => 'numeric'
-                    ];
-                }
-
-                else
-                {
                 return [
                 //
                     'si_no' => 'numeric|unique:sales_invoices',
-                    'po_number' => 'unique:sales_invoices',
                     'dr_number' => 'numeric|unique:sales_invoices',
                     'or_number' => 'numeric'
                 ];
-                }
+
             }   
             case 'PATCH':
             {
@@ -72,18 +60,18 @@ class CreateSalesInvoiceRequest extends Request
                 }
 
 
-                if ($this->get('po_number') != 'cash' && $this->get('po_number') != 'Cash')
-                {
-                    if ($this->get('po_number') == $sales_invoice['po_number'])
-                    {
-                        $rules['po_number'] = 'unique:sales_invoices,po_number,'.$this->segment(2);
-                    }
+                // if ($this->get('po_number') != 'cash' && $this->get('po_number') != 'Cash')
+                // {
+                //     if ($this->get('po_number') == $sales_invoice['po_number'])
+                //     {
+                //         $rules['po_number'] = 'unique:sales_invoices,po_number,'.$this->segment(2);
+                //     }
 
-                    else
-                    {
-                        $rules['po_number'] = 'unique:sales_invoices';
-                    }
-                }
+                //     else
+                //     {
+                //         $rules['po_number'] = 'unique:sales_invoices';
+                //     }
+                // }
 
 
 
