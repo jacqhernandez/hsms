@@ -44,7 +44,7 @@
 			<td>{{ $client->customer_id }}</td>
 			<td>{{ $client->telephone_number }}</td>
 			<td>{{ $client->email }}</td>
-			<td>{{ $client->credit_limit }}</td>
+			<td>{{ number_format($client->credit_limit, 2) }}</td>
 			<td>{{ $client->status }}</td>
 			<td>{{ $client->User->username }}</td>
 			<td><a class="btn btn-info" href="{{ action ('ClientsController@show', [$client->id]) }}">View</a></td>

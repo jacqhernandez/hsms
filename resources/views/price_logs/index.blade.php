@@ -29,7 +29,7 @@
 		<tr>
 			<td>{{ $log->Supplier->name }}</td>
 			<td>{{ $log->Item->name}} </td>
-			<td>{{ $log->price }}</td>
+			<td>{{ number_format($log->price,2) }}</td>
 			@if ($log->stock_availability == 1)
 			<td>Yes</td>
 			@else
