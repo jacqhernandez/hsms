@@ -60,7 +60,7 @@
 			width:100%;
 			position:absolute;
 			left:110px;
-			top:700px;
+			top:685px;
 		}
 		
 /*		
@@ -91,7 +91,7 @@
 			width:100%;
 			position:absolute;
 			left:110px;
-			top:700px;
+			top:685px;
 			text-overflow: ellipsis; 
 			overflow: hidden; 
 			white-space:nowrap;
@@ -99,7 +99,7 @@
 */		
 
 		.filler{
-			background: none;
+			background: pink;
 		}
 
 		td{
@@ -116,7 +116,7 @@
 <body>
 
 	<div class="filler" style="height:120px; visibility: hidden;">Invoice {{ $sales_invoice['si_no'] }}</div>
-	<div class="filler" style="height:32px;"></div>
+	<div class="filler" style="height:17px;"></div>
 
 	<!-- Date -->
 	<table class="table2" style="width:100%;">
@@ -124,7 +124,7 @@
 			<td style="width:530px;">&nbsp;</td>
 			<td style="width:87px; visibility:hidden;">Date: </td>
 			<!--<td style="font-size:11pt; width:auto;">{{ $sales_invoice['date'] }}</td>-->
-			<td style="font-size:11pt; width:auto; text-indent: 21px;">
+			<td style="font-size:11pt; width:auto; text-indent: 6px;">
 			<?php
 				$c = new Carbon($sales_invoice['date']);
 				echo $c->format('M. j, Y');
@@ -132,12 +132,12 @@
 			</td>
 		</tr>
 	</table>
-	<div class="filler" style="height:7px;"></div>
+	<div class="filler" style="height:3px;"></div>
 	<!-- Sold to -->
 	<table class="table2">
 			<tr>
 				<td style="width:75px;  visibility:hidden;">Delivered to: </td>
-				<td style="font-size:11pt; text-indent:45px;">{{ $sales_invoice->Client->name }}</td>
+				<td style="font-size:11pt; text-indent:38px;">{{ $sales_invoice->Client->name }}</td>
 
 			</tr>
 	</table>
@@ -147,7 +147,7 @@
 	<table class="table2">
 			<tr>
 				<td style="width:77px;  visibility:hidden;">TIN/SC-TIN: </td>
-				<td style="font-size:11pt; text-indent:45px; width:300px">{{ $sales_invoice->Client->tin }}</td>
+				<td style="font-size:11pt; text-indent:38px; width:300px">{{ $sales_invoice->Client->tin }}</td>
 				<td style="width:113px;  visibility:hidden;">Bus, Name/style: </td>
 				<td style="width:auto;"> </td>
 			</tr>

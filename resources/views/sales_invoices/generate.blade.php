@@ -100,7 +100,7 @@
 		*/
 
 		.filler{
-			background: transparent;
+			background: pink;
 		}
 
 		td{
