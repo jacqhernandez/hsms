@@ -142,7 +142,7 @@
 			</tr>
 	</table>
 
-	<div class="filler" style="height:2px;"></div>
+	<div class="filler" style="height:5px;"></div>
 	<!-- TIN/SC-TIN: -->
 	<table class="table2">
 			<tr>
