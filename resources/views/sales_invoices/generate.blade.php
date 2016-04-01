@@ -51,7 +51,7 @@
 			width:100%;
 			position:absolute;
 			left:0px;
-			top:530.5px;
+			top:528.5px;
 		}
 
 		.table4{
@@ -81,7 +81,7 @@
 			width:100%;
 			position:absolute;
 			left:0px;
-			top:530.5px;
+			top:528.5px;
 			text-overflow: ellipsis; 
 			overflow: hidden; 
 			white-space:nowrap;
