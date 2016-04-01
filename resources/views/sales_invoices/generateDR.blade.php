@@ -99,7 +99,7 @@
 */		
 
 		.filler{
-			background: pink;
+			background: none;
 		}
 
 		td{
