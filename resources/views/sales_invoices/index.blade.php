@@ -155,7 +155,7 @@
 
 <?php echo $sales_invoices->render(); ?>
 @if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Sales')
-	<br><a href="{{ action('SalesInvoicesController@quotation') }}"><button type="button" class="btn btn-primary">New Sales Invoice</button></a><br><br>
+	<br><a href="{{ action('SalesInvoicesController@quotation') }}"><button type="button" class="btn btn-primary">Create New Sales Invoice</button></a><br><br>
 @endif
 
 @stop

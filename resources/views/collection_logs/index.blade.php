@@ -66,7 +66,7 @@
 				</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $d->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-primary">View Details</button>
+					<button class="btn btn-info">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>
@@ -123,7 +123,7 @@
 				</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $o->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-primary">View Details</button>
+					<button class="btn btn-info">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>
@@ -180,7 +180,7 @@
 				</td>
 				<td>
 					{!! Form::open(['route' => ['invoices.show', $c->id], 'method' => 'get' ]) !!}
-					<button class="btn btn-primary">View Details</button>
+					<button class="btn btn-info">View Details</button>
 					{!! Form::close() !!}
 				</td>
 			</tr>

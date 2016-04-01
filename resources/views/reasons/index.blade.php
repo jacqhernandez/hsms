@@ -40,6 +40,6 @@
 </table>
 <?php echo $reasons->render(); ?>
 @if (Auth::user()['role'] == 'General Manager' || Auth::user()['role'] == 'Accounting')
-	<a href="{{ url('/reasons/create') }}" class="btn btn-primary">New Reason</a>
+	<br><a href="{{ url('/reasons/create') }}" class="btn btn-primary">Create New Reason</a>
 @endif
 @stop

@@ -116,8 +116,7 @@
 
 		td{
 			border: none;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
+			text-overflow: ellipsis;  
 			white-space:nowrap;
 		}
 	</style>
@@ -207,7 +206,7 @@
 				<td style="width:97px;">Amount</td>
 			</tr>
 			@foreach ($items as $item)
-			<tr>
+			<tr style="font-size:10pt;">
 				<td style="text-align: center;">{{$item->quantity}}</td>
 				<td style="text-align: center; text-indent: 10px;">{{$item->unit}}</td>
 				<td style="text-align: left; text-indent: 20px;">{{$item->name}}</td>
@@ -400,8 +399,8 @@
 						$vat_rate = 0.12; 
 						$divisor = 1.12;
 					?>
-					@if ($sales_invoice->Client->vat_exempt == false)
-						<td style="font-size:11pt; text-align: left; text-indent: 5px;"><div style="margin-top:-14px;">{{ number_format(( ($sales_invoice['total_amount'] / $divisor) * $vat_rate), 2) }}</div></td>
+					@if (($sales_invoice->Client->vat_exempt == 'VAT Exclusive') || ($sales_invoice->Client->vat_exempt == 'VAT Inclusive'))
+						<td style="font-size:11pt; text-align: left; text-indent: 5px;"><div style="margin-top:-12px;">{{ number_format(( ($sales_invoice['total_amount'] / $divisor) * $vat_rate), 2) }}</div></td>
 					@else
 						<td>&nbsp;</td>
 					@endif

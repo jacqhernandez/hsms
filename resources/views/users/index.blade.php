@@ -41,5 +41,5 @@
 <?php echo $users->render(); ?>
 <br>
 
-<a href="{{ url('/auth/register') }}" class="btn btn-primary">New User</a>
+<br><a href="{{ url('/auth/register') }}" class="btn btn-primary">Create New User</a>
 @stop

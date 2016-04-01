@@ -64,8 +64,8 @@
 			</tr>
 
 			<tr>
-				<td>{!! Form::label('vat_exempt', 'VAT Exempted? ') !!}</td>
-				<td>{!! Form::select('vat_exempt', ['0' => "No", '1' => "Yes"], Input::old('vat_exempt'), ['class' => 'span7 form-control']) !!}</td>
+				<td>{!! Form::label('vat_exempt', 'VAT: ') !!}</td>
+				<td>{!! Form::select('vat_exempt', ['VAT Inclusive' => "VAT Inclusive", 'VAT Exclusive' => "VAT Exclusive", 'VAT Exempted' => "VAT Exempted"], Input::old('vat_exempt'), ['class' => 'span7 form-control']) !!}</td>
 			</tr>
 
 			<tr>

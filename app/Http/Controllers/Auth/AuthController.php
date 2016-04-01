@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Client;
+use App\SalesInvoice;
+use DB;
+use App\CollectionLog;
+use App\SalesInvoiceCollectionLog;
+use Carbon\Carbon;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -70,5 +76,47 @@ class AuthController extends Controller
             'role' => $data['role'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    protected function authenticated()
+    {
+        /* UPDATING OVERDUE */
+        $invoices = SalesInvoice::whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")');
+        $invoicesForClient = SalesInvoice::whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")')->get();
+
+        $invoices->update(['status' => "Overdue"]);
+
+        foreach ($invoicesForClient as $invoice)
+        {
+            $client = Client::find($invoice->client_id);
+            $client->update(['status' => "Blacklisted"]);
+        }
+
+
+        // $overdues = \DB::table('sales_invoices')->whereRaw('status = "Overdue"');
+
+        $overdues = DB::SELECT("SELECT * FROM sales_invoices where status = 'Overdue'");
+        $today = Carbon::today();
+        $mondayOf = Carbon::now()->startOfWeek();
+
+        if($today == $mondayOf)
+        {
+            foreach ($overdues as $overdue)
+            {
+                $cLog = new CollectionLog;
+                $cLog->date = $mondayOf;
+                $cLog->action = 'Call and Send SOA Overdue';
+                $cLog->client_id = $overdue->client_id;
+                $cLog->status = 'To Do';
+                $cLog->save();
+
+                $sicl = new SalesInvoiceCollectionLog;
+                $sicl->sales_invoice_id = $overdue->id;
+                $sicl->client_id = $cLog->client_id;
+                $sicl->collection_log_id = $cLog->id;
+                $sicl->save();
+            }
+        }
+        return redirect()->action('DashboardController@index');
     }
 }

@@ -55,7 +55,7 @@
 <?php echo $clients->render(); ?>
 
 @if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
-	<a href="{{ url('/clients/create') }}" class="btn btn-primary">New Client</a>
+	<br><a href="{{ url('/clients/create') }}" class="btn btn-primary">Create New Client</a>
 @endif
 
 @stop

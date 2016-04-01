@@ -116,8 +116,7 @@
 
 		td{
 			border: none;
-			text-overflow: ellipsis; 
-			overflow: hidden; 
+			text-overflow: ellipsis;  
 			white-space:nowrap;
 		}
 	</style>
@@ -205,7 +204,7 @@
 				<td style="width:95px;">Item Code</td>
 			</tr>
 			@foreach ($items as $item)
-			<tr>
+			<tr  style="font-size:10pt;">
 				<td style="text-align: center;">{{$item->quantity}}</td>
 				<td style="text-align: center; text-indent: 10px;">{{$item->unit}}</td>
 				<td style="text-align: left; text-indent: 40px;">{{$item->name}}</td>
@@ -213,43 +212,7 @@
 			</tr>
 			@endforeach
 	</table>
-<!--
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
 
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
--->
 	<div>
 		<table class="table4" style="text-align:center;">
 				<tr>

@@ -53,8 +53,8 @@
 				</tr>
 
 				<tr>
-					<td>VAT Exempted?</td>
-					<td>@if ($client->vat_exempt == 0) No @else Yes @endif</td>
+					<td>VAT</td>
+					<td>{{ ($client['vat_exempt']) }}</td>
 				</tr>
 
 				<tr>
@@ -100,20 +100,20 @@
 
 	<?php echo $sales_invoices->render(); ?>
 
-	<table>
+	<table id="form-blades">
 	<tr>
 
 	@if (Auth::user()['role'] == 'General Manager' OR Auth::user()['role'] == 'Accounting')
 	<td>
 		{!! Form::open(['route' => ['clients.edit', $client->id], 'method' => 'get' ]) !!}
-			<button class="btn btn-warning">Edit</button>
+			<button class="btn btn-warning">Edit Client</button>
 		{!! Form::close() !!}		
 	</td>
 	<td>
 		{!! Form::open(['route' => ['clients.destroy', $client->id], 'method' => 'delete', 'id'=>'delete' ]) !!}
 				<?php echo"
 						<button id='btndelete' class='btn btn-danger' type='button' data-toggle='modal' data-target='#confirmDelete'>
-								Delete
+								Delete Client
 	    			</button>" ?>
 					<?php echo'
 						<div class="modal fade" id="confirmDelete" role="dialog" aria-hidden="true">' ?>
@@ -122,8 +122,9 @@
 		{!! Form::close() !!}
 	</td>
 	@endif
-	<td>
-	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back to Clients</button></a>	
-	</td>
 	</table>
+
+	<hr>
+	<a href="{{ action ('ClientsController@index') }}"><button type="button" class="btn btn-info">Back to Clients</button></a>	
+	
 @stop

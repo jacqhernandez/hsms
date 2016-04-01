@@ -316,5 +316,5 @@
 <br>
 <br>
 	<div style="text-align:center; width: 100%; color:#244062">
-		<b>THANKYOU FOR YOUR BUSINESS!</b>
+		<b>THANK YOU FOR YOUR BUSINESS!</b>
 </div>

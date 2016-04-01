@@ -369,6 +369,12 @@ class SalesInvoicesController extends Controller
             'total_amount' => $total_amount,
             'status' => "Pending"
         ]);
+
+        if ($salesInvoice->Client->vat_exempt == 'VAT Exclusive')
+        {
+            $salesInvoice->update(['total_amount' => (($salesInvoice->total_amount) + ($salesInvoice->total_amount * .12))]);
+        }
+
         Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was completed');
         return redirect()->action('SalesInvoicesController@show',[$salesInvoice->id]);
         

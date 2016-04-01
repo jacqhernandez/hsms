@@ -46,7 +46,7 @@ class PriceLogsController extends Controller
                             ->join('items', 'price_logs.item_id', '=', 'items.id')
                             ->where('suppliers.name','LIKE',"%$query%")
                             ->orWhere('items.name', 'LIKE', "%$query%")
-                            ->orderBy('id', 'desc')
+                            ->orderBy('price_logs.id', 'desc')
                             ->paginate(10);
         
         if ($price_logs == "[]")

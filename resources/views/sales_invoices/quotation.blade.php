@@ -128,7 +128,11 @@
 </table>
 </div>
 
+
 <button type="button" id="addItem" class="btn btn-primary">Add Item</button><br><br>
+<button type="submit" class="btn btn-success" id="generateInvoice" disabled="disabled">Generate Sales Invoice</button>
+{!! Form::close() !!}
+<hr>
   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Exit</button>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -151,8 +155,7 @@
     </div>
   </div>
 
-<button type="submit" class="btn btn-success" id="generateInvoice" disabled="disabled">Generate Sales Invoice</button>
-{!! Form::close() !!}
+
 
 <script>
 jQuery.noConflict();

@@ -34,7 +34,7 @@
 	                    <i class="fa fa-tasks fa-5x"></i>
 	                </div>
 	                <div class="col-xs-9 text-right">
-	                    <div class="huge">{{ '₱' . $currentAmount }}</div><br>
+	                    <div class="big">{{ '₱' . number_format($currentAmount, 2) }}</div><br>
 	                    <div>{{ $currentCount }} Sale Invoice(s) Collected This Week</div>
 	                </div>
 	            </div>
@@ -59,7 +59,7 @@
                         <i class="fa fa-bank fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ '₱' . $currentCollectibleAmount }}</div><br>
+                        <div class="big">{{ '₱' . number_format($currentCollectibleAmount, 2) }}</div><br>
                         <div>{{ $currentCollectibleCount }} Sale Invoice(s) Due This Week</div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                         <i class="fa fa-shopping-cart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ '₱' . $upcomingCollectibleAmount }}</div><br>
+                        <div class="big">{{ '₱' . number_format($upcomingCollectibleAmount, 2) }}</div><br>
                         <div>{{ $upcomingCollectibleCount }} Sale Invoice(s) Due Next Week</div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <i class="fa fa-support fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ '₱' . $overdueCollectibleAmount }}</div><br>
+                        <div class="big">{{ '₱' . number_format($overdueCollectibleAmount, 2) }}</div><br>
                         <div>{{ $overdueCollectibleCount }} Sale Invoice(s) Overdue</div>
                     </div>
                 </div>
@@ -149,11 +149,17 @@
                     <div id="collectionDonut" style="height: 350px;"></div>
         		</div>
     	</div>
-      @if (Auth::user()->role == 'General Manager')
-      {!!  Form::open(['route' => ['backup'], 'method' => 'get'])  !!}
-      {!!  Form::submit('Back Up Database', ['class' => 'btn btn-primary'])  !!}
-      {!!  Form::close() !!}
-      @endif
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Back Up Controls</div>
+                <div class="panel-body">
+                    @if (Auth::user()->role == 'General Manager')
+                    {!!  Form::open(['route' => ['backup'], 'method' => 'get'])  !!}
+                    {!!  Form::submit('Back Up Database', ['class' => 'btn btn-primary'])  !!}
+                    {!!  Form::close() !!}
+                    @endif
+                </div>
+        </div>
    	</div>
     <!-- /.col-lg-6 -->
 

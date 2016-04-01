@@ -59,6 +59,6 @@
 </table>
 <?php echo $price_logs->render(); ?>
 @if (Auth::user()['role'] == 'General Manager')
-	<br><a href="{{ url('/price_logs/create') }}" class="btn btn-primary">New Price Log</a><br><br>
+	<br><a href="{{ url('/price_logs/create') }}" class="btn btn-primary">Create New Price Log</a><br><br>
 @endif
 @stop
