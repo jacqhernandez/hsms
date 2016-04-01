@@ -18,8 +18,7 @@ class PriceLogsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');  
-        $this->middleware('general_manager');     
+        $this->middleware('auth'); 
     }
     /**
      * Display a listing of the resource.

@@ -69,6 +69,9 @@
                         <li>
                             <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-th-list"></i> Items</a>
                         </li>
+                        <li>
+                            <a href="{{url::action('PriceLogsController@index')}}"><i class="glyphicon glyphicon-rub"></i> Price Logs</a>
+                        </li>
                         @endif
 
                         @if (Auth::user()['role'] === 'Accounting')
@@ -99,6 +102,7 @@
                                     <li>
                                         <a href="{{url::action('ItemsController@index')}}"><i class="glyphicon glyphicon-th-list"></i> Items</a>
                                     </li>
+
                                     <li>
                                         <a href="{{url::action('UsersController@index')}}"><i class="glyphicon glyphicon-magnet"></i> Users</a>
                                     </li>
@@ -108,7 +112,7 @@
                                         </li>
                                     @endif
                                     <li>
-                                        <a href="{{url::action('PriceLogsController@index')}}"><i class="glyphicon glyphicon-rub"></i> Price Log</a>
+                                        <a href="{{url::action('PriceLogsController@index')}}"><i class="glyphicon glyphicon-rub"></i> Price Logs</a>
                                     </li>
 							</ul>
 						</li>
