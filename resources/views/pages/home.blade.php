@@ -148,6 +148,12 @@
         		<div class="panel-body">
                     <div id="collectionDonut" style="height: 350px;"></div>
         		</div>
+                <div style="margin-left:10%;">
+                    <li><span style="color:green;">Collected This Month</span>: Sales Invoices where date collected is this month</li>
+                    <li><span style="color:#0066ff;">Not Yet Collected This Month</span>: Sales Invoices where due date is this month and status is delivered</li>
+                    <li><span style="color:red;">Overdue This Month</span>: Sales Invoices where due date is this month and status is overdue</li>
+                    <br>
+                </div>
     	</div>
 
         <div class="panel panel-default">

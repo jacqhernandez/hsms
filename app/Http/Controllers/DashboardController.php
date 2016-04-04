@@ -137,8 +137,7 @@ class DashboardController extends Controller
             }
 
             $overdueCollectiblesMonth = DB::SELECT("SELECT sum(total_amount) as 'total', count(*) as 'num' FROM sales_invoices
-                                                WHERE  WEEK(now()) - WEEK(due_date) >= 1
-                                                AND MONTH(due_date) = MONTH(now())
+                                                WHERE MONTH(due_date) = MONTH(now())
                                                 AND status='overdue'");
 
             if ($overdueCollectiblesMonth[0]->num == 0)
