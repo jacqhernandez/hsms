@@ -39,7 +39,7 @@
 				
 				<tr>
 					<td>Credit Limit: </td>
-					<td>{{ $client['credit_limit'] }}</td>
+					<td>{{ number_format($client['credit_limit'], 2) }}</td>
 				</tr>
 				
 				<tr>
@@ -90,7 +90,7 @@
 
 					<?php $duedate = Carbon\Carbon::parse($sales_invoice->due_date)->toFormattedDateString(); ?>
 					<td>@if ($sales_invoice->status == "Draft" || $sales_invoice->status == "Pending" || $sales_invoice->Client->payment_terms == "PDC") ----- @else {{ $duedate }} @endif</td>
-					<td>{{ $sales_invoice->total_amount }}</td>
+					<td>{{ number_format($sales_invoice->total_amount, 2) }}</td>
 					<td>{{ $sales_invoice->Client->payment_terms}}</td>
 					<td>{{ $sales_invoice->status }}</td>
 				</tr>
