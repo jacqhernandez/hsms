@@ -477,12 +477,34 @@ class SalesInvoicesController extends Controller
                             'due_date' => Carbon::now()
                         ]);
                     } 
+                    
+                else if ($salesInvoice->Client->payment_terms == "7 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(7)
+                        ]);
+                    }
+                    
+                else if ($salesInvoice->Client->payment_terms == "15 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(15)
+                        ]);
+                    }
+                    
                 else if ($salesInvoice->Client->payment_terms == "30 Days")
                     {
                         $salesInvoice->update([
                             'due_date' => Carbon::now()->addDays(30)
                         ]);
                     }  
+                    
+                else if ($salesInvoice->Client->payment_terms == "45 Days")
+                    {
+                        $salesInvoice->update([
+                            'due_date' => Carbon::now()->addDays(45)
+                        ]);
+                    }
 
                 else if ($salesInvoice->Client->payment_terms == "60 Days")
                     {
@@ -497,6 +519,7 @@ class SalesInvoicesController extends Controller
                             'due_date' => Carbon::now()->addDays(75)
                         ]);
                     }  
+                    
                 else if ($salesInvoice->Client->payment_terms == "90 Days")
                     {
                         $salesInvoice->update([
