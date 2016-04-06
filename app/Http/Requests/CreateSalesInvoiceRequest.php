@@ -29,7 +29,6 @@ class CreateSalesInvoiceRequest extends Request
 
 
         $input = Request::all();
-        $po = $input['po_number'];
 
 
         switch($this->method())
