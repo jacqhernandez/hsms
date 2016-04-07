@@ -81,10 +81,16 @@ class AuthController extends Controller
     protected function authenticated()
     {
         /* UPDATING OVERDUE */
-        $invoices = SalesInvoice::whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")');
-        $invoicesForClient = SalesInvoice::whereRaw('(week(now()) - week(due_date) >= 1) and (status != "Collected")')->get();
+
+        //all collectibles.. if the due date and current year is the same, then if it is a week past the due date week, it is overdue
+        $invoices = SalesInvoice::whereRaw('(YEAR(now()) = YEAR(due_date)) AND (week(now()) - week(due_date) >= 1) AND (status != "Collected" AND status != "Pending" AND status != "Cancelled")');
+        //all collectibles.. if the due date and current year is NOT the same, then if the week of due date is greater than current week (meaning next year na), it is overdue
+        $invoicesYears = SalesInvoice::whereRaw('(YEAR(now()) - YEAR(due_date) >= 1) AND (wEEK(due_Date) - WEEK(now()) >= 1) AND (status != "Collected" AND status != "Pending" AND status != "Cancelled")');
+        //if client has a sales invoice overdue for 4 months or 120 days.. make the client blacklisted.
+        $invoicesForClient = SalesInvoice::whereRaw('(datediff(now(), due_date) >= 120) and (status != "Collected" AND status != "Pending" AND status != "Cancelled")')->get();
 
         $invoices->update(['status' => "Overdue"]);
+        $invoicesYears->update(['status' =>"Overdue"]);
 
         foreach ($invoicesForClient as $invoice)
         {
