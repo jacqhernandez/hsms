@@ -438,7 +438,7 @@ class SalesInvoicesController extends Controller
         //$price_logs = PriceLog::where('item_id', $invoice_item->Item->id)->orderBy('created_at', 'desc')->take(3)->get();
         //$terms = DB::select("SELECT * FROM items WHERE id = '$item'");
         //$terms = DB::select("SELECT DISTINCT supplier_id, date, price, stock_availability FROM price_logs WHERE item_id = '$item' ORDER BY created_at desc LIMIT 3");
-        $terms = DB::select("SELECT t1.supplier_id, t1.date, t1.price, t1.stock_availability FROM (SELECT * FROM price_logs WHERE item_id = 975 ORDER BY created_at desc LIMIT 3) t1 GROUP BY t1.supplier_id");
+        $terms = DB::select("SELECT t1.supplier_id, t1.date, t1.price, t1.stock_availability FROM (SELECT * FROM price_logs WHERE item_id = '$item' ORDER BY created_at desc LIMIT 3) t1 GROUP BY t1.supplier_id");
         return $terms;
     }
 
