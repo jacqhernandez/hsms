@@ -216,7 +216,7 @@ class CollectiblesController extends Controller
         $currentCollectibles = DB::SELECT("SELECT DATE_FORMAT(date, '%m/%d/%Y') as date, DATE_FORMAT(due_date, '%m/%d/%Y') as due_date, po_number, si_no, total_amount FROM sales_invoices si
                                             WHERE si.client_id = '$id' AND (si.status='delivered' OR si.status='overdue')");
 
-        $totalDue = DB::SELECT("SELECT SUM(total_amount) as sumTotal FROM sales_invoices si WHERE si.client_id = '$id' AND si.status='delivered' OR si.status='overdue'");
+        $totalDue = DB::SELECT("SELECT SUM(total_amount) as sumTotal FROM sales_invoices si WHERE si.client_id = '$id' AND (si.status='delivered' OR si.status='overdue')");
 
         $pdf = \PDF::loadView('collectibles.generate', compact('client', 'currentCollectibles', 'totalDue'));
         Activity::log('SOA for '. $client['name'] .' was generated');
@@ -243,7 +243,7 @@ class CollectiblesController extends Controller
         $currentCollectibles = DB::SELECT("SELECT DATE_FORMAT(date, '%m/%d/%Y') as date, DATE_FORMAT(due_date, '%m/%d/%Y') as due_date, po_number, si_no, total_amount FROM sales_invoices si
                                             WHERE si.client_id = '$id' AND (si.status='delivered' OR si.status='overdue')");
 
-        $totalDue = DB::SELECT("SELECT SUM(total_amount) as sumTotal FROM sales_invoices si WHERE si.client_id = '$id' AND si.status='delivered' OR si.status='overdue'");
+        $totalDue = DB::SELECT("SELECT SUM(total_amount) as sumTotal FROM sales_invoices si WHERE si.client_id = '$id' AND (si.status='delivered' OR si.status='overdue')");
 
         $pdf = \PDF::loadView('collectibles.generate', compact('client', 'currentCollectibles', 'totalDue'));
         Activity::log('SOA for '. $client['name'] .' was generated');
