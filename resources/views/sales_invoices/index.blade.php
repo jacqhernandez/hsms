@@ -58,7 +58,7 @@
 			<?php
 				$due_date = Carbon\Carbon::parse($sales_invoice->due_date)->toFormattedDateString();
 			?>
-			<td>@if ($sales_invoice->status == "Draft" || $sales_invoice->status == "Pending" || $sales_invoice->Client->payment_terms == "PDC") ----- @else {{ $due_date }} @endif</td>
+			<td>@if ($sales_invoice->status == "Draft" || $sales_invoice->status == "Pending" || $sales_invoice->Client->payment_terms == "PDC" || $sales_invoice->status == "Cancelled") ----- @else {{ $due_date }} @endif</td>
 			<td>{{ number_format($sales_invoice->total_amount, 2, '.', ',') }}</td>
 			<td>{{ $sales_invoice->Client->payment_terms }}</td>
 			<td>{{ $sales_invoice->status }}</td>

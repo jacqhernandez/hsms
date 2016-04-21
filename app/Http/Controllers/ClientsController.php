@@ -37,7 +37,7 @@ class ClientsController extends Controller
         {
              // $clients = Client::all();
              $clients = Client::paginate(10);
-             $clients->setpath('hsms/public/clients/');
+             //$clients->setpath('hsms/public/clients/');
         }
         return view('clients.index', compact('clients'));
     }
