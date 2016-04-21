@@ -41,16 +41,23 @@
 			
 			<tbody>
 					<?php
-						$price_logs = PriceLog::where('item_id', $invoice_item->Item->id)->orderBy('created_at', 'desc')->take(3)->orderBy('price','asc')->get();
+						//$price_logs = PriceLog::where('item_id', $invoice_item->Item->id)->orderBy('created_at', 'desc')->take(3)->orderBy('price','asc')->get();
+						$price_logs = DB::table('price_logs AS t1')->select('t1.*')->leftJoin('price_logs AS t2', function( $join ){
+    					$join->on( 't1.supplier_id', '=', 't2.supplier_id' );
+    					$join->on( 't1.created_at', '<', 't2.created_at' );
+    				})->whereNull('t2.created_at')->where('t1.item_id','=',$invoice_item->Item->id)->get();
 					?>
+
 					@foreach($price_logs as $price_log)
 					<tr>
-					<td>{{ $price_log->Supplier->name }}</td>
-					<td>{{ $price_log->Supplier->payment_terms }}</td>
-					<td>{{ $price_log->Supplier->telephone_number }}</td>
-					<td>{{ $price_log->Supplier->email }}</td>
-					<td>Php {{ number_format($price_log->price, 2, '.', ',') }}</td>
-					<td>@if ($price_log->stock_availability === 1) Yes @else No @endif</td>
+						<td>{{ $price_log->created_at }}</td>
+						<?php $supplier = App\Supplier::find($price_log->supplier_id) ?>
+						<td>{{ $supplier->name }}</td>
+						<td>{{ $supplier->payment_terms }}</td>
+						<td>{{ $supplier->telephone_number }}</td>
+						<td>{{ $supplier->email }}</td>
+						<td>Php {{ number_format($price_log->price, 2, '.', ',') }}</td>
+						<td>@if ($price_log->stock_availability === 1) Yes @else No @endif</td>
 				</tr>
 					@endforeach
 			</tbody> 
