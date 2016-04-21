@@ -36,12 +36,24 @@ class CreateSalesInvoiceRequest extends Request
         {
             case 'POST':
             {
-                return [
-                //
-                    'si_no' => 'numeric|unique:sales_invoices',
-                    'dr_number' => 'numeric|unique:sales_invoices',
-                    'or_number' => 'numeric'
-                ];
+                if ($input['or_number'] != 'Cash' && $input['or_number'] != 'CASH' && $input['or_number'] != 'cash')
+                {
+                    return [
+                    //
+                        'si_no' => 'numeric|unique:sales_invoices',
+                        'dr_number' => 'numeric|unique:sales_invoices',
+                        'or_number' => 'numeric'
+                    ];
+                }
+
+                else
+                {
+                    return [
+
+                        'si_no' => 'numeric|unique:sales_invoices',
+                        'dr_number' => 'numeric|unique:sales_invoices'
+                    ];
+                }
 
             }   
             case 'PATCH':

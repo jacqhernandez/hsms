@@ -110,7 +110,7 @@
 						      		<p><b>Total Amount: </b>Php <?php echo number_format($o->total_amount, 2, '.', ',') ?></p>
 						      		{!! Form::open(['route' => ['invoices.collectedFromLog'], 'method' => 'post' ]) !!}
 						      		{!! Form::hidden('id', $o->id) !!}
-						      		<p><b>OR Number: </b>{!! Form::input('number', 'or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
+						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -167,7 +167,7 @@
 						      		<p><b>Total Amount: </b>Php <?php echo number_format($c->total_amount, 2, '.', ',') ?></p>
 						      		{!! Form::open(['route' => ['invoices.collectedFromLog'], 'method' => 'post' ]) !!}
 						      		{!! Form::hidden('id', $c->id) !!}
-						      		<p><b>OR Number: </b>{!! Form::input('number', 'or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
+						      		<p><b>OR Number: </b>{!! Form::text('or_number', old('or_number'), array('class'=>'itemPrice', 'required'=>'required')) !!}</p>
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

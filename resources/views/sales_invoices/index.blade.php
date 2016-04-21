@@ -4,6 +4,8 @@
 <h2>List of Sales Invoice</h2>
 <hr>
 
+@include('flash::message')
+
 {!!  Form::open(['route' => ['invoices.search'], 'method' => 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
 <div class="form-group">
 {!!  Form::text('query', null, ['placeholder' => 'SI Number or Client Name', 'class' => 'form-control'])  !!} 

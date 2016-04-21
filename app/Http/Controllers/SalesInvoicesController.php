@@ -575,11 +575,41 @@ class SalesInvoicesController extends Controller
     public function collected(Requests\CreateSalesInvoiceRequest $request) {
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['id']);
-        $salesInvoice->update([
+        $client = $salesInvoice->Client;
+
+        if ($client->payment_terms == 'Cash')
+        {
+            if ($input['or_number'] == 'Cash' || $input['or_number'] == 'CASH' || $input['or_number'] == 'cash')
+            {
+                 $salesInvoice->update([
                 'status' => "Collected",
                 'date_collected' => Carbon::now(),
                 'or_number' => $input['or_number'] 
-        ]);
+                ]);
+            } 
+
+            else
+            {
+                Flash::error("This client's payment terms is Cash.");
+            }
+        }
+
+        else
+        {
+            if ($input['or_number'] != 'Cash' && $input['or_number'] != 'CASH' && $input['or_number'] != 'cash')
+            {
+                $salesInvoice->update([
+                        'status' => "Collected",
+                        'date_collected' => Carbon::now(),
+                        'or_number' => $input['or_number'] 
+                ]);
+            }
+
+            else
+            {
+                Flash::error("This client's payment terms is not Cash");
+            }
+        }
 
         $clientId = $salesInvoice->client_id;
         $hasOverdue = DB::SELECT("SELECT COUNT(*) FROM sales_invoices WHERE status='overdue'");
@@ -597,11 +627,41 @@ class SalesInvoicesController extends Controller
     public function collectedFromLog(Requests\CreateSalesInvoiceRequest $request) {
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['id']);
-        $salesInvoice->update([
+        $client = $salesInvoice->Client;
+
+        if ($client->payment_terms == 'Cash')
+        {
+            if ($input['or_number'] == 'Cash' || $input['or_number'] == 'CASH' || $input['or_number'] == 'cash')
+            {
+                 $salesInvoice->update([
                 'status' => "Collected",
                 'date_collected' => Carbon::now(),
                 'or_number' => $input['or_number'] 
-        ]);
+                ]);
+            } 
+
+            else
+            {
+                Flash::error("This client's payment terms is Cash.");
+            }
+        }
+
+        else
+        {
+            if ($input['or_number'] != 'Cash' && $input['or_number'] != 'CASH' && $input['or_number'] != 'cash')
+            {
+                $salesInvoice->update([
+                        'status' => "Collected",
+                        'date_collected' => Carbon::now(),
+                        'or_number' => $input['or_number'] 
+                ]);
+            }
+
+            else
+            {
+                Flash::error("This client's payment terms is not Cash");
+            }
+        }
 
         $clientId = $salesInvoice->client_id;
         $hasOverdue = DB::SELECT("SELECT COUNT(*) FROM sales_invoices WHERE status='overdue'");
@@ -613,7 +673,7 @@ class SalesInvoicesController extends Controller
         }
 
         Activity::log('Sales Invoice '. $salesInvoice['si_no'] .' was collected');
-        return redirect()->action('CollectiblesController@index');
+        return redirect()->action('CollectionLogsController@index', $client->id);
     }
 
 }

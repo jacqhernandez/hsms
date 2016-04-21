@@ -34,7 +34,7 @@
 
 				<tr id="or_number">
 					<td>{!! Form::label('or_number', 'OR Number: ') !!}</td>
-					<td>{!! Form::number('or_number', old('or_number')) !!}</td>
+					<td>{!! Form::text('or_number', old('or_number')) !!}</td>
 				</tr>
 				
 				{!! Form::hidden('si_no', old('si_no')) !!}

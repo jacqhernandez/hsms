@@ -301,6 +301,7 @@
 		<div class="soa-row">
 			<div class="soa-cell">
 				Prepared by:
+				<br><br>{!! HTML::image("/img/CharoCo_Sign.png", 'logo', array('style' => 'width:200px; margin-bottom:-10%; float:left;')) !!}
 				<br><br> ____________________
 				<br><i>Charo Co
 				<br> Accounting Clerk</i>
