@@ -201,7 +201,7 @@ class DashboardController extends Controller
     {
         Artisan::call('backup:run', ['--only-db' => '-db' ]);
         try{
-            Flash::success('Files backed up successfully');
+            Flash::success('Files backed up successfully. Please visit C:\xampp\htdocs\hsms\storage\app\backups\ for the file.');
             return redirect()->action('DashboardController@index');
         }
         catch(\Exception $e){

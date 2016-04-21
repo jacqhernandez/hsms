@@ -31,6 +31,7 @@ class CreateSalesInvoiceRequest extends Request
         $input = Request::all();
 
 
+
         switch($this->method())
         {
             case 'POST':
