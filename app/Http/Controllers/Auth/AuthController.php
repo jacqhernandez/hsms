@@ -106,7 +106,7 @@ class AuthController extends Controller
         $mondayOf = Carbon::now()->startOfWeek();
 
 
-        if($today == $today)
+        if($today == $mondayOf)
         {
             foreach($OverdueClients as $OverdueClient)
             {
