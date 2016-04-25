@@ -36,25 +36,21 @@ class CreateSalesInvoiceRequest extends Request
         {
             case 'POST':
             {
-                if ($input['or_number'] != 'Cash' && $input['or_number'] != 'CASH' && $input['or_number'] != 'cash')
-                {
-                    return [
-                    //
-                        'si_no' => 'numeric|unique:sales_invoices',
-                        'dr_number' => 'numeric|unique:sales_invoices',
-                        'or_number' => 'numeric'
-                    ];
-                }
+                // if ($input['or_number'] != 'Cash' && $input['or_number'] != 'CASH' && $input['or_number'] != 'cash')
+                // {
+                //     return [
+                //     //
+                //         'si_no' => 'numeric|unique:sales_invoices',
+                //         'dr_number' => 'numeric|unique:sales_invoices',
+                //         'or_number' => 'numeric'
+                //     ];
+                // }
 
-                else
-                {
                     return [
 
                         'si_no' => 'numeric|unique:sales_invoices',
                         'dr_number' => 'numeric|unique:sales_invoices'
                     ];
-                }
-
             }   
             case 'PATCH':
             {
@@ -95,14 +91,21 @@ class CreateSalesInvoiceRequest extends Request
                 {
                     $rules['dr_number'] = 'numeric|unique:sales_invoices';
                 }
-                if ($this->get('or_number') == $sales_invoice['or_number'])
+
+
+                if ($this->get('or_number') != 'Cash' && $this->get('or_number') != 'CASH' && $this->get('or_number') != 'cash')
                 {
-                    $rules['or_number'] = 'numeric|unique:sales_invoices,or_number,'.$this->segment(2);
+                    if ($this->get('or_number') == $sales_invoice['or_number'])
+                    {
+                        $rules['or_number'] = 'numeric|unique:sales_invoices,or_number,'.$this->segment(2);
+                    }
+                    else
+                    {
+                        $rules['or_number'] = 'numeric|unique:sales_invoices';
+                    }
                 }
-                else
-                {
-                    $rules['or_number'] = 'numeric|unique:sales_invoices';
-                }
+
+
                 if ($this->get('status') == 'Delivered')
                 {
                     $rules['due_date'] = 'required';
