@@ -110,26 +110,30 @@ class AuthController extends Controller
         {
             foreach($OverdueClients as $OverdueClient)
             {
-                $collectionLogs = DB::SELECT("SELECT COUNT(id) FROM collection_logs WHERE client_id='$OverdueClient->id' AND date = '$today'");
-                if ($collectionLogs == 0)
-                {
-                    $cLog = new CollectionLog;
-                    $cLog->date = $mondayOf;
-                    $cLog->action = 'Call and Send SOA Overdue';
-                    $cLog->client_id = $OverdueClient->id;
-                    $cLog->status = 'To Do';
-                    $cLog->save();
+                $collectionLogs = DB::SELECT("SELECT COUNT(id) as id FROM collection_logs WHERE client_id='$OverdueClient->id' AND date = '$mondayOf' AND action = 'Call and Send SOA Overdue'");
 
-                    $overdues = DB::SELECT("SELECT id FROM sales_invoices where status= 'Overdue' AND client_id = '$OverdueClient->id'");
-                    foreach ($overdues as $overdue)
+                // foreach ($collectionLogs as $collectionLog)
+                // {
+                    if ($collectionLogs[0]->id == 0)
                     {
-                        $sicl = new SalesInvoiceCollectionLog;
-                        $sicl->sales_invoice_id = $overdue->id;
-                        $sicl->client_id = $cLog->client_id;
-                        $sicl->collection_log_id = $cLog->id;
-                        $sicl->save();
-                    }                                                   
-                }
+                        $cLog = new CollectionLog;
+                        $cLog->date = $mondayOf;
+                        $cLog->action = 'Call and Send SOA Overdue';
+                        $cLog->client_id = $OverdueClient->id;
+                        $cLog->status = 'To Do';
+                        $cLog->save();
+
+                        $overdues = DB::SELECT("SELECT id FROM sales_invoices where status= 'Overdue' AND client_id = '$OverdueClient->id'");
+                        foreach ($overdues as $overdue)
+                        {
+                            $sicl = new SalesInvoiceCollectionLog;
+                            $sicl->sales_invoice_id = $overdue->id;
+                            $sicl->client_id = $cLog->client_id;
+                            $sicl->collection_log_id = $cLog->id;
+                            $sicl->save();
+                        }                                                   
+                    }
+                //}
             }
         }
         return redirect()->action('DashboardController@index');
