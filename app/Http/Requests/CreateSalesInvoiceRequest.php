@@ -47,9 +47,10 @@ class CreateSalesInvoiceRequest extends Request
                 // }
 
                     return [
-
+                    //
                         'si_no' => 'numeric|unique:sales_invoices',
-                        'dr_number' => 'numeric|unique:sales_invoices'
+                        'dr_number' => 'numeric|unique:sales_invoices',
+                        'or_number' => 'numeric'
                     ];
             }   
             case 'PATCH':

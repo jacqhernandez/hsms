@@ -572,26 +572,20 @@ class SalesInvoicesController extends Controller
         return redirect()->action('SalesInvoicesController@index');
     }
 
-    public function collected(Requests\CreateSalesInvoiceRequest $request) {
+    public function collected(Requests\UpdateStatusRequest $request) {
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['id']);
         $client = $salesInvoice->Client;
 
         if ($client->payment_terms == 'Cash')
         {
-            if ($input['or_number'] == 'Cash' || $input['or_number'] == 'CASH' || $input['or_number'] == 'cash')
-            {
-                 $salesInvoice->update([
-                'status' => "Collected",
-                'date_collected' => Carbon::now(),
-                'or_number' => $input['or_number'] 
-                ]);
-            } 
+             $salesInvoice->update([
+            'status' => "Collected",
+            'date_collected' => Carbon::now(),
+            'or_number' => $input['or_number'] 
+            ]);
 
-            else
-            {
-                Flash::error("This client's payment terms is Cash.");
-            }
+             Flash::success('Successfully Collected SI#' . $salesInvoice->si_no);
         }
 
         else
@@ -603,6 +597,8 @@ class SalesInvoicesController extends Controller
                         'date_collected' => Carbon::now(),
                         'or_number' => $input['or_number'] 
                 ]);
+
+             Flash::success('Successfully Collected SI#' . $salesInvoice->si_no);
             }
 
             else
@@ -610,6 +606,7 @@ class SalesInvoicesController extends Controller
                 Flash::error("This client's payment terms is not Cash");
             }
         }
+
 
         $clientId = $salesInvoice->client_id;
         $hasOverdue = DB::SELECT("SELECT COUNT(*) FROM sales_invoices WHERE status='overdue'");
@@ -624,26 +621,20 @@ class SalesInvoicesController extends Controller
     }
 
     //for 'Confirm Collection' in the Collection Log index page
-    public function collectedFromLog(Requests\CreateSalesInvoiceRequest $request) {
+    public function collectedFromLog(Requests\UpdateStatusRequest $request) {
         $input = Request::all();
         $salesInvoice = SalesInvoice::find($input['id']);
         $client = $salesInvoice->Client;
 
-        if ($client->payment_terms == 'Cash')
+       if ($client->payment_terms == 'Cash')
         {
-            if ($input['or_number'] == 'Cash' || $input['or_number'] == 'CASH' || $input['or_number'] == 'cash')
-            {
-                 $salesInvoice->update([
-                'status' => "Collected",
-                'date_collected' => Carbon::now(),
-                'or_number' => $input['or_number'] 
-                ]);
-            } 
+             $salesInvoice->update([
+            'status' => "Collected",
+            'date_collected' => Carbon::now(),
+            'or_number' => $input['or_number'] 
+            ]);
 
-            else
-            {
-                Flash::error("This client's payment terms is Cash.");
-            }
+             Flash::success('Successfully Collected SI#' . $salesInvoice->si_no);
         }
 
         else
@@ -655,6 +646,8 @@ class SalesInvoicesController extends Controller
                         'date_collected' => Carbon::now(),
                         'or_number' => $input['or_number'] 
                 ]);
+
+             Flash::success('Successfully Collected SI#' . $salesInvoice->si_no);
             }
 
             else

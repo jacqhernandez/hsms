@@ -23,10 +23,22 @@ class UpdateStatusRequest extends Request
      */
     public function rules()
     {
-            return [
-                //
-                // 'date_delivered' => 'required'
-                
-            ];
+         $input = Request::all();
+
+                 if ($input['or_number'] != 'Cash' && $input['or_number'] != 'CASH' && $input['or_number'] != 'cash')
+                {
+                    return [
+                    //
+                        'si_no' => 'numeric|unique:sales_invoices',
+                        'dr_number' => 'numeric|unique:sales_invoices',
+                        'or_number' => 'numeric|unique:sales_invoices'
+                    ];
+                }
+
+                    return [
+
+                        'si_no' => 'numeric|unique:sales_invoices',
+                        'dr_number' => 'numeric|unique:sales_invoices'
+                    ];
     }
 }
