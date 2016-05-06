@@ -106,8 +106,8 @@ class AuthController extends Controller
         $mondayOf = Carbon::now()->startOfWeek();
 
 
-        if($today == $mondayOf)
-        {
+        // if($today == $mondayOf)
+        // {
             foreach($OverdueClients as $OverdueClient)
             {
                 $collectionLogs = DB::SELECT("SELECT COUNT(id) as id FROM collection_logs WHERE client_id='$OverdueClient->id' AND date = '$mondayOf' AND action = 'Call and Send SOA Overdue'");
@@ -135,7 +135,7 @@ class AuthController extends Controller
                     }
                 //}
             }
-        }
+        //}
         return redirect()->action('DashboardController@index');
     }
 }
