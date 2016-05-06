@@ -190,9 +190,7 @@ class DashboardController extends Controller
         // $collection_logs = CollectionLog::where('follow_up_date', '=', '$date')->take(10);
         $collection_logs = DB::SELECT("SELECT c.id as 'id', name, action, note, c.client_id FROM collection_logs c
                                         JOIN clients cl on c.client_id = cl.id
-                                        JOIN sales_invoice_collection_logs sicl on sicl.collection_log_id = c.id
-                                        JOIN sales_invoices si on sicl.sales_invoice_id = si.id
-                                        WHERE c.date = '$date' AND c.status='To Do' AND si.status ='Delivered' OR si.status = 'Check on Hand'");
+                                        WHERE c.date = '$date' AND c.status='To Do'");
         
         return $collection_logs;
     }
