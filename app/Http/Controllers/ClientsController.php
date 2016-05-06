@@ -101,7 +101,10 @@ class ClientsController extends Controller
         $paymentOptions['60 Days'] = '60 Days';
         $paymentOptions['75 Days'] = '75 Days';
         $paymentOptions['90 Days'] = '90 Days';
-        $paymentOptions['PDC'] = 'PDC';
+        $paymentOptions['PDC 30'] = 'PDC 30';
+        $paymentOptions['PDC 45'] = 'PDC 45';
+        $paymentOptions['PDC 60'] = 'PDC 60';
+        $paymentOptions['PDC 90'] = 'PDC 90';
 
         $userOptions = User::where('role', 'Sales')->lists('username', 'id');
         return view('clients.create', compact('statusOptions', 'paymentOptions', 'userOptions'));
@@ -173,7 +176,10 @@ class ClientsController extends Controller
         $paymentOptions['60 Days'] = '60 Days';
         $paymentOptions['75 Days'] = '75 Days';
         $paymentOptions['90 Days'] = '90 Days';
-        $paymentOptions['PDC'] = 'PDC';
+        $paymentOptions['PDC 30'] = 'PDC 30';
+        $paymentOptions['PDC 45'] = 'PDC 45';
+        $paymentOptions['PDC 60'] = 'PDC 60';
+        $paymentOptions['PDC 90'] = 'PDC 90';
 
         $userOptions = User::where('role', 'Sales')->lists('username', 'id');
 

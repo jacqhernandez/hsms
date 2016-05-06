@@ -456,7 +456,7 @@ class SalesInvoicesController extends Controller
     public function delivered($id) {
 
         $salesInvoice = SalesInvoice::find($id);
-        if ($salesInvoice->Client->payment_terms == "PDC") 
+        if ($salesInvoice->Client->payment_terms == "PDC" || $salesInvoice->Client->payment_terms == "PDC 30" || $salesInvoice->Client->payment_terms == "PDC 45" || $salesInvoice->Client->payment_terms == "PDC 60" || $salesInvoice->Client->payment_terms == "PDC 90") 
             {
                 $salesInvoice->update([
                     'status' => "Check on Hand",
