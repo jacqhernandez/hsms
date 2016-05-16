@@ -31,7 +31,7 @@ class UpdateStatusRequest extends Request
                     //
                         'si_no' => 'numeric|unique:sales_invoices',
                         'dr_number' => 'numeric|unique:sales_invoices',
-                        'or_number' => 'numeric|unique:sales_invoices'
+                        'or_number' => 'numeric'
                     ];
                 }
 

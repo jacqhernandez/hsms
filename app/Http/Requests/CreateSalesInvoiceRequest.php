@@ -98,11 +98,11 @@ class CreateSalesInvoiceRequest extends Request
                 {
                     if ($this->get('or_number') == $sales_invoice['or_number'])
                     {
-                        $rules['or_number'] = 'numeric|unique:sales_invoices,or_number,'.$this->segment(2);
+                        $rules['or_number'] = 'numeric'
                     }
                     else
                     {
-                        $rules['or_number'] = 'numeric|unique:sales_invoices';
+                        $rules['or_number'] = 'numeric';
                     }
                 }
 
