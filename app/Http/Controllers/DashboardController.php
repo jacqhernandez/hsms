@@ -83,7 +83,7 @@ class DashboardController extends Controller
         	//overdue collectibles - sale invoices where date difference of due date and today is > 7 and status is delivered
 
         	$overdueCollectibles = DB::SELECT("SELECT sum(total_amount) as 'total', count(*) as 'num' FROM sales_invoices
-    											WHERE  week(now()) - week(due_date) >= 1
+    											WHERE  (week(now()) - week(due_date) >= 1 OR YEAR(now()) - YEAR(due_date) >= 1)
     											AND status='overdue'");
 
         	if ($overdueCollectibles[0]->num == 0)

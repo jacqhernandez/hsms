@@ -98,7 +98,7 @@ class CreateSalesInvoiceRequest extends Request
                 {
                     if ($this->get('or_number') == $sales_invoice['or_number'])
                     {
-                        $rules['or_number'] = 'numeric'
+                        $rules['or_number'] = 'numeric';
                     }
                     else
                     {
